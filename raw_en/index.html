@@ -1,0 +1,1751 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../about/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>英文原版 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fastapi-best-practices" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              英文原版
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          英文原版
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        英文原版
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-structure-consistent--predictable" class="md-nav__link">
+    1. Project Structure. Consistent &amp; predictable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-excessively-use-pydantic-for-data-validation" class="md-nav__link">
+    2. Excessively use Pydantic for data validation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-use-dependencies-for-data-validation-vs-db" class="md-nav__link">
+    3. Use dependencies for data validation vs DB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chain-dependencies" class="md-nav__link">
+    4. Chain dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-decouple--reuse-dependencies-dependency-calls-are-cached" class="md-nav__link">
+    5. Decouple &amp; Reuse dependencies. Dependency calls are cached
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-follow-the-rest" class="md-nav__link">
+    6. Follow the REST
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-dont-make-your-routes-async-if-you-have-only-blocking-io-operations" class="md-nav__link">
+    7. Don't make your routes async, if you have only blocking I/O operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-custom-base-model-from-day-0" class="md-nav__link">
+    8. Custom base model from day 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-docs" class="md-nav__link">
+    9. Docs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-use-pydantics-basesettings-for-configs" class="md-nav__link">
+    10. Use Pydantic's BaseSettings for configs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-sqlalchemy-set-db-keys-naming-convention" class="md-nav__link">
+    11. SQLAlchemy: Set DB keys naming convention
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-migrations-alembic" class="md-nav__link">
+    12. Migrations. Alembic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-set-db-naming-convention" class="md-nav__link">
+    13. Set DB naming convention
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-set-tests-client-async-from-day-0" class="md-nav__link">
+    14. Set tests client async from day 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-backgroundtasks--asynciocreate_task" class="md-nav__link">
+    15. BackgroundTasks &gt; asyncio.create_task
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-typing-is-important" class="md-nav__link">
+    16. Typing is important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-save-files-in-chunks" class="md-nav__link">
+    17. Save files in chunks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-be-careful-with-dynamic-pydantic-fields" class="md-nav__link">
+    18. Be careful with dynamic pydantic fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-sql-first-pydantic-second" class="md-nav__link">
+    19. SQL-first, Pydantic-second
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-validate-hosts-if-users-can-send-publicly-available-urls" class="md-nav__link">
+    20. Validate hosts, if users can send publicly available URLs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-raise-a-valueerror-in-custom-pydantic-validators-if-schema-directly-faces-the-client" class="md-nav__link">
+    21. Raise a ValueError in custom pydantic validators, if schema directly faces the client
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-dont-forget-fastapi-converts-response-pydantic-object-to-dict-then-to-an-instance-of-responsemodel-then-to-dict-then-to-json" class="md-nav__link">
+    22. Don't forget FastAPI converts Response Pydantic Object to Dict then to an instance of ResponseModel then to Dict then to JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-if-you-must-use-sync-sdk-then-run-it-in-a-thread-pool" class="md-nav__link">
+    23. If you must use sync SDK, then run it in a thread pool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-use-linters-black-isort-autoflake" class="md-nav__link">
+    24. Use linters (black, isort, autoflake)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonus-section" class="md-nav__link">
+    Bonus Section
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-project-structure-consistent--predictable" class="md-nav__link">
+    1. Project Structure. Consistent &amp; predictable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-excessively-use-pydantic-for-data-validation" class="md-nav__link">
+    2. Excessively use Pydantic for data validation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-use-dependencies-for-data-validation-vs-db" class="md-nav__link">
+    3. Use dependencies for data validation vs DB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-chain-dependencies" class="md-nav__link">
+    4. Chain dependencies
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-decouple--reuse-dependencies-dependency-calls-are-cached" class="md-nav__link">
+    5. Decouple &amp; Reuse dependencies. Dependency calls are cached
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-follow-the-rest" class="md-nav__link">
+    6. Follow the REST
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-dont-make-your-routes-async-if-you-have-only-blocking-io-operations" class="md-nav__link">
+    7. Don't make your routes async, if you have only blocking I/O operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-custom-base-model-from-day-0" class="md-nav__link">
+    8. Custom base model from day 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-docs" class="md-nav__link">
+    9. Docs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-use-pydantics-basesettings-for-configs" class="md-nav__link">
+    10. Use Pydantic's BaseSettings for configs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-sqlalchemy-set-db-keys-naming-convention" class="md-nav__link">
+    11. SQLAlchemy: Set DB keys naming convention
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-migrations-alembic" class="md-nav__link">
+    12. Migrations. Alembic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-set-db-naming-convention" class="md-nav__link">
+    13. Set DB naming convention
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-set-tests-client-async-from-day-0" class="md-nav__link">
+    14. Set tests client async from day 0
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-backgroundtasks--asynciocreate_task" class="md-nav__link">
+    15. BackgroundTasks &gt; asyncio.create_task
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-typing-is-important" class="md-nav__link">
+    16. Typing is important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-save-files-in-chunks" class="md-nav__link">
+    17. Save files in chunks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-be-careful-with-dynamic-pydantic-fields" class="md-nav__link">
+    18. Be careful with dynamic pydantic fields
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-sql-first-pydantic-second" class="md-nav__link">
+    19. SQL-first, Pydantic-second
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-validate-hosts-if-users-can-send-publicly-available-urls" class="md-nav__link">
+    20. Validate hosts, if users can send publicly available URLs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-raise-a-valueerror-in-custom-pydantic-validators-if-schema-directly-faces-the-client" class="md-nav__link">
+    21. Raise a ValueError in custom pydantic validators, if schema directly faces the client
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-dont-forget-fastapi-converts-response-pydantic-object-to-dict-then-to-an-instance-of-responsemodel-then-to-dict-then-to-json" class="md-nav__link">
+    22. Don't forget FastAPI converts Response Pydantic Object to Dict then to an instance of ResponseModel then to Dict then to JSON
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-if-you-must-use-sync-sdk-then-run-it-in-a-thread-pool" class="md-nav__link">
+    23. If you must use sync SDK, then run it in a thread pool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-use-linters-black-isort-autoflake" class="md-nav__link">
+    24. Use linters (black, isort, autoflake)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bonus-section" class="md-nav__link">
+    Bonus Section
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="fastapi-best-practices">FastAPI Best Practices<a class="headerlink" href="#fastapi-best-practices" title="Permanent link">&para;</a></h1>
+<p>Opinionated list of best practices and conventions we used at our startup.</p>
+<p>For the last 1.5 years in production,
+we have been making good and bad decisions that impacted our developer experience dramatically.
+Some of them are worth sharing.</p>
+<h2 id="1-project-structure-consistent--predictable">1. Project Structure. Consistent &amp; predictable<a class="headerlink" href="#1-project-structure-consistent--predictable" title="Permanent link">&para;</a></h2>
+<p>There are many ways to structure the project, but the best structure is a structure that is consistent, straightforward, and has no surprises.</p>
+<ul>
+<li>If looking at the project structure doesn't give you an idea of what the project is about, then the structure might be unclear.</li>
+<li>If you have to open packages to understand what modules are located in them, then your structure is unclear.</li>
+<li>If the frequency and location of the files feels random, then your project structure is bad.</li>
+<li>If looking at the module's location and its name doesn't give you an idea of what's inside it, then your structure is very bad.</li>
+</ul>
+<p>Although the project structure, where we separate files by their type (e.g. api, crud, models, schemas)
+presented by <a href="https://github.com/tiangolo">@tiangolo</a> is good for microservices or projects with fewer scopes,
+we couldn't fit it into our monolith with a lot of domains and modules.
+Structure that I found more scalable and evolvable is inspired by Netflix's <a href="https://github.com/Netflix/dispatch">Dispatch</a> with some little modifications.</p>
+<div class="highlight"><pre><span></span><code>fastapi-project
+├── alembic/
+├── src
+│   ├── auth
+│   │   ├── router.py
+│   │   ├── schemas.py  # pydantic models
+│   │   ├── models.py  # db models
+│   │   ├── dependencies.py
+│   │   ├── config.py  # local configs
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── service.py
+│   │   └── utils.py
+│   ├── aws
+│   │   ├── client.py  # client model for external service communication
+│   │   ├── schemas.py
+│   │   ├── config.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   └── utils.py
+│   └── posts
+│   │   ├── router.py
+│   │   ├── schemas.py
+│   │   ├── models.py
+│   │   ├── dependencies.py
+│   │   ├── constants.py
+│   │   ├── exceptions.py
+│   │   ├── service.py
+│   │   └── utils.py
+│   ├── config.py  # global configs
+│   ├── models.py  # global models
+│   ├── exceptions.py  # global exceptions
+│   ├── pagination.py  # global module e.g. pagination
+│   ├── database.py  # db connection related stuff
+│   └── main.py
+├── tests/
+│   ├── auth
+│   ├── aws
+│   └── posts
+├── templates/
+│   └── index.html
+├── requirements
+│   ├── base.txt
+│   ├── dev.txt
+│   └── prod.txt
+├── .env
+├── .gitignore
+├── logging.ini
+└── alembic.ini
+</code></pre></div>
+<ol>
+<li>Store all domain directories inside <code>src</code> folder</li>
+<li><code>src/</code> - highest level of an app, contains common models, configs, and constants, etc.</li>
+<li><code>src/main.py</code> - root of the project, which inits the FastAPI app</li>
+<li>Each package has its own router, schemas, models, etc.</li>
+<li><code>router.py</code> - is a core of each module with all the endpoints</li>
+<li><code>schemas.py</code> - for pydantic models</li>
+<li><code>models.py</code> - for db models</li>
+<li><code>service.py</code> - module specific business logic  </li>
+<li><code>dependencies.py</code> - router dependencies</li>
+<li><code>constants.py</code> - module specific constants and error codes</li>
+<li><code>config.py</code> - e.g. env vars</li>
+<li><code>utils.py</code> - non-business logic functions, e.g. response normalization, data enrichment, etc.</li>
+<li><code>exceptions</code> - module specific exceptions, e.g. <code>PostNotFound</code>, <code>InvalidUserData</code></li>
+<li>When package requires services or dependencies or constants from other packages - import them with an explicit module name</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">src.auth</span> <span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">auth_constants</span>
+<span class="kn">from</span> <span class="nn">src.notifications</span> <span class="kn">import</span> <span class="n">service</span> <span class="k">as</span> <span class="n">notification_service</span>
+<span class="kn">from</span> <span class="nn">src.posts.constants</span> <span class="kn">import</span> <span class="n">ErrorCode</span> <span class="k">as</span> <span class="n">PostsErrorCode</span>  <span class="c1"># in case we have Standard ErrorCode in constants module of each package</span>
+</code></pre></div>
+<h2 id="2-excessively-use-pydantic-for-data-validation">2. Excessively use Pydantic for data validation<a class="headerlink" href="#2-excessively-use-pydantic-for-data-validation" title="Permanent link">&para;</a></h2>
+<p>Pydantic has a rich set of features to validate and transform data.</p>
+<p>In addition to regular features like required &amp; non-required fields with default values,
+Pydantic has built-in comprehensive data processing tools like regex, enums for limited allowed options, length validation, email validation, etc.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span>
+
+<span class="k">class</span> <span class="nc">MusicBand</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+   <span class="n">AEROSMITH</span> <span class="o">=</span> <span class="s2">&quot;AEROSMITH&quot;</span>
+   <span class="n">QUEEN</span> <span class="o">=</span> <span class="s2">&quot;QUEEN&quot;</span>
+   <span class="n">ACDC</span> <span class="o">=</span> <span class="s2">&quot;AC/DC&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">UserBase</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+    <span class="n">username</span><span class="p">:</span> <span class="n">constr</span><span class="p">(</span><span class="n">regex</span><span class="o">=</span><span class="s2">&quot;^[A-Za-z0-9-_]+$&quot;</span><span class="p">,</span> <span class="n">to_lower</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">strip_whitespace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">email</span><span class="p">:</span> <span class="n">EmailStr</span>
+    <span class="n">age</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># must be greater or equal to 18</span>
+    <span class="n">favorite_band</span><span class="p">:</span> <span class="n">MusicBand</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># only &quot;AEROSMITH&quot;, &quot;QUEEN&quot;, &quot;AC/DC&quot; values are allowed to be inputted</span>
+    <span class="n">website</span><span class="p">:</span> <span class="n">AnyUrl</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre></div>
+<h2 id="3-use-dependencies-for-data-validation-vs-db">3. Use dependencies for data validation vs DB<a class="headerlink" href="#3-use-dependencies-for-data-validation-vs-db" title="Permanent link">&para;</a></h2>
+<p>Pydantic can only validate the values from client input.
+Use dependencies to validate data against database constraints like email already exists, user not found, etc.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_post_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PostNotFound</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">post</span>
+
+
+<span class="c1"># router.py</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/posts/</span><span class="si">{post_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">PostResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_post_by_id</span><span class="p">(</span><span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_post_id</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">post</span>
+
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s2">&quot;/posts/</span><span class="si">{post_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">PostResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">update_post</span><span class="p">(</span>
+    <span class="n">update_data</span><span class="p">:</span> <span class="n">PostUpdate</span><span class="p">,</span>  
+    <span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_post_id</span><span class="p">),</span> 
+<span class="p">):</span>
+    <span class="n">updated_post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">update_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">updated_post</span>
+
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/posts/</span><span class="si">{post_id}</span><span class="s2">/reviews&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">ReviewsResponse</span><span class="p">])</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_post_reviews</span><span class="p">(</span><span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_post_id</span><span class="p">)):</span>
+    <span class="n">post_reviews</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reviews_service</span><span class="o">.</span><span class="n">get_by_post_id</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">post_reviews</span>
+</code></pre></div>
+<p>If we didn't put data validation to dependency, we would have to add post_id validation
+for every endpoint and write the same tests for each of them.</p>
+<h2 id="4-chain-dependencies">4. Chain dependencies<a class="headerlink" href="#4-chain-dependencies" title="Permanent link">&para;</a></h2>
+<p>Dependencies can use other dependencies and avoid code repetition for similar logic.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
+<span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
+<span class="kn">from</span> <span class="nn">jose</span> <span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_post_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PostNotFound</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">post</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">parse_jwt_data</span><span class="p">(</span>
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">OAuth2PasswordBearer</span><span class="p">(</span><span class="n">tokenUrl</span><span class="o">=</span><span class="s2">&quot;/auth/token&quot;</span><span class="p">))</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="s2">&quot;JWT_SECRET&quot;</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HS256&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="n">JWTError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidCredentials</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_owned_post</span><span class="p">(</span>
+    <span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_post_id</span><span class="p">),</span> 
+    <span class="n">token_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">parse_jwt_data</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;creator_id&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">token_data</span><span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">UserNotOwner</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">post</span>
+
+<span class="c1"># router.py</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/users/</span><span class="si">{user_id}</span><span class="s2">/posts/</span><span class="si">{post_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">PostResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_user_post</span><span class="p">(</span><span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_owned_post</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">post</span>
+</code></pre></div>
+<h2 id="5-decouple--reuse-dependencies-dependency-calls-are-cached">5. Decouple &amp; Reuse dependencies. Dependency calls are cached<a class="headerlink" href="#5-decouple--reuse-dependencies-dependency-calls-are-cached" title="Permanent link">&para;</a></h2>
+<p>Dependencies can be reused multiple times, and they won't be recalculated - FastAPI caches dependency's result within a request's scope by default,
+i.e. if we have a dependency that calls service <code>get_post_by_id</code>, we won't be visiting DB each time we call this dependency - only the first function call.</p>
+<p>Knowing this, we can easily decouple dependencies onto multiple smaller functions that operate on a smaller domain and are easier to reuse in other routes.
+For example, in the code below we are using <code>parse_jwt_data</code> three times:</p>
+<ol>
+<li><code>valid_owned_post</code></li>
+<li><code>valid_active_creator</code></li>
+<li><code>get_user_post</code>,</li>
+</ol>
+<p>but <code>parse_jwt_data</code> is called only once, in the very first call.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">BackgroundTasks</span>
+<span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
+<span class="kn">from</span> <span class="nn">jose</span> <span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_post_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">PostNotFound</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">post</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">parse_jwt_data</span><span class="p">(</span>
+    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">OAuth2PasswordBearer</span><span class="p">(</span><span class="n">tokenUrl</span><span class="o">=</span><span class="s2">&quot;/auth/token&quot;</span><span class="p">))</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="n">jwt</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="s2">&quot;JWT_SECRET&quot;</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HS256&quot;</span><span class="p">])</span>
+    <span class="k">except</span> <span class="n">JWTError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">InvalidCredentials</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="n">payload</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]}</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_owned_post</span><span class="p">(</span>
+    <span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_post_id</span><span class="p">),</span> 
+    <span class="n">token_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">parse_jwt_data</span><span class="p">),</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">post</span><span class="p">[</span><span class="s2">&quot;creator_id&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">token_data</span><span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">UserNotOwner</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">post</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_active_creator</span><span class="p">(</span>
+    <span class="n">token_data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">parse_jwt_data</span><span class="p">),</span>
+<span class="p">):</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">token_data</span><span class="p">[</span><span class="s2">&quot;user_id&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;is_active&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="n">UserIsBanned</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;is_creator&quot;</span><span class="p">]:</span>
+       <span class="k">raise</span> <span class="n">UserNotCreator</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">user</span>
+
+
+<span class="c1"># router.py</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/users/</span><span class="si">{user_id}</span><span class="s2">/posts/</span><span class="si">{post_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">PostResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_user_post</span><span class="p">(</span>
+    <span class="n">worker</span><span class="p">:</span> <span class="n">BackgroundTasks</span><span class="p">,</span>
+    <span class="n">post</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_owned_post</span><span class="p">),</span>
+    <span class="n">user</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_active_creator</span><span class="p">),</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get post that belong the active user.&quot;&quot;&quot;</span>
+    <span class="n">worker</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">notifications_service</span><span class="o">.</span><span class="n">send_email</span><span class="p">,</span> <span class="n">user</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">post</span>
+</code></pre></div>
+<h2 id="6-follow-the-rest">6. Follow the REST<a class="headerlink" href="#6-follow-the-rest" title="Permanent link">&para;</a></h2>
+<p>Developing RESTful API makes it easier to reuse dependencies in routes like these:</p>
+<ol>
+<li><code>GET /courses/:course_id</code></li>
+<li><code>GET /courses/:course_id/chapters/:chapter_id/lessons</code></li>
+<li><code>GET /chapters/:chapter_id</code></li>
+</ol>
+<p>The only caveat is to use the same variable names in the path:</p>
+<ul>
+<li>If you have two endpoints <code>GET /profiles/:profile_id</code> and <code>GET /creators/:creator_id</code>
+that both validate whether the given <code>profile_id</code> exists,  but <code>GET /creators/:creator_id</code>
+also checks if the profile is creator, then it's better to rename <code>creator_id</code> path variable to <code>profile_id</code> and chain those two dependencies.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># src.profiles.dependencies</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_profile_id</span><span class="p">(</span><span class="n">profile_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">profile</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">ProfileNotFound</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">profile</span>
+
+<span class="c1"># src.creators.dependencies</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_creator_id</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_profile_id</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;is_creator&quot;</span><span class="p">]:</span>
+       <span class="k">raise</span> <span class="n">ProfileNotCreator</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">profile</span>
+
+<span class="c1"># src.profiles.router.py</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/profiles/</span><span class="si">{profile_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ProfileResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_user_profile_by_id</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_profile_id</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get profile by id.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">profile</span>
+
+<span class="c1"># src.creators.router.py</span>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/creators/</span><span class="si">{profile_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ProfileResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_user_profile_by_id</span><span class="p">(</span>
+     <span class="n">creator_profile</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_creator_id</span><span class="p">)</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get creator&#39;s profile by id.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">creator_profile</span>
+</code></pre></div>
+<p>Use /me endpoints for users resources (e.g. <code>GET /profiles/me</code>, <code>GET /users/me/posts</code>)</p>
+<ol>
+<li>No need to validate that user id exists - it's already checked via auth method</li>
+<li>No need to check whether the user id belongs to the requester</li>
+</ol>
+<h2 id="7-dont-make-your-routes-async-if-you-have-only-blocking-io-operations">7. Don't make your routes async, if you have only blocking I/O operations<a class="headerlink" href="#7-dont-make-your-routes-async-if-you-have-only-blocking-io-operations" title="Permanent link">&para;</a></h2>
+<p>Under the hood, FastAPI can <a href="https://fastapi.tiangolo.com/async/#path-operation-functions">effectively handle</a> both async and sync I/O operations.</p>
+<ul>
+<li>FastAPI runs <code>sync</code> routes in the <a href="https://en.wikipedia.org/wiki/Thread_pool">threadpool</a>
+and blocking I/O operations won't stop the <a href="https://docs.python.org/3/library/asyncio-eventloop.html">event loop</a>
+from executing the tasks.</li>
+<li>Otherwise, if the route is defined <code>async</code> then it's called regularly via <code>await</code>
+and FastAPI trusts you to do only non-blocking I/O operations.</li>
+</ul>
+<p>The caveat is if you fail that trust and execute blocking operations within async routes,
+the event loop will not be able to run the next tasks until that blocking operation is done.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/terrible-ping&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">terrible_catastrophic_ping</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># I/O blocking operation for 10 seconds</span>
+    <span class="n">pong</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_pong</span><span class="p">()</span>  <span class="c1"># I/O blocking operation to get pong from DB</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;pong&quot;</span><span class="p">:</span> <span class="n">pong</span><span class="p">}</span>
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/good-ping&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">good_ping</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># I/O blocking operation for 10 seconds, but in another thread</span>
+    <span class="n">pong</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">get_pong</span><span class="p">()</span>  <span class="c1"># I/O blocking operation to get pong from DB, but in another thread</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;pong&quot;</span><span class="p">:</span> <span class="n">pong</span><span class="p">}</span>
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/perfect-ping&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">perfect_ping</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># non-blocking I/O operation</span>
+    <span class="n">pong</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">async_get_pong</span><span class="p">()</span>  <span class="c1"># non-blocking I/O db call</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;pong&quot;</span><span class="p">:</span> <span class="n">pong</span><span class="p">}</span>
+</code></pre></div>
+<p><strong>What happens when we call:</strong></p>
+<ol>
+<li><code>GET /terrible-ping</code></li>
+<li>FastAPI server receives a request and starts handling it</li>
+<li>Server's event loop and all the tasks in the queue will be waiting until <code>time.sleep()</code> is finished<ol>
+<li>Server thinks <code>time.sleep()</code> is not an I/O task, so it waits until it is finished</li>
+<li>Server won't accept any new requests while waiting</li>
+</ol>
+</li>
+<li>Then, event loop and all the tasks in the queue will be waiting until <code>service.get_pong</code> is finished<ol>
+<li>Server thinks <code>service.get_pong()</code> is not an I/O task, so it waits until it is finished</li>
+<li>Server won't accept any new requests while waiting</li>
+</ol>
+</li>
+<li>Server returns the response.<ol>
+<li>After a response, server starts accepting new requests</li>
+</ol>
+</li>
+<li><code>GET /good-ping</code></li>
+<li>FastAPI server receives a request and starts handling it</li>
+<li>FastAPI sends the whole route <code>good_ping</code> to the threadpool, where a worker thread will run the function</li>
+<li>While <code>good_ping</code> is being executed, event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)<ul>
+<li>Independently of main thread (i.e. our FastAPI app),
+    worker thread will be waiting for <code>time.sleep</code> to finish and then for <code>service.get_pong</code> to finish</li>
+<li>Sync operation blocks only the side thread, not the main one.</li>
+</ul>
+</li>
+<li>When <code>good_ping</code> finishes its work, server returns a response to the client</li>
+<li><code>GET /perfect-ping</code></li>
+<li>FastAPI server receives a request and starts handling it</li>
+<li>FastAPI awaits <code>asyncio.sleep(10)</code></li>
+<li>Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)</li>
+<li>When <code>asyncio.sleep(10)</code> is done, servers goes to the next lines and awaits <code>service.async_get_pong</code></li>
+<li>Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)</li>
+<li>When <code>service.async_get_pong</code> is done, server returns a response to the client</li>
+</ol>
+<p>The second caveat is that operations that are non-blocking awaitables or are sent to the thread pool must be I/O intensive tasks (e.g. open file, db call, external API call).</p>
+<ul>
+<li>Awaiting CPU-intensive tasks (e.g. heavy calculations, data processing, video transcoding) is worthless since the CPU has to work to finish the tasks,
+while I/O operations are external and server does nothing while waiting for that operations to finish, thus it can go to the next tasks.</li>
+<li>Running CPU-intensive tasks in other threads also isn't effective, because of <a href="https://realpython.com/python-gil/">GIL</a>.
+In short, GIL allows only one thread to work at a time, which makes it useless for CPU tasks.</li>
+<li>If you want to optimize CPU intensive tasks you should send them to workers in another process.</li>
+</ul>
+<p><strong>Related StackOverflow questions of confused users</strong></p>
+<ol>
+<li><a href="https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597">https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597</a></li>
+<li>Here you can also check <a href="https://stackoverflow.com/a/70309597/6927498">my answer</a></li>
+<li><a href="https://stackoverflow.com/questions/65342833/fastapi-uploadfile-is-slow-compared-to-flask">https://stackoverflow.com/questions/65342833/fastapi-uploadfile-is-slow-compared-to-flask</a></li>
+<li><a href="https://stackoverflow.com/questions/71516140/fastapi-runs-api-calls-in-serial-instead-of-parallel-fashion">https://stackoverflow.com/questions/71516140/fastapi-runs-api-calls-in-serial-instead-of-parallel-fashion</a></li>
+</ol>
+<h2 id="8-custom-base-model-from-day-0">8. Custom base model from day 0<a class="headerlink" href="#8-custom-base-model-from-day-0" title="Permanent link">&para;</a></h2>
+<p>Having a controllable global base model allows us to customize all the models within the app.
+For example, we could have a standard datetime format or add a super method for all subclasses of the base model.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">zoneinfo</span> <span class="kn">import</span> <span class="n">ZoneInfo</span>
+
+<span class="kn">import</span> <span class="nn">orjson</span>
+<span class="kn">from</span> <span class="nn">fastapi.encoders</span> <span class="kn">import</span> <span class="n">jsonable_encoder</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">root_validator</span>
+
+
+<span class="k">def</span> <span class="nf">orjson_dumps</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
+    <span class="c1"># orjson.dumps returns bytes, to match standard json.dumps we need to decode</span>
+    <span class="k">return</span> <span class="n">orjson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">convert_datetime_to_gmt</span><span class="p">(</span><span class="n">dt</span><span class="p">:</span> <span class="n">datetime</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dt</span><span class="o">.</span><span class="n">tzinfo</span><span class="p">:</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">ZoneInfo</span><span class="p">(</span><span class="s2">&quot;UTC&quot;</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">T%H:%M:%S%z&quot;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">ORJSONModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">json_loads</span> <span class="o">=</span> <span class="n">orjson</span><span class="o">.</span><span class="n">loads</span>
+        <span class="n">json_dumps</span> <span class="o">=</span> <span class="n">orjson_dumps</span>
+        <span class="n">json_encoders</span> <span class="o">=</span> <span class="p">{</span><span class="n">datetime</span><span class="p">:</span> <span class="n">convert_datetime_to_gmt</span><span class="p">}</span>  <span class="c1"># method for customer JSON encoding of datetime fields</span>
+
+    <span class="nd">@root_validator</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">set_null_microseconds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;Drops microseconds in all the datetime field values.&quot;&quot;&quot;</span>
+        <span class="n">datetime_fields</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">datetime</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">datetime_fields</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">serializable_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;Return a dict which contains only serializable fields.&quot;&quot;&quot;</span>
+        <span class="n">default_dict</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">jsonable_encoder</span><span class="p">(</span><span class="n">default_dict</span><span class="p">)</span>
+</code></pre></div>
+<p>In the example above we have decided to make a global base model which:</p>
+<ul>
+<li>uses <a href="https://github.com/ijl/orjson">orjson</a> to serialize data</li>
+<li>drops microseconds to 0 in all date formats</li>
+<li>serializes all datetime fields to standard format with explicit timezone</li>
+</ul>
+<h2 id="9-docs">9. Docs<a class="headerlink" href="#9-docs" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Unless your API is public, hide docs by default. Show it explicitly on the selected envs only.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">starlette.config</span> <span class="kn">import</span> <span class="n">Config</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">)</span>  <span class="c1"># parse .env file for env variables</span>
+
+<span class="n">ENVIRONMENT</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;ENVIRONMENT&quot;</span><span class="p">)</span>  <span class="c1"># get current env name</span>
+<span class="n">SHOW_DOCS_ENVIRONMENT</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;staging&quot;</span><span class="p">)</span>  <span class="c1"># explicit list of allowed envs</span>
+
+<span class="n">app_configs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My Cool API&quot;</span><span class="p">}</span>
+<span class="k">if</span> <span class="n">ENVIRONMENT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SHOW_DOCS_ENVIRONMENT</span><span class="p">:</span>
+   <span class="n">app_configs</span><span class="p">[</span><span class="s2">&quot;openapi_url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># set url for docs as null</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="o">**</span><span class="n">app_configs</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>Help FastAPI to generate an easy-to-understand docs</li>
+<li>Set <code>response_model</code>, <code>status_code</code>, <code>description</code>, etc.</li>
+<li>If models and statuses vary, use <code>responses</code> route attribute to add docs for different responses</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">status</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;/endpoints&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="n">DefaultResponseModel</span><span class="p">,</span>  <span class="c1"># default response pydantic model </span>
+    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>  <span class="c1"># default status code</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of the well documented endpoint&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Endpoint Category&quot;</span><span class="p">],</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Summary of the Endpoint&quot;</span><span class="p">,</span>
+    <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
+        <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">OkResponse</span><span class="p">,</span> <span class="c1"># custom pydantic model for 200 response</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Ok Response&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">CreatedResponse</span><span class="p">,</span>  <span class="c1"># custom pydantic model for 201 response</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Creates something from user request &quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="n">status</span><span class="o">.</span><span class="n">HTTP_202_ACCEPTED</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">AcceptedResponse</span><span class="p">,</span>  <span class="c1"># custom pydantic model for 202 response</span>
+            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Accepts request and handles it later&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">documented_route</span><span class="p">():</span>
+    <span class="k">pass</span>
+</code></pre></div>
+<p>Will generate docs like this:
+<a class="glightbox" href="../images/custom_responses.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FastAPI Generated Custom Response Docs" src="../images/custom_responses.png" title="Custom Response Docs" /></a></p>
+<h2 id="10-use-pydantics-basesettings-for-configs">10. Use Pydantic's BaseSettings for configs<a class="headerlink" href="#10-use-pydantics-basesettings-for-configs" title="Permanent link">&para;</a></h2>
+<p>Pydantic gives a <a href="https://pydantic-docs.helpmanual.io/usage/settings/">powerful tool</a> to parse environment variables and process them with its validators.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseSettings</span><span class="p">,</span> <span class="n">PostgresDsn</span>
+
+<span class="k">class</span> <span class="nc">AppSettings</span><span class="p">(</span><span class="n">BaseSettings</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">env_file</span> <span class="o">=</span> <span class="s2">&quot;.env&quot;</span>
+        <span class="n">env_file_encoding</span> <span class="o">=</span> <span class="s2">&quot;utf-8&quot;</span>
+        <span class="n">env_prefix</span> <span class="o">=</span> <span class="s2">&quot;app_&quot;</span>
+
+    <span class="n">DATABASE_URL</span><span class="p">:</span> <span class="n">PostgresDsn</span>
+    <span class="n">IS_GOOD_ENV</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">ALLOWED_CORS_ORIGINS</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">AnyUrl</span><span class="p">]</span>
+</code></pre></div>
+<h2 id="11-sqlalchemy-set-db-keys-naming-convention">11. SQLAlchemy: Set DB keys naming convention<a class="headerlink" href="#11-sqlalchemy-set-db-keys-naming-convention" title="Permanent link">&para;</a></h2>
+<p>Explicitly setting the indexes' namings according to your database's convention is preferable over sqlalchemy's.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">MetaData</span>
+
+<span class="n">POSTGRES_INDEXES_NAMING_CONVENTION</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;ix&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(column_0_label)s</span><span class="s2">_idx&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;uq&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">_key&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ck&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(constraint_name)s</span><span class="s2">_check&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;fk&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(table_name)s</span><span class="s2">_</span><span class="si">%(column_0_name)s</span><span class="s2">_fkey&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pk&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%(table_name)s</span><span class="s2">_pkey&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">metadata</span> <span class="o">=</span> <span class="n">MetaData</span><span class="p">(</span><span class="n">naming_convention</span><span class="o">=</span><span class="n">POSTGRES_INDEXES_NAMING_CONVENTION</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="12-migrations-alembic">12. Migrations. Alembic<a class="headerlink" href="#12-migrations-alembic" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Migrations must be static and revertable.
+If your migrations depend on dynamically generated data, then
+make sure the only thing that is dynamic is the data itself, not its structure.</li>
+<li>Generate migrations with descriptive names &amp; slugs. Slug is required and should explain the changes.</li>
+<li>Set human-readable file template for new migrations. We use <code>*date*_*slug*.py</code> pattern, e.g. <code>2022-08-24_post_content_idx.py</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code># alembic.ini
+file_template = %%(year)d-%%(month).2d-%%(day).2d_%%(slug)s
+</code></pre></div>
+<h2 id="13-set-db-naming-convention">13. Set DB naming convention<a class="headerlink" href="#13-set-db-naming-convention" title="Permanent link">&para;</a></h2>
+<p>Being consistent with names is important. Some rules we followed:</p>
+<ol>
+<li>lower_case_snake</li>
+<li>singular form (e.g. <code>post</code>, <code>post_like</code>, <code>user_playlist</code>)</li>
+<li>group similar tables with module prefix, e.g. <code>payment_account</code>, <code>payment_bill</code>, <code>post</code>, <code>post_like</code></li>
+<li>stay consistent across tables, but concrete namings are ok, e.g.</li>
+<li>use <code>profile_id</code> in all tables, but if some of them need only profiles that are creators, use <code>creator_id</code></li>
+<li>use <code>post_id</code> for all abstract tables like <code>post_like</code>, <code>post_view</code>, but use concrete naming in relevant modules like <code>course_id</code> in <code>chapters.course_id</code></li>
+<li><code>_at</code> suffix for datetime</li>
+<li><code>_date</code> suffix for date</li>
+</ol>
+<h2 id="14-set-tests-client-async-from-day-0">14. Set tests client async from day 0<a class="headerlink" href="#14-set-tests-client-async-from-day-0" title="Permanent link">&para;</a></h2>
+<p>Writing integration tests with DB will most likely lead to messed up event loop errors in the future.
+Set the async test client immediately, e.g. <a href="https://github.com/vinissimus/async-asgi-testclient">async_asgi_testclient</a> or <a href="https://github.com/encode/starlette/issues/652">httpx</a></p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">async_asgi_testclient</span> <span class="kn">import</span> <span class="n">TestClient</span>
+
+<span class="kn">from</span> <span class="nn">src.main</span> <span class="kn">import</span> <span class="n">app</span>  <span class="c1"># inited FastAPI app</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">client</span><span class="p">():</span>
+    <span class="n">host</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="s2">&quot;5555&quot;</span>
+    <span class="n">scope</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;client&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)}</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">TestClient</span><span class="p">(</span>
+        <span class="n">app</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;X-User-Fingerprint&quot;</span><span class="p">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">}</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">client</span>
+
+
+<span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">asyncio</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">test_create_post</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">TestClient</span><span class="p">):</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/posts&quot;</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">201</span>
+</code></pre></div>
+<p>Unless you have sync db connections (excuse me?) or aren't planning to write integration tests.</p>
+<h2 id="15-backgroundtasks--asynciocreate_task">15. BackgroundTasks &gt; asyncio.create_task<a class="headerlink" href="#15-backgroundtasks--asynciocreate_task" title="Permanent link">&para;</a></h2>
+<p>BackgroundTasks can <a href="https://github.com/encode/starlette/blob/31164e346b9bd1ce17d968e1301c3bb2c23bb418/starlette/background.py#L25">effectively run</a>
+both blocking and non-blocking I/O operations the same way FastAPI handles blocking routes (<code>sync</code> tasks are run in a threadpool, while <code>async</code> tasks are awaited later)</p>
+<ul>
+<li>Don't lie to the worker and don't mark blocking I/O operations as <code>async</code></li>
+<li>Don't use it for heavy CPU intensive tasks.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">BackgroundTasks</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">UUID4</span>
+
+<span class="kn">from</span> <span class="nn">src.notifications</span> <span class="kn">import</span> <span class="n">service</span> <span class="k">as</span> <span class="n">notifications_service</span>
+
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/users/</span><span class="si">{user_id}</span><span class="s2">/email&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">send_user_email</span><span class="p">(</span><span class="n">worker</span><span class="p">:</span> <span class="n">BackgroundTasks</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Send email to user&quot;&quot;&quot;</span>
+    <span class="n">worker</span><span class="o">.</span><span class="n">add_task</span><span class="p">(</span><span class="n">notifications_service</span><span class="o">.</span><span class="n">send_email</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>  <span class="c1"># send email after responding client</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+</code></pre></div>
+<h2 id="16-typing-is-important">16. Typing is important<a class="headerlink" href="#16-typing-is-important" title="Permanent link">&para;</a></h2>
+<p>FastAPI, Pydantic, and modern IDEs encourage to take use of type hints.</p>
+<p><strong>Without Type Hints</strong></p>
+<p><a class="glightbox" href="images/type_hintsless.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/type_hintsless.png" width="400" height="auto"></a></p>
+<p><strong>With Type Hints</strong></p>
+<p><a class="glightbox" href="images/type_hints.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/type_hints.png" width="400" height="auto"></a></p>
+<h2 id="17-save-files-in-chunks">17. Save files in chunks<a class="headerlink" href="#17-save-files-in-chunks" title="Permanent link">&para;</a></h2>
+<p>Don't hope your clients will send small files.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">aiofiles</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">UploadFile</span>
+
+<span class="n">DEFAULT_CHUNK_SIZE</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">50</span>  <span class="c1"># 50 megabytes</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">save_video</span><span class="p">(</span><span class="n">video_file</span><span class="p">:</span> <span class="n">UploadFile</span><span class="p">):</span>
+   <span class="k">async</span> <span class="k">with</span> <span class="n">aiofiles</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;/file/path/name.mp4&quot;</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+     <span class="k">while</span> <span class="n">chunk</span> <span class="o">:=</span> <span class="k">await</span> <span class="n">video_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">DEFAULT_CHUNK_SIZE</span><span class="p">):</span>
+         <span class="k">await</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="18-be-careful-with-dynamic-pydantic-fields">18. Be careful with dynamic pydantic fields<a class="headerlink" href="#18-be-careful-with-dynamic-pydantic-fields" title="Permanent link">&para;</a></h2>
+<p>If you have a pydantic field that can accept a union of types, be sure the validator explicitly knows the difference between those types.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+   <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+
+<span class="k">class</span> <span class="nc">Video</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">video_id</span><span class="p">:</span> <span class="nb">int</span>
+   <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+   <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">content</span><span class="p">:</span> <span class="n">Article</span> <span class="o">|</span> <span class="n">Video</span>
+
+
+<span class="n">post</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;video_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+<span class="c1"># OUTPUT: Article</span>
+<span class="c1"># Article is very inclusive and all fields are optional, allowing any dict to become valid</span>
+</code></pre></div>
+<p><strong>Solutions:</strong></p>
+<ol>
+<li>Validate input has only allowed valid fields and raise error if unknowns are provided</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Extra</span>
+
+<span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+   <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+   <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
+
+
+<span class="k">class</span> <span class="nc">Video</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">video_id</span><span class="p">:</span> <span class="nb">int</span>
+   <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+   <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+   <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">extra</span> <span class="o">=</span> <span class="n">Extra</span><span class="o">.</span><span class="n">forbid</span>
+
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">content</span><span class="p">:</span> <span class="n">Article</span> <span class="o">|</span> <span class="n">Video</span>
+</code></pre></div>
+<ol>
+<li>Use Pydantic's Smart Union (&gt;v1.9) if fields are simple</li>
+</ol>
+<p>It's a good solution if the fields are simple like <code>int</code> or <code>bool</code>,
+but it doesn't work for complex fields like classes.</p>
+<p>Without Smart Union</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">field_1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span>
+   <span class="n">field_2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span>
+   <span class="n">content</span><span class="p">:</span> <span class="n">Article</span> <span class="o">|</span> <span class="n">Video</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">field_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">field_2</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;video_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">field_1</span><span class="p">)</span>
+<span class="c1"># OUTPUT: True</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">field_2</span><span class="p">))</span>
+<span class="c1"># OUTPUT: int</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+<span class="c1"># OUTPUT: Article</span>
+</code></pre></div>
+<p>With Smart Union</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">field_1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span>
+   <span class="n">field_2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span>
+   <span class="n">content</span><span class="p">:</span> <span class="n">Article</span> <span class="o">|</span> <span class="n">Video</span>
+
+   <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+      <span class="n">smart_union</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">field_1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">field_2</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;video_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">field_1</span><span class="p">)</span>
+<span class="c1"># OUTPUT: 1</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">field_2</span><span class="p">))</span>
+<span class="c1"># OUTPUT: str</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+<span class="c1"># OUTPUT: Article, because smart_union doesn&#39;t work for complex fields like classes</span>
+</code></pre></div>
+<ol>
+<li>Fast Workaround</li>
+</ol>
+<p>Order field types properly: from the most strict ones to loose ones.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+   <span class="n">content</span><span class="p">:</span> <span class="n">Video</span> <span class="o">|</span> <span class="n">Article</span>
+</code></pre></div>
+<h2 id="19-sql-first-pydantic-second">19. SQL-first, Pydantic-second<a class="headerlink" href="#19-sql-first-pydantic-second" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Usually, database handles data processing much faster and cleaner than CPython will ever do.</li>
+<li>It's preferable to do all the complex joins and simple data manipulations with SQL.</li>
+<li>It's preferable to aggregate JSONs in DB for responses with nested objects.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># src.posts.service</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">UUID4</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">desc</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">select</span><span class="p">,</span> <span class="n">text</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql.functions</span> <span class="kn">import</span> <span class="n">coalesce</span>
+
+<span class="kn">from</span> <span class="nn">src.database</span> <span class="kn">import</span> <span class="n">database</span><span class="p">,</span> <span class="n">posts</span><span class="p">,</span> <span class="n">profiles</span><span class="p">,</span> <span class="n">post_review</span><span class="p">,</span> <span class="n">products</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_posts</span><span class="p">(</span>
+    <span class="n">creator_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]:</span> 
+    <span class="n">select_query</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">select</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+                <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+                <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">func</span><span class="o">.</span><span class="n">json_build_object</span><span class="p">(</span>
+                   <span class="n">text</span><span class="p">(</span><span class="s2">&quot;&#39;id&#39;, profiles.id&quot;</span><span class="p">),</span>
+                   <span class="n">text</span><span class="p">(</span><span class="s2">&quot;&#39;first_name&#39;, profiles.first_name&quot;</span><span class="p">),</span>
+                   <span class="n">text</span><span class="p">(</span><span class="s2">&quot;&#39;last_name&#39;, profiles.last_name&quot;</span><span class="p">),</span>
+                   <span class="n">text</span><span class="p">(</span><span class="s2">&quot;&#39;username&#39;, profiles.username&quot;</span><span class="p">),</span>
+                <span class="p">)</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;creator&quot;</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="n">posts</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">profiles</span><span class="p">,</span> <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
+        <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">owner_id</span> <span class="o">==</span> <span class="n">creator_id</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="n">limit</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">offset</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">group_by</span><span class="p">(</span>
+            <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
+            <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">slug</span><span class="p">,</span>
+            <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">last_name</span><span class="p">,</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+            <span class="n">profiles</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">avatar</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">order_by</span><span class="p">(</span>
+            <span class="n">desc</span><span class="p">(</span><span class="n">coalesce</span><span class="p">(</span><span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">updated_at</span><span class="p">,</span> <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">published_at</span><span class="p">,</span> <span class="n">posts</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">created_at</span><span class="p">))</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="k">await</span> <span class="n">database</span><span class="o">.</span><span class="n">fetch_all</span><span class="p">(</span><span class="n">select_query</span><span class="p">)</span>
+
+<span class="c1"># src.posts.schemas</span>
+<span class="kn">import</span> <span class="nn">orjson</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">UUID4</span><span class="p">,</span> <span class="n">validator</span>
+
+
+<span class="k">class</span> <span class="nc">PostType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">ARTICLE</span> <span class="o">=</span> <span class="s2">&quot;ARTICLE&quot;</span>
+    <span class="n">COURSE</span> <span class="o">=</span> <span class="s2">&quot;COURSE&quot;</span>
+
+
+<span class="k">class</span> <span class="nc">Creator</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">UUID4</span>
+    <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nb">id</span><span class="p">:</span> <span class="n">UUID4</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">PostType</span>
+    <span class="n">slug</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">creator</span><span class="p">:</span> <span class="n">Creator</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;creator&quot;</span><span class="p">,</span> <span class="n">pre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># before default validation</span>
+    <span class="k">def</span> <span class="nf">parse_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">creator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Creator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Creator</span><span class="p">:</span>
+       <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">creator</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>  <span class="c1"># i.e. json</span>
+          <span class="k">return</span> <span class="n">orjson</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">creator</span><span class="p">)</span>
+
+       <span class="k">return</span> <span class="n">creator</span>
+
+<span class="c1"># src.posts.router</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">Depends</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/creators/</span><span class="si">{creator_id}</span><span class="s2">/posts&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="nb">list</span><span class="p">[</span><span class="n">Post</span><span class="p">])</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_creator_posts</span><span class="p">(</span><span class="n">creator</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_creator_id</span><span class="p">)):</span>
+   <span class="n">posts</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_posts</span><span class="p">(</span><span class="n">creator</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+
+   <span class="k">return</span> <span class="n">posts</span>
+</code></pre></div>
+<p>If an aggregated data form DB is a simple JSON, then take a look at Pydantic's <code>Json</code> field type,
+which will load raw JSON first.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Json</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">numbers</span><span class="p">:</span> <span class="n">Json</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span>
+    <span class="n">dicts</span><span class="p">:</span> <span class="n">Json</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span>
+
+<span class="n">valid_a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">numbers</span><span class="o">=</span><span class="s2">&quot;[1, 2, 3]&quot;</span><span class="p">,</span> <span class="n">dicts</span><span class="o">=</span><span class="s1">&#39;{&quot;key&quot;: 1000}&#39;</span><span class="p">)</span>  <span class="c1"># becomes A(numbers=[1,2,3], dicts={&quot;key&quot;: 1000})</span>
+<span class="n">invalid_a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="n">numbers</span><span class="o">=</span><span class="s1">&#39;[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]&#39;</span><span class="p">,</span> <span class="n">dicts</span><span class="o">=</span><span class="s1">&#39;{&quot;key&quot;: &quot;str instead of int&quot;}&#39;</span><span class="p">)</span>  <span class="c1"># raises ValueError</span>
+</code></pre></div>
+<h2 id="20-validate-hosts-if-users-can-send-publicly-available-urls">20. Validate hosts, if users can send publicly available URLs<a class="headerlink" href="#20-validate-hosts-if-users-can-send-publicly-available-urls" title="Permanent link">&para;</a></h2>
+<p>For example, we have a specific endpoint which:</p>
+<ol>
+<li>accepts media file from the user,</li>
+<li>generates unique url for this file,</li>
+<li>returns url to user,</li>
+<li>which they will use in other endpoints like <code>PUT /profiles/me</code>, <code>POST /posts</code></li>
+<li>these endpoints accept files only from whitelisted hosts</li>
+<li>uploads file to AWS with this name and matching URL.</li>
+</ol>
+<p>If we don't whitelist URL hosts, then bad users will have a chance to upload dangerous links.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseModel</span>
+
+<span class="n">ALLOWED_MEDIA_URLS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;mysite.com&quot;</span><span class="p">,</span> <span class="s2">&quot;mysite.org&quot;</span><span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">CompanyMediaUrl</span><span class="p">(</span><span class="n">AnyUrl</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">validate_host</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parts</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;Extend pydantic&#39;s AnyUrl validation to whitelist URL hosts.&quot;&quot;&quot;</span>
+        <span class="n">host</span><span class="p">,</span> <span class="n">tld</span><span class="p">,</span> <span class="n">host_type</span><span class="p">,</span> <span class="n">rebuild</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">validate_host</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">host</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ALLOWED_MEDIA_URLS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Forbidden host url. Upload files only to internal services.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">host</span><span class="p">,</span> <span class="n">tld</span><span class="p">,</span> <span class="n">host_type</span><span class="p">,</span> <span class="n">rebuild</span>
+
+
+<span class="k">class</span> <span class="nc">Profile</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">avatar_url</span><span class="p">:</span> <span class="n">CompanyMediaUrl</span>  <span class="c1"># only whitelisted urls for avatar</span>
+</code></pre></div>
+<h2 id="21-raise-a-valueerror-in-custom-pydantic-validators-if-schema-directly-faces-the-client">21. Raise a ValueError in custom pydantic validators, if schema directly faces the client<a class="headerlink" href="#21-raise-a-valueerror-in-custom-pydantic-validators-if-schema-directly-faces-the-client" title="Permanent link">&para;</a></h2>
+<p>It will return a nice detailed response to users.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># src.profiles.schemas</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">validator</span>
+
+<span class="k">class</span> <span class="nc">ProfileCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">validate_bad_words</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">username</span>  <span class="o">==</span> <span class="s2">&quot;me&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;bad username, choose another&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">username</span>
+
+
+<span class="c1"># src.profiles.routes</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">()</span>
+
+
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/profiles&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_creator_posts</span><span class="p">(</span><span class="n">profile_data</span><span class="p">:</span> <span class="n">ProfileCreate</span><span class="p">):</span>
+   <span class="k">pass</span>
+</code></pre></div>
+<p><strong>Response Example:</strong></p>
+<p><a class="glightbox" href="images/custom_bad_response.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/custom_bad_response.png" width="400" height="auto"></a></p>
+<h2 id="22-dont-forget-fastapi-converts-response-pydantic-object-to-dict-then-to-an-instance-of-responsemodel-then-to-dict-then-to-json">22. Don't forget FastAPI converts Response Pydantic Object to Dict then to an instance of ResponseModel then to Dict then to JSON<a class="headerlink" href="#22-dont-forget-fastapi-converts-response-pydantic-object-to-dict-then-to-an-instance-of-responsemodel-then-to-dict-then-to-json" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">root_validator</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+
+<span class="k">class</span> <span class="nc">ProfileResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="nd">@root_validator</span>
+    <span class="k">def</span> <span class="nf">debug_usage</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;created pydantic model&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">data</span>
+
+    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;called dict&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">ProfileResponse</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">ProfileResponse</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>Logs Output:</strong></p>
+<div class="highlight"><pre><span></span><code>[INFO] [2022-08-28 12:00:00.000000] created pydantic model
+[INFO] [2022-08-28 12:00:00.000010] called dict
+[INFO] [2022-08-28 12:00:00.000020] created pydantic model
+[INFO] [2022-08-28 12:00:00.000030] called dict
+</code></pre></div>
+<h2 id="23-if-you-must-use-sync-sdk-then-run-it-in-a-thread-pool">23. If you must use sync SDK, then run it in a thread pool<a class="headerlink" href="#23-if-you-must-use-sync-sdk-then-run-it-in-a-thread-pool" title="Permanent link">&para;</a></h2>
+<p>If you must use a library to interact with external services, and it's not <code>async</code>,
+then make the HTTP calls in an external worker thread.</p>
+<p>For a simple example, we could use our well-known <code>run_in_threadpool</code> from starlette.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">fastapi.concurrency</span> <span class="kn">import</span> <span class="n">run_in_threadpool</span>
+<span class="kn">from</span> <span class="nn">my_sync_library</span> <span class="kn">import</span> <span class="n">SyncAPIClient</span> 
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">call_my_sync_library</span><span class="p">():</span>
+    <span class="n">my_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_my_data</span><span class="p">()</span>
+
+    <span class="n">client</span> <span class="o">=</span> <span class="n">SyncAPIClient</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">run_in_threadpool</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">make_request</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">my_data</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="24-use-linters-black-isort-autoflake">24. Use linters (black, isort, autoflake)<a class="headerlink" href="#24-use-linters-black-isort-autoflake" title="Permanent link">&para;</a></h2>
+<p>With linters, you can forget about formatting the code and focus on writing the business logic.</p>
+<p>Black is the uncompromising code formatter that eliminates so many small decisions you have to make during development.
+Other linters help you write cleaner code and follow the PEP8.</p>
+<p>It's a popular good practice to use pre-commit hooks, but just using the script was ok for us.</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh -e</span>
+<span class="nb">set</span><span class="w"> </span>-x
+
+autoflake<span class="w"> </span>--remove-all-unused-imports<span class="w"> </span>--recursive<span class="w"> </span>--remove-unused-variables<span class="w"> </span>--in-place<span class="w"> </span>src<span class="w"> </span>tests<span class="w"> </span>--exclude<span class="o">=</span>__init__.py
+isort<span class="w"> </span>src<span class="w"> </span>tests<span class="w"> </span>--profile<span class="w"> </span>black
+black<span class="w"> </span>src<span class="w"> </span>tests
+</code></pre></div>
+<h2 id="bonus-section">Bonus Section<a class="headerlink" href="#bonus-section" title="Permanent link">&para;</a></h2>
+<p>Some very kind people shared their own experience and best practices that are definitely worth reading.
+Check them out at <a href="https://github.com/zhanymkanov/fastapi-best-practices/issues">issues</a> section of the project.</p>
+<p>For instance, <a href="https://github.com/zhanymkanov/fastapi-best-practices/issues/4">lowercase00</a>
+has described in details their best practices working with permissions &amp; auth, class-based services &amp; views,
+task queues, custom response serializers, configuration with dynaconf, etc.  </p>
+<p>If you have something to share about your experience working with FastAPI, whether it's good or bad,
+you are very welcome to create a new issue. It is our pleasure to read it.</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月15日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2022年8月9日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
