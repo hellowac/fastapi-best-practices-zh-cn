@@ -1,0 +1,7 @@
+mkdocs
+mkdocs-material
+mkdocs-material-extensions
+mkdocs-git-revision-date-localized-plugin
+mkdocs-static-i18n
+mkdocs-glightbox
+pymdown-extensions

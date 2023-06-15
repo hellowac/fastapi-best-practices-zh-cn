@@ -1,0 +1,80 @@
+site_name: FastApi 最佳实践-中文版
+repo_name: FastApi 最佳实践-中文版
+repo_url: https://github.com/hellowac/fastapi-best-practices-zh-cn/
+site_description: FastApi 最佳实践-中文版
+
+# 配置主题，在mkdocs.yml文件下
+theme:
+  name: material
+  language: zh
+  features:
+    - content.code.copy # 代码支持拷贝
+    - content.tabs.link # 内容tabs支持
+    - navigation.tabs # 顶部导航
+    - navigation.tabs.sticky # 顶部导航粘连
+    - navigation.indexes # 导航index页面支持
+    # - navigation.sections # 全部展开(非折叠状态)
+    # - navigation.expand # 子目录展开
+    - navigation.top # 返回顶部按钮
+    - toc.follow # 页面目录支持
+
+# 插件
+plugins:
+  - glightbox
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - git-revision-date-localized: # 支持文档创建时间显示， https://github.com/timvink/mkdocs-git-revision-date-localized-plugin
+      locale: zh
+      enable_creation_date: true
+      type: date
+
+# markdown解析扩展
+markdown_extensions:
+  - tables
+  - admonition
+  - attr_list
+  - footnotes # 引用支持            https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#footnotes
+  - def_list # 键-值组合的list     https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#footnotes
+  - toc: # 页面目录支持         https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#table-of-contents
+      permalink: true # 标题锚点支持
+      slugify:
+        !!python/object/apply:pymdownx.slugs.slugify # 区分大小写的显示标题
+        kwds:
+          case: lower # 全小写支持
+  - md_in_html # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#footnotes
+  # pymdownx 扩展，参考：https://facelessuser.github.io/pymdown-extensions/
+  - pymdownx.inlinehilite # 单行高亮, 参考: https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#highlighting-specific-lines
+  - pymdownx.critic # 支持部分字段格式化，参考：https://squidfunk.github.io/mkdocs-material/reference/formatting/
+  - pymdownx.highlight # 支持代码块高亮显示
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.superfences: # 注释 :
+      # preserve_tabs: true
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: # 支持内容tab, https://squidfunk.github.io/mkdocs-material/reference/content-tabs/
+      alternate_style: true
+  - pymdownx.caret # 下划线, 上标 : https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/?h=caret#caret-mark-tilde
+    #               https://facelessuser.github.io/pymdown-extensions/extensions/caret/
+  - pymdownx.mark # 标记 :https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/?h=caret#caret-mark-tilde
+    #      https://facelessuser.github.io/pymdown-extensions/extensions/mark/
+  - pymdownx.tilde # 删除线, 下标  参考: https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/?h=caret#caret-mark-tilde
+    #                   https://facelessuser.github.io/pymdown-extensions/extensions/tilde/
+  - pymdownx.arithmatex:
+      generic: true
+
+# 扩展支持， 支持数学符号
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js
+  # - https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs
+
+# 页面导航
+nav:
+  - 最佳实践: index.md
+  - 英文原版: raw_en.md
+  - 关于: about.md
