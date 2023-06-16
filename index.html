@@ -15,7 +15,7 @@
         <link rel="next" href="raw_en/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.85bb2934.min.css">
       
       
 
@@ -307,15 +307,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-过度使用-pydantic-进行数据验证" class="md-nav__link">
-    2. 过度使用 Pydantic 进行数据验证
+  <a href="#2-尽可能的使用-pydantic-进行数据验证" class="md-nav__link">
+    2. 尽可能的使用 Pydantic 进行数据验证
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-使用依赖项进行数据验证与数据库" class="md-nav__link">
-    3. 使用依赖项进行数据验证与数据库
+  <a href="#3-使用depends依赖进行与数据库有关的数据验证" class="md-nav__link">
+    3. 使用Depends(依赖)进行与数据库有关的数据验证
   </a>
   
 </li>
@@ -342,8 +342,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-不要让你的路由异步如果你只有阻塞-io-操作" class="md-nav__link">
-    7. 不要让你的路由异步，如果你只有阻塞 I/O 操作
+  <a href="#7-如果你的路由只有阻塞的-io-操作-不要让你的路由异步" class="md-nav__link">
+    7. 如果你的路由只有阻塞的 I/O 操作, 不要让你的路由异步
   </a>
   
 </li>
@@ -546,15 +546,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-过度使用-pydantic-进行数据验证" class="md-nav__link">
-    2. 过度使用 Pydantic 进行数据验证
+  <a href="#2-尽可能的使用-pydantic-进行数据验证" class="md-nav__link">
+    2. 尽可能的使用 Pydantic 进行数据验证
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-使用依赖项进行数据验证与数据库" class="md-nav__link">
-    3. 使用依赖项进行数据验证与数据库
+  <a href="#3-使用depends依赖进行与数据库有关的数据验证" class="md-nav__link">
+    3. 使用Depends(依赖)进行与数据库有关的数据验证
   </a>
   
 </li>
@@ -581,8 +581,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-不要让你的路由异步如果你只有阻塞-io-操作" class="md-nav__link">
-    7. 不要让你的路由异步，如果你只有阻塞 I/O 操作
+  <a href="#7-如果你的路由只有阻塞的-io-操作-不要让你的路由异步" class="md-nav__link">
+    7. 如果你的路由只有阻塞的 I/O 操作, 不要让你的路由异步
   </a>
   
 </li>
@@ -737,32 +737,30 @@
 我们一直在做出好的和坏的决定，这些决定极大地影响了我们的开发人员体验。
 其中一些值得分享。</p>
 <h2 id="1-项目结构-一致且可预测">1. 项目结构。 一致且可预测<a class="headerlink" href="#1-项目结构-一致且可预测" title="Permanent link">&para;</a></h2>
-<p>There are many ways to structure the project, but the best structure is a structure that is consistent, straightforward, and has no surprises.</p>
+<p>构建项目的方法有很多种，但最好的结构是一致、直接且没有意外的结构。</p>
 <ul>
-<li>If looking at the project structure doesn't give you an idea of what the project is about, then the structure might be unclear.</li>
-<li>If you have to open packages to understand what modules are located in them, then your structure is unclear.</li>
-<li>If the frequency and location of the files feels random, then your project structure is bad.</li>
-<li>If looking at the module's location and its name doesn't give you an idea of what's inside it, then your structure is very bad.</li>
+<li>如果查看项目结构不能让您了解项目的内容，那么结构可能不清楚。</li>
+<li>如果您必须打开包才能了解其中包含哪些模块，那么您的结构就不清楚了。</li>
+<li>如果文件的重复率和位置感觉是随机的，那么您的项目结构很糟糕。</li>
+<li>如果查看模块的位置及其名称不能让您了解其中的内容，那么您的结构非常糟糕。</li>
 </ul>
-<p>Although the project structure, where we separate files by their type (e.g. api, crud, models, schemas)
-presented by <a href="https://github.com/tiangolo">@tiangolo</a> is good for microservices or projects with fewer scopes,
-we couldn't fit it into our monolith with a lot of domains and modules.
-Structure that I found more scalable and evolvable is inspired by Netflix's <a href="https://github.com/Netflix/dispatch">Dispatch</a> with some little modifications.</p>
+<p><a href="https://github.com/tiangolo">@tiangolo</a> 提供的项目结构（我们按文件类型（例如 api、crud、模型、模式）分隔文件）适用于微服务或范围较小的项目，但我们无法将它放入我们具有大量域和模块的整体中。</p>
+<p>我发现更具可扩展性和可演化性的结构是受 Netflix 的 <a href="https://github.com/Netflix/dispatch">Dispatch</a> 启发并稍作修改。</p>
 <div class="highlight"><pre><span></span><code>fastapi-project
 ├── alembic/
 ├── src
 │   ├── auth
 │   │   ├── router.py
-│   │   ├── schemas.py  # pydantic models
-│   │   ├── models.py  # db models
+│   │   ├── schemas.py  # pydantic 模型
+│   │   ├── models.py  # db 模型
 │   │   ├── dependencies.py
-│   │   ├── config.py  # local configs
+│   │   ├── config.py  # 本地配置
 │   │   ├── constants.py
 │   │   ├── exceptions.py
 │   │   ├── service.py
 │   │   └── utils.py
 │   ├── aws
-│   │   ├── client.py  # client model for external service communication
+│   │   ├── client.py  # 外部服务通信的客户端模型
 │   │   ├── schemas.py
 │   │   ├── config.py
 │   │   ├── constants.py
@@ -777,11 +775,11 @@ Structure that I found more scalable and evolvable is inspired by Netflix's <a h
 │   │   ├── exceptions.py
 │   │   ├── service.py
 │   │   └── utils.py
-│   ├── config.py  # global configs
-│   ├── models.py  # global models
-│   ├── exceptions.py  # global exceptions
-│   ├── pagination.py  # global module e.g. pagination
-│   ├── database.py  # db connection related stuff
+│   ├── config.py  # 全局配置
+│   ├── models.py  # 全局模型
+│   ├── exceptions.py  # 全局异常
+│   ├── pagination.py  # 全局模块 例如. pagination 分页
+│   ├── database.py  # 数据库连接相关的东西
 │   └── main.py
 ├── tests/
 │   ├── auth
@@ -799,29 +797,33 @@ Structure that I found more scalable and evolvable is inspired by Netflix's <a h
 └── alembic.ini
 </code></pre></div>
 <ol>
-<li>Store all domain directories inside <code>src</code> folder</li>
-<li><code>src/</code> - highest level of an app, contains common models, configs, and constants, etc.</li>
-<li><code>src/main.py</code> - root of the project, which inits the FastAPI app</li>
-<li>Each package has its own router, schemas, models, etc.</li>
-<li><code>router.py</code> - is a core of each module with all the endpoints</li>
-<li><code>schemas.py</code> - for pydantic models</li>
-<li><code>models.py</code> - for db models</li>
-<li><code>service.py</code> - module specific business logic  </li>
-<li><code>dependencies.py</code> - router dependencies</li>
-<li><code>constants.py</code> - module specific constants and error codes</li>
-<li><code>config.py</code> - e.g. env vars</li>
-<li><code>utils.py</code> - non-business logic functions, e.g. response normalization, data enrichment, etc.</li>
-<li><code>exceptions</code> - module specific exceptions, e.g. <code>PostNotFound</code>, <code>InvalidUserData</code></li>
-<li>When package requires services or dependencies or constants from other packages - import them with an explicit module name</li>
+<li>将所有域目录存储在 <code>src</code> 文件夹中<ol>
+<li><code>src/</code> - 应用程序的最高级别，包含通用模型、配置和常量等。</li>
+<li><code>src/main.py</code> - 项目的根目录，用于启动 FastAPI 应用程序</li>
+</ol>
+</li>
+<li>每个包都有自己的 router, schemas, models, 等。<ol>
+<li><code>router.py</code> - 每个模块的核心，是所有路由接口的入口。</li>
+<li><code>schemas.py</code> - 每个模块的 pydantic的模型</li>
+<li><code>models.py</code> - 每个模块的数据库模型</li>
+<li><code>service.py</code> - 模块特有的业务逻辑</li>
+<li><code>dependencies.py</code> - 路由依赖(Depends)</li>
+<li><code>constants.py</code> - 模块特有的常量和错误码定义</li>
+<li><code>config.py</code> - 例如，环境变量</li>
+<li><code>utils.py</code> - 非业务逻辑功能， 例如. 响应规范化、数据丰富等。</li>
+<li><code>exceptions</code> - 模块特有的一场，例如. <code>PostNotFound</code>, <code>InvalidUserData</code></li>
+</ol>
+</li>
+<li>当包需要来自其他包的服务或依赖项或常量时 - 使用显式模块名称导入它们</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">src.auth</span> <span class="kn">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">auth_constants</span>
 <span class="kn">from</span> <span class="nn">src.notifications</span> <span class="kn">import</span> <span class="n">service</span> <span class="k">as</span> <span class="n">notification_service</span>
-<span class="kn">from</span> <span class="nn">src.posts.constants</span> <span class="kn">import</span> <span class="n">ErrorCode</span> <span class="k">as</span> <span class="n">PostsErrorCode</span>  <span class="c1"># in case we have Standard ErrorCode in constants module of each package</span>
+<span class="kn">from</span> <span class="nn">src.posts.constants</span> <span class="kn">import</span> <span class="n">ErrorCode</span> <span class="k">as</span> <span class="n">PostsErrorCode</span>  <span class="c1"># 如果我们在每个包的常量模块中都有标准错误代码</span>
 </code></pre></div>
-<h2 id="2-过度使用-pydantic-进行数据验证">2. 过度使用 Pydantic 进行数据验证<a class="headerlink" href="#2-过度使用-pydantic-进行数据验证" title="Permanent link">&para;</a></h2>
-<p>Pydantic has a rich set of features to validate and transform data.</p>
-<p>In addition to regular features like required &amp; non-required fields with default values,
-Pydantic has built-in comprehensive data processing tools like regex, enums for limited allowed options, length validation, email validation, etc.</p>
+<h2 id="2-尽可能的使用-pydantic-进行数据验证">2. 尽可能的使用 Pydantic 进行数据验证<a class="headerlink" href="#2-尽可能的使用-pydantic-进行数据验证" title="Permanent link">&para;</a></h2>
+<p>Pydantic 具有一组丰富的功能来验证和转换数据。</p>
+<p>除了具有默认值的必填和非必填字段等常规功能外，</p>
+<p>Pydantic 内置了全面的数据处理工具，如正则表达式、有限允许选项的枚举、长度验证、电子邮件验证等。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">EmailStr</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">constr</span>
 
@@ -839,9 +841,9 @@ Pydantic has built-in comprehensive data processing tools like regex, enums for 
     <span class="n">favorite_band</span><span class="p">:</span> <span class="n">MusicBand</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># only &quot;AEROSMITH&quot;, &quot;QUEEN&quot;, &quot;AC/DC&quot; values are allowed to be inputted</span>
     <span class="n">website</span><span class="p">:</span> <span class="n">AnyUrl</span> <span class="o">=</span> <span class="kc">None</span>
 </code></pre></div>
-<h2 id="3-使用依赖项进行数据验证与数据库">3. 使用依赖项进行数据验证与数据库<a class="headerlink" href="#3-使用依赖项进行数据验证与数据库" title="Permanent link">&para;</a></h2>
-<p>Pydantic can only validate the values from client input.
-Use dependencies to validate data against database constraints like email already exists, user not found, etc.</p>
+<h2 id="3-使用depends依赖进行与数据库有关的数据验证">3. 使用Depends(依赖)进行与数据库有关的数据验证<a class="headerlink" href="#3-使用depends依赖进行与数据库有关的数据验证" title="Permanent link">&para;</a></h2>
+<p>Pydantic 可以只验证来自客户端输入的值。</p>
+<p>使用依赖项根据数据库约束验证数据，例如电子邮件已存在、未找到用户等。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">valid_post_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
     <span class="n">post</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">get_by_id</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
@@ -871,10 +873,9 @@ Use dependencies to validate data against database constraints like email alread
     <span class="n">post_reviews</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Mapping</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reviews_service</span><span class="o">.</span><span class="n">get_by_post_id</span><span class="p">(</span><span class="n">post</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">post_reviews</span>
 </code></pre></div>
-<p>If we didn't put data validation to dependency, we would have to add post_id validation
-for every endpoint and write the same tests for each of them.</p>
+<p>如果我们不将数据验证放在依赖项中，我们将不得不为每个接口添加 <code>post_id</code> 验证并为每个接口编写相同的测试。</p>
 <h2 id="4-依赖dependency链">4. 依赖(Dependency)链<a class="headerlink" href="#4-依赖dependency链" title="Permanent link">&para;</a></h2>
-<p>Dependencies can use other dependencies and avoid code repetition for similar logic.</p>
+<p>依赖可以使用其他依赖，避免类似逻辑的代码重复。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
 <span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
 <span class="kn">from</span> <span class="nn">jose</span> <span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
@@ -913,16 +914,16 @@ for every endpoint and write the same tests for each of them.</p>
     <span class="k">return</span> <span class="n">post</span>
 </code></pre></div>
 <h2 id="5-解耦和重用依赖关系-缓存依赖dependency调用结果">5. 解耦和重用依赖关系。 缓存依赖(Dependency)调用结果<a class="headerlink" href="#5-解耦和重用依赖关系-缓存依赖dependency调用结果" title="Permanent link">&para;</a></h2>
-<p>Dependencies can be reused multiple times, and they won't be recalculated - FastAPI caches dependency's result within a request's scope by default,
-i.e. if we have a dependency that calls service <code>get_post_by_id</code>, we won't be visiting DB each time we call this dependency - only the first function call.</p>
-<p>Knowing this, we can easily decouple dependencies onto multiple smaller functions that operate on a smaller domain and are easier to reuse in other routes.
-For example, in the code below we are using <code>parse_jwt_data</code> three times:</p>
+<p>依赖项可以多次重用，并且不会重新计算 - 默认情况下，FastAPI 将依赖项的结果缓存在请求的范围内。</p>
+<p>例如：如果我们有一个调用服务 <code>get_post_by_id</code> 的依赖项，我们将不会在每次调用该依赖项时都访问数据库 - 只有第一次函数调用时会用到。</p>
+<p>知道了这一点，我们可以轻松地将依赖关系解耦到多个较小的函数上，这些函数在较小的域上运行并且更容易在其他路由中重用。</p>
+<p>例如，在下面的代码中，我们使用了 3 次 <code>parse_jwt_data</code>：</p>
 <ol>
 <li><code>valid_owned_post</code></li>
 <li><code>valid_active_creator</code></li>
-<li><code>get_user_post</code>,</li>
+<li><code>get_user_post</code></li>
 </ol>
-<p>but <code>parse_jwt_data</code> is called only once, in the very first call.</p>
+<p>但是 <code>parse_jwt_data</code> 在第一次调用时只被调用一次。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
 <span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">BackgroundTasks</span>
 <span class="kn">from</span> <span class="nn">fastapi.security</span> <span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
@@ -982,17 +983,15 @@ For example, in the code below we are using <code>parse_jwt_data</code> three ti
     <span class="k">return</span> <span class="n">post</span>
 </code></pre></div>
 <h2 id="6-遵循-rest-规范">6. 遵循 REST 规范<a class="headerlink" href="#6-遵循-rest-规范" title="Permanent link">&para;</a></h2>
-<p>Developing RESTful API makes it easier to reuse dependencies in routes like these:</p>
+<p>开发 RESTful API 可以更轻松地在如下路由中重用依赖项：</p>
 <ol>
 <li><code>GET /courses/:course_id</code></li>
 <li><code>GET /courses/:course_id/chapters/:chapter_id/lessons</code></li>
 <li><code>GET /chapters/:chapter_id</code></li>
 </ol>
-<p>The only caveat is to use the same variable names in the path:</p>
+<p>唯一需要注意的是在路径中使用相同的变量名：</p>
 <ul>
-<li>If you have two endpoints <code>GET /profiles/:profile_id</code> and <code>GET /creators/:creator_id</code>
-that both validate whether the given <code>profile_id</code> exists,  but <code>GET /creators/:creator_id</code>
-also checks if the profile is creator, then it's better to rename <code>creator_id</code> path variable to <code>profile_id</code> and chain those two dependencies.</li>
+<li>如果你有两个接口 <code>GET /profiles/:profile_id</code> 和 <code>GET /creators/:creator_id</code> 两者都验证给定的 <code>profile_id</code> 是否存在，但是 <code>GET /creators/:creator_id</code> 还检查配置文件是否是创建者，那么最好将 <code>creator_id</code> 路径变量重命名为 <code>profile_id</code> 并将这两个依赖项链接起来。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1"># src.profiles.dependencies</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">valid_profile_id</span><span class="p">(</span><span class="n">profile_id</span><span class="p">:</span> <span class="n">UUID4</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
@@ -1003,7 +1002,9 @@ also checks if the profile is creator, then it's better to rename <code>creator_
     <span class="k">return</span> <span class="n">profile</span>
 
 <span class="c1"># src.creators.dependencies</span>
-<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_creator_id</span><span class="p">(</span><span class="n">profile</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_profile_id</span><span class="p">))</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">valid_creator_id</span><span class="p">(</span>
+    <span class="n">profile</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">valid_profile_id</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Mapping</span><span class="p">:</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">profile</span><span class="p">[</span><span class="s2">&quot;is_creator&quot;</span><span class="p">]:</span>
        <span class="k">raise</span> <span class="n">ProfileNotCreator</span><span class="p">()</span>
 
@@ -1023,12 +1024,12 @@ also checks if the profile is creator, then it's better to rename <code>creator_
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get creator&#39;s profile by id.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">creator_profile</span>
 </code></pre></div>
-<p>Use /me endpoints for users resources (e.g. <code>GET /profiles/me</code>, <code>GET /users/me/posts</code>)</p>
+<p>使用 <code>/me</code> 路由定义来返回当前用户资源 (例如. <code>GET /profiles/me</code>, <code>GET /users/me/posts</code>)</p>
 <ol>
-<li>No need to validate that user id exists - it's already checked via auth method</li>
-<li>No need to check whether the user id belongs to the requester</li>
+<li>无需检查用户ID是否存在 - 因为auth校验早已校验了其是否存在。</li>
+<li>无需检查用户ID是否属于请求者</li>
 </ol>
-<h2 id="7-不要让你的路由异步如果你只有阻塞-io-操作">7. 不要让你的路由异步，如果你只有阻塞 I/O 操作<a class="headerlink" href="#7-不要让你的路由异步如果你只有阻塞-io-操作" title="Permanent link">&para;</a></h2>
+<h2 id="7-如果你的路由只有阻塞的-io-操作-不要让你的路由异步">7. 如果你的路由只有阻塞的 I/O 操作, 不要让你的路由异步<a class="headerlink" href="#7-如果你的路由只有阻塞的-io-操作-不要让你的路由异步" title="Permanent link">&para;</a></h2>
 <p>在底层，FastAPI 可以<a href="https://fastapi.tiangolo.com/async/#path-operation-functions">有效地处理</a> 异步和同步 I/O 操作。</p>
 <ul>
 <li>FastAPI 在<a href="https://en.wikipedia.org/wiki/Thread_pool">线程池</a> 中运行<code>sync</code>(同步)路由，阻塞 I/O 操作不会阻止[事件循环](<a href="https://docs.python.org/3/library/asyncio-eventloop.html">https://docs.python.org/3/library/asyncio-eventloop.html</a>）执行任务。</li>
@@ -1054,59 +1055,68 @@ also checks if the profile is creator, then it's better to rename <code>creator_
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/perfect-ping&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">perfect_ping</span><span class="p">():</span>
-    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 非阻塞 I/O 操作</span>
-    <span class="n">pong</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">async_get_pong</span><span class="p">()</span>  <span class="c1"># 非阻塞 I/O 数据库调用</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 异步阻塞 I/O 操作</span>
+    <span class="n">pong</span> <span class="o">=</span> <span class="k">await</span> <span class="n">service</span><span class="o">.</span><span class="n">async_get_pong</span><span class="p">()</span>  <span class="c1"># 异步阻塞 I/O 数据库调用</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;pong&quot;</span><span class="p">:</span> <span class="n">pong</span><span class="p">}</span>
 </code></pre></div>
-<p><strong>当我们调用时会发生什么:</strong></p>
+<div class="admonition note">
+<p class="admonition-title"><strong>当我们调用时会发生什么</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1"><code>GET /terrible-ping</code></label><label for="__tabbed_1_2"><code>GET /good-ping</code></label><label for="__tabbed_1_3"><code>GET /perfect-ping</code></label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <ol>
-<li><code>GET /terrible-ping</code></li>
-<li>FastAPI server receives a request and starts handling it</li>
-<li>Server's event loop and all the tasks in the queue will be waiting until <code>time.sleep()</code> is finished<ol>
-<li>Server thinks <code>time.sleep()</code> is not an I/O task, so it waits until it is finished</li>
-<li>Server won't accept any new requests while waiting</li>
+<li>FastAPI 服务器收到一个请求并开始处理它</li>
+<li>服务器的事件循环和队列中的所有任务将等待直到 <code>time.sleep()</code> 完成<ol>
+<li>服务器认为 <code>time.sleep()</code> 不是一个 I/O 任务, 所以会一直等待并直到它完成。</li>
+<li>在等待期间服务器不会接受任何新的请求。</li>
 </ol>
 </li>
-<li>Then, event loop and all the tasks in the queue will be waiting until <code>service.get_pong</code> is finished<ol>
-<li>Server thinks <code>service.get_pong()</code> is not an I/O task, so it waits until it is finished</li>
-<li>Server won't accept any new requests while waiting</li>
+<li>然后, 事件循环和所有任务会在队列中一起等待，直到<code>service.get_pong</code>执行完毕。<ol>
+<li>服务器认为 <code>service.get_pong()</code> 不是一个 I/O 任务, 所以他会一直等待，直到它完成。</li>
+<li>服务器在等待期间不会接受任何新的的请求。</li>
 </ol>
 </li>
-<li>Server returns the response.<ol>
-<li>After a response, server starts accepting new requests</li>
+<li>服务器返回响应。<ol>
+<li>响应之后, 服务器开始接受新的请求。</li>
 </ol>
 </li>
-<li><code>GET /good-ping</code></li>
-<li>FastAPI server receives a request and starts handling it</li>
-<li>FastAPI sends the whole route <code>good_ping</code> to the threadpool, where a worker thread will run the function</li>
-<li>While <code>good_ping</code> is being executed, event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)<ul>
-<li>Independently of main thread (i.e. our FastAPI app),
-    worker thread will be waiting for <code>time.sleep</code> to finish and then for <code>service.get_pong</code> to finish</li>
-<li>Sync operation blocks only the side thread, not the main one.</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>FastAPI 服务器收到一个请求并开始处理它</li>
+<li>FastAPI 将整个路由 <code>good_ping</code> 分配到线程池中, 池中有工作线程负责运行该路由绑定的函数。</li>
+<li>在 <code>good_ping</code> 执行其间, 事件循环会从队列中选择下一个任务和工作线程给他们， (比如. 接受新请求, 调用数据库)<ul>
+<li>工作线程独立于主线程 (比如. 我们的 FastAPI 应用程序), 它将等待 <code>time.sleep</code> 完成，然后等待 <code>service.get_pong</code> 完成。</li>
+<li>Sync(同步)操作只会阻塞子线程，不会阻塞主线程。</li>
 </ul>
 </li>
-<li>When <code>good_ping</code> finishes its work, server returns a response to the client</li>
-<li><code>GET /perfect-ping</code></li>
-<li>FastAPI server receives a request and starts handling it</li>
-<li>FastAPI awaits <code>asyncio.sleep(10)</code></li>
-<li>Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)</li>
-<li>When <code>asyncio.sleep(10)</code> is done, servers goes to the next lines and awaits <code>service.async_get_pong</code></li>
-<li>Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)</li>
-<li>When <code>service.async_get_pong</code> is done, server returns a response to the client</li>
+<li>然后 <code>good_ping</code> 完成他的工作, 服务器返回一个响应给客户端。</li>
 </ol>
-<p>The second caveat is that operations that are non-blocking awaitables or are sent to the thread pool must be I/O intensive tasks (e.g. open file, db call, external API call).</p>
+</div>
+<div class="tabbed-block">
+<ol>
+<li>FastAPI 服务器收到一个请求并开始处理它</li>
+<li>FastAPI 异步等待 <code>asyncio.sleep(10)</code></li>
+<li>事件循环从队列中选择下一个任务并处理它们  (比如. 接受新请求, 调用数据库)</li>
+<li>当 <code>asyncio.sleep(10)</code> 完成时, 服务器转到下一行并等待 <code>service.async_get_pong</code> 完成。</li>
+<li>事件循环从队列中选择下一个任务并处理它们  (比如. 接受新请求, 调用数据库)</li>
+<li>当 <code>service.async_get_pong</code> 完成, 服务器返回一个响应给客户端。</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<p>第二个需要强调的是，non-blocking awaitables (非阻塞等待)或者发送到线程池的操作必须是I/O密集型任务(比如: 打开文件、数据库调用、外部API调用等等)。</p>
 <ul>
-<li>Awaiting CPU-intensive tasks (e.g. heavy calculations, data processing, video transcoding) is worthless since the CPU has to work to finish the tasks,
-while I/O operations are external and server does nothing while waiting for that operations to finish, thus it can go to the next tasks.</li>
-<li>Running CPU-intensive tasks in other threads also isn't effective, because of <a href="https://realpython.com/python-gil/">GIL</a>.
-In short, GIL allows only one thread to work at a time, which makes it useless for CPU tasks.</li>
-<li>If you want to optimize CPU intensive tasks you should send them to workers in another process.</li>
+<li>等待CPU密集型任务 (比如. 负责的计算, 数据处理, 视频转码) 是没有价值的，因为CPU必须工作才能完成计算任务, 而I/O操作是外部的，服务器在等待该操作完成时什么都不做，因此它可以去做下一个任务。</li>
+<li>由于 <a href="https://realpython.com/python-gil/">GIL</a>，在其他线程中运行 CPU 密集型任务也不是有效的。 简而言之，GIL 一次只允许一个线程工作，这使得它对 CPU密集型任务毫无用处。</li>
+<li>如果你想优化 CPU 密集型任务，你应该将它们发送给另一个进程中进行工作。</li>
 </ul>
-<p><strong>Related StackOverflow questions of confused users</strong></p>
+<p><strong>StackOverflow上困惑用户的相关问题</strong>:</p>
 <ol>
-<li><a href="https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597">https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597</a></li>
-<li>Here you can also check <a href="https://stackoverflow.com/a/70309597/6927498">my answer</a></li>
+<li><a href="https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597">https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597</a> - 同样可以看看 <a href="https://stackoverflow.com/a/70309597/6927498">我的回答</a></li>
 <li><a href="https://stackoverflow.com/questions/65342833/fastapi-uploadfile-is-slow-compared-to-flask">https://stackoverflow.com/questions/65342833/fastapi-uploadfile-is-slow-compared-to-flask</a></li>
 <li><a href="https://stackoverflow.com/questions/71516140/fastapi-runs-api-calls-in-serial-instead-of-parallel-fashion">https://stackoverflow.com/questions/71516140/fastapi-runs-api-calls-in-serial-instead-of-parallel-fashion</a></li>
 </ol>
@@ -1137,11 +1147,11 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
     <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
         <span class="n">json_loads</span> <span class="o">=</span> <span class="n">orjson</span><span class="o">.</span><span class="n">loads</span>
         <span class="n">json_dumps</span> <span class="o">=</span> <span class="n">orjson_dumps</span>
-        <span class="n">json_encoders</span> <span class="o">=</span> <span class="p">{</span><span class="n">datetime</span><span class="p">:</span> <span class="n">convert_datetime_to_gmt</span><span class="p">}</span>  <span class="c1"># method for customer JSON encoding of datetime fields</span>
+        <span class="n">json_encoders</span> <span class="o">=</span> <span class="p">{</span><span class="n">datetime</span><span class="p">:</span> <span class="n">convert_datetime_to_gmt</span><span class="p">}</span>  <span class="c1"># 日期时间字段的自定义 JSON 编码方法</span>
 
     <span class="nd">@root_validator</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">set_null_microseconds</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">       </span><span class="sd">&quot;&quot;&quot;Drops microseconds in all the datetime field values.&quot;&quot;&quot;</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;在所有日期时间字段值中删除微秒。&quot;&quot;&quot;</span>
         <span class="n">datetime_fields</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">microsecond</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -1151,39 +1161,41 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
         <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">datetime_fields</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">serializable_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">       </span><span class="sd">&quot;&quot;&quot;Return a dict which contains only serializable fields.&quot;&quot;&quot;</span>
+<span class="w">       </span><span class="sd">&quot;&quot;&quot;返回一个只包含可序列化字段的字典。&quot;&quot;&quot;</span>
         <span class="n">default_dict</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">jsonable_encoder</span><span class="p">(</span><span class="n">default_dict</span><span class="p">)</span>
 </code></pre></div>
-<p>In the example above we have decided to make a global base model which:</p>
+<p>在上面的示例中，我们决定制作一个全局基础模型：</p>
 <ul>
-<li>uses <a href="https://github.com/ijl/orjson">orjson</a> to serialize data</li>
-<li>drops microseconds to 0 in all date formats</li>
-<li>serializes all datetime fields to standard format with explicit timezone</li>
+<li>使用 <a href="https://github.com/ijl/orjson">orjson</a> 用于数据的序列化</li>
+<li>在所有日期格式中将微秒降为 0</li>
+<li>将所有日期时间字段序列化为具有显式时区的标准格式</li>
 </ul>
 <h2 id="9-文档docs">9. 文档(Docs)<a class="headerlink" href="#9-文档docs" title="Permanent link">&para;</a></h2>
 <ol>
-<li>Unless your API is public, hide docs by default. Show it explicitly on the selected envs only.</li>
-</ol>
+<li>
+<p>除非您的 API 是公开的，否则默认情况下隐藏文档。 仅在选定的环境中明确显示它。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span> <span class="nn">starlette.config</span> <span class="kn">import</span> <span class="n">Config</span>
 
-<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">)</span>  <span class="c1"># parse .env file for env variables</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">Config</span><span class="p">(</span><span class="s2">&quot;.env&quot;</span><span class="p">)</span>  <span class="c1"># 解析 .env 文件中的环境变量</span>
 
-<span class="n">ENVIRONMENT</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;ENVIRONMENT&quot;</span><span class="p">)</span>  <span class="c1"># get current env name</span>
-<span class="n">SHOW_DOCS_ENVIRONMENT</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;staging&quot;</span><span class="p">)</span>  <span class="c1"># explicit list of allowed envs</span>
+<span class="n">ENVIRONMENT</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">&quot;ENVIRONMENT&quot;</span><span class="p">)</span>  <span class="c1"># 获取当前环境名称</span>
+<span class="n">SHOW_DOCS_ENVIRONMENT</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;local&quot;</span><span class="p">,</span> <span class="s2">&quot;staging&quot;</span><span class="p">)</span>  <span class="c1"># 允许显示文档的环境名称列表</span>
 
 <span class="n">app_configs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;My Cool API&quot;</span><span class="p">}</span>
 <span class="k">if</span> <span class="n">ENVIRONMENT</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SHOW_DOCS_ENVIRONMENT</span><span class="p">:</span>
-   <span class="n">app_configs</span><span class="p">[</span><span class="s2">&quot;openapi_url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># set url for docs as null</span>
+   <span class="n">app_configs</span><span class="p">[</span><span class="s2">&quot;openapi_url&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># 将文档的 url 设置为 null</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="o">**</span><span class="n">app_configs</span><span class="p">)</span>
 </code></pre></div>
-<ol>
-<li>Help FastAPI to generate an easy-to-understand docs</li>
-<li>Set <code>response_model</code>, <code>status_code</code>, <code>description</code>, etc.</li>
-<li>If models and statuses vary, use <code>responses</code> route attribute to add docs for different responses</li>
+</li>
+<li>
+<p>帮助FastAPI生成通俗易懂的文档</p>
+</li>
+<li>设置 <code>response_model</code>, <code>status_code</code>, <code>description</code>, 等字段.</li>
+<li>如果响应模型和状态不同，使用 <code>responses</code> 路由属性为不同的响应添加文档</li>
 </ol>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">status</span>
 
@@ -1191,22 +1203,22 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
 
 <span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
     <span class="s2">&quot;/endpoints&quot;</span><span class="p">,</span>
-    <span class="n">response_model</span><span class="o">=</span><span class="n">DefaultResponseModel</span><span class="p">,</span>  <span class="c1"># default response pydantic model </span>
-    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>  <span class="c1"># default status code</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of the well documented endpoint&quot;</span><span class="p">,</span>
-    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Endpoint Category&quot;</span><span class="p">],</span>
-    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Summary of the Endpoint&quot;</span><span class="p">,</span>
+    <span class="n">response_model</span><span class="o">=</span><span class="n">DefaultResponseModel</span><span class="p">,</span>  <span class="c1"># 默认响应的 pydantic 模型</span>
+    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">,</span>  <span class="c1"># 默认状态码</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;文档接口的清晰描述&quot;</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Endpoint Category&quot;</span><span class="p">],</span>  <span class="c1"># 接口分类</span>
+    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;Summary of the Endpoint&quot;</span><span class="p">,</span>  <span class="c1"># 接口概要</span>
     <span class="n">responses</span><span class="o">=</span><span class="p">{</span>
         <span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">OkResponse</span><span class="p">,</span> <span class="c1"># custom pydantic model for 200 response</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">OkResponse</span><span class="p">,</span> <span class="c1"># 自定义 pydantic 模型，用于 200 响应</span>
             <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Ok Response&quot;</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">CreatedResponse</span><span class="p">,</span>  <span class="c1"># custom pydantic model for 201 response</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">CreatedResponse</span><span class="p">,</span>  <span class="c1"># 自定义 pydantic 模型，用于 201 响应</span>
             <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Creates something from user request &quot;</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">status</span><span class="o">.</span><span class="n">HTTP_202_ACCEPTED</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">AcceptedResponse</span><span class="p">,</span>  <span class="c1"># custom pydantic model for 202 response</span>
+            <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="n">AcceptedResponse</span><span class="p">,</span>  <span class="c1"># 自定义 pydantic 模型，用于 202 响应</span>
             <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Accepts request and handles it later&quot;</span><span class="p">,</span>
         <span class="p">},</span>
     <span class="p">},</span>
@@ -1214,8 +1226,7 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
 <span class="k">async</span> <span class="k">def</span> <span class="nf">documented_route</span><span class="p">():</span>
     <span class="k">pass</span>
 </code></pre></div>
-<p>Will generate docs like this:
-<a class="glightbox" href="images/custom_responses.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FastAPI Generated Custom Response Docs" src="images/custom_responses.png" title="Custom Response Docs" /></a></p>
+<p>即生成的文档就像这样: <a class="glightbox" href="images/custom_responses.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FastAPI Generated Custom Response Docs" src="images/custom_responses.png" title="自定义响应文档" /></a></p>
 <h2 id="10-使用-pydantic-的-basesettings-进行配置">10. 使用 Pydantic 的 BaseSettings 进行配置<a class="headerlink" href="#10-使用-pydantic-的-basesettings-进行配置" title="Permanent link">&para;</a></h2>
 <p>Pydantic 提供了一个<a href="https://pydantic-docs.helpmanual.io/usage/settings/">强大的工具</a> 来解析环境变量并使用其验证器处理它们。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">AnyUrl</span><span class="p">,</span> <span class="n">BaseSettings</span><span class="p">,</span> <span class="n">PostgresDsn</span>
@@ -1231,7 +1242,6 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
     <span class="n">ALLOWED_CORS_ORIGINS</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">AnyUrl</span><span class="p">]</span>
 </code></pre></div>
 <h2 id="11-sqlalchemy-设置数据库键命名约定">11. SQLAlchemy: 设置数据库键命名约定<a class="headerlink" href="#11-sqlalchemy-设置数据库键命名约定" title="Permanent link">&para;</a></h2>
-<p>Explicitly setting the indexes' namings according to your database's convention is preferable over sqlalchemy's.</p>
 <p>根据您的数据库约定明确设置索引的命名优于 <code>sqlalchemy</code> 自动命名。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">MetaData</span>
 
@@ -1293,11 +1303,11 @@ In short, GIL allows only one thread to work at a time, which makes it useless f
 </code></pre></div>
 <p>除非你有同步到数据库连接（打扰了？）或者不打算编写集成测试。</p>
 <h2 id="15-后台任务使用-asynciocreate_task">15. 后台任务使用 asyncio.create_task<a class="headerlink" href="#15-后台任务使用-asynciocreate_task" title="Permanent link">&para;</a></h2>
-<p>BackgroundTasks can <a href="https://github.com/encode/starlette/blob/31164e346b9bd1ce17d968e1301c3bb2c23bb418/starlette/background.py#L25">effectively run</a>
-both blocking and non-blocking I/O operations the same way FastAPI handles blocking routes (<code>sync</code> tasks are run in a threadpool, while <code>async</code> tasks are awaited later)</p>
+<p>BackgroundTasks 可以 <a href="https://github.com/encode/starlette/blob/31164e346b9bd1ce17d968e1301c3bb2c23bb418/starlette/background.py#L25">有效运行</a>
+所有的阻塞和非阻塞I/O操作, 就像FastAPI 处理阻塞路由一样。 (<code>sync</code>(同步)任务在线程池中运行, 而 <code>async</code>(异步) 人物则等待中稍后运行。)</p>
 <ul>
-<li>Don't lie to the worker and don't mark blocking I/O operations as <code>async</code></li>
-<li>Don't use it for heavy CPU intensive tasks.</li>
+<li>不要欺骗工作例程以及将阻塞的I/O操作标记为<code>async</code>(异步).（这样做的话，会阻塞事件调用循环，导致影响其他的异步任务调用）</li>
+<li>不要将它用于繁重的CPU密集型任务。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">BackgroundTasks</span>
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">UUID4</span>
@@ -1359,8 +1369,8 @@ both blocking and non-blocking I/O operations the same way FastAPI handles block
 </code></pre></div>
 <p><strong>解决方案:</strong></p>
 <ol>
-<li>验证输入只允许有效字段并在提供未知数时引发错误</li>
-</ol>
+<li>
+<p>验证输入只允许有效字段并在提供未知数时引发错误</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Extra</span>
 
 <span class="k">class</span> <span class="nc">Article</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -1383,9 +1393,9 @@ both blocking and non-blocking I/O operations the same way FastAPI handles block
 <span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
    <span class="n">content</span><span class="p">:</span> <span class="n">Article</span> <span class="o">|</span> <span class="n">Video</span>
 </code></pre></div>
-<ol>
-<li>如果字段很简单，请使用 Pydantic 的 Smart Union (&gt;v1.9)</li>
-</ol>
+</li>
+<li>
+<p>如果字段很简单，请使用 Pydantic 的 Smart Union (&gt;v1.9)</p>
 <p>如果字段很简单，如 <code>int</code> 或 <code>bool</code>，这是一个很好的解决方案，但它不适用于类等复杂字段。</p>
 <p>没有 Smart Union :</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
@@ -1422,13 +1432,15 @@ both blocking and non-blocking I/O operations the same way FastAPI handles block
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
 <span class="c1"># OUTPUT: Article, 因为 smart_union 不适用于像类这样的复杂字段</span>
 </code></pre></div>
-<ol>
-<li>快速解决方法</li>
-</ol>
+</li>
+<li>
+<p>快速解决方法</p>
 <p>正确排序字段类型: 从最严格的到宽松的校验。</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
    <span class="n">content</span><span class="p">:</span> <span class="n">Video</span> <span class="o">|</span> <span class="n">Article</span>
 </code></pre></div>
+</li>
+</ol>
 <h2 id="19-sql-第一-pydantic-第二">19. SQL-第一, Pydantic-第二<a class="headerlink" href="#19-sql-第一-pydantic-第二" title="Permanent link">&para;</a></h2>
 <ul>
 <li>通常，数据库处理数据的速度比 CPython 更快、更干净。</li>
@@ -1645,10 +1657,10 @@ both blocking and non-blocking I/O operations the same way FastAPI handles block
     <span class="k">await</span> <span class="n">run_in_threadpool</span><span class="p">(</span><span class="n">client</span><span class="o">.</span><span class="n">make_request</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">my_data</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="24-使用-linters-black-isort-autoflake">24. 使用 linters (black, isort, autoflake)<a class="headerlink" href="#24-使用-linters-black-isort-autoflake" title="Permanent link">&para;</a></h2>
-<p>With linters, you can forget about formatting the code and focus on writing the business logic.</p>
-<p>Black is the uncompromising code formatter that eliminates so many small decisions you have to make during development.
-Other linters help you write cleaner code and follow the PEP8.</p>
-<p>It's a popular good practice to use pre-commit hooks, but just using the script was ok for us.</p>
+<p>使用 linters, 您可以忘记格式化代码并专注于编写业务逻辑。</p>
+<p>Black 是一个毫不妥协的代码格式化程序，它消除了您在开发过程中必须做出的许多小决定。
+其他 linter 可帮助您编写更清晰的代码并遵循 PEP8。</p>
+<p>使用<code>pre-commit hook</code>(预提交钩子)是一种流行的良好做法，但仅使用脚本对我们来说就可以了。</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh -e</span>
 <span class="nb">set</span><span class="w"> </span>-x
 
@@ -1667,7 +1679,7 @@ black<span class="w"> </span>src<span class="w"> </span>tests
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月15日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月16日</span>
       
         <br>
         创建日期:
@@ -1723,7 +1735,7 @@ black<span class="w"> </span>src<span class="w"> </span>tests
     <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="assets/javascripts/bundle.c2be25ad.min.js"></script>
       
         <script src="javascripts/mathjax.js"></script>
       
