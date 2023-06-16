@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # FastAPI Best Practices
 
 Opinionated list of best practices and conventions we used at our startup.

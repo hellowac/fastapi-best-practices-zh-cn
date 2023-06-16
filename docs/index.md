@@ -1,3 +1,8 @@
+---
+hide:
+  - navigation
+---
+
 # FastAPI 最佳实践
 
 我们在创业时使用的并且自以为是的最佳实践和惯例列表。
@@ -1047,6 +1052,6 @@ black src tests
 
 在项目的 [issues](https://github.com/zhanymkanov/fastapi-best-practices/issues) 部分查看它们。
 
-例如，[lowercase00](https://github.com/zhanymkanov/fastapi-best-practices/issues/4) 详细描述了他们使用权限和授权、基于类的服务和视图、任务队列的最佳实践， 自定义响应序列化程序，使用 dynaconf 进行配置等。
+例如，[lowercase00](https://github.com/zhanymkanov/fastapi-best-practices/issues/4) 详细描述了他们使用权限和授权、基于类的服务和视图、任务队列的最佳实践， 自定义响应序列化程序，使用 [dynaconf](https://www.dynaconf.com/) 进行配置等。
 
 如果您有任何关于使用 FastAPI 的经验要分享，无论是好是坏，都非常欢迎您创建一个新问题。 阅读它是我们的荣幸。
