@@ -8,17 +8,16 @@
 
 ## 1. 项目结构。 一致且可预测
 
-There are many ways to structure the project, but the best structure is a structure that is consistent, straightforward, and has no surprises.
+构建项目的方法有很多种，但最好的结构是一致、直接且没有意外的结构。
 
-- If looking at the project structure doesn't give you an idea of what the project is about, then the structure might be unclear.
-- If you have to open packages to understand what modules are located in them, then your structure is unclear.
-- If the frequency and location of the files feels random, then your project structure is bad.
-- If looking at the module's location and its name doesn't give you an idea of what's inside it, then your structure is very bad.
+- 如果查看项目结构不能让您了解项目的内容，那么结构可能不清楚。
+- 如果您必须打开包才能了解其中包含哪些模块，那么您的结构就不清楚了。
+- 如果文件的重复率和位置感觉是随机的，那么您的项目结构很糟糕。
+- 如果查看模块的位置及其名称不能让您了解其中的内容，那么您的结构非常糟糕。
 
-Although the project structure, where we separate files by their type (e.g. api, crud, models, schemas)
-presented by [@tiangolo](https://github.com/tiangolo) is good for microservices or projects with fewer scopes,
-we couldn't fit it into our monolith with a lot of domains and modules.
-Structure that I found more scalable and evolvable is inspired by Netflix's [Dispatch](https://github.com/Netflix/dispatch) with some little modifications.
+[@tiangolo](https://github.com/tiangolo) 提供的项目结构（我们按文件类型（例如 api、crud、模型、模式）分隔文件）适用于微服务或范围较小的项目，但我们无法将它放入我们具有大量域和模块的整体中。
+
+我发现更具可扩展性和可演化性的结构是受 Netflix 的 [Dispatch](https://github.com/Netflix/dispatch) 启发并稍作修改。
 
 ```text
 fastapi-project
@@ -26,16 +25,16 @@ fastapi-project
 ├── src
 │   ├── auth
 │   │   ├── router.py
-│   │   ├── schemas.py  # pydantic models
-│   │   ├── models.py  # db models
+│   │   ├── schemas.py  # pydantic 模型
+│   │   ├── models.py  # db 模型
 │   │   ├── dependencies.py
-│   │   ├── config.py  # local configs
+│   │   ├── config.py  # 本地配置
 │   │   ├── constants.py
 │   │   ├── exceptions.py
 │   │   ├── service.py
 │   │   └── utils.py
 │   ├── aws
-│   │   ├── client.py  # client model for external service communication
+│   │   ├── client.py  # 外部服务通信的客户端模型
 │   │   ├── schemas.py
 │   │   ├── config.py
 │   │   ├── constants.py
@@ -50,11 +49,11 @@ fastapi-project
 │   │   ├── exceptions.py
 │   │   ├── service.py
 │   │   └── utils.py
-│   ├── config.py  # global configs
-│   ├── models.py  # global models
-│   ├── exceptions.py  # global exceptions
-│   ├── pagination.py  # global module e.g. pagination
-│   ├── database.py  # db connection related stuff
+│   ├── config.py  # 全局配置
+│   ├── models.py  # 全局模型
+│   ├── exceptions.py  # 全局异常
+│   ├── pagination.py  # 全局模块 例如. pagination 分页
+│   ├── database.py  # 数据库连接相关的东西
 │   └── main.py
 ├── tests/
 │   ├── auth
@@ -72,35 +71,36 @@ fastapi-project
 └── alembic.ini
 ```
 
-1. Store all domain directories inside `src` folder
-   1. `src/` - highest level of an app, contains common models, configs, and constants, etc.
-   2. `src/main.py` - root of the project, which inits the FastAPI app
-2. Each package has its own router, schemas, models, etc.
-   1. `router.py` - is a core of each module with all the endpoints
-   2. `schemas.py` - for pydantic models
-   3. `models.py` - for db models
-   4. `service.py` - module specific business logic  
-   5. `dependencies.py` - router dependencies
-   6. `constants.py` - module specific constants and error codes
-   7. `config.py` - e.g. env vars
-   8. `utils.py` - non-business logic functions, e.g. response normalization, data enrichment, etc.
-   9. `exceptions` - module specific exceptions, e.g. `PostNotFound`, `InvalidUserData`
-3. When package requires services or dependencies or constants from other packages - import them with an explicit module name
+1. 将所有域目录存储在 `src` 文件夹中
+    1. `src/` - 应用程序的最高级别，包含通用模型、配置和常量等。
+    2. `src/main.py` - 项目的根目录，用于启动 FastAPI 应用程序
+2. 每个包都有自己的 router, schemas, models, 等。
+    1. `router.py` - 每个模块的核心，是所有路由接口的入口。
+    2. `schemas.py` - 每个模块的 pydantic的模型
+    3. `models.py` - 每个模块的数据库模型
+    4. `service.py` - 模块特有的业务逻辑
+    5. `dependencies.py` - 路由依赖(Depends)
+    6. `constants.py` - 模块特有的常量和错误码定义
+    7. `config.py` - 例如，环境变量
+    8. `utils.py` - 非业务逻辑功能， 例如. 响应规范化、数据丰富等。
+    9. `exceptions` - 模块特有的一场，例如. `PostNotFound`, `InvalidUserData`
+3. 当包需要来自其他包的服务或依赖项或常量时 - 使用显式模块名称导入它们
 
 ```python
 from src.auth import constants as auth_constants
 from src.notifications import service as notification_service
-from src.posts.constants import ErrorCode as PostsErrorCode  # in case we have Standard ErrorCode in constants module of each package
+from src.posts.constants import ErrorCode as PostsErrorCode  # 如果我们在每个包的常量模块中都有标准错误代码
 ```
 
-## 2. 过度使用 Pydantic 进行数据验证
+## 2. 尽可能的使用 Pydantic 进行数据验证
 
-Pydantic has a rich set of features to validate and transform data.
+Pydantic 具有一组丰富的功能来验证和转换数据。
 
-In addition to regular features like required & non-required fields with default values,
-Pydantic has built-in comprehensive data processing tools like regex, enums for limited allowed options, length validation, email validation, etc.
+除了具有默认值的必填和非必填字段等常规功能外，
 
-```python3
+Pydantic 内置了全面的数据处理工具，如正则表达式、有限允许选项的枚举、长度验证、电子邮件验证等。
+
+```python
 from enum import Enum
 from pydantic import AnyUrl, BaseModel, EmailStr, Field, constr
 
@@ -120,12 +120,13 @@ class UserBase(BaseModel):
 
 ```
 
-## 3. 使用依赖项进行数据验证与数据库
+## 3. 使用Depends(依赖)进行与数据库有关的数据验证
 
-Pydantic can only validate the values from client input.
-Use dependencies to validate data against database constraints like email already exists, user not found, etc.
+Pydantic 可以只验证来自客户端输入的值。
 
-```python3
+使用依赖项根据数据库约束验证数据，例如电子邮件已存在、未找到用户等。
+
+```python
 # dependencies.py
 async def valid_post_id(post_id: UUID4) -> Mapping:
     post = await service.get_by_id(post_id)
@@ -156,14 +157,13 @@ async def get_post_reviews(post: Mapping = Depends(valid_post_id)):
     return post_reviews
 ```
 
-If we didn't put data validation to dependency, we would have to add post_id validation
-for every endpoint and write the same tests for each of them.
+如果我们不将数据验证放在依赖项中，我们将不得不为每个接口添加 `post_id` 验证并为每个接口编写相同的测试。
 
 ## 4. 依赖(Dependency)链
 
-Dependencies can use other dependencies and avoid code repetition for similar logic.
+依赖可以使用其他依赖，避免类似逻辑的代码重复。
 
-```python3
+```python
 # dependencies.py
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -205,19 +205,21 @@ async def get_user_post(post: Mapping = Depends(valid_owned_post)):
 
 ## 5. 解耦和重用依赖关系。 缓存依赖(Dependency)调用结果
 
-Dependencies can be reused multiple times, and they won't be recalculated - FastAPI caches dependency's result within a request's scope by default,
-i.e. if we have a dependency that calls service `get_post_by_id`, we won't be visiting DB each time we call this dependency - only the first function call.
+依赖项可以多次重用，并且不会重新计算 - 默认情况下，FastAPI 将依赖项的结果缓存在请求的范围内。
 
-Knowing this, we can easily decouple dependencies onto multiple smaller functions that operate on a smaller domain and are easier to reuse in other routes.
-For example, in the code below we are using `parse_jwt_data` three times:
+例如：如果我们有一个调用服务 `get_post_by_id` 的依赖项，我们将不会在每次调用该依赖项时都访问数据库 - 只有第一次函数调用时会用到。
+
+知道了这一点，我们可以轻松地将依赖关系解耦到多个较小的函数上，这些函数在较小的域上运行并且更容易在其他路由中重用。
+
+例如，在下面的代码中，我们使用了 3 次 `parse_jwt_data`：
 
 1. `valid_owned_post`
 2. `valid_active_creator`
-3. `get_user_post`,
+3. `get_user_post`
 
-but `parse_jwt_data` is called only once, in the very first call.
+但是 `parse_jwt_data` 在第一次调用时只被调用一次。
 
-```python3
+```python
 # dependencies.py
 from fastapi import BackgroundTasks
 from fastapi.security import OAuth2PasswordBearer
@@ -280,19 +282,17 @@ async def get_user_post(
 
 ## 6. 遵循 REST 规范
 
-Developing RESTful API makes it easier to reuse dependencies in routes like these:
+开发 RESTful API 可以更轻松地在如下路由中重用依赖项：
 
    1. `GET /courses/:course_id`
    2. `GET /courses/:course_id/chapters/:chapter_id/lessons`
    3. `GET /chapters/:chapter_id`
 
-The only caveat is to use the same variable names in the path:
+唯一需要注意的是在路径中使用相同的变量名：
 
-- If you have two endpoints `GET /profiles/:profile_id` and `GET /creators/:creator_id`
-that both validate whether the given `profile_id` exists,  but `GET /creators/:creator_id`
-also checks if the profile is creator, then it's better to rename `creator_id` path variable to `profile_id` and chain those two dependencies.
+- 如果你有两个接口 `GET /profiles/:profile_id` 和 `GET /creators/:creator_id` 两者都验证给定的 `profile_id` 是否存在，但是 `GET /creators/:creator_id` 还检查配置文件是否是创建者，那么最好将 `creator_id` 路径变量重命名为 `profile_id` 并将这两个依赖项链接起来。
 
-```python3
+```python
 # src.profiles.dependencies
 async def valid_profile_id(profile_id: UUID4) -> Mapping:
     profile = await service.get_by_id(post_id)
@@ -302,7 +302,9 @@ async def valid_profile_id(profile_id: UUID4) -> Mapping:
     return profile
 
 # src.creators.dependencies
-async def valid_creator_id(profile: Mapping = Depends(valid_profile_id)) -> Mapping:
+async def valid_creator_id(
+    profile: Mapping = Depends(valid_profile_id)
+) -> Mapping:
     if not profile["is_creator"]:
        raise ProfileNotCreator()
 
@@ -324,12 +326,12 @@ async def get_user_profile_by_id(
 
 ```
 
-Use /me endpoints for users resources (e.g. `GET /profiles/me`, `GET /users/me/posts`)
+使用 `/me` 路由定义来返回当前用户资源 (例如. `GET /profiles/me`, `GET /users/me/posts`)
 
-   1. No need to validate that user id exists - it's already checked via auth method
-   2. No need to check whether the user id belongs to the requester
+   1. 无需检查用户ID是否存在 - 因为auth校验早已校验了其是否存在。
+   2. 无需检查用户ID是否属于请求者
 
-## 7. 不要让你的路由异步，如果你只有阻塞 I/O 操作
+## 7. 如果你的路由只有阻塞的 I/O 操作, 不要让你的路由异步
 
 在底层，FastAPI 可以[有效地处理](https://fastapi.tiangolo.com/async/#path-operation-functions) 异步和同步 I/O 操作。
 
@@ -358,53 +360,54 @@ def good_ping():
 
 @router.get("/perfect-ping")
 async def perfect_ping():
-    await asyncio.sleep(10) # 非阻塞 I/O 操作
-    pong = await service.async_get_pong()  # 非阻塞 I/O 数据库调用
+    await asyncio.sleep(10) # 异步阻塞 I/O 操作
+    pong = await service.async_get_pong()  # 异步阻塞 I/O 数据库调用
 
     return {"pong": pong}
 
 ```
 
-**当我们调用时会发生什么:**
+!!! note  "**当我们调用时会发生什么**"
 
-1. `GET /terrible-ping`
-   1. FastAPI server receives a request and starts handling it
-   2. Server's event loop and all the tasks in the queue will be waiting until `time.sleep()` is finished
-      1. Server thinks `time.sleep()` is not an I/O task, so it waits until it is finished
-      2. Server won't accept any new requests while waiting
-   3. Then, event loop and all the tasks in the queue will be waiting until `service.get_pong` is finished
-      1. Server thinks `service.get_pong()` is not an I/O task, so it waits until it is finished
-      2. Server won't accept any new requests while waiting
-   4. Server returns the response.
-      1. After a response, server starts accepting new requests
-2. `GET /good-ping`
-   1. FastAPI server receives a request and starts handling it
-   2. FastAPI sends the whole route `good_ping` to the threadpool, where a worker thread will run the function
-   3. While `good_ping` is being executed, event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)
-      - Independently of main thread (i.e. our FastAPI app),
-        worker thread will be waiting for `time.sleep` to finish and then for `service.get_pong` to finish
-      - Sync operation blocks only the side thread, not the main one.
-   4. When `good_ping` finishes its work, server returns a response to the client
-3. `GET /perfect-ping`
-   1. FastAPI server receives a request and starts handling it
-   2. FastAPI awaits `asyncio.sleep(10)`
-   3. Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)
-   4. When `asyncio.sleep(10)` is done, servers goes to the next lines and awaits `service.async_get_pong`
-   5. Event loop selects next tasks from the queue and works on them (e.g. accept new request, call db)
-   6. When `service.async_get_pong` is done, server returns a response to the client
+    === "`GET /terrible-ping`"
+    
+        1. FastAPI 服务器收到一个请求并开始处理它
+        2. 服务器的事件循环和队列中的所有任务将等待直到 `time.sleep()` 完成
+            1. 服务器认为 `time.sleep()` 不是一个 I/O 任务, 所以会一直等待并直到它完成。
+            2. 在等待期间服务器不会接受任何新的请求。
+        3. 然后, 事件循环和所有任务会在队列中一起等待，直到`service.get_pong`执行完毕。
+            1. 服务器认为 `service.get_pong()` 不是一个 I/O 任务, 所以他会一直等待，直到它完成。
+            2. 服务器在等待期间不会接受任何新的的请求。
+        4. 服务器返回响应。
+            1. 响应之后, 服务器开始接受新的请求。
+    
+    ===  "`GET /good-ping`"
+    
+        1. FastAPI 服务器收到一个请求并开始处理它
+        2. FastAPI 将整个路由 `good_ping` 分配到线程池中, 池中有工作线程负责运行该路由绑定的函数。
+        3. 在 `good_ping` 执行其间, 事件循环会从队列中选择下一个任务和工作线程给他们， (比如. 接受新请求, 调用数据库)
+            - 工作线程独立于主线程 (比如. 我们的 FastAPI 应用程序), 它将等待 `time.sleep` 完成，然后等待 `service.get_pong` 完成。
+            - Sync(同步)操作只会阻塞子线程，不会阻塞主线程。
+        4. 然后 `good_ping` 完成他的工作, 服务器返回一个响应给客户端。
+    
+    ===  "`GET /perfect-ping`"
+    
+        1. FastAPI 服务器收到一个请求并开始处理它
+        2. FastAPI 异步等待 `asyncio.sleep(10)`
+        3. 事件循环从队列中选择下一个任务并处理它们  (比如. 接受新请求, 调用数据库)
+        4. 当 `asyncio.sleep(10)` 完成时, 服务器转到下一行并等待 `service.async_get_pong` 完成。
+        5. 事件循环从队列中选择下一个任务并处理它们  (比如. 接受新请求, 调用数据库)
+        6. 当 `service.async_get_pong` 完成, 服务器返回一个响应给客户端。
 
-The second caveat is that operations that are non-blocking awaitables or are sent to the thread pool must be I/O intensive tasks (e.g. open file, db call, external API call).
+第二个需要强调的是，non-blocking awaitables (非阻塞等待)或者发送到线程池的操作必须是I/O密集型任务(比如: 打开文件、数据库调用、外部API调用等等)。
 
-- Awaiting CPU-intensive tasks (e.g. heavy calculations, data processing, video transcoding) is worthless since the CPU has to work to finish the tasks,
-while I/O operations are external and server does nothing while waiting for that operations to finish, thus it can go to the next tasks.
-- Running CPU-intensive tasks in other threads also isn't effective, because of [GIL](https://realpython.com/python-gil/).
-In short, GIL allows only one thread to work at a time, which makes it useless for CPU tasks.
-- If you want to optimize CPU intensive tasks you should send them to workers in another process.
+- 等待CPU密集型任务 (比如. 负责的计算, 数据处理, 视频转码) 是没有价值的，因为CPU必须工作才能完成计算任务, 而I/O操作是外部的，服务器在等待该操作完成时什么都不做，因此它可以去做下一个任务。
+- 由于 [GIL](https://realpython.com/python-gil/)，在其他线程中运行 CPU 密集型任务也不是有效的。 简而言之，GIL 一次只允许一个线程工作，这使得它对 CPU密集型任务毫无用处。
+- 如果你想优化 CPU 密集型任务，你应该将它们发送给另一个进程中进行工作。
 
-**Related StackOverflow questions of confused users**
+**StackOverflow上困惑用户的相关问题**:
 
-1. <https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597>
-   - Here you can also check [my answer](https://stackoverflow.com/a/70309597/6927498)
+1. <https://stackoverflow.com/questions/62976648/architecture-flask-vs-fastapi/70309597#70309597> - 同样可以看看 [我的回答](https://stackoverflow.com/a/70309597/6927498)
 2. <https://stackoverflow.com/questions/65342833/fastapi-uploadfile-is-slow-compared-to-flask>
 3. <https://stackoverflow.com/questions/71516140/fastapi-runs-api-calls-in-serial-instead-of-parallel-fashion>
 
@@ -439,11 +442,11 @@ class ORJSONModel(BaseModel):
     class Config:
         json_loads = orjson.loads
         json_dumps = orjson_dumps
-        json_encoders = {datetime: convert_datetime_to_gmt}  # method for customer JSON encoding of datetime fields
+        json_encoders = {datetime: convert_datetime_to_gmt}  # 日期时间字段的自定义 JSON 编码方法
 
     @root_validator()
     def set_null_microseconds(cls, data: dict) -> dict:
-       """Drops microseconds in all the datetime field values."""
+       """在所有日期时间字段值中删除微秒。"""
         datetime_fields = {
             k: v.replace(microsecond=0)
             for k, v in data.items()
@@ -453,41 +456,41 @@ class ORJSONModel(BaseModel):
         return {**data, **datetime_fields}
 
     def serializable_dict(self, **kwargs):
-       """Return a dict which contains only serializable fields."""
+       """返回一个只包含可序列化字段的字典。"""
         default_dict = super().dict(**kwargs)
 
         return jsonable_encoder(default_dict)
 ```
 
-In the example above we have decided to make a global base model which:
+在上面的示例中，我们决定制作一个全局基础模型：
 
-- uses [orjson](https://github.com/ijl/orjson) to serialize data
-- drops microseconds to 0 in all date formats
-- serializes all datetime fields to standard format with explicit timezone
+- 使用 [orjson](https://github.com/ijl/orjson) 用于数据的序列化
+- 在所有日期格式中将微秒降为 0
+- 将所有日期时间字段序列化为具有显式时区的标准格式
 
 ## 9. 文档(Docs)
 
-1. Unless your API is public, hide docs by default. Show it explicitly on the selected envs only.
+1. 除非您的 API 是公开的，否则默认情况下隐藏文档。 仅在选定的环境中明确显示它。
 
-```python
-from fastapi import FastAPI
-from starlette.config import Config
+    ```python
+    from fastapi import FastAPI
+    from starlette.config import Config
+    
+    config = Config(".env")  # 解析 .env 文件中的环境变量
+    
+    ENVIRONMENT = config("ENVIRONMENT")  # 获取当前环境名称
+    SHOW_DOCS_ENVIRONMENT = ("local", "staging")  # 允许显示文档的环境名称列表
+    
+    app_configs = {"title": "My Cool API"}
+    if ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
+       app_configs["openapi_url"] = None  # 将文档的 url 设置为 null
+    
+    app = FastAPI(**app_configs)
+    ```
 
-config = Config(".env")  # parse .env file for env variables
-
-ENVIRONMENT = config("ENVIRONMENT")  # get current env name
-SHOW_DOCS_ENVIRONMENT = ("local", "staging")  # explicit list of allowed envs
-
-app_configs = {"title": "My Cool API"}
-if ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
-   app_configs["openapi_url"] = None  # set url for docs as null
-
-app = FastAPI(**app_configs)
-```
-
-2. Help FastAPI to generate an easy-to-understand docs
-   1. Set `response_model`, `status_code`, `description`, etc.
-   2. If models and statuses vary, use `responses` route attribute to add docs for different responses
+2. 帮助FastAPI生成通俗易懂的文档
+   1. 设置 `response_model`, `status_code`, `description`, 等字段.
+   2. 如果响应模型和状态不同，使用 `responses` 路由属性为不同的响应添加文档
 
 ```python
 from fastapi import APIRouter, status
@@ -496,22 +499,22 @@ router = APIRouter()
 
 @router.post(
     "/endpoints",
-    response_model=DefaultResponseModel,  # default response pydantic model 
-    status_code=status.HTTP_201_CREATED,  # default status code
-    description="Description of the well documented endpoint",
-    tags=["Endpoint Category"],
-    summary="Summary of the Endpoint",
+    response_model=DefaultResponseModel,  # 默认响应的 pydantic 模型
+    status_code=status.HTTP_201_CREATED,  # 默认状态码
+    description="文档接口的清晰描述",
+    tags=["Endpoint Category"],  # 接口分类
+    summary="Summary of the Endpoint",  # 接口概要
     responses={
         status.HTTP_200_OK: {
-            "model": OkResponse, # custom pydantic model for 200 response
+            "model": OkResponse, # 自定义 pydantic 模型，用于 200 响应
             "description": "Ok Response",
         },
         status.HTTP_201_CREATED: {
-            "model": CreatedResponse,  # custom pydantic model for 201 response
+            "model": CreatedResponse,  # 自定义 pydantic 模型，用于 201 响应
             "description": "Creates something from user request ",
         },
         status.HTTP_202_ACCEPTED: {
-            "model": AcceptedResponse,  # custom pydantic model for 202 response
+            "model": AcceptedResponse,  # 自定义 pydantic 模型，用于 202 响应
             "description": "Accepts request and handles it later",
         },
     },
@@ -520,8 +523,7 @@ async def documented_route():
     pass
 ```
 
-Will generate docs like this:
-![FastAPI Generated Custom Response Docs](images/custom_responses.png "Custom Response Docs")
+即生成的文档就像这样: ![FastAPI Generated Custom Response Docs](images/custom_responses.png "自定义响应文档")
 
 ## 10. 使用 Pydantic 的 BaseSettings 进行配置
 
@@ -542,8 +544,6 @@ class AppSettings(BaseSettings):
 ```
 
 ## 11. SQLAlchemy: 设置数据库键命名约定
-
-Explicitly setting the indexes' namings according to your database's convention is preferable over sqlalchemy's.
 
 根据您的数据库约定明确设置索引的命名优于 `sqlalchemy` 自动命名。
 
@@ -619,11 +619,11 @@ async def test_create_post(client: TestClient):
 
 ## 15. 后台任务使用 asyncio.create_task
 
-BackgroundTasks can [effectively run](https://github.com/encode/starlette/blob/31164e346b9bd1ce17d968e1301c3bb2c23bb418/starlette/background.py#L25)
-both blocking and non-blocking I/O operations the same way FastAPI handles blocking routes (`sync` tasks are run in a threadpool, while `async` tasks are awaited later)
+BackgroundTasks 可以 [有效运行](https://github.com/encode/starlette/blob/31164e346b9bd1ce17d968e1301c3bb2c23bb418/starlette/background.py#L25)
+所有的阻塞和非阻塞I/O操作, 就像FastAPI 处理阻塞路由一样。 (`sync`(同步)任务在线程池中运行, 而 `async`(异步) 人物则等待中稍后运行。)
 
-- Don't lie to the worker and don't mark blocking I/O operations as `async`
-- Don't use it for heavy CPU intensive tasks.
+- 不要欺骗工作例程以及将阻塞的I/O操作标记为`async`(异步).（这样做的话，会阻塞事件调用循环，导致影响其他的异步任务调用）
+- 不要将它用于繁重的CPU密集型任务。
 
 ```python
 from fastapi import APIRouter, BackgroundTasks
@@ -703,83 +703,83 @@ print(type(post.content))
 
 1. 验证输入只允许有效字段并在提供未知数时引发错误
 
-```python
-from pydantic import BaseModel, Extra
-
-class Article(BaseModel):
-   text: str | None
-   extra: str | None
-   
-   class Config:
-        extra = Extra.forbid
+    ```python
+    from pydantic import BaseModel, Extra
+    
+    class Article(BaseModel):
+       text: str | None
+       extra: str | None
        
-
-class Video(BaseModel):
-   video_id: int
-   text: str | None
-   extra: str | None
-   
-   class Config:
-        extra = Extra.forbid
-
-   
-class Post(BaseModel):
-   content: Article | Video
-```
+       class Config:
+            extra = Extra.forbid
+           
+    
+    class Video(BaseModel):
+       video_id: int
+       text: str | None
+       extra: str | None
+       
+       class Config:
+            extra = Extra.forbid
+    
+       
+    class Post(BaseModel):
+       content: Article | Video
+    ```
 
 2. 如果字段很简单，请使用 Pydantic 的 Smart Union (>v1.9)
 
-如果字段很简单，如 `int` 或 `bool`，这是一个很好的解决方案，但它不适用于类等复杂字段。
+    如果字段很简单，如 `int` 或 `bool`，这是一个很好的解决方案，但它不适用于类等复杂字段。
 
-没有 Smart Union :
+    没有 Smart Union :
 
-```python
-from pydantic import BaseModel
+    ```python
+    from pydantic import BaseModel
+    
+    
+    class Post(BaseModel):
+       field_1: bool | int
+       field_2: int | str
+       content: Article | Video
+    
+    p = Post(field_1=1, field_2="1", content={"video_id": 1})
+    print(p.field_1)
+    # OUTPUT: True
+    print(type(p.field_2))
+    # OUTPUT: int
+    print(type(p.content))
+    # OUTPUT: Article
+    ```
 
+    有 Smart Union :
 
-class Post(BaseModel):
-   field_1: bool | int
-   field_2: int | str
-   content: Article | Video
-
-p = Post(field_1=1, field_2="1", content={"video_id": 1})
-print(p.field_1)
-# OUTPUT: True
-print(type(p.field_2))
-# OUTPUT: int
-print(type(p.content))
-# OUTPUT: Article
-```
-
-有 Smart Union :
-
-```python
-class Post(BaseModel):
-   field_1: bool | int
-   field_2: int | str
-   content: Article | Video
-
-   class Config:
-      smart_union = True
-
-
-p = Post(field_1=1, field_2="1", content={"video_id": 1})
-print(p.field_1)
-# OUTPUT: 1
-print(type(p.field_2))
-# OUTPUT: str
-print(type(p.content))
-# OUTPUT: Article, 因为 smart_union 不适用于像类这样的复杂字段
-```
+    ```python
+    class Post(BaseModel):
+       field_1: bool | int
+       field_2: int | str
+       content: Article | Video
+    
+       class Config:
+          smart_union = True
+    
+    
+    p = Post(field_1=1, field_2="1", content={"video_id": 1})
+    print(p.field_1)
+    # OUTPUT: 1
+    print(type(p.field_2))
+    # OUTPUT: str
+    print(type(p.content))
+    # OUTPUT: Article, 因为 smart_union 不适用于像类这样的复杂字段
+    ```
 
 3. 快速解决方法
 
-正确排序字段类型: 从最严格的到宽松的校验。
+    正确排序字段类型: 从最严格的到宽松的校验。
 
-```python
-class Post(BaseModel):
-   content: Video | Article
-```
+    ```python
+    class Post(BaseModel):
+       content: Video | Article
+    ```
 
 ## 19. SQL-第一, Pydantic-第二
 
@@ -994,7 +994,7 @@ async def root():
 
 **日志输出:**
 
-```
+```text
 [INFO] [2022-08-28 12:00:00.000000] created pydantic model
 [INFO] [2022-08-28 12:00:00.000010] called dict
 [INFO] [2022-08-28 12:00:00.000020] created pydantic model
@@ -1025,12 +1025,12 @@ async def call_my_sync_library():
 
 ## 24. 使用 linters (black, isort, autoflake)
 
-With linters, you can forget about formatting the code and focus on writing the business logic.
+使用 linters, 您可以忘记格式化代码并专注于编写业务逻辑。
 
-Black is the uncompromising code formatter that eliminates so many small decisions you have to make during development.
-Other linters help you write cleaner code and follow the PEP8.
+Black 是一个毫不妥协的代码格式化程序，它消除了您在开发过程中必须做出的许多小决定。
+其他 linter 可帮助您编写更清晰的代码并遵循 PEP8。
 
-It's a popular good practice to use pre-commit hooks, but just using the script was ok for us.
+使用`pre-commit hook`(预提交钩子)是一种流行的良好做法，但仅使用脚本对我们来说就可以了。
 
 ```shell
 #!/bin/sh -e
