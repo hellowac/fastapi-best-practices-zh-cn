@@ -1,0 +1,996 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../restapi/">
+      
+      
+        <link rel="next" href="../about/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>REST 最佳实践 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#restful-api-最佳实践" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              REST 最佳实践
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../http/" class="md-tabs__link">
+      HTTP 入门
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../restapi/" class="md-tabs__link">
+      REST API
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      REST 最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http/" class="md-nav__link">
+        HTTP 入门
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../restapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          REST 最佳实践
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        REST 最佳实践
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一url-设计" class="md-nav__link">
+    一、URL 设计
+  </a>
+  
+    <nav class="md-nav" aria-label="一、URL 设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-动词--谓语" class="md-nav__link">
+    1.1 动词 + 谓语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-动词的覆盖" class="md-nav__link">
+    1.2 动词的覆盖
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-谓语必须是名词" class="md-nav__link">
+    1.3 谓语必须是名词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-复数-url" class="md-nav__link">
+    1.4 复数 URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-避免多级-url" class="md-nav__link">
+    1.5 避免多级 URL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二状态码" class="md-nav__link">
+    二、状态码
+  </a>
+  
+    <nav class="md-nav" aria-label="二、状态码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-状态码必须精确" class="md-nav__link">
+    2.1 状态码必须精确
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-2xx-状态码" class="md-nav__link">
+    2.2 2xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3xx-状态码" class="md-nav__link">
+    2.3 3xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-4xx-状态码" class="md-nav__link">
+    2.4 4xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-5xx-状态码" class="md-nav__link">
+    2.5 5xx 状态码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三服务器回应" class="md-nav__link">
+    三、服务器回应
+  </a>
+  
+    <nav class="md-nav" aria-label="三、服务器回应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-不要返回纯本文" class="md-nav__link">
+    3.1 不要返回纯本文
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-发生错误时不要返回-200-状态码" class="md-nav__link">
+    3.2 发生错误时，不要返回 200 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-提供链接" class="md-nav__link">
+    3.3 提供链接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四参考链接" class="md-nav__link">
+    四、参考链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一url-设计" class="md-nav__link">
+    一、URL 设计
+  </a>
+  
+    <nav class="md-nav" aria-label="一、URL 设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-动词--谓语" class="md-nav__link">
+    1.1 动词 + 谓语
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-动词的覆盖" class="md-nav__link">
+    1.2 动词的覆盖
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-谓语必须是名词" class="md-nav__link">
+    1.3 谓语必须是名词
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-复数-url" class="md-nav__link">
+    1.4 复数 URL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-避免多级-url" class="md-nav__link">
+    1.5 避免多级 URL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二状态码" class="md-nav__link">
+    二、状态码
+  </a>
+  
+    <nav class="md-nav" aria-label="二、状态码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-状态码必须精确" class="md-nav__link">
+    2.1 状态码必须精确
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-2xx-状态码" class="md-nav__link">
+    2.2 2xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-3xx-状态码" class="md-nav__link">
+    2.3 3xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-4xx-状态码" class="md-nav__link">
+    2.4 4xx 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-5xx-状态码" class="md-nav__link">
+    2.5 5xx 状态码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三服务器回应" class="md-nav__link">
+    三、服务器回应
+  </a>
+  
+    <nav class="md-nav" aria-label="三、服务器回应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-不要返回纯本文" class="md-nav__link">
+    3.1 不要返回纯本文
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-发生错误时不要返回-200-状态码" class="md-nav__link">
+    3.2 发生错误时，不要返回 200 状态码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-提供链接" class="md-nav__link">
+    3.3 提供链接
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四参考链接" class="md-nav__link">
+    四、参考链接
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="restful-api-最佳实践">RESTful API 最佳实践<a class="headerlink" href="#restful-api-最佳实践" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html" target="_blank">RESTful API 最佳实践</a></p>
+<hr />
+<p><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html">RESTful</a> 是目前最流行的 API 设计规范，用于 Web 数据接口的设计。</p>
+<p>它的大原则容易把握，但是细节不容易做对。这篇文章就是总结 API 的设计细节，介绍怎么设计出易于理解和使用的 API。</p>
+<p><a class="glightbox" href="../images/bg2018100301.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../images/bg2018100301.jpg" /></a></p>
+<h2 id="一url-设计">一、URL 设计<a class="headerlink" href="#一url-设计" title="Permanent link">&para;</a></h2>
+<h3 id="11-动词--谓语">1.1 动词 + 谓语<a class="headerlink" href="#11-动词--谓语" title="Permanent link">&para;</a></h3>
+<p>RESTful 的核心思想就是，客户端发出的数据操作指令都是“动词 + 谓语”的结构。比如，<code>GET /articles</code>这个命令，<code>GET</code>是动词，<code>/articles</code>是谓语。</p>
+<p>动词通常就是五种 HTTP 方法，对应 CRUD 操作。</p>
+<blockquote>
+<ul>
+<li>GET：读取（Read）</li>
+<li>POST：新建（Create）</li>
+<li>PUT：更新（Update）</li>
+<li>PATCH：更新（Update），通常是部分更新</li>
+<li>DELETE：删除（Delete）</li>
+</ul>
+</blockquote>
+<p>根据 HTTP 规范，动词一律大写。</p>
+<h3 id="12-动词的覆盖">1.2 动词的覆盖<a class="headerlink" href="#12-动词的覆盖" title="Permanent link">&para;</a></h3>
+<p>有些客户端只能使用<code>GET</code>和<code>POST</code>这两种方法。服务器必须接受<code>POST</code>模拟其他三个方法（<code>PUT</code>、<code>PATCH</code>、<code>DELETE</code>）。</p>
+<p>这时，客户端发出的 HTTP 请求，要加上<code>X-HTTP-Method-Override</code>属性，告诉服务器应该使用哪一个动词，覆盖<code>POST</code>方法。</p>
+<div class="highlight"><pre><span></span><code><span class="err">POST /api/Person/4 HTTP/1.1  </span>
+<span class="err">X-HTTP-Method-Override: PUT</span>
+</code></pre></div>
+<p>上面代码中，<code>X-HTTP-Method-Override</code>指定本次请求的方法是<code>PUT</code>，而不是<code>POST</code>。</p>
+<h3 id="13-谓语必须是名词">1.3 谓语必须是名词<a class="headerlink" href="#13-谓语必须是名词" title="Permanent link">&para;</a></h3>
+<p>谓语就是 API 的 URL，是 HTTP 动词作用的对象。它应该是名词，不能是动词。比如，<code>/articles</code>这个 URL 就是正确的，而下面的 URL 不是名词，所以都是错误的。</p>
+<blockquote>
+<ul>
+<li>/getAllCars</li>
+<li>/createNewCar</li>
+<li>/deleteAllRedCars</li>
+</ul>
+</blockquote>
+<h3 id="14-复数-url">1.4 复数 URL<a class="headerlink" href="#14-复数-url" title="Permanent link">&para;</a></h3>
+<p>既然 URL 是名词，那么应该使用复数，还是单数？</p>
+<p>这没有统一的规定，但是常见的操作是读取一个集合，比如<code>GET /articles</code>（读取所有文章），这里明显应该是复数。</p>
+<p>为了统一起见，建议都使用复数 URL，比如<code>GET /articles/2</code>要好于<code>GET /article/2</code>。</p>
+<h3 id="15-避免多级-url">1.5 避免多级 URL<a class="headerlink" href="#15-避免多级-url" title="Permanent link">&para;</a></h3>
+<p>常见的情况是，资源需要多级分类，因此很容易写出多级的 URL，比如获取某个作者的某一类文章。</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /authors/12/categories/2</span>
+</code></pre></div>
+<p>这种 URL 不利于扩展，语义也不明确，往往要想一会，才能明白含义。</p>
+<p>更好的做法是，除了第一级，其他级别都用查询字符串表达。</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /authors/12?categories=2</span>
+</code></pre></div>
+<p>下面是另一个例子，查询已发布的文章。你可能会设计成下面的 URL。</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /articles/published</span>
+</code></pre></div>
+<p>查询字符串的写法明显更好。</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /articles?published=true</span>
+</code></pre></div>
+<h2 id="二状态码">二、状态码<a class="headerlink" href="#二状态码" title="Permanent link">&para;</a></h2>
+<h3 id="21-状态码必须精确">2.1 状态码必须精确<a class="headerlink" href="#21-状态码必须精确" title="Permanent link">&para;</a></h3>
+<p>客户端的每一次请求，服务器都必须给出回应。回应包括状态码和数据两部分。</p>
+<p>状态码就是一个三位数，分成五个类别。</p>
+<blockquote>
+<ul>
+<li><code>1xx</code>：相息</li>
+<li><code>2xx</code>：操作成功</li>
+<li><code>3xx</code>：重定向</li>
+<li><code>4xx</code>：客户端错误</li>
+<li><code>5xx</code>：服务器错误</li>
+</ul>
+</blockquote>
+<p>这五大类总共包含<a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">100多种</a>状态码，覆盖了绝大部分可能遇到的情况。每一种状态码都有标准的（或者约定的）解释，客户端只需查看状态码，就可以判断出发生了什么情况，所以服务器应该返回尽可能精确的状态码。</p>
+<p>API 不需要<code>1xx</code>状态码，下面介绍其他四类状态码的精确含义。</p>
+<h3 id="22-2xx-状态码">2.2 2xx 状态码<a class="headerlink" href="#22-2xx-状态码" title="Permanent link">&para;</a></h3>
+<p><code>200</code>状态码表示操作成功，但是不同的方法可以返回更精确的状态码。</p>
+<blockquote>
+<ul>
+<li>GET: 200 OK</li>
+<li>POST: 201 Created</li>
+<li>PUT: 200 OK</li>
+<li>PATCH: 200 OK</li>
+<li>DELETE: 204 No Content</li>
+</ul>
+</blockquote>
+<p>上面代码中，<code>POST</code>返回<code>201</code>状态码，表示生成了新的资源；<code>DELETE</code>返回<code>204</code>状态码，表示资源已经不存在。</p>
+<p>此外，<code>202 Accepted</code>状态码表示服务器已经收到请求，但还未进行处理，会在未来再处理，通常用于异步操作。下面是一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+
+{
+  &quot;task&quot;: {
+    &quot;href&quot;: &quot;/api/company/job-management/jobs/2130040&quot;,
+    &quot;id&quot;: &quot;2130040&quot;
+  }
+}
+</code></pre></div>
+<h3 id="23-3xx-状态码">2.3 3xx 状态码<a class="headerlink" href="#23-3xx-状态码" title="Permanent link">&para;</a></h3>
+<p>API 用不到<code>301</code>状态码（永久重定向）和<code>302</code>状态码（暂时重定向，<code>307</code>也是这个含义），因为它们可以由应用级别返回，浏览器会直接跳转，API 级别可以不考虑这两种情况。</p>
+<p>API 用到的<code>3xx</code>状态码，主要是<code>303 See Other</code>，表示参考另一个 URL。它与<code>302</code>和<code>307</code>的含义一样，也是“暂时重定向”，区别在于<code>302</code>和<code>307</code>用于<code>GET</code>请求，而<code>303</code>用于<code>POST</code>、<code>PUT</code>和<code>DELETE</code>请求。收到<code>303</code>以后，浏览器不会自动跳转，而会让用户自己决定下一步怎么办。下面是一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">/api/orders/12345</span>
+</code></pre></div>
+<h3 id="24-4xx-状态码">2.4 4xx 状态码<a class="headerlink" href="#24-4xx-状态码" title="Permanent link">&para;</a></h3>
+<p><code>4xx</code>状态码表示客户端错误，主要有下面几种。</p>
+<p><code>400 Bad Request</code>：服务器不理解客户端的请求，未做任何处理。</p>
+<p><code>401 Unauthorized</code>：用户未提供身份验证凭据，或者没有通过身份验证。</p>
+<p><code>403 Forbidden</code>：用户通过了身份验证，但是不具有访问资源所需的权限。</p>
+<p><code>404 Not Found</code>：所请求的资源不存在，或不可用。</p>
+<p><code>405 Method Not Allowed</code>：用户已经通过身份验证，但是所用的 HTTP 方法不在他的权限之内。</p>
+<p><code>410 Gone</code>：所请求的资源已从这个地址转移，不再可用。</p>
+<p><code>415 Unsupported Media Type</code>：客户端要求的返回格式不支持。比如，API 只能返回 JSON 格式，但是客户端要求返回 XML 格式。</p>
+<p><code>422 Unprocessable Entity</code> ：客户端上传的附件无法处理，导致请求失败。</p>
+<p><code>429 Too Many Requests</code>：客户端的请求次数超过限额。</p>
+<h3 id="25-5xx-状态码">2.5 5xx 状态码<a class="headerlink" href="#25-5xx-状态码" title="Permanent link">&para;</a></h3>
+<p><code>5xx</code>状态码表示服务端错误。一般来说，API 不会向用户透露服务器的详细信息，所以只要两个状态码就够了。</p>
+<p><code>500 Internal Server Error</code>：客户端请求有效，服务器处理时发生了意外。</p>
+<p><code>503 Service Unavailable</code>：服务器无法处理请求，一般用于网站维护状态。</p>
+<h2 id="三服务器回应">三、服务器回应<a class="headerlink" href="#三服务器回应" title="Permanent link">&para;</a></h2>
+<h3 id="31-不要返回纯本文">3.1 不要返回纯本文<a class="headerlink" href="#31-不要返回纯本文" title="Permanent link">&para;</a></h3>
+<p>API 返回的数据格式，不应该是纯文本，而应该是一个 JSON 对象，因为这样才能返回标准的结构化数据。所以，服务器回应的 HTTP 头的<code>Content-Type</code>属性要设为<code>application/json</code>。</p>
+<p>客户端请求时，也要明确告诉服务器，可以接受 JSON 格式，即请求的 HTTP 头的<code>ACCEPT</code>属性也要设成<code>application/json</code>。下面是一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="err">GET /orders/2 HTTP/1.1 </span>
+<span class="err">Accept: application/json</span>
+</code></pre></div>
+<h3 id="32-发生错误时不要返回-200-状态码">3.2 发生错误时，不要返回 200 状态码<a class="headerlink" href="#32-发生错误时不要返回-200-状态码" title="Permanent link">&para;</a></h3>
+<p>有一种不恰当的做法是，即使发生错误，也返回<code>200</code>状态码，把错误信息放在数据体里面，就像下面这样。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;failure&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Expected at least two items in list.&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码中，解析数据体以后，才能得知操作失败。</p>
+<p>这张做法实际上取消了状态码，这是完全不可取的。正确的做法是，状态码反映发生的错误，具体的错误信息放在数据体里面返回。下面是一个例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">400</span> <span class="ne">Bad Request</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Invalid payoad.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">     </span><span class="nt">&quot;surname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;This field is required.&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="33-提供链接">3.3 提供链接<a class="headerlink" href="#33-提供链接" title="Permanent link">&para;</a></h3>
+<p>API 的使用者未必知道，URL 是怎么设计的。一个解决方法就是，在回应中，给出相关链接，便于下一步操作。这样的话，用户只要记住一个 URL，就可以发现其他的 URL。这种方法叫做 HATEOAS。</p>
+<p>举例来说，GitHub 的 API 都在 api.github.com 这个域名。访问它，就可以得到其他 URL。</p>
+<div class="highlight"><pre><span></span><code><span class="err">{</span>
+<span class="err">  ...</span>
+<span class="err">  &quot;feeds_url&quot;: &quot;https://api.github.com/feeds&quot;,</span>
+<span class="err">  &quot;followers_url&quot;: &quot;https://api.github.com/user/followers&quot;,</span>
+<span class="err">  &quot;following_url&quot;: &quot;https://api.github.com/user/following{/target}&quot;,</span>
+<span class="err">  &quot;gists_url&quot;: &quot;https://api.github.com/gists{/gist_id}&quot;,</span>
+<span class="err">  &quot;hub_url&quot;: &quot;https://api.github.com/hub&quot;,</span>
+<span class="err">  ...</span>
+<span class="err">}</span>
+</code></pre></div>
+<p>上面的回应中，挑一个 URL 访问，又可以得到别的 URL。对于用户来说，不需要记住  URL 设计，只要从 api.github.com 一步步查找就可以了。</p>
+<p>HATEOAS 的格式没有统一规定，上面例子中，GitHub 将它们与其他属性放在一起。更好的做法应该是，将相关链接与其他属性分开。</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;In progress&quot;</span><span class="p">,</span>
+<span class="w">   </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;rel&quot;</span><span class="p">:</span><span class="s2">&quot;cancel&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;delete&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="s2">&quot;/api/status/12345&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">,</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;rel&quot;</span><span class="p">:</span><span class="s2">&quot;edit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;method&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;put&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="s2">&quot;/api/status/12345&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="四参考链接">四、参考链接<a class="headerlink" href="#四参考链接" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://blog.florimondmanca.com/restful-api-design-13-best-practices-to-make-your-users-happy">RESTful API Design: 13 Best Practices to Make Your Users Happy</a>, by Florimond Manca</li>
+<li><a href="https://docs.microsoft.com/en-us/azure/architecture/best-practices/api-design">API design</a>, by MicroSoft Azure</li>
+</ul>
+<p>（完）</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月16日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月16日</span>
+      
+    
+  </small>
+</div>
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

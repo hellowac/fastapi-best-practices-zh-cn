@@ -11,15 +11,17 @@
       
       
       
-        <link rel="prev" href="../restapibsetp/">
+        <link rel="prev" href="../http/">
       
+      
+        <link rel="next" href="../restapibsetp/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
-        <title>关于 - FastApi 最佳实践-中文版</title>
+        <title>REST API - FastApi 最佳实践-中文版</title>
       
     
     
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#关于" class="md-skip">
+        <a href="#restful-api-设计指南" class="md-skip">
           跳转至
         </a>
       
@@ -107,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              关于
+              REST API
             
           </span>
         </div>
@@ -209,10 +211,12 @@
         
   
   
+    
+  
 
 
   <li class="md-tabs__item">
-    <a href="../restapi/" class="md-tabs__link">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
       REST API
     </a>
   </li>
@@ -233,12 +237,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="./" class="md-tabs__link md-tabs__link--active">
+    <a href="../about/" class="md-tabs__link">
       关于
     </a>
   </li>
@@ -347,11 +349,115 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../restapi/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          REST API
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         REST API
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一协议" class="md-nav__link">
+    一、协议
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二域名" class="md-nav__link">
+    二、域名
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三版本versioning" class="md-nav__link">
+    三、版本（Versioning）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四路径endpoint" class="md-nav__link">
+    四、路径（Endpoint）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五http动词" class="md-nav__link">
+    五、HTTP动词
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六过滤信息filtering" class="md-nav__link">
+    六、过滤信息（Filtering）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#七状态码status-codes" class="md-nav__link">
+    七、状态码（Status Codes）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#八返回结果" class="md-nav__link">
+    八、返回结果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#九其他" class="md-nav__link">
+    九、其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#十其他" class="md-nav__link">
+    十、其他
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -377,59 +483,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          关于
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
         关于
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#基础" class="md-nav__link">
-    基础
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -444,7 +502,7 @@
               
                 
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -463,15 +521,71 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#基础" class="md-nav__link">
-    基础
+  <a href="#一协议" class="md-nav__link">
+    一、协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
+  <a href="#二域名" class="md-nav__link">
+    二、域名
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三版本versioning" class="md-nav__link">
+    三、版本（Versioning）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四路径endpoint" class="md-nav__link">
+    四、路径（Endpoint）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五http动词" class="md-nav__link">
+    五、HTTP动词
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六过滤信息filtering" class="md-nav__link">
+    六、过滤信息（Filtering）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#七状态码status-codes" class="md-nav__link">
+    七、状态码（Status Codes）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#八返回结果" class="md-nav__link">
+    八、返回结果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#九其他" class="md-nav__link">
+    九、其他
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#十其他" class="md-nav__link">
+    十、其他
   </a>
   
 </li>
@@ -494,18 +608,122 @@
   
 
 
-<h1 id="关于">关于<a class="headerlink" href="#关于" title="Permanent link">&para;</a></h1>
+<h1 id="restful-api-设计指南">Restful API 设计指南<a class="headerlink" href="#restful-api-设计指南" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank">RESTful API 设计指南</a></p>
+<hr />
+<p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。</p>
+<p>因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现<a href="http://www.google.com.hk/search?q=API+first" target="_blank">“API First”</a>的设计思想。</p>
+<p><a href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful API</a>是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇<a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank">《理解RESTful架构》</a>，探讨如何理解这个概念。今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考资料是这篇<a href="http://codeplanet.io/principles-good-restful-api-design/" target="_blank">《Principles of good RESTful API Design》</a>。</p>
+<p><a class="glightbox" href="../images/bg2014052201.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="RESTful API" src="../images/bg2014052201.png" /></a></p>
+<h2 id="一协议">一、协议<a class="headerlink" href="#一协议" title="Permanent link">&para;</a></h2>
+<p>总是使用<a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank">HTTPs协议</a>。</p>
+<h2 id="二域名">二、域名<a class="headerlink" href="#二域名" title="Permanent link">&para;</a></h2>
+<p>应该尽量将API部署在专用域名之下。</p>
+<div class="highlight"><pre><span></span><code>https://api.example.com
+</code></pre></div>
+<p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p>
+<div class="highlight"><pre><span></span><code>https://example.org/api/
+</code></pre></div>
+<h2 id="三版本versioning">三、版本（Versioning）<a class="headerlink" href="#三版本versioning" title="Permanent link">&para;</a></h2>
+<p>应该将API的版本号放入URL。</p>
+<div class="highlight"><pre><span></span><code>https://api.example.com/v1/
+</code></pre></div>
+<p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。</p>
+<h2 id="四路径endpoint">四、路径（Endpoint）<a class="headerlink" href="#四路径endpoint" title="Permanent link">&para;</a></h2>
+<p>路径又称“终点”（endpoint），表示API的具体网址。</p>
+<p>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的“集合”（collection），所以API中的名词也应该使用复数。</p>
+<p>举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。</p>
 <ul>
-<li>翻译自 <a href="https://github.com/zhanymkanov/fastapi-best-practices">https://github.com/zhanymkanov/fastapi-best-practices</a> 有效性参考原文。</li>
+<li><a href="https://api.example.com/v1/zoos">https://api.example.com/v1/zoos</a></li>
+<li><a href="https://api.example.com/v1/animals">https://api.example.com/v1/animals</a></li>
+<li><a href="https://api.example.com/v1/employees">https://api.example.com/v1/employees</a></li>
 </ul>
-<h2 id="基础">基础<a class="headerlink" href="#基础" title="Permanent link">&para;</a></h2>
+<h2 id="五http动词">五、HTTP动词<a class="headerlink" href="#五http动词" title="Permanent link">&para;</a></h2>
+<p>对于资源的具体操作类型，由HTTP动词表示。</p>
+<p>常用的HTTP动词有下面五个（括号里是对应的SQL命令）。</p>
 <ul>
-<li>网络基础, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank">互联网协议入门（一）</a></li>
-<li>HTTP Referer 教程, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2019/06/http-referer.html" target="_blank">HTTP Referer 教程</a></li>
-<li>HTTPS 升级指南, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html" target="_blank">HTTPS 升级指南</a></li>
+<li>GET（SELECT）：从服务器取出资源（一项或多项）。</li>
+<li>POST（CREATE）：在服务器新建一个资源。</li>
+<li>PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</li>
+<li>PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</li>
+<li>DELETE（DELETE）：从服务器删除资源。</li>
 </ul>
-<h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h2>
-<p>作者还有一个仓库: <a href="https://github.com/zhanymkanov/fastapi_production_template">https://github.com/zhanymkanov/fastapi_production_template</a> - 一个基于fastapi的生产模版仓库，也挺不错的。</p>
+<p>还有两个不常用的HTTP动词。</p>
+<ul>
+<li>HEAD：获取资源的元数据。</li>
+<li>OPTIONS：获取信息，关于资源的哪些属性是客户端可以改变的。</li>
+</ul>
+<p>下面是一些例子。</p>
+<ul>
+<li>GET /zoos：列出所有动物园</li>
+<li>POST /zoos：新建一个动物园</li>
+<li>GET /zoos/ID：获取某个指定动物园的信息</li>
+<li>PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）</li>
+<li>PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）</li>
+<li>DELETE /zoos/ID：删除某个动物园</li>
+<li>GET /zoos/ID/animals：列出某个指定动物园的所有动物</li>
+<li>DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物</li>
+</ul>
+<h2 id="六过滤信息filtering">六、过滤信息（Filtering）<a class="headerlink" href="#六过滤信息filtering" title="Permanent link">&para;</a></h2>
+<p>如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。</p>
+<p>下面是一些常见的参数。</p>
+<ul>
+<li>?limit=10：指定返回记录的数量</li>
+<li>?offset=10：指定返回记录的开始位置。</li>
+<li>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</li>
+<li>?animal_type_id=1：指定筛选条件</li>
+</ul>
+<p>参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的。</p>
+<h2 id="七状态码status-codes">七、状态码（Status Codes）<a class="headerlink" href="#七状态码status-codes" title="Permanent link">&para;</a></h2>
+<p>服务器向用户返回的状态码和提示信息，常见的有以下一些（方括号中是该状态码对应的HTTP动词）。</p>
+<ul>
+<li>200 OK – [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。</li>
+<li>201 CREATED – [POST/PUT/PATCH]：用户新建或修改数据成功。</li>
+<li>204 NO CONTENT – [DELETE]：用户删除数据成功。</li>
+<li>400 INVALID REQUEST – [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。。</li>
+<li>404 NOT FOUND – [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。</li>
+<li>500 INTERNAL SERVER ERROR – [*]：服务器发生错误，用户将无法判断发出的请求是否成功。</li>
+</ul>
+<p>状态码的完全列表参见<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html" target="_blank">这里</a>。</p>
+<h2 id="八返回结果">八、返回结果<a class="headerlink" href="#八返回结果" title="Permanent link">&para;</a></h2>
+<p>针对不同操作，服务器向用户返回的结果应该符合以下规范。</p>
+<ul>
+<li>GET /collection：返回资源对象的列表（数组）</li>
+<li>GET /collection/resource：返回单个资源对象</li>
+<li>POST /collection：返回新生成的资源对象</li>
+<li>PUT /collection/resource：返回完整的资源对象</li>
+<li>PATCH /collection/resource：返回完整的资源对象</li>
+<li>DELETE /collection/resource：返回一个空文档</li>
+</ul>
+<h2 id="九其他">九、其他<a class="headerlink" href="#九其他" title="Permanent link">&para;</a></h2>
+<p>（3）API应该是Hypermedia的，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</p>
+<p>比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">&quot;link&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;rel&quot;</span><span class="p">:</span><span class="w">   </span><span class="s2">&quot;collection https://www.example.com/zoos&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;https://api.example.com/zoos&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;List of zoos&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w">  </span><span class="s2">&quot;application/vnd.yourformat+json&quot;</span>
+<span class="p">}}</span>
+</code></pre></div>
+<p>上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。</p>
+<p>Hypermedia API的设计被称为<a href="http://en.wikipedia.org/wiki/HATEOAS" target="_blank">HATEOAS</a>。Github的API就是这种设计，访问<a href="https://api.github.com/" target="_blank">api.github.com</a>会得到一个所有可用API的网址列表。</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;current_user_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.github.com/user&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;authorizations_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://api.github.com/authorizations&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>从上面可以看到，如果想获取当前用户的信息，应该去访问<a href="https://api.github.com/user" target="_blank">api.github.com/user</a>，然后就得到了下面结果。</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Requires authentication&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;documentation_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://developer.github.com/v3&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p>
+<h2 id="十其他">十、其他<a class="headerlink" href="#十其他" title="Permanent link">&para;</a></h2>
+<p>（1）API的身份认证应该使用<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank">OAuth 2.0</a>框架。</p>
+<p>（2）服务器返回的数据格式，应该使用JSON，不应使用XML（更不必提SOAP了）。</p>
+<p>（完）</p>
 
   <hr>
 <div class="md-source-file">
@@ -516,7 +734,7 @@
       
         <br>
         创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月15日</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月16日</span>
       
     
   </small>
