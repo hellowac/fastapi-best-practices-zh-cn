@@ -287,6 +287,10 @@ async def get_user_post(
 
 ## 6. 遵循 REST 规范
 
+!!! note "译者注 - REST API 设计规范"
+
+    参考 [阮一峰](http://www.ruanyifeng.com/){target="_blank"}老师的 - [RESTful API 设计指南](./restapi.md){target="_blank"} 和 [RESTful API 最佳实践](./restapibsetp.md){target="_blank"}
+
 开发 RESTful API 可以更轻松地在如下路由中重用依赖项：
 
    1. `GET /courses/:course_id`
