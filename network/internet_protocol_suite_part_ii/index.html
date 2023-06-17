@@ -1,0 +1,1017 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../internet_protocol_suite_part_i/">
+      
+      
+        <link rel="next" href="../../http/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>互联网协议入门（二） - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#互联网协议入门二" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              互联网协议入门（二）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../internet_protocol_suite_part_i/" class="md-tabs__link md-tabs__link--active">
+        互联网协议入门
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../http/" class="md-tabs__link">
+      HTTP 入门
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../restapi/" class="md-tabs__link">
+      REST API
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../restapibsetp/" class="md-tabs__link">
+      REST 最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../perm_design/" class="md-tabs__link">
+      权限系统设计
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          互联网协议入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议入门
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet_protocol_suite_part_i/" class="md-nav__link">
+        互联网协议入门（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          互联网协议入门（二）
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        互联网协议入门（二）
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#七一个小结" class="md-nav__link">
+    七、一个小结
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#八用户的上网设置" class="md-nav__link">
+    八、用户的上网设置
+  </a>
+  
+    <nav class="md-nav" aria-label="八、用户的上网设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-静态ip地址" class="md-nav__link">
+    8.1 静态IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-动态ip地址" class="md-nav__link">
+    8.2 动态IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-dhcp协议" class="md-nav__link">
+    8.3 DHCP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-上网设置小结" class="md-nav__link">
+    8.4 上网设置：小结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#九一个实例访问网页" class="md-nav__link">
+    九、一个实例：访问网页
+  </a>
+  
+    <nav class="md-nav" aria-label="九、一个实例：访问网页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-本机参数" class="md-nav__link">
+    9.1 本机参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-dns协议" class="md-nav__link">
+    9.2 DNS协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-子网掩码" class="md-nav__link">
+    9.3 子网掩码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-应用层协议" class="md-nav__link">
+    9.4 应用层协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-tcp协议" class="md-nav__link">
+    9.5 TCP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-ip协议" class="md-nav__link">
+    9.6 IP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-以太网协议" class="md-nav__link">
+    9.7 以太网协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#98-服务器端响应" class="md-nav__link">
+    9.8 服务器端响应
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/" class="md-nav__link">
+        HTTP 入门
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restapibsetp/" class="md-nav__link">
+        REST 最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../perm_design/" class="md-nav__link">
+        权限系统设计
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#七一个小结" class="md-nav__link">
+    七、一个小结
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#八用户的上网设置" class="md-nav__link">
+    八、用户的上网设置
+  </a>
+  
+    <nav class="md-nav" aria-label="八、用户的上网设置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-静态ip地址" class="md-nav__link">
+    8.1 静态IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-动态ip地址" class="md-nav__link">
+    8.2 动态IP地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-dhcp协议" class="md-nav__link">
+    8.3 DHCP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-上网设置小结" class="md-nav__link">
+    8.4 上网设置：小结
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#九一个实例访问网页" class="md-nav__link">
+    九、一个实例：访问网页
+  </a>
+  
+    <nav class="md-nav" aria-label="九、一个实例：访问网页">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-本机参数" class="md-nav__link">
+    9.1 本机参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-dns协议" class="md-nav__link">
+    9.2 DNS协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-子网掩码" class="md-nav__link">
+    9.3 子网掩码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-应用层协议" class="md-nav__link">
+    9.4 应用层协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#95-tcp协议" class="md-nav__link">
+    9.5 TCP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#96-ip协议" class="md-nav__link">
+    9.6 IP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#97-以太网协议" class="md-nav__link">
+    9.7 以太网协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#98-服务器端响应" class="md-nav__link">
+    9.8 服务器端响应
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="互联网协议入门二">互联网协议入门（二）<a class="headerlink" href="#互联网协议入门二" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_ii.html" target="_blank">互联网协议入门（二）</a></p>
+<hr />
+<p><a href="../internet_protocol_suite_part_i/">上一篇</a>文章分析了互联网的总体构思，从下至上，每一层协议的设计思想。</p>
+<p>这是从设计者的角度看问题，今天我想切换到用户的角度，看看用户是如何从上至下，与这些协议互动的。</p>
+<hr />
+<p><a class="glightbox" href="../../images/bg2012061109.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../../images/bg2012061109.jpg" /></a></p>
+<p>（接上文）</p>
+<h2 id="七一个小结">七、一个小结<a class="headerlink" href="#七一个小结" title="Permanent link">&para;</a></h2>
+<p>先对前面的内容，做一个小结。</p>
+<p>我们已经知道，网络通信就是交换数据包。电脑A向电脑B发送一个数据包，后者收到了，回复一个数据包，从而实现两台电脑之间的通信。数据包的结构，基本上是下面这样：</p>
+<p><a class="glightbox" href="../../images/bg2012052913%20%281%29.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="11" src="../../images/bg2012052913%20%281%29.png" /></a></p>
+<p>发送这个包，需要知道两个地址：</p>
+<div class="highlight"><pre><span></span><code>　　* 对方的MAC地址
+
+　　* 对方的IP地址
+</code></pre></div>
+<p>有了这两个地址，数据包才能准确送到接收者手中。但是，前面说过，MAC地址有局限性，如果两台电脑不在同一个子网络，就无法知道对方的MAC地址，必须通过<strong>网关</strong>（gateway）转发。</p>
+<p><a class="glightbox" href="../../images/bg2012061101.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061101.jpg" /></a></p>
+<p>上图中，1号电脑要向4号电脑发送一个数据包。它先判断4号电脑是否在同一个子网络，结果发现不是（后文介绍判断方法），于是就把这个数据包发到网关A。网关A通过路由协议，发现4号电脑位于子网络B，又把数据包发给网关B，网关B再转发到4号电脑。</p>
+<p>1号电脑把数据包发到网关A，必须知道网关A的MAC地址。所以，数据包的目标地址，实际上分成两种情况：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>数据包地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同一个子网络</td>
+<td>对方的MAC地址，对方的IP地址</td>
+</tr>
+<tr>
+<td>非同一个子网络</td>
+<td>网关的MAC地址，对方的IP地址</td>
+</tr>
+</tbody>
+</table>
+<p>发送数据包之前，电脑必须判断对方是否在同一个子网络，然后选择相应的MAC地址。接下来，我们就来看，实际使用中，这个过程是怎么完成的。</p>
+<h2 id="八用户的上网设置">八、用户的上网设置<a class="headerlink" href="#八用户的上网设置" title="Permanent link">&para;</a></h2>
+<h3 id="81-静态ip地址">8.1 静态IP地址<a class="headerlink" href="#81-静态ip地址" title="Permanent link">&para;</a></h3>
+<p>你买了一台新电脑，插上网线，开机，这时电脑能够上网吗？</p>
+<p><a class="glightbox" href="../../images/bg2012061110.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../../images/bg2012061110.jpg" /></a></p>
+<p>通常你必须做一些设置。有时，管理员（或者ISP）会告诉你下面四个参数，你把它们填入操作系统，计算机就能连上网了：</p>
+<div class="highlight"><pre><span></span><code>    * 本机的IP地址
+    * 子网掩码
+    * 网关的IP地址
+    * DNS的IP地址
+</code></pre></div>
+<p>下图是Windows系统的设置窗口。</p>
+<p><a class="glightbox" href="../../images/bg2012061111.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../../images/bg2012061111.png" /></a></p>
+<p>这四个参数缺一不可，后文会解释为什么需要知道它们才能上网。由于它们是给定的，计算机每次开机，都会分到同样的IP地址，所以这种情况被称作"<strong>静态IP地址上网</strong>"。</p>
+<p>但是，这样的设置很专业，普通用户望而生畏，而且如果一台电脑的IP地址保持不变，其他电脑就不能使用这个地址，不够灵活。出于这两个原因，大多数用户使用"<strong>动态IP地址上网</strong>"。</p>
+<h3 id="82-动态ip地址">8.2 动态IP地址<a class="headerlink" href="#82-动态ip地址" title="Permanent link">&para;</a></h3>
+<p>所谓"<strong>动态IP地址</strong>"，指计算机开机后，会自动分配到一个IP地址，不用人为设定。它使用的协议叫做<a href="https://zh.wikipedia.org/zh/DHCP">DHCP协议</a>。</p>
+<p>这个协议规定，每一个子网络中，有一台计算机负责管理本网络的所有IP地址，它叫做"<strong>DHCP服务器</strong>"。新的计算机加入网络，必须向"<strong>DHCP服务器</strong>"发送一个"<strong>DHCP请求</strong>"数据包，申请IP地址和相关的网络参数。</p>
+<p>前面说过，如果两台计算机在同一个子网络，必须知道对方的MAC地址和IP地址，才能发送数据包。但是，新加入的计算机不知道这两个地址，怎么发送数据包呢？</p>
+<p>DHCP协议做了一些巧妙的规定。</p>
+<h3 id="83-dhcp协议">8.3 DHCP协议<a class="headerlink" href="#83-dhcp协议" title="Permanent link">&para;</a></h3>
+<p>首先，它是一种应用层协议，建立在<strong>UDP协议</strong>之上，所以整个数据包是这样的：</p>
+<p><a class="glightbox" href="../../images/bg2012061102.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061102.png" /></a></p>
+<p>（1）最前面的"<strong>以太网标头</strong>"，设置发出方（本机）的MAC地址和接收方（DHCP服务器）的MAC地址。前者就是<strong>本机网卡的MAC地址</strong>，后者这时不知道，就填入一个广播地址：<code>FF-FF-FF-FF-FF-FF</code>。</p>
+<p>（2）后面的"<strong>IP标头</strong>"，设置发出方的<code>IP地址</code>和<code>接收方的IP地址</code>。这时，对于这两者，本机都不知道。于是，发出方的IP地址就设为<code>0.0.0.0</code>，接收方的IP地址设为<code>255.255.255.255</code>。</p>
+<p>（3）最后的"<strong>UDP标头</strong>"，设置<code>发出方的端口</code>和<code>接收方的端口</code>。这一部分是<strong>DHCP协议</strong>规定好的，发出方是<code>68端口</code>，接收方是<code>67端口</code>。</p>
+<p>这个数据包构造完成后，就可以发出了。以太网是广播发送，同一个子网络的每台计算机都收到了这个包。因为接收方的MAC地址是<code>FF-FF-FF-FF-FF-FF</code>，看不出是发给谁的，所以每台收到这个包的计算机，还必须分析这个包的IP地址，才能确定是不是发给自己的。当看到发出方IP地址是<code>0.0.0.0</code>，接收方是<code>255.255.255.255</code>，于是DHCP服务器知道"<strong>这个包是发给我的</strong>"，而其他计算机就可以丢弃这个包。</p>
+<p>接下来，DHCP服务器读出这个包的数据内容，分配好IP地址，发送回去一个"<strong>DHCP响应</strong>"数据包。这个响应包的结构也是类似的，以太网标头的MAC地址是双方的网卡地址，IP标头的IP地址是<strong>DHCP服务器</strong>的IP地址（发出方）和<code>255.255.255.255</code>（接收方），<strong>UDP标头</strong>的端口是<code>67</code>（发出方）和<code>68</code>（接收方），分配给请求端的IP地址和本网络的具体参数则包含在Data部分。</p>
+<p>新加入的计算机收到这个响应包，于是就知道了自己的<strong>IP地址</strong>、<strong>子网掩码</strong>、<strong>网关地址</strong>、<strong>DNS服务器</strong>等等参数。</p>
+<h3 id="84-上网设置小结">8.4 上网设置：小结<a class="headerlink" href="#84-上网设置小结" title="Permanent link">&para;</a></h3>
+<p>这个部分，需要记住的就是一点：不管是"<strong>静态IP地址</strong>"还是"<strong>动态IP地址</strong>"，电脑上网的首要步骤，是确定四个参数。这四个值很重要，值得重复一遍：</p>
+<div class="highlight"><pre><span></span><code>    * 本机的IP地址
+    * 子网掩码
+    * 网关的IP地址
+    * DNS的IP地址
+</code></pre></div>
+<p>有了这几个数值，电脑就可以上网"冲浪"了。接下来，我们来看一个实例，当用户访问网页的时候，互联网协议是怎么运作的。</p>
+<h2 id="九一个实例访问网页">九、一个实例：访问网页<a class="headerlink" href="#九一个实例访问网页" title="Permanent link">&para;</a></h2>
+<h3 id="91-本机参数">9.1 本机参数<a class="headerlink" href="#91-本机参数" title="Permanent link">&para;</a></h3>
+<p>我们假定，经过上一节的步骤，用户设置好了自己的网络参数：</p>
+<div class="highlight"><pre><span></span><code>    * 本机的IP地址：192.168.1.100
+    * 子网掩码：255.255.255.0
+    * 网关的IP地址：192.168.1.1
+    * DNS的IP地址：8.8.8.8
+</code></pre></div>
+<p>然后他打开浏览器，想要访问Google，在地址栏输入了网址：<code>www.google.com</code>。</p>
+<p><a class="glightbox" href="../../images/bg2012061103.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061103.png" /></a></p>
+<p>这意味着，浏览器要向Google发送一个网页请求的数据包。</p>
+<h3 id="92-dns协议">9.2 DNS协议<a class="headerlink" href="#92-dns协议" title="Permanent link">&para;</a></h3>
+<p>我们知道，发送数据包，必须要知道对方的<strong>IP地址</strong>。但是，现在，我们只知道网址<code>www.google.com</code>，不知道它的IP地址。</p>
+<p>DNS协议可以帮助我们，将这个网址转换成IP地址。已知DNS服务器为<code>8.8.8.8</code>，于是我们向这个地址发送一个<strong>DNS数据包</strong>（<code>53</code>端口）。</p>
+<p><a class="glightbox" href="../../images/bg2012061105.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061105.png" /></a></p>
+<p>然后，DNS服务器做出响应，告诉我们Google的IP地址是<code>172.194.72.105</code>。于是，我们知道了对方的IP地址。</p>
+<h3 id="93-子网掩码">9.3 子网掩码<a class="headerlink" href="#93-子网掩码" title="Permanent link">&para;</a></h3>
+<p>接下来，我们要判断，这个IP地址是不是在同一个子网络，这就要用到子网掩码。</p>
+<p>已知子网掩码是<code>255.255.255.0</code>，本机用它对自己的IP地址<code>192.168.1.100</code>，做一个二进制的<strong>AND运算</strong>（两个数位都为<code>1</code>，结果为<code>1</code>，否则为<code>0</code>），计算结果为<code>192.168.1.0</code>；然后对Google的IP地址<code>172.194.72.105</code>也做一个AND运算，计算结果为<code>172.194.72.0</code>。这两个结果不相等，所以结论是，<strong>Google与本机不在同一个子网络。</strong></p>
+<p>因此，我们要向Google发送数据包，必须通过网关<code>192.168.1.1</code>转发，也就是说，<strong>接收方的MAC地址将是网关的MAC地址。</strong></p>
+<h3 id="94-应用层协议">9.4 应用层协议<a class="headerlink" href="#94-应用层协议" title="Permanent link">&para;</a></h3>
+<p>浏览网页用的是HTTP协议，它的整个数据包构造是这样的：</p>
+<p><a class="glightbox" href="../../images/bg2012061106.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061106.png" /></a></p>
+<p>HTTP部分的内容，类似于下面这样：</p>
+<div class="highlight"><pre><span></span><code><span class="err">    </span><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+    <span class="l">Host: www.google.com</span>
+<span class="err">　</span>  <span class="l">Connection: keep-alive</span>
+<span class="err">　</span>  <span class="l">User-Agent: Mozilla/5.0 (Windows NT 6.1) ......</span>
+<span class="err">　</span>  <span class="l">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span>
+<span class="err">　</span>  <span class="l">Accept-Encoding: gzip,deflate,sdch</span>
+<span class="err">　</span>  <span class="l">Accept-Language: zh-CN,zh;q=0.8</span>
+<span class="err">　</span>  <span class="l">Accept-Charset: GBK,utf-8;q=0.7,*;q=0.3</span>
+<span class="err">　</span>  <span class="l">Cookie: ... ...</span>
+</code></pre></div>
+<p>我们假定这个部分的长度为4960字节，它会被嵌在TCP数据包之中。</p>
+<h3 id="95-tcp协议">9.5 TCP协议<a class="headerlink" href="#95-tcp协议" title="Permanent link">&para;</a></h3>
+<p>TCP数据包需要设置端口，接收方（Google）的HTTP端口默认是<code>80</code>，发送方（本机）的端口是一个随机生成的<code>1024-65535</code>之间的整数，假定为<code>51775</code>。</p>
+<p>TCP数据包的标头长度为<code>20</code>字节，加上嵌入HTTP的数据包，总长度变为<code>4980</code>字节。</p>
+<h3 id="96-ip协议">9.6 IP协议<a class="headerlink" href="#96-ip协议" title="Permanent link">&para;</a></h3>
+<p>然后，TCP数据包再嵌入IP数据包。IP数据包需要设置双方的IP地址，这是已知的，发送方是<code>192.168.1.100</code>（本机），接收方是<code>172.194.72.105</code>（Google）。</p>
+<p>IP数据包的标头长度为<code>20</code>字节，加上嵌入的TCP数据包，总长度变为5000字节。</p>
+<h3 id="97-以太网协议">9.7 以太网协议<a class="headerlink" href="#97-以太网协议" title="Permanent link">&para;</a></h3>
+<p>最后，IP数据包嵌入以太网数据包。以太网数据包需要设置双方的MAC地址，发送方为本机的网卡MAC地址，接收方为网关<code>192.168.1.1</code>的MAC地址（通过<strong>ARP协议</strong>得到）。</p>
+<p>以太网数据包的数据部分，最大长度为<code>1500</code>字节，而现在的IP数据包长度为<code>5000</code>字节。因此，IP数据包必须分割成四个包。因为每个包都有自己的<strong>IP标头</strong>（20字节），所以四个包的IP数据包的长度分别为<code>1500</code>、<code>1500</code>、<code>1500</code>、<code>560</code>。</p>
+<p><a class="glightbox" href="../../images/bg2012061107.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061107.png" /></a></p>
+<h3 id="98-服务器端响应">9.8 服务器端响应<a class="headerlink" href="#98-服务器端响应" title="Permanent link">&para;</a></h3>
+<p>经过多个网关的转发，Google的服务器<code>172.194.72.105</code>，收到了这四个以太网数据包。</p>
+<p>根据IP标头的序号，Google将四个包拼起来，取出完整的TCP数据包，然后读出里面的"<strong>HTTP请求</strong>"，接着做出"<strong>HTTP响应</strong>"，再用<strong>TCP协议</strong>发回来。</p>
+<p>本机收到HTTP响应以后，就可以将网页显示出来，完成一次网络通信。</p>
+<p><a class="glightbox" href="../../images/bg2012061104.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012061104.jpg" /></a></p>
+<p>这个例子就到此为止，虽然经过了简化，但它大致上反映了互联网协议的整个通信过程。</p>
+<p>（完）</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月17日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月17日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

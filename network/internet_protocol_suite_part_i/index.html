@@ -1,0 +1,1089 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../../raw_en/">
+      
+      
+        <link rel="next" href="../internet_protocol_suite_part_ii/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>互联网协议入门（一） - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#互联网协议入门一" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              互联网协议入门（一）
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        互联网协议入门
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../http/" class="md-tabs__link">
+      HTTP 入门
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../restapi/" class="md-tabs__link">
+      REST API
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../restapibsetp/" class="md-tabs__link">
+      REST 最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../perm_design/" class="md-tabs__link">
+      权限系统设计
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          互联网协议入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议入门
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          互联网协议入门（一）
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        互联网协议入门（一）
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一概述" class="md-nav__link">
+    一、概述
+  </a>
+  
+    <nav class="md-nav" aria-label="一、概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-五层模型" class="md-nav__link">
+    1.1 五层模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-层与协议" class="md-nav__link">
+    1.2 层与协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二实体层" class="md-nav__link">
+    二、实体层
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三链接层" class="md-nav__link">
+    三、链接层
+  </a>
+  
+    <nav class="md-nav" aria-label="三、链接层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-定义" class="md-nav__link">
+    3.1 定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-以太网协议" class="md-nav__link">
+    3.2 以太网协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mac地址" class="md-nav__link">
+    3.3 MAC地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-广播" class="md-nav__link">
+    3.4 广播
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四网络层" class="md-nav__link">
+    四、网络层
+  </a>
+  
+    <nav class="md-nav" aria-label="四、网络层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-网络层的由来" class="md-nav__link">
+    4.1 网络层的由来
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-ip协议" class="md-nav__link">
+    4.2 IP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ip数据包" class="md-nav__link">
+    4.3 IP数据包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-arp协议" class="md-nav__link">
+    4.4 ARP协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五传输层" class="md-nav__link">
+    五、传输层
+  </a>
+  
+    <nav class="md-nav" aria-label="五、传输层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-传输层的由来" class="md-nav__link">
+    5.1 传输层的由来
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-udp协议" class="md-nav__link">
+    5.2 UDP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tcp协议" class="md-nav__link">
+    5.3 TCP协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六应用层" class="md-nav__link">
+    六、应用层
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internet_protocol_suite_part_ii/" class="md-nav__link">
+        互联网协议入门（二）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/" class="md-nav__link">
+        HTTP 入门
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../restapibsetp/" class="md-nav__link">
+        REST 最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../perm_design/" class="md-nav__link">
+        权限系统设计
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一概述" class="md-nav__link">
+    一、概述
+  </a>
+  
+    <nav class="md-nav" aria-label="一、概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-五层模型" class="md-nav__link">
+    1.1 五层模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-层与协议" class="md-nav__link">
+    1.2 层与协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二实体层" class="md-nav__link">
+    二、实体层
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三链接层" class="md-nav__link">
+    三、链接层
+  </a>
+  
+    <nav class="md-nav" aria-label="三、链接层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-定义" class="md-nav__link">
+    3.1 定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-以太网协议" class="md-nav__link">
+    3.2 以太网协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mac地址" class="md-nav__link">
+    3.3 MAC地址
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-广播" class="md-nav__link">
+    3.4 广播
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四网络层" class="md-nav__link">
+    四、网络层
+  </a>
+  
+    <nav class="md-nav" aria-label="四、网络层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-网络层的由来" class="md-nav__link">
+    4.1 网络层的由来
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-ip协议" class="md-nav__link">
+    4.2 IP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-ip数据包" class="md-nav__link">
+    4.3 IP数据包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-arp协议" class="md-nav__link">
+    4.4 ARP协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五传输层" class="md-nav__link">
+    五、传输层
+  </a>
+  
+    <nav class="md-nav" aria-label="五、传输层">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-传输层的由来" class="md-nav__link">
+    5.1 传输层的由来
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-udp协议" class="md-nav__link">
+    5.2 UDP协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-tcp协议" class="md-nav__link">
+    5.3 TCP协议
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六应用层" class="md-nav__link">
+    六、应用层
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="互联网协议入门一">互联网协议入门（一）<a class="headerlink" href="#互联网协议入门一" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank">互联网协议入门（一）</a></p>
+<hr />
+<p>我们每天使用互联网，你是否想过，它是如何实现的？</p>
+<p>全世界几十亿台电脑，连接在一起，两两通信。上海的某一块网卡送出信号，洛杉矶的另一块网卡居然就收到了，两者实际上根本不知道对方的物理位置，你不觉得这是很神奇的事情吗？</p>
+<p>互联网的核心是一系列协议，总称为"互联网协议"（Internet Protocol Suite）。它们对电脑如何连接和组网，做出了详尽的规定。理解了这些协议，就理解了互联网的原理。</p>
+<p>下面就是我的学习笔记。因为这些协议实在太复杂、太庞大，我想整理一个简洁的框架，帮助自己从总体上把握它们。为了保证简单易懂，我做了大量的简化，有些地方并不全面和精确，但是应该能够说清楚互联网的原理。</p>
+<hr />
+<h2 id="一概述">一、概述<a class="headerlink" href="#一概述" title="Permanent link">&para;</a></h2>
+<h3 id="11-五层模型">1.1 五层模型<a class="headerlink" href="#11-五层模型" title="Permanent link">&para;</a></h3>
+<p>互联网的实现，分成好几层。每一层都有自己的功能，就像建筑物一样，每一层都靠下一层支持。</p>
+<p>用户接触到的，只是最上面的一层，根本没有感觉到下面的层。要理解互联网，必须从最下层开始，自下而上理解每一层的功能。</p>
+<p>如何分层有不同的模型，有的模型分七层，有的分四层。我觉得，把互联网分成五层，比较容易解释。</p>
+<p><a class="glightbox" href="../../images/bg2012052902.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="afd" src="../../images/bg2012052902.png" /></a></p>
+<p>如上图所示，最底下的一层叫做"<strong>实体层</strong>"（Physical Layer），最上面的一层叫做"<strong>应用层</strong>"（Application Layer），中间的三层（自下而上）分别是"<strong>链接层</strong>"（Link Layer）、"<strong>网络层</strong>"（Network Layer）和"<strong>传输层</strong>"（Transport Layer）。越下面的层，越靠近硬件；越上面的层，越靠近用户。</p>
+<p>它们叫什么名字，其实并不重要。只需要知道，互联网分成若干层就可以了。</p>
+<h3 id="12-层与协议">1.2 层与协议<a class="headerlink" href="#12-层与协议" title="Permanent link">&para;</a></h3>
+<p>每一层都是为了完成一种功能。为了实现这些功能，就需要大家都遵守共同的规则。</p>
+<p>大家都遵守的规则，就叫做"<strong>协议</strong>"（protocol）。</p>
+<p>互联网的每一层，都定义了很多协议。这些协议的总称，就叫做"<strong>互联网协议</strong>"（Internet Protocol Suite）。它们是互联网的核心，下面介绍每一层的功能，主要就是介绍每一层的主要协议。</p>
+<h2 id="二实体层">二、实体层<a class="headerlink" href="#二实体层" title="Permanent link">&para;</a></h2>
+<p>我们从最底下的一层开始。</p>
+<p>电脑要组网，第一件事要干什么？当然是先把电脑连起来，可以用光缆、电缆、双绞线、无线电波等方式。</p>
+<p><a class="glightbox" href="../../images/bg2012052903.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="asdf" src="../../images/bg2012052903.png" /></a></p>
+<p>这就叫做"<strong>实体层</strong>"，它就是把电脑连接起来的物理手段。它主要规定了网络的一些电气特性，作用是负责传送0和1的电信号。</p>
+<h2 id="三链接层">三、链接层<a class="headerlink" href="#三链接层" title="Permanent link">&para;</a></h2>
+<h3 id="31-定义">3.1 定义<a class="headerlink" href="#31-定义" title="Permanent link">&para;</a></h3>
+<p>单纯的<code>0</code>和<code>1</code>没有任何意义，必须规定解读方式：多少个电信号算一组？每个信号位有何意义？</p>
+<p>这就是"<strong>链接层</strong>"的功能，它在"<strong>实体层</strong>"的上方，确定了0和1的分组方式。</p>
+<h3 id="32-以太网协议">3.2 以太网协议<a class="headerlink" href="#32-以太网协议" title="Permanent link">&para;</a></h3>
+<p>早期的时候，每家公司都有自己的电信号分组方式。逐渐地，一种叫做"<a href="https://zh.wikipedia.org/wiki/%E4%BB%A5%E5%A4%AA%E7%BD%91"><strong>以太网</strong></a>"（Ethernet）的协议，占据了主导地位。</p>
+<p>以太网规定，一组电信号构成一个数据包，叫做"<strong>帧</strong>"（Frame）。每一帧分成两个部分：<strong>标头</strong>（Head）和<strong>数据</strong>（Data）。</p>
+<p><a class="glightbox" href="../../images/bg2012052904.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="af" src="../../images/bg2012052904.png" /></a></p>
+<p>"<strong>标头</strong>"包含数据包的一些说明项，比如发送者、接受者、数据类型等等；"<strong>数据</strong>"则是数据包的具体内容。</p>
+<p>"<strong>标头</strong>"的长度，固定为18字节。"<strong>数据</strong>"的长度，最短为46字节，最长为1500字节。因此，整个"<strong>帧</strong>"最短为64字节，最长为1518字节。如果数据很长，就必须分割成多个帧进行发送。</p>
+<h3 id="33-mac地址">3.3 MAC地址<a class="headerlink" href="#33-mac地址" title="Permanent link">&para;</a></h3>
+<p>上面提到，以太网数据包的"<strong>标头</strong>"，包含了发送者和接受者的信息。那么，发送者和接受者是如何标识呢？</p>
+<p>以太网规定，连入网络的所有设备，都必须具有"<strong>网卡</strong>"接口。数据包必须是从一块网卡，传送到另一块网卡。网卡的地址，就是数据包的发送地址和接收地址，这叫做MAC地址。</p>
+<p><a class="glightbox" href="../../images/bg2012052905.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="adf" src="../../images/bg2012052905.jpg" /></a></p>
+<p>每块网卡出厂的时候，都有一个全世界独一无二的MAC地址，长度是48个二进制位，通常用12个十六进制数表示。</p>
+<p><a class="glightbox" href="../../images/bg2012052906.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012052906.png" /></a></p>
+<p>前6个十六进制数是厂商编号，后6个是该厂商的网卡流水号。有了MAC地址，就可以定位网卡和数据包的路径了。</p>
+<h3 id="34-广播">3.4 广播<a class="headerlink" href="#34-广播" title="Permanent link">&para;</a></h3>
+<p>定义地址只是第一步，后面还有更多的步骤。</p>
+<p>首先，一块网卡怎么会知道另一块网卡的MAC地址？</p>
+<p>回答是有一种ARP协议，可以解决这个问题。这个留到后面介绍，这里只需要知道，以太网数据包必须知道接收方的MAC地址，然后才能发送。</p>
+<p>其次，就算有了MAC地址，系统怎样才能把数据包准确送到接收方？</p>
+<p>回答是以太网采用了一种很"<strong>原始</strong>"的方式，它不是把数据包准确送到接收方，而是向本网络内所有计算机发送，让每台计算机自己判断，是否为接收方。</p>
+<p><a class="glightbox" href="../../images/bg2012052907.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="adf" src="../../images/bg2012052907.png" /></a></p>
+<p>上图中，1号计算机向2号计算机发送一个数据包，同一个子网络的3号、4号、5号计算机都会收到这个包。它们读取这个包的"<strong>标头</strong>"，找到接收方的MAC地址，然后与自身的MAC地址相比较，如果两者相同，就接受这个包，做进一步处理，否则就丢弃这个包。这种发送方式就叫做"<strong>广播</strong>"（broadcasting）。</p>
+<p>有了数据包的定义、网卡的MAC地址、广播的发送方式，"<strong>链接层</strong>"就可以在多台计算机之间传送数据了。</p>
+<h2 id="四网络层">四、网络层<a class="headerlink" href="#四网络层" title="Permanent link">&para;</a></h2>
+<h3 id="41-网络层的由来">4.1 网络层的由来<a class="headerlink" href="#41-网络层的由来" title="Permanent link">&para;</a></h3>
+<p>以太网协议，依靠MAC地址发送数据。理论上，单单依靠MAC地址，上海的网卡就可以找到洛杉矶的网卡了，技术上是可以实现的。</p>
+<p>但是，这样做有一个重大的缺点。以太网采用广播方式发送数据包，所有成员人手一"<strong>包</strong>"，不仅效率低，而且局限在发送者所在的子网络。也就是说，如果两台计算机不在同一个子网络，广播是传不过去的。这种设计是合理的，否则互联网上每一台计算机都会收到所有包，那会引起灾难。</p>
+<p>互联网是无数子网络共同组成的一个巨型网络，很像想象上海和洛杉矶的电脑会在同一个子网络，这几乎是不可能的。</p>
+<p><a class="glightbox" href="../../images/bg2012052914.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="adf" src="../../images/bg2012052914.png" /></a></p>
+<p>因此，必须找到一种方法，能够区分哪些MAC地址属于同一个子网络，哪些不是。如果是同一个子网络，就采用广播方式发送，否则就采用"<strong>路由</strong>"方式发送。（"<strong>路由</strong>"的意思，就是指<em>如何向不同的子网络分发数据包</em>，这是一个很大的主题，本文不涉及。）遗憾的是，MAC地址本身无法做到这一点。它只与厂商有关，与所处网络无关。</p>
+<p>这就导致了"<strong>网络层</strong>"的诞生。它的作用是引进一套新的地址，使得我们能够区分不同的计算机是否属于同一个子网络。这套地址就叫做"<strong>网络地址</strong>"，简称"<strong>网址</strong>"。</p>
+<p>于是，"<strong>网络层</strong>"出现以后，每台计算机有了两种地址，一种是MAC地址，另一种是网络地址。两种地址之间没有任何联系，MAC地址是绑定在网卡上的，网络地址则是管理员分配的，它们只是随机组合在一起。</p>
+<p><mark class="critic"><strong>网络地址帮助我们确定计算机所在的子网络，MAC地址则将数据包送到该子网络中的目标网卡</strong></mark>。因此，从逻辑上可以推断，<strong>必定是先处理网络地址，然后再处理MAC地址。</strong></p>
+<h3 id="42-ip协议">4.2 IP协议<a class="headerlink" href="#42-ip协议" title="Permanent link">&para;</a></h3>
+<p>规定网络地址的协议，叫做IP协议。它所定义的地址，就被称为IP地址。</p>
+<p>目前，广泛采用的是IP协议第四版，简称IPv4。这个版本规定，网络地址由32个二进制位组成。</p>
+<p><a class="glightbox" href="../../images/bg2012052908.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012052908.png" /></a></p>
+<p>习惯上，我们用分成四段的十进制数表示IP地址，从<code>0.0.0.0</code>一直到<code>255.255.255.255</code>。</p>
+<p>互联网上的每一台计算机，都会分配到一个IP地址。这个地址分成两个部分，前一部分代表网络，后一部分代表主机。比如，IP地址<code>172.16.254.1</code>，这是一个<code>32</code>位的地址，假定它的网络部分是前<code>24</code>位（<code>172.16.254</code>），那么主机部分就是后<code>8</code>位（最后的那个<code>1</code>）。处于同一个子网络的电脑，它们IP地址的网络部分必定是相同的，也就是说<code>172.16.254.2</code>应该与<code>172.16.254.1</code>处在同一个子网络。</p>
+<p>但是，问题在于单单从IP地址，我们无法判断网络部分。还是以<code>172.16.254.1</code>为例，它的网络部分，到底是前24位，还是前<code>16</code>位，甚至前<code>28</code>位，从IP地址上是看不出来的。</p>
+<p>那么，怎样才能从IP地址，判断两台计算机是否属于同一个子网络呢？这就要用到另一个参数"<strong>子网掩码</strong>"（subnet mask）。</p>
+<p>所谓"<strong>子网掩码</strong>"，就是<em>表示子网络特征的一个参数</em>。它在形式上等同于IP地址，也是一个<code>32</code>位二进制数字，它的网络部分全部为<code>1</code>，主机部分全部为<code>0</code>。比如，IP地址<code>172.16.254.1</code>，如果已知网络部分是前24位，主机部分是后<code>8</code>位，那么子网络掩码就是<code>11111111.11111111.11111111.00000000</code>，写成十进制就是<code>255.255.255.0</code>。</p>
+<p>知道"<strong>子网掩码</strong>"，我们就能判断，任意两个IP地址是否处在同一个子网络。方法是将两个IP地址与子网掩码分别进行<code>AND</code>运算（两个数位都为<code>1</code>，运算结果为<code>1</code>，否则为<code>0</code>），然后比较结果是否相同，如果是的话，就表明它们在同一个子网络中，否则就不是。</p>
+<p>比如，已知IP地址<code>172.16.254.1</code>和<code>172.16.254.233</code>的子网掩码都是<code>255.255.255.0</code>，请问它们是否在同一个子网络？两者与子网掩码分别进行<code>AND</code>运算，结果都是<code>172.16.254.0</code>，因此它们在同一个子网络。</p>
+<p>总结一下，<strong>IP协议的作用主要有两个，一个是为每一台计算机分配IP地址，另一个是确定哪些地址在同一个子网络。</strong></p>
+<h3 id="43-ip数据包">4.3 IP数据包<a class="headerlink" href="#43-ip数据包" title="Permanent link">&para;</a></h3>
+<p>根据IP协议发送的数据，就叫做<strong>IP数据包</strong>。不难想象，其中必定包括IP地址信息。</p>
+<p>但是前面说过，<strong>以太网数据包</strong>只包含MAC地址，并没有IP地址的栏位。那么是否需要修改数据定义，再添加一个栏位呢？</p>
+<p>回答是不需要，我们可以把<strong>IP数据包</strong>直接放进<strong>以太网数据包</strong>的"<strong>数据</strong>"部分，因此完全不用修改以太网的规格。这就是互联网分层结构的好处：<strong>上层的变动完全不涉及下层的结构</strong>。</p>
+<p>具体来说，<strong>IP数据包</strong>也分为"<strong>标头</strong>"和"<strong>数据</strong>"两个部分。</p>
+<p><a class="glightbox" href="../../images/bg2012052909.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../../images/bg2012052909.png" /></a></p>
+<p>"<strong>标头</strong>"部分主要包括版本、长度、IP地址等信息，"<strong>数据</strong>"部分则是IP数据包的具体内容。它放进<strong>以太网数据包</strong>后，<strong>以太网数据包</strong>就变成了下面这样。</p>
+<p><a class="glightbox" href="../../images/bg2012052910.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="111" src="../../images/bg2012052910.png" /></a></p>
+<p>IP数据包的"<strong>标头</strong>"部分的长度为20到60字节，整个数据包的总长度最大为<code>65,535</code>字节。因此，理论上，一个IP数据包的"<strong>数据</strong>"部分，最长为<code>65,515</code>字节。前面说过，<strong>以太网数据包</strong>的"<strong>数据</strong>"部分，最长只有<code>1500</code>字节。因此，如果IP数据包超过了<code>1500</code>字节，它就需要分割成几个<strong>以太网数据包</strong>，分开发送了。</p>
+<h3 id="44-arp协议">4.4 ARP协议<a class="headerlink" href="#44-arp协议" title="Permanent link">&para;</a></h3>
+<p>关于"<strong>网络层</strong>"，还有最后一点需要说明。</p>
+<p>因为IP数据包是放在<strong>以太网数据包</strong>里发送的，所以我们必须同时知道两个地址，一个是对方的MAC地址，另一个是对方的IP地址。通常情况下，对方的IP地址是已知的（后文会解释），但是我们不知道它的MAC地址。</p>
+<p>所以，我们需要一种机制，能够从IP地址得到MAC地址。 这里又可以分成两种情况。</p>
+<dl>
+<dt>第一种情况</dt>
+<dd>如果两台主机不在同一个子网络，那么事实上没有办法得到对方的MAC地址，只能把数据包传送到两个子网络连接处的"<strong>网关</strong>"（gateway），让网关去处理。</dd>
+<dt>第二种情况</dt>
+<dd>如果两台主机在同一个子网络，那么我们可以用<strong>ARP协议</strong>，得到对方的MAC地址。<strong>ARP协议</strong>也是发出一个数据包（包含在以太网数据包中），其中包含它所要查询主机的IP地址，在对方的MAC地址这一栏，填的是<code>FF:FF:FF:FF:FF:FF</code>，表示这是一个"<strong>广播</strong>"地址。它所在子网络的每一台主机，都会收到这个数据包，从中取出IP地址，与自身的IP地址进行比较。如果两者相同，都做出回复，向对方报告自己的MAC地址，否则就丢弃这个包。</dd>
+</dl>
+<p>总之，有了<strong>ARP协议</strong>之后，我们就可以得到同一个子网络内的主机MAC地址，可以把数据包发送到任意一台主机之上了。</p>
+<h2 id="五传输层">五、传输层<a class="headerlink" href="#五传输层" title="Permanent link">&para;</a></h2>
+<h3 id="51-传输层的由来">5.1 传输层的由来<a class="headerlink" href="#51-传输层的由来" title="Permanent link">&para;</a></h3>
+<p>有了MAC地址和IP地址，我们已经可以在互联网上任意两台主机上建立通信。</p>
+<p>接下来的问题是，同一台主机上有许多程序都需要用到网络，比如，你一边浏览网页，一边与朋友在线聊天。当一个数据包从互联网上发来的时候，你怎么知道，它是表示网页的内容，还是表示在线聊天的内容？</p>
+<p>也就是说，我们还需要一个参数，表示这个数据包到底供哪个程序（进程）使用。这个参数就叫做"<strong>端口</strong>"（port），它其实是每一个使用网卡的程序的编号。每个数据包都发到主机的特定端口，所以不同的程序就能取到自己所需要的数据。</p>
+<p>"<strong>端口</strong>"是<code>0</code>到<code>65535</code>之间的一个整数，正好16个二进制位。<code>0</code>到<code>1023</code>的端口被系统占用，用户只能选用大于<code>1023</code>的端口。不管是浏览网页还是在线聊天，应用程序会随机选用一个端口，然后与服务器的相应端口联系。</p>
+<p>"<strong>传输层</strong>"的功能，就是建立"<ins class="critic"><strong>端口到端口</strong></ins>"的通信。相比之下，"<strong>网络层</strong>"的功能是建立"<ins class="critic"><strong>主机到主机</strong></ins>"的通信。只要确定主机和端口，我们就能实现程序之间的交流。因此，Unix系统就把<strong>主机+端口</strong>，叫做"<ins class="critic"><strong>套接字</strong></ins>"（socket）。有了它，就可以进行网络应用程序开发了。</p>
+<h3 id="52-udp协议">5.2 UDP协议<a class="headerlink" href="#52-udp协议" title="Permanent link">&para;</a></h3>
+<p>现在，我们必须在数据包中加入端口信息，这就需要新的协议。最简单的实现叫做<strong>UDP协议</strong>，它的格式几乎就是在数据前面，加上端口号。</p>
+<p>UDP数据包，也是由"<strong>标头</strong>"和"<strong>数据</strong>"两部分组成。</p>
+<p><a class="glightbox" href="../../images/bg2012052911.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="asdf" src="../../images/bg2012052911.png" /></a></p>
+<p>"<strong>标头</strong>"部分主要定义了发出端口和接收端口，"<strong>数据</strong>"部分就是具体的内容。然后，把整个<strong>UDP数据包</strong>放入<strong>IP数据包</strong>的"<strong>数据</strong>"部分，而前面说过，<strong>IP数据包</strong>又是放在<strong>以太网数据包</strong>之中的，所以整个<strong>以太网数据包</strong>现在变成了下面这样：</p>
+<p><a class="glightbox" href="../../images/bg2012052912.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2012052912.png" /></a></p>
+<p>UDP数据包非常简单，"<strong>标头</strong>"部分一共只有8个字节，总长度不超过<code>65,535</code>字节，正好放进一个<strong>IP数据包</strong>。</p>
+<h3 id="53-tcp协议">5.3 TCP协议<a class="headerlink" href="#53-tcp协议" title="Permanent link">&para;</a></h3>
+<p><strong>UDP协议</strong>的优点是比较简单，容易实现，但是缺点是可靠性较差，一旦数据包发出，无法知道对方是否收到。</p>
+<p>为了解决这个问题，提高网络可靠性，<strong>TCP协议</strong>就诞生了。这个协议非常复杂，但可以近似认为，它就是<strong>有确认机制的UDP协议</strong>，<em>每发出一个数据包都要求确认。如果有一个数据包遗失，就收不到确认，发出方就知道有必要重发这个数据包了。</em></p>
+<p>因此，TCP协议能够确保数据不会遗失。它的缺点是<em>过程复杂、实现困难、消耗较多</em>的资源。</p>
+<p><strong>TCP数据包</strong>和<strong>UDP数据包</strong>一样，都是内嵌在<strong>IP数据包</strong>的"<strong>数据</strong>"部分。<strong>TCP数据包</strong>没有长度限制，理论上可以无限长，但是为了保证网络的效率，通常<strong>TCP数据包</strong>的长度不会超过<strong>IP数据包</strong>的长度，以确保单个<strong>TCP数据包</strong>不必再分割。</p>
+<h2 id="六应用层">六、应用层<a class="headerlink" href="#六应用层" title="Permanent link">&para;</a></h2>
+<p>应用程序收到"<strong>传输层</strong>"的数据，接下来就要进行解读。由于互联网是开放架构，数据来源五花八门，必须事先规定好格式，否则根本无法解读。</p>
+<p>"<strong>应用层</strong>"的作用，就是<ins class="critic"><strong>规定应用程序的数据格式</strong></ins>。</p>
+<p>举例来说，<strong>TCP协议</strong>可以为各种各样的程序传递数据，比如<code>Email</code>、<code>WWW</code>、<code>FTP</code>等等。那么，必须有不同协议规定<code>电子邮件</code>、<code>网页</code>、<code>FTP数据</code>的格式，这些应用程序协议就构成了"<strong>应用层</strong>"。</p>
+<p>这是最高的一层，直接面对用户。它的数据就放在<strong>TCP数据包</strong>的"<strong>数据</strong>"部分。因此，现在的以太网的数据包就变成下面这样。</p>
+<p><a class="glightbox" href="../../images/bg2012052913.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="aaa" src="../../images/bg2012052913.png" /></a></p>
+<p>至此，整个互联网的五层结构，自下而上全部讲完了。这是从系统的角度，解释互联网是如何构成的。<a href="../internet_protocol_suite_part_ii/">下一篇</a>，我反过来，从用户的角度，自上而下看看这个结构是如何发挥作用，完成一次网络数据交换的。</p>
+<p>（完）</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月17日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月17日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
