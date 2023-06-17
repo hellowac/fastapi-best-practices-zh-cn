@@ -77,6 +77,9 @@ extra_javascript:
 nav:
   - 最佳实践: index.md
   - 英文原版: raw_en.md
+  - 互联网协议入门:
+    - network/internet_protocol_suite_part_i.md
+    - network/internet_protocol_suite_part_ii.md
   - HTTP 入门: http.md
   - REST API: restapi.md
   - REST 最佳实践: restapibsetp.md
