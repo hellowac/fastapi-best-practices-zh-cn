@@ -77,11 +77,22 @@ extra_javascript:
 nav:
   - 最佳实践: index.md
   - 英文原版: raw_en.md
-  - 互联网协议入门:
+  - 互联网协议:
     - network/internet_protocol_suite_part_i.md
     - network/internet_protocol_suite_part_ii.md
-  - HTTP 入门: http.md
-  - REST API: restapi.md
-  - REST 最佳实践: restapibsetp.md
-  - 权限系统设计: perm_design.md
+  - HTTP: 
+    - http/index.md
+    - http/http-referer.md
+    - http/https.md
+  - REST ful:
+    - rest-ful/restapi.md
+    - rest-ful/restapibsetp.md
+  - git:
+    - git/git-branch-manage.md
+    - git/git-remote.md
+    - git/git-use-process.md
+    - git/git-cheat-sheet.md
+    - git/git-work-flow.md
+  - 系统设计:
+    - system-design/perm_design.md
   - 关于: about.md

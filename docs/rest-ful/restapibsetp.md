@@ -1,8 +1,3 @@
----
-hide:
-  - navigation
----
-
 # RESTful API 最佳实践
 
 转自: [阮一峰](http://www.ruanyifeng.com/){target="_blank"}老师的 - [RESTful API 最佳实践](https://www.ruanyifeng.com/blog/2018/10/restful-api-best-practices.html){target="_blank"}

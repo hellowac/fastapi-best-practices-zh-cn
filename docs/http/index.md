@@ -1,17 +1,14 @@
----
-hide:
-  - navigation
----
-
 # HTTP 协议入门
 
 转自: [阮一峰](http://www.ruanyifeng.com/){target="_blank"}老师的 - [HTTP 协议入门](https://www.ruanyifeng.com/blog/2016/08/http.html){target="_blank"}
+
+------
 
 HTTP协议是互联网的基础协议，也是网页开发的必备知识，最新版本 HTTP/2 更是让它成为技术热点。
 
 本文介绍HTTP协议的历史演变和设计思路。
 
-![adf](./images/bg2016081901.jpg)
+![adf](../images/bg2016081901.jpg)
 
 ## 一、HTTP/0.9
 
