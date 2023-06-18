@@ -1,0 +1,1156 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../git-remote/">
+      
+      
+        <link rel="next" href="../git-cheat-sheet/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>Git 使用规范流程 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-使用规范流程" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git 使用规范流程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-tabs__link">
+        互联网协议
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../http/" class="md-tabs__link">
+        HTTP
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rest-ful/restapi/" class="md-tabs__link">
+        REST ful
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../git-branch-manage/" class="md-tabs__link md-tabs__link--active">
+        git
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../system-design/perm_design/" class="md-tabs__link">
+        系统设计
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          互联网协议
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-nav__link">
+        互联网协议入门（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_ii/" class="md-nav__link">
+        互联网协议入门（二）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../http/">HTTP</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/http-referer/" class="md-nav__link">
+        HTTP Referer 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/https/" class="md-nav__link">
+        HTTPS 升级指南
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          REST ful
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          REST ful
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapi/" class="md-nav__link">
+        Restful API 设计指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapibsetp/" class="md-nav__link">
+        RESTful API 最佳实践
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-branch-manage/" class="md-nav__link">
+        Git分支管理策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-remote/" class="md-nav__link">
+        Git远程操作详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Git 使用规范流程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Git 使用规范流程
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#第一步新建分支" class="md-nav__link">
+    第一步：新建分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第二步提交分支commit" class="md-nav__link">
+    第二步：提交分支commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第三步撰写提交信息" class="md-nav__link">
+    第三步：撰写提交信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第四步与主干同步" class="md-nav__link">
+    第四步：与主干同步
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第五步合并commit" class="md-nav__link">
+    第五步：合并commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第六步推送到远程仓库" class="md-nav__link">
+    第六步：推送到远程仓库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第七步发出pull-request" class="md-nav__link">
+    第七步：发出Pull Request
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-cheat-sheet/" class="md-nav__link">
+        常用 Git 命令清单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git-work-flow/" class="md-nav__link">
+        Git 协作流程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          系统设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          系统设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/perm_design/" class="md-nav__link">
+        权限系统的设计
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#第一步新建分支" class="md-nav__link">
+    第一步：新建分支
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第二步提交分支commit" class="md-nav__link">
+    第二步：提交分支commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第三步撰写提交信息" class="md-nav__link">
+    第三步：撰写提交信息
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第四步与主干同步" class="md-nav__link">
+    第四步：与主干同步
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第五步合并commit" class="md-nav__link">
+    第五步：合并commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第六步推送到远程仓库" class="md-nav__link">
+    第六步：推送到远程仓库
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#第七步发出pull-request" class="md-nav__link">
+    第七步：发出Pull Request
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="git-使用规范流程">Git 使用规范流程<a class="headerlink" href="#git-使用规范流程" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2015/08/git-use-process.html" target="_blank">Git 使用规范流程</a></p>
+<hr />
+<p>团队开发中，遵循一个合理、清晰的Git使用流程，是非常重要的。</p>
+<p>否则，每个人都提交一堆杂乱无章的<code>commit</code>，项目很快就会变得难以协调和维护。</p>
+<p>下面是<a href="https://github.com/thoughtbot/guides/tree/master/protocol/git">ThoughtBot</a> 的Git使用规范流程。我从中学到了很多，推荐你也这样使用Git。</p>
+<p><a class="glightbox" href="/images/bg2015080501.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="12" src="/images/bg2015080501.png" /></a></p>
+<h2 id="第一步新建分支">第一步：新建分支<a class="headerlink" href="#第一步新建分支" title="Permanent link">&para;</a></h2>
+<p>首先，每次开发新功能，都应该新建一个单独的分支（这方面可以参考<a href="http://www.ruanyifeng.com/blog/2012/07/git.html">《Git分支管理策略》</a>）。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取主干最新代码</span>
+$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>master
+$<span class="w"> </span>git<span class="w"> </span>pull
+
+<span class="c1"># 新建一个开发分支myfeature</span>
+$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>myfeature
+</code></pre></div>
+<h2 id="第二步提交分支commit">第二步：提交分支commit<a class="headerlink" href="#第二步提交分支commit" title="Permanent link">&para;</a></h2>
+<p>分支修改后，就可以提交commit了。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>--all
+git<span class="w"> </span>status
+git<span class="w"> </span>commit<span class="w"> </span>--verbose
+</code></pre></div>
+<p><code>git add</code> 命令的<code>all</code>参数，表示保存所有变化（包括新建、修改和删除）。从Git 2.0开始，<code>all</code>是 <code>git add</code> 的默认参数，所以也可以用 <code>git add .</code> 代替。</p>
+<p><code>git status</code> 命令，用来查看发生变动的文件。</p>
+<p><code>git commit</code> 命令的<code>verbose</code>参数，会列出 <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html">diff</a> 的结果。</p>
+<h2 id="第三步撰写提交信息">第三步：撰写提交信息<a class="headerlink" href="#第三步撰写提交信息" title="Permanent link">&para;</a></h2>
+<p>提交<code>commit</code>时，必须给出完整扼要的提交信息，下面是一个范本。</p>
+<div class="highlight"><pre><span></span><code>Present-tense<span class="w"> </span>summary<span class="w"> </span>under<span class="w"> </span><span class="m">50</span><span class="w"> </span>characters
+
+*<span class="w"> </span>More<span class="w"> </span>information<span class="w"> </span>about<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>under<span class="w"> </span><span class="m">72</span><span class="w"> </span>characters<span class="o">)</span>.
+*<span class="w"> </span>More<span class="w"> </span>information<span class="w"> </span>about<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>under<span class="w"> </span><span class="m">72</span><span class="w"> </span>characters<span class="o">)</span>.
+
+http://project.management-system.com/ticket/123
+</code></pre></div>
+<p>第一行是不超过50个字的提要，然后空一行，罗列出改动原因、主要变动、以及需要注意的问题。最后，提供对应的网址（比如Bug ticket）。</p>
+<h2 id="第四步与主干同步">第四步：与主干同步<a class="headerlink" href="#第四步与主干同步" title="Permanent link">&para;</a></h2>
+<p>分支的开发过程中，要经常与主干保持同步。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>origin
+git<span class="w"> </span>rebase<span class="w"> </span>origin/master
+</code></pre></div>
+<h2 id="第五步合并commit">第五步：合并commit<a class="headerlink" href="#第五步合并commit" title="Permanent link">&para;</a></h2>
+<p>分支开发完成后，很可能有一堆<code>commit</code>，但是合并到主干的时候，往往希望只有一个（或最多两三个）<code>commit</code>，这样不仅清晰，也容易管理。</p>
+<p>那么，怎样才能将多个<code>commit</code>合并呢？这就要用到 <code>git rebase</code> 命令。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>origin/master
+</code></pre></div>
+<p><code>git rebase</code>命令的i参数表示互动（interactive），这时<code>git</code>会打开一个互动界面，进行下一步操作。</p>
+<p>下面采用<a href="https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history">Tute Costa</a>的例子，来解释怎么合并<code>commit</code>。</p>
+<div class="highlight"><pre><span></span><code>pick<span class="w"> </span>07c5abd<span class="w"> </span>Introduce<span class="w"> </span>OpenPGP<span class="w"> </span>and<span class="w"> </span>teach<span class="w"> </span>basic<span class="w"> </span>usage
+pick<span class="w"> </span>de9b1eb<span class="w"> </span>Fix<span class="w"> </span>PostChecker::Post#urls
+pick<span class="w"> </span>3e7ee36<span class="w"> </span>Hey<span class="w"> </span>kids,<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>highlighting
+pick<span class="w"> </span>fa20af3<span class="w"> </span>git<span class="w"> </span>interactive<span class="w"> </span>rebase,<span class="w"> </span>squash,<span class="w"> </span>amend
+
+<span class="c1"># Rebase 8db7e8b..fa20af3 onto 8db7e8b</span>
+<span class="c1">#</span>
+<span class="c1"># Commands:</span>
+<span class="c1">#  p, pick = use commit</span>
+<span class="c1">#  r, reword = use commit, but edit the commit message</span>
+<span class="c1">#  e, edit = use commit, but stop for amending</span>
+<span class="c1">#  s, squash = use commit, but meld into previous commit</span>
+<span class="c1">#  f, fixup = like &quot;squash&quot;, but discard this commit&#39;s log message</span>
+<span class="c1">#  x, exec = run command (the rest of the line) using shell</span>
+<span class="c1">#</span>
+<span class="c1"># These lines can be re-ordered; they are executed from top to bottom.</span>
+<span class="c1">#</span>
+<span class="c1"># If you remove a line here THAT COMMIT WILL BE LOST.</span>
+<span class="c1">#</span>
+<span class="c1"># However, if you remove everything, the rebase will be aborted.</span>
+<span class="c1">#</span>
+<span class="c1"># Note that empty commits are commented out</span>
+</code></pre></div>
+<p>上面的互动界面，先列出当前分支最新的4个<code>commit</code>（越下面越新）。每个<code>commit</code>前面有一个操作命令，默认是<code>pick</code>，表示该行<code>commit</code>被选中，要进行<code>rebase</code>操作。</p>
+<p>4个commit的下面是一大堆注释，列出可以使用的命令。</p>
+<ul>
+<li><strong>pick</strong>：正常选中</li>
+<li><strong>reword</strong>：选中，并且修改提交信息；</li>
+<li><strong>edit</strong>：选中，rebase时会暂停，允许你修改这个commit（参考<a href="https://schacon.github.io/gitbook/4_interactive_rebasing.html">这里</a>）</li>
+<li><strong>squash</strong>：选中，会将当前commit与上一个commit合并</li>
+<li><strong>fixup</strong>：与squash相同，但不会保存当前commit的提交信息</li>
+<li><strong>exec</strong>：执行其他shell命令</li>
+</ul>
+<p>上面这6个命令当中，<code>squash</code>和<code>fixup</code>可以用来合并<code>commit</code>。先把需要合并的<code>commit</code>前面的动词，改成<code>squash</code>（或者s）。</p>
+<div class="highlight"><pre><span></span><code>pick<span class="w"> </span>07c5abd<span class="w"> </span>Introduce<span class="w"> </span>OpenPGP<span class="w"> </span>and<span class="w"> </span>teach<span class="w"> </span>basic<span class="w"> </span>usage
+s<span class="w"> </span>de9b1eb<span class="w"> </span>Fix<span class="w"> </span>PostChecker::Post#urls
+s<span class="w"> </span>3e7ee36<span class="w"> </span>Hey<span class="w"> </span>kids,<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>highlighting
+pick<span class="w"> </span>fa20af3<span class="w"> </span>git<span class="w"> </span>interactive<span class="w"> </span>rebase,<span class="w"> </span>squash,<span class="w"> </span>amend
+</code></pre></div>
+<p>这样一改，执行后，当前分支只会剩下两个<code>commit</code>。第二行和第三行的<code>commit</code>，都会合并到第一行的<code>commit</code>。提交信息会同时包含，这三个<code>commit</code>的提交信息。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This is a combination of 3 commits.</span>
+<span class="c1"># The first commit&#39;s message is:</span>
+Introduce<span class="w"> </span>OpenPGP<span class="w"> </span>and<span class="w"> </span>teach<span class="w"> </span>basic<span class="w"> </span>usage
+
+<span class="c1"># This is the 2nd commit message:</span>
+Fix<span class="w"> </span>PostChecker::Post#urls
+
+<span class="c1"># This is the 3rd commit message:</span>
+Hey<span class="w"> </span>kids,<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>highlighting
+</code></pre></div>
+<p>如果将第三行的<code>squash</code>命令改成<code>fixup</code>命令。</p>
+<div class="highlight"><pre><span></span><code>pick<span class="w"> </span>07c5abd<span class="w"> </span>Introduce<span class="w"> </span>OpenPGP<span class="w"> </span>and<span class="w"> </span>teach<span class="w"> </span>basic<span class="w"> </span>usage
+s<span class="w"> </span>de9b1eb<span class="w"> </span>Fix<span class="w"> </span>PostChecker::Post#urls
+f<span class="w"> </span>3e7ee36<span class="w"> </span>Hey<span class="w"> </span>kids,<span class="w"> </span>stop<span class="w"> </span>all<span class="w"> </span>the<span class="w"> </span>highlighting
+pick<span class="w"> </span>fa20af3<span class="w"> </span>git<span class="w"> </span>interactive<span class="w"> </span>rebase,<span class="w"> </span>squash,<span class="w"> </span>amend
+</code></pre></div>
+<p>运行结果相同，还是会生成两个commit，第二行和第三行的commit，都合并到第一行的commit。但是，新的提交信息里面，第三行commit的提交信息，会被注释掉。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This is a combination of 3 commits.</span>
+<span class="c1"># The first commit&#39;s message is:</span>
+Introduce<span class="w"> </span>OpenPGP<span class="w"> </span>and<span class="w"> </span>teach<span class="w"> </span>basic<span class="w"> </span>usage
+
+<span class="c1"># This is the 2nd commit message:</span>
+Fix<span class="w"> </span>PostChecker::Post#urls
+
+<span class="c1"># This is the 3rd commit message:</span>
+<span class="c1"># Hey kids, stop all the highlighting</span>
+</code></pre></div>
+<p><code>squash</code>和<code>fixup</code>命令，还可以当作命令行参数使用，自动合并<code>commit</code>。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>--fixup<span class="w"> </span>&lt;commit&gt;<span class="w"> </span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>--autosquash<span class="w"> </span>
+</code></pre></div>
+<p>这个用法请参考<a href="http://fle.github.io/git-tip-keep-your-branch-clean-with-fixup-and-autosquash.html">这篇文章</a>，这里就不解释了。</p>
+<h2 id="第六步推送到远程仓库">第六步：推送到远程仓库<a class="headerlink" href="#第六步推送到远程仓库" title="Permanent link">&para;</a></h2>
+<p>合并commit后，就可以推送当前分支到远程仓库了。</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>--force<span class="w"> </span>origin<span class="w"> </span>myfeature
+</code></pre></div>
+<p><code>git push</code>命令要加上<code>force</code>参数，因为<code>rebase</code>以后，分支历史改变了，跟远程分支不一定兼容，有可能要强行推送（参见<a href="http://willi.am/blog/2014/08/12/the-dark-side-of-the-force-push/">这里</a>）。</p>
+<h2 id="第七步发出pull-request">第七步：发出Pull Request<a class="headerlink" href="#第七步发出pull-request" title="Permanent link">&para;</a></h2>
+<p>提交到远程仓库以后，就可以发出 <code>Pull Request</code> 到master分支，然后请求别人进行代码<code>review</code>，确认可以合并到<code>master</code>。</p>
+<p>（完）</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月18日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月18日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
