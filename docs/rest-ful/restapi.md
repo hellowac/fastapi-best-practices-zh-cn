@@ -10,7 +10,7 @@
 
 [RESTful API](http://en.wikipedia.org/wiki/Representational_state_transfer){target="_blank"}是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇[《理解RESTful架构》](http://www.ruanyifeng.com/blog/2011/09/restful.html){target="_blank"}，探讨如何理解这个概念。今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考资料是这篇[《Principles of good RESTful API Design》](http://codeplanet.io/principles-good-restful-api-design/){target="_blank"}。
 
-![RESTful API](/images/bg2014052201.png)
+![RESTful API](../images/bg2014052201.png)
 
 ## 一、协议
 

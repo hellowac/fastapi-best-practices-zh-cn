@@ -10,7 +10,7 @@
 
 下面是[ThoughtBot](https://github.com/thoughtbot/guides/tree/master/protocol/git) 的Git使用规范流程。我从中学到了很多，推荐你也这样使用Git。
 
-![12](/images/bg2015080501.png)
+![12](../images/bg2015080501.png)
 
 ## 第一步：新建分支
 
