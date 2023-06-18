@@ -87,7 +87,7 @@ nav:
   - REST ful:
     - rest-ful/restapi.md
     - rest-ful/restapibsetp.md
-  - git:
+  - Git:
     - git/git-branch-manage.md
     - git/git-remote.md
     - git/git-use-process.md
