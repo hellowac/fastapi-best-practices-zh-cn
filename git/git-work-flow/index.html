@@ -1188,7 +1188,7 @@
 <h3 id="31-流程">3.1 流程<a class="headerlink" href="#31-流程" title="Permanent link">&para;</a></h3>
 <p>它只有一个长期分支，就是<code>master</code>，因此用起来非常简单。</p>
 <p>官方推荐的<a href="https://guides.github.com/introduction/flow/index.html">流程</a>如下。</p>
-<p><a class="glightbox" href="/images/bg2015122305.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122305.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122305.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122305.png" /></a></p>
 <dl>
 <dt>第一步</dt>
 <dd>根据需求，从<code>master</code>拉出新分支，不区分功能分支或补丁分支。</dd>
@@ -1218,19 +1218,19 @@
 </blockquote>
 <h3 id="42-持续发布">4.2 持续发布<a class="headerlink" href="#42-持续发布" title="Permanent link">&para;</a></h3>
 <p>Gitlab flow 分成两种情况，适应不同的开发流程。</p>
-<p><a class="glightbox" href="/images/bg2015122306.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122306.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122306.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122306.png" /></a></p>
 <p>对于"持续发布"的项目，它建议在<code>master</code>分支以外，再建立不同的环境分支。比如，"开发环境"的分支是<code>master</code>，"预发环境"的分支是<code>pre-production</code>，"生产环境"的分支是<code>production</code>。</p>
 <p>开发分支是预发分支的"上游"，预发分支又是生产分支的"上游"。代码的变化，必须由"上游"向"下游"发展。比如，生产环境出现了bug，这时就要新建一个功能分支，先把它合并到<code>master</code>，确认没有问题，再<code>cherry-pick</code>到<code>pre-production</code>，这一步也没有问题，才进入<code>production</code>。</p>
 <p>只有紧急情况，才允许跳过上游，直接合并到下游分支。</p>
 <h3 id="43-版本发布">4.3 版本发布<a class="headerlink" href="#43-版本发布" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="/images/bg2015122307.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122307.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122307.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122307.png" /></a></p>
 <p>对于"版本发布"的项目，建议的做法是每一个稳定版本，都要从<code>master</code>分支拉出一个分支，比如<code>2-3-stable</code>、<code>2-4-stable</code>等等。</p>
 <p>以后，只有修补bug，才允许将代码合并到这些分支，并且此时要更新小版本号。</p>
 <h2 id="五一些小技巧">五、一些小技巧<a class="headerlink" href="#五一些小技巧" title="Permanent link">&para;</a></h2>
 <h3 id="51-pull-request">5.1 Pull Request<a class="headerlink" href="#51-pull-request" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="/images/bg2015122310.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122310.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122310.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122310.png" /></a></p>
 <p>功能分支合并进<code>master</code>分支，必须通过Pull Request（Gitlab里面叫做 Merge Request）。</p>
-<p><a class="glightbox" href="/images/bg2015122308.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122308.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122308.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122308.png" /></a></p>
 <p>前面说过，Pull Request本质是一种对话机制，你可以在提交的时候，<code>@</code>相关<a href="https://github.com/blog/1004-mention-autocompletion">人员</a>或<a href="https://github.com/blog/1121-introducing-team-mentions">团队</a>，引起他们的注意。</p>
 <h3 id="52-protected-branch">5.2 Protected branch<a class="headerlink" href="#52-protected-branch" title="Permanent link">&para;</a></h3>
 <p><code>master</code>分支应该受到保护，不是每个人都可以修改这个分支，以及拥有审批 Pull Request 的权力。</p>
@@ -1238,7 +1238,7 @@
 <h3 id="53-issue">5.3 Issue<a class="headerlink" href="#53-issue" title="Permanent link">&para;</a></h3>
 <p>Issue 用于 Bug追踪和需求管理。建议先新建 Issue，再新建对应的功能分支。功能分支总是为了解决一个或多个 Issue。</p>
 <p>功能分支的名称，可以与issue的名字保持一致，并且以issue的编号起首，比如"15-require-a-password-to-change-it"。</p>
-<p><a class="glightbox" href="/images/bg2015122311.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122311.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122311.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122311.png" /></a></p>
 <p>开发完成后，在提交说明里面，可以写上"fixes #14"或者"closes #67"。Github规定，只要commit message里面有下面这些<a href="https://help.github.com/articles/closing-issues-via-commit-messages/">动词</a> + 编号，就会关闭对应的issue。</p>
 <blockquote>
 <ul>
@@ -1260,7 +1260,7 @@
 <p>前者不利于保持commit信息的清晰，也不利于以后的回滚，建议总是采用后者（即使用<code>--no-ff</code>参数）。只要发生合并，就要有一个单独的合并节点。</p>
 <h3 id="55-squash-多个commit">5.5 Squash 多个commit<a class="headerlink" href="#55-squash-多个commit" title="Permanent link">&para;</a></h3>
 <p>为了便于他人阅读你的提交，也便于<code>cherry-pick</code>或撤销代码变化，在发起Pull Request之前，应该把多个commit合并成一个。（前提是，该分支只有你一个人开发，且没有跟<code>master</code>合并过。）</p>
-<p><a class="glightbox" href="/images/bg2015122309.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/images/bg2015122309.png" /></a></p>
+<p><a class="glightbox" href="../../images/bg2015122309.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../images/bg2015122309.png" /></a></p>
 <p>这可以采用<code>rebase</code>命令附带的<code>squash</code>操作，具体方法请参考我写的<a href="http://www.ruanyifeng.com/blog/2015/08/git-use-process.html">《Git 使用规范流程》</a>。</p>
 <p>（完）</p>
 

@@ -959,11 +959,11 @@
 <p>很多开发者知道这个字段，但是说不清它的具体细节。本文详细介绍该字段。</p>
 <h2 id="一referer-的含义">一、Referer 的含义<a class="headerlink" href="#一referer-的含义" title="Permanent link">&para;</a></h2>
 <p>现实生活中，购买服务或加入会员的时候，往往要求提供信息：“你从哪里知道了我们？”</p>
-<p><a class="glightbox" href="/images/bg2019060401.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="11" src="/images/bg2019060401.jpg" /></a></p>
+<p><a class="glightbox" href="../../images/bg2019060401.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="11" src="../../images/bg2019060401.jpg" /></a></p>
 <p>这叫做<strong>引荐人</strong>（referrer），谁引荐了你？对于公司来说，这是很有用的信息。</p>
 <p>互联网也是一样，你不会无缘无故访问一个网页，总是有人告诉你，可以去那里看看。服务器也想知道，你的“<strong>引荐人</strong>”是谁？</p>
 <p>HTTP 协议在<strong>请求</strong>（request）的<strong>头信息</strong>里面，设计了一个<code>Referer</code>字段，给出“<strong>引荐网页</strong>”的 URL。</p>
-<p><a class="glightbox" href="/images/bg2019060402.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="/images/bg2019060402.jpg" /></a></p>
+<p><a class="glightbox" href="../../images/bg2019060402.jpg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/bg2019060402.jpg" /></a></p>
 <p>这个字段是可选的。客户端发送请求的时候，自主决定是否加上该字段。</p>
 <p>很有趣的是，这个字段的拼写是错的。<code>Referer</code>的正确拼写是<code>Referrer</code>，但是写入标准的时候，不知为何，没人发现少了一个字母<code>r</code>。标准定案以后，只能将错就错，所有头信息的该字段都一律错误拼写成<code>Referer</code>。</p>
 <h2 id="二referer-的发生场景">二、Referer 的发生场景<a class="headerlink" href="#二referer-的发生场景" title="Permanent link">&para;</a></h2>
