@@ -1,3 +1,5 @@
 venv/
 *.pyc
 site
+# Ignore dynaconf secret files
+.secrets.*

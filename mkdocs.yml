@@ -77,6 +77,7 @@ extra_javascript:
 nav:
   - 最佳实践: index.md
   - 英文原版: raw_en.md
+  - Asyncio: asyncio.md
   - 互联网协议:
     - network/internet_protocol_suite_part_i.md
     - network/internet_protocol_suite_part_ii.md
