@@ -1,0 +1,3477 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../asyncio/">
+      
+      
+        <link rel="next" href="../network/internet_protocol_suite_part_i/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+    
+    
+      
+        <title>英文完整指南 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#python-asyncio-the-complete-guide" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              英文完整指南
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../asyncio/" class="md-tabs__link md-tabs__link--active">
+        Asyncio
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../network/internet_protocol_suite_part_i/" class="md-tabs__link">
+        互联网协议
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../http/" class="md-tabs__link">
+        HTTP
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../rest-ful/restapi/" class="md-tabs__link">
+        REST ful
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../git/git-branch-manage/" class="md-tabs__link">
+        Git
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../system-design/perm_design/" class="md-tabs__link">
+        系统设计
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Asyncio
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Asyncio
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asyncio/" class="md-nav__link">
+        中文简单指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          英文完整指南
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        英文完整指南
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-asynchronous-programming" class="md-nav__link">
+    1. What is Asynchronous Programming
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Asynchronous Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-asynchronous-tasks" class="md-nav__link">
+    1.1 Asynchronous Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-asynchronous-programming" class="md-nav__link">
+    1.2 Asynchronous Programming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-asynchronous-programming-in-python" class="md-nav__link">
+    1.3 Asynchronous Programming in Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-asyncio" class="md-nav__link">
+    2. What is Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What is Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-changes-to-python-to-add-support-for-coroutines" class="md-nav__link">
+    2.1 Changes to Python to add Support for Coroutines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-the-asyncio-module" class="md-nav__link">
+    2.2 The asyncio Module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-when-to-use-asyncio" class="md-nav__link">
+    3. When to Use Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="3. When to Use Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-reasons-to-use-asyncio-in-python" class="md-nav__link">
+    3.1 Reasons to Use Asyncio in Python
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-other-reasons-to-use-asyncio" class="md-nav__link">
+    3.2 Other Reasons to Use Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-when-to-not-use-asyncio" class="md-nav__link">
+    3.3 When to Not Use Asyncio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-coroutines-in-python" class="md-nav__link">
+    4. Coroutines in Python
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Coroutines in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-what-is-a-coroutine" class="md-nav__link">
+    4.1 What is a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-coroutine-vs-routine-and-subroutine" class="md-nav__link">
+    4.2 Coroutine vs Routine and Subroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-coroutine-vs-generator" class="md-nav__link">
+    4.3 Coroutine vs Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-coroutine-vs-task" class="md-nav__link">
+    4.4 Coroutine vs Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-coroutine-vs-thread" class="md-nav__link">
+    4.5 Coroutine vs Thread
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-coroutine-vs-process" class="md-nav__link">
+    4.6 Coroutine vs Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-when-were-coroutines-added-to-python" class="md-nav__link">
+    4.7 When Were Coroutines Added to Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-define-create-and-run-coroutines" class="md-nav__link">
+    5. Define, Create and Run Coroutines
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Define, Create and Run Coroutines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-how-to-define-a-coroutine" class="md-nav__link">
+    5.1 How to Define a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-how-to-create-a-coroutine" class="md-nav__link">
+    5.2 How to Create a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-how-to-run-a-coroutine-from-python" class="md-nav__link">
+    5.3 How to Run a Coroutine From Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-the-event-loop" class="md-nav__link">
+    6. What is the Event Loop
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What is the Event Loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-what-is-the-asyncio-event-loop" class="md-nav__link">
+    6.1 What is the Asyncio Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-how-to-start-and-get-an-event-loop" class="md-nav__link">
+    6.2 How To Start and Get An Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-what-is-an-event-loop-object" class="md-nav__link">
+    6.3 What is an Event Loop Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-why-get-access-to-the-event-loop" class="md-nav__link">
+    6.4 Why Get Access to The Event Loop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-create-and-run-asyncio-tasks" class="md-nav__link">
+    7. Create and Run Asyncio Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Create and Run Asyncio Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-what-is-an-asyncio-task" class="md-nav__link">
+    7.1 What is an Asyncio Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-how-to-create-a-task" class="md-nav__link">
+    7.2 How to Create a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-when-does-a-task-run" class="md-nav__link">
+    7.3 When Does a Task Run?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-work-with-and-query-tasks" class="md-nav__link">
+    8. Work With and Query Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Work With and Query Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-task-life-cycle" class="md-nav__link">
+    8.1 Task Life-Cycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-how-to-check-task-status" class="md-nav__link">
+    8.2 How to Check Task Status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-how-to-get-task-result" class="md-nav__link">
+    8.3 How to Get Task Result
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-how-to-get-task-exception" class="md-nav__link">
+    8.4 How to Get Task Exception
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-how-to-cancel-a-task" class="md-nav__link">
+    8.5 How to Cancel a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-how-to-use-callback-with-a-task" class="md-nav__link">
+    8.6 How to Use Callback With a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-how-to-set-the-task-name" class="md-nav__link">
+    8.7 How to Set the Task Name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-current-and-running-tasks" class="md-nav__link">
+    9. Current and Running Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Current and Running Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-how-to-get-the-current-task" class="md-nav__link">
+    9.1 How to Get the Current Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-how-to-get-all-tasks" class="md-nav__link">
+    9.2 How to Get All Tasks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-run-many-coroutines-concurrently" class="md-nav__link">
+    10. Run Many Coroutines Concurrently
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Run Many Coroutines Concurrently">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-what-is-asyncio-gather" class="md-nav__link">
+    10.1 What is Asyncio gather()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-how-to-use-asyncio-gather" class="md-nav__link">
+    10.2 How to use Asyncio gather()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-example-of-gather-for-many-coroutines-in-a-list" class="md-nav__link">
+    10.3 Example of gather() For Many Coroutines in a List
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-wait-for-a-collection-of-tasks" class="md-nav__link">
+    11. Wait for A Collection of Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Wait for A Collection of Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-what-is-asynciowait" class="md-nav__link">
+    11.1 What is asyncio.wait()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-how-to-use-asynciowait" class="md-nav__link">
+    11.2 How to Use asyncio.wait()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-example-of-waiting-for-all-tasks" class="md-nav__link">
+    11.3 Example of Waiting for All Tasks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-wait-for-a-coroutine-with-a-time-limit" class="md-nav__link">
+    12. Wait for a Coroutine with a Time Limit
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Wait for a Coroutine with a Time Limit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-what-is-asyncio-wait_for" class="md-nav__link">
+    12.1 What is Asyncio wait_for()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-how-to-use-asyncio-wait_for" class="md-nav__link">
+    12.2 How to Use Asyncio wait_for()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-example-of-asyncio-wait_for-with-a-timeout" class="md-nav__link">
+    12.3 Example of Asyncio wait_for() With a Timeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-shield-tasks-from-cancellation" class="md-nav__link">
+    13. Shield Tasks from Cancellation
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Shield Tasks from Cancellation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-what-is-asyncio-shield" class="md-nav__link">
+    13.1 What is Asyncio shield()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-how-to-use-asyncio-shield" class="md-nav__link">
+    13.2 How to Use Asyncio shield()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-example-of-asyncio-shield-for-a-task" class="md-nav__link">
+    13.3 Example of Asyncio shield() for a Task
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-run-a-blocking-task-in-asyncio" class="md-nav__link">
+    14. Run a Blocking Task in Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Run a Blocking Task in Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-need-to-run-blocking-tasks-in-asyncio" class="md-nav__link">
+    14.1 Need to Run Blocking Tasks in Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-how-to-run-blocking-tasks" class="md-nav__link">
+    14.2 How to Run Blocking Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" class="md-nav__link">
+    14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-asynchronous-iterators" class="md-nav__link">
+    15. Asynchronous Iterators
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Asynchronous Iterators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-what-are-asynchronous-iterators" class="md-nav__link">
+    15.1 What Are Asynchronous Iterators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-what-is-the-async-for-loop" class="md-nav__link">
+    15.2 What is the “async for” loop?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-how-to-use-asynchronous-iterators" class="md-nav__link">
+    15.3 How to Use Asynchronous Iterators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-example-of-an-asynchronous-iterator" class="md-nav__link">
+    15.4 Example of an Asynchronous Iterator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-asynchronous-generators" class="md-nav__link">
+    16. Asynchronous Generators
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Asynchronous Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-what-are-asynchronous-generators" class="md-nav__link">
+    16.1 What Are Asynchronous Generators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-how-to-use-an-asynchronous-generator" class="md-nav__link">
+    16.2 How to Use an Asynchronous Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-example-of-an-asynchronous-generator" class="md-nav__link">
+    16.3 Example of an Asynchronous Generator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-asynchronous-context-managers" class="md-nav__link">
+    17. Asynchronous Context Managers
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Asynchronous Context Managers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-what-is-an-asynchronous-context-manager" class="md-nav__link">
+    17.1 What is an Asynchronous Context Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-how-to-use-asynchronous-context-managers" class="md-nav__link">
+    17.2 How to Use Asynchronous Context Managers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-example-of-an-asynchronous-context-manager-and-async-with" class="md-nav__link">
+    17.3 Example of an Asynchronous Context Manager and “async with”
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-asynchronous-comprehensions" class="md-nav__link">
+    18. Asynchronous Comprehensions
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Asynchronous Comprehensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181-what-are-asynchronous-comprehensions" class="md-nav__link">
+    18.1 What are Asynchronous Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182-comprehensions" class="md-nav__link">
+    18.2 Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183-asynchronous-comprehensions" class="md-nav__link">
+    18.3 Asynchronous Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#184-await-comprehensions" class="md-nav__link">
+    18.4 Await Comprehensions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-run-commands-in-non-blocking-subprocesses" class="md-nav__link">
+    19. Run Commands in Non-Blocking Subprocesses
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Run Commands in Non-Blocking Subprocesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-what-is-asynciosubprocessprocess" class="md-nav__link">
+    19.1 What is asyncio.subprocess.Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-how-to-run-a-command-directly" class="md-nav__link">
+    19.2 How to Run a Command Directly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-how-to-run-a-command-via-the-shell" class="md-nav__link">
+    19.3 How to Run a Command Via the Shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-non-blocking-streams" class="md-nav__link">
+    20. Non-Blocking Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="20. Non-Blocking Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-asyncio-streams" class="md-nav__link">
+    20.1 Asyncio Streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-how-to-open-a-connection" class="md-nav__link">
+    20.2 How to Open a Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203-how-to-start-a-server" class="md-nav__link">
+    20.3 How to Start a Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204-how-to-write-data-with-the-streamwriter" class="md-nav__link">
+    20.4 How to Write Data with the StreamWriter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#205-how-to-read-data-with-the-streamreader" class="md-nav__link">
+    20.5 How to Read Data with the StreamReader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#206-how-to-close-connection" class="md-nav__link">
+    20.6 How to Close Connection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-example-of-checking-website-status" class="md-nav__link">
+    21. Example of Checking Website Status
+  </a>
+  
+    <nav class="md-nav" aria-label="21. Example of Checking Website Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-how-to-check-http-status-with-asyncio" class="md-nav__link">
+    21.1 How to Check HTTP Status with Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-open-http-connection" class="md-nav__link">
+    21.2 Open HTTP Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-write-http-request" class="md-nav__link">
+    21.3 Write HTTP Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-read-http-response" class="md-nav__link">
+    21.4 Read HTTP Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-close-http-connection" class="md-nav__link">
+    21.5 Close HTTP Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-example-of-checking-http-status-sequentially" class="md-nav__link">
+    21.6 Example of Checking HTTP Status Sequentially
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217-example-of-checking-website-status-concurrently" class="md-nav__link">
+    21.7 Example of Checking Website Status Concurrently
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-python-asyncio-common-errors" class="md-nav__link">
+    22. Python Asyncio Common Errors
+  </a>
+  
+    <nav class="md-nav" aria-label="22. Python Asyncio Common Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-error-1-trying-to-run-coroutines-by-calling-them" class="md-nav__link">
+    22.1 Error 1: Trying to Run Coroutines by Calling Them
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-error-2-not-letting-coroutines-run-in-the-event-loop" class="md-nav__link">
+    22.2 Error 2: Not Letting Coroutines Run in the Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-error-3-using-the-low-level-asyncio-api" class="md-nav__link">
+    22.3 Error 3: Using the Low-Level Asyncio API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-error-4-exiting-the-main-coroutine-too-early" class="md-nav__link">
+    22.4 Error 4: Exiting the Main Coroutine Too Early
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-error-5-assuming-race-conditions-and-deadlocks-are-impossible" class="md-nav__link">
+    22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-python-asyncio-common-questions" class="md-nav__link">
+    23. Python Asyncio Common Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="23. Python Asyncio Common Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-how-to-stop-a-task" class="md-nav__link">
+    23.1 How to Stop a Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-how-to-wait-for-a-task-to-finish" class="md-nav__link">
+    23.2 How to Wait for a Task To Finish?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-how-to-get-a-return-value-from-a-task" class="md-nav__link">
+    23.3 How to Get a Return Value from a Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-how-to-run-a-task-in-the-background" class="md-nav__link">
+    23.4 How to Run a Task in the Background?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-how-to-wait-for-all-background-tasks" class="md-nav__link">
+    23.5 How to Wait for All Background Tasks?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236-does-a-running-task-stop-the-event-loop-from-exiting" class="md-nav__link">
+    23.6 Does a Running Task Stop the Event Loop from Exiting?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237-how-to-show-progress-of-running-tasks" class="md-nav__link">
+    23.7 How to Show Progress of Running Tasks?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238-how-to-run-a-task-after-a-delay" class="md-nav__link">
+    23.8 How to Run a Task After a Delay?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239-how-to-run-a-follow-up-task" class="md-nav__link">
+    23.9 How to Run a Follow-Up Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio" class="md-nav__link">
+    23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-common-objections-to-using-asyncio" class="md-nav__link">
+    24. Common Objections to Using Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="24. Common Objections to Using Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-what-about-the-global-interpreter-lock-gil" class="md-nav__link">
+    24.1 What About the Global Interpreter Lock (GIL)?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-are-python-coroutines-real" class="md-nav__link">
+    24.2 Are Python Coroutines “Real“?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-isnt-python-concurrency-buggy" class="md-nav__link">
+    24.3 Isn’t Python Concurrency Buggy?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-isnt-python-a-bad-choice-for-concurrency" class="md-nav__link">
+    24.4 Isn’t Python a Bad Choice for Concurrency?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-why-not-use-threads-instead" class="md-nav__link">
+    25.5 Why Not Use Threads Instead?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-further-reading" class="md-nav__link">
+    25. Further Reading
+  </a>
+  
+    <nav class="md-nav" aria-label="25. Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-python-asyncio-books" class="md-nav__link">
+    25.1 Python Asyncio Books
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-apis" class="md-nav__link">
+    25.2 APIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-references" class="md-nav__link">
+    25.3 References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-conclusions" class="md-nav__link">
+    26. Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          互联网协议
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/internet_protocol_suite_part_i/" class="md-nav__link">
+        互联网协议入门（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/internet_protocol_suite_part_ii/" class="md-nav__link">
+        互联网协议入门（二）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../http/">HTTP</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http/http-referer/" class="md-nav__link">
+        HTTP Referer 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../http/https/" class="md-nav__link">
+        HTTPS 升级指南
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          REST ful
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          REST ful
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-ful/restapi/" class="md-nav__link">
+        Restful API 设计指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-ful/restapibsetp/" class="md-nav__link">
+        RESTful API 最佳实践
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git-branch-manage/" class="md-nav__link">
+        Git分支管理策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git-remote/" class="md-nav__link">
+        Git远程操作详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git-use-process/" class="md-nav__link">
+        Git 使用规范流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git-cheat-sheet/" class="md-nav__link">
+        常用 Git 命令清单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/git-work-flow/" class="md-nav__link">
+        Git 协作流程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          系统设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          系统设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-design/perm_design/" class="md-nav__link">
+        权限系统的设计
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-asynchronous-programming" class="md-nav__link">
+    1. What is Asynchronous Programming
+  </a>
+  
+    <nav class="md-nav" aria-label="1. What is Asynchronous Programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-asynchronous-tasks" class="md-nav__link">
+    1.1 Asynchronous Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-asynchronous-programming" class="md-nav__link">
+    1.2 Asynchronous Programming
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-asynchronous-programming-in-python" class="md-nav__link">
+    1.3 Asynchronous Programming in Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-what-is-asyncio" class="md-nav__link">
+    2. What is Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="2. What is Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-changes-to-python-to-add-support-for-coroutines" class="md-nav__link">
+    2.1 Changes to Python to add Support for Coroutines
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-the-asyncio-module" class="md-nav__link">
+    2.2 The asyncio Module
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-when-to-use-asyncio" class="md-nav__link">
+    3. When to Use Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="3. When to Use Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-reasons-to-use-asyncio-in-python" class="md-nav__link">
+    3.1 Reasons to Use Asyncio in Python
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-other-reasons-to-use-asyncio" class="md-nav__link">
+    3.2 Other Reasons to Use Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-when-to-not-use-asyncio" class="md-nav__link">
+    3.3 When to Not Use Asyncio
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-coroutines-in-python" class="md-nav__link">
+    4. Coroutines in Python
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Coroutines in Python">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-what-is-a-coroutine" class="md-nav__link">
+    4.1 What is a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-coroutine-vs-routine-and-subroutine" class="md-nav__link">
+    4.2 Coroutine vs Routine and Subroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-coroutine-vs-generator" class="md-nav__link">
+    4.3 Coroutine vs Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-coroutine-vs-task" class="md-nav__link">
+    4.4 Coroutine vs Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-coroutine-vs-thread" class="md-nav__link">
+    4.5 Coroutine vs Thread
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-coroutine-vs-process" class="md-nav__link">
+    4.6 Coroutine vs Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-when-were-coroutines-added-to-python" class="md-nav__link">
+    4.7 When Were Coroutines Added to Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-define-create-and-run-coroutines" class="md-nav__link">
+    5. Define, Create and Run Coroutines
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Define, Create and Run Coroutines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-how-to-define-a-coroutine" class="md-nav__link">
+    5.1 How to Define a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-how-to-create-a-coroutine" class="md-nav__link">
+    5.2 How to Create a Coroutine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-how-to-run-a-coroutine-from-python" class="md-nav__link">
+    5.3 How to Run a Coroutine From Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-what-is-the-event-loop" class="md-nav__link">
+    6. What is the Event Loop
+  </a>
+  
+    <nav class="md-nav" aria-label="6. What is the Event Loop">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-what-is-the-asyncio-event-loop" class="md-nav__link">
+    6.1 What is the Asyncio Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-how-to-start-and-get-an-event-loop" class="md-nav__link">
+    6.2 How To Start and Get An Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-what-is-an-event-loop-object" class="md-nav__link">
+    6.3 What is an Event Loop Object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-why-get-access-to-the-event-loop" class="md-nav__link">
+    6.4 Why Get Access to The Event Loop
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-create-and-run-asyncio-tasks" class="md-nav__link">
+    7. Create and Run Asyncio Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Create and Run Asyncio Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-what-is-an-asyncio-task" class="md-nav__link">
+    7.1 What is an Asyncio Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-how-to-create-a-task" class="md-nav__link">
+    7.2 How to Create a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-when-does-a-task-run" class="md-nav__link">
+    7.3 When Does a Task Run?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-work-with-and-query-tasks" class="md-nav__link">
+    8. Work With and Query Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Work With and Query Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-task-life-cycle" class="md-nav__link">
+    8.1 Task Life-Cycle
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-how-to-check-task-status" class="md-nav__link">
+    8.2 How to Check Task Status
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-how-to-get-task-result" class="md-nav__link">
+    8.3 How to Get Task Result
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84-how-to-get-task-exception" class="md-nav__link">
+    8.4 How to Get Task Exception
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85-how-to-cancel-a-task" class="md-nav__link">
+    8.5 How to Cancel a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#86-how-to-use-callback-with-a-task" class="md-nav__link">
+    8.6 How to Use Callback With a Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#87-how-to-set-the-task-name" class="md-nav__link">
+    8.7 How to Set the Task Name
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-current-and-running-tasks" class="md-nav__link">
+    9. Current and Running Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Current and Running Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-how-to-get-the-current-task" class="md-nav__link">
+    9.1 How to Get the Current Task
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-how-to-get-all-tasks" class="md-nav__link">
+    9.2 How to Get All Tasks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-run-many-coroutines-concurrently" class="md-nav__link">
+    10. Run Many Coroutines Concurrently
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Run Many Coroutines Concurrently">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-what-is-asyncio-gather" class="md-nav__link">
+    10.1 What is Asyncio gather()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-how-to-use-asyncio-gather" class="md-nav__link">
+    10.2 How to use Asyncio gather()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-example-of-gather-for-many-coroutines-in-a-list" class="md-nav__link">
+    10.3 Example of gather() For Many Coroutines in a List
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-wait-for-a-collection-of-tasks" class="md-nav__link">
+    11. Wait for A Collection of Tasks
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Wait for A Collection of Tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-what-is-asynciowait" class="md-nav__link">
+    11.1 What is asyncio.wait()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112-how-to-use-asynciowait" class="md-nav__link">
+    11.2 How to Use asyncio.wait()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113-example-of-waiting-for-all-tasks" class="md-nav__link">
+    11.3 Example of Waiting for All Tasks
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-wait-for-a-coroutine-with-a-time-limit" class="md-nav__link">
+    12. Wait for a Coroutine with a Time Limit
+  </a>
+  
+    <nav class="md-nav" aria-label="12. Wait for a Coroutine with a Time Limit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-what-is-asyncio-wait_for" class="md-nav__link">
+    12.1 What is Asyncio wait_for()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-how-to-use-asyncio-wait_for" class="md-nav__link">
+    12.2 How to Use Asyncio wait_for()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-example-of-asyncio-wait_for-with-a-timeout" class="md-nav__link">
+    12.3 Example of Asyncio wait_for() With a Timeout
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-shield-tasks-from-cancellation" class="md-nav__link">
+    13. Shield Tasks from Cancellation
+  </a>
+  
+    <nav class="md-nav" aria-label="13. Shield Tasks from Cancellation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-what-is-asyncio-shield" class="md-nav__link">
+    13.1 What is Asyncio shield()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-how-to-use-asyncio-shield" class="md-nav__link">
+    13.2 How to Use Asyncio shield()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-example-of-asyncio-shield-for-a-task" class="md-nav__link">
+    13.3 Example of Asyncio shield() for a Task
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-run-a-blocking-task-in-asyncio" class="md-nav__link">
+    14. Run a Blocking Task in Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="14. Run a Blocking Task in Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141-need-to-run-blocking-tasks-in-asyncio" class="md-nav__link">
+    14.1 Need to Run Blocking Tasks in Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142-how-to-run-blocking-tasks" class="md-nav__link">
+    14.2 How to Run Blocking Tasks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" class="md-nav__link">
+    14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-asynchronous-iterators" class="md-nav__link">
+    15. Asynchronous Iterators
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Asynchronous Iterators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151-what-are-asynchronous-iterators" class="md-nav__link">
+    15.1 What Are Asynchronous Iterators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-what-is-the-async-for-loop" class="md-nav__link">
+    15.2 What is the “async for” loop?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-how-to-use-asynchronous-iterators" class="md-nav__link">
+    15.3 How to Use Asynchronous Iterators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-example-of-an-asynchronous-iterator" class="md-nav__link">
+    15.4 Example of an Asynchronous Iterator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-asynchronous-generators" class="md-nav__link">
+    16. Asynchronous Generators
+  </a>
+  
+    <nav class="md-nav" aria-label="16. Asynchronous Generators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-what-are-asynchronous-generators" class="md-nav__link">
+    16.1 What Are Asynchronous Generators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162-how-to-use-an-asynchronous-generator" class="md-nav__link">
+    16.2 How to Use an Asynchronous Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163-example-of-an-asynchronous-generator" class="md-nav__link">
+    16.3 Example of an Asynchronous Generator
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-asynchronous-context-managers" class="md-nav__link">
+    17. Asynchronous Context Managers
+  </a>
+  
+    <nav class="md-nav" aria-label="17. Asynchronous Context Managers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171-what-is-an-asynchronous-context-manager" class="md-nav__link">
+    17.1 What is an Asynchronous Context Manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172-how-to-use-asynchronous-context-managers" class="md-nav__link">
+    17.2 How to Use Asynchronous Context Managers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173-example-of-an-asynchronous-context-manager-and-async-with" class="md-nav__link">
+    17.3 Example of an Asynchronous Context Manager and “async with”
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-asynchronous-comprehensions" class="md-nav__link">
+    18. Asynchronous Comprehensions
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Asynchronous Comprehensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181-what-are-asynchronous-comprehensions" class="md-nav__link">
+    18.1 What are Asynchronous Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182-comprehensions" class="md-nav__link">
+    18.2 Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183-asynchronous-comprehensions" class="md-nav__link">
+    18.3 Asynchronous Comprehensions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#184-await-comprehensions" class="md-nav__link">
+    18.4 Await Comprehensions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-run-commands-in-non-blocking-subprocesses" class="md-nav__link">
+    19. Run Commands in Non-Blocking Subprocesses
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Run Commands in Non-Blocking Subprocesses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-what-is-asynciosubprocessprocess" class="md-nav__link">
+    19.1 What is asyncio.subprocess.Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-how-to-run-a-command-directly" class="md-nav__link">
+    19.2 How to Run a Command Directly
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-how-to-run-a-command-via-the-shell" class="md-nav__link">
+    19.3 How to Run a Command Via the Shell
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-non-blocking-streams" class="md-nav__link">
+    20. Non-Blocking Streams
+  </a>
+  
+    <nav class="md-nav" aria-label="20. Non-Blocking Streams">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201-asyncio-streams" class="md-nav__link">
+    20.1 Asyncio Streams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202-how-to-open-a-connection" class="md-nav__link">
+    20.2 How to Open a Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203-how-to-start-a-server" class="md-nav__link">
+    20.3 How to Start a Server
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204-how-to-write-data-with-the-streamwriter" class="md-nav__link">
+    20.4 How to Write Data with the StreamWriter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#205-how-to-read-data-with-the-streamreader" class="md-nav__link">
+    20.5 How to Read Data with the StreamReader
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#206-how-to-close-connection" class="md-nav__link">
+    20.6 How to Close Connection
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-example-of-checking-website-status" class="md-nav__link">
+    21. Example of Checking Website Status
+  </a>
+  
+    <nav class="md-nav" aria-label="21. Example of Checking Website Status">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-how-to-check-http-status-with-asyncio" class="md-nav__link">
+    21.1 How to Check HTTP Status with Asyncio
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-open-http-connection" class="md-nav__link">
+    21.2 Open HTTP Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-write-http-request" class="md-nav__link">
+    21.3 Write HTTP Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-read-http-response" class="md-nav__link">
+    21.4 Read HTTP Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-close-http-connection" class="md-nav__link">
+    21.5 Close HTTP Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-example-of-checking-http-status-sequentially" class="md-nav__link">
+    21.6 Example of Checking HTTP Status Sequentially
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217-example-of-checking-website-status-concurrently" class="md-nav__link">
+    21.7 Example of Checking Website Status Concurrently
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-python-asyncio-common-errors" class="md-nav__link">
+    22. Python Asyncio Common Errors
+  </a>
+  
+    <nav class="md-nav" aria-label="22. Python Asyncio Common Errors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-error-1-trying-to-run-coroutines-by-calling-them" class="md-nav__link">
+    22.1 Error 1: Trying to Run Coroutines by Calling Them
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-error-2-not-letting-coroutines-run-in-the-event-loop" class="md-nav__link">
+    22.2 Error 2: Not Letting Coroutines Run in the Event Loop
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-error-3-using-the-low-level-asyncio-api" class="md-nav__link">
+    22.3 Error 3: Using the Low-Level Asyncio API
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224-error-4-exiting-the-main-coroutine-too-early" class="md-nav__link">
+    22.4 Error 4: Exiting the Main Coroutine Too Early
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225-error-5-assuming-race-conditions-and-deadlocks-are-impossible" class="md-nav__link">
+    22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-python-asyncio-common-questions" class="md-nav__link">
+    23. Python Asyncio Common Questions
+  </a>
+  
+    <nav class="md-nav" aria-label="23. Python Asyncio Common Questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231-how-to-stop-a-task" class="md-nav__link">
+    23.1 How to Stop a Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-how-to-wait-for-a-task-to-finish" class="md-nav__link">
+    23.2 How to Wait for a Task To Finish?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233-how-to-get-a-return-value-from-a-task" class="md-nav__link">
+    23.3 How to Get a Return Value from a Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-how-to-run-a-task-in-the-background" class="md-nav__link">
+    23.4 How to Run a Task in the Background?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-how-to-wait-for-all-background-tasks" class="md-nav__link">
+    23.5 How to Wait for All Background Tasks?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236-does-a-running-task-stop-the-event-loop-from-exiting" class="md-nav__link">
+    23.6 Does a Running Task Stop the Event Loop from Exiting?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237-how-to-show-progress-of-running-tasks" class="md-nav__link">
+    23.7 How to Show Progress of Running Tasks?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238-how-to-run-a-task-after-a-delay" class="md-nav__link">
+    23.8 How to Run a Task After a Delay?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239-how-to-run-a-follow-up-task" class="md-nav__link">
+    23.9 How to Run a Follow-Up Task?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio" class="md-nav__link">
+    23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-common-objections-to-using-asyncio" class="md-nav__link">
+    24. Common Objections to Using Asyncio
+  </a>
+  
+    <nav class="md-nav" aria-label="24. Common Objections to Using Asyncio">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241-what-about-the-global-interpreter-lock-gil" class="md-nav__link">
+    24.1 What About the Global Interpreter Lock (GIL)?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242-are-python-coroutines-real" class="md-nav__link">
+    24.2 Are Python Coroutines “Real“?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243-isnt-python-concurrency-buggy" class="md-nav__link">
+    24.3 Isn’t Python Concurrency Buggy?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244-isnt-python-a-bad-choice-for-concurrency" class="md-nav__link">
+    24.4 Isn’t Python a Bad Choice for Concurrency?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-why-not-use-threads-instead" class="md-nav__link">
+    25.5 Why Not Use Threads Instead?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-further-reading" class="md-nav__link">
+    25. Further Reading
+  </a>
+  
+    <nav class="md-nav" aria-label="25. Further Reading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-python-asyncio-books" class="md-nav__link">
+    25.1 Python Asyncio Books
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-apis" class="md-nav__link">
+    25.2 APIs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-references" class="md-nav__link">
+    25.3 References
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-conclusions" class="md-nav__link">
+    26. Conclusions
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="python-asyncio-the-complete-guide">Python Asyncio: The Complete Guide<a class="headerlink" href="#python-asyncio-the-complete-guide" title="Permanent link">&para;</a></h1>
+<p><strong>Asyncio</strong> allows us to use asynchronous programming with coroutine-based concurrency in Python.</p>
+<p>Although asyncio has been available in Python for many years now, it remains one of the most interesting and yet one of the most frustrating areas of Python.</p>
+<p>It is just plain hard to get started with asyncio for new developers.</p>
+<p>This guide provides a detailed and comprehensive(全面的) review of asyncio in Python, including how to define, create and run coroutines, what is asynchronous programming, what is non-blocking-io, concurrency primitives(原始并发) used with coroutines, common questions, and best practices.</p>
+<p>This is a massive 29,000+ word guide. You may want to bookmark it so you can refer to it as you develop your concurrent programs.</p>
+<p>Let’s dive in.</p>
+<h2 id="1-what-is-asynchronous-programming">1. What is Asynchronous Programming<a class="headerlink" href="#1-what-is-asynchronous-programming" title="Permanent link">&para;</a></h2>
+<h3 id="11-asynchronous-tasks">1.1 Asynchronous Tasks<a class="headerlink" href="#11-asynchronous-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="12-asynchronous-programming">1.2 Asynchronous Programming<a class="headerlink" href="#12-asynchronous-programming" title="Permanent link">&para;</a></h3>
+<h3 id="13-asynchronous-programming-in-python">1.3 Asynchronous Programming in Python<a class="headerlink" href="#13-asynchronous-programming-in-python" title="Permanent link">&para;</a></h3>
+<h2 id="2-what-is-asyncio">2. What is Asyncio<a class="headerlink" href="#2-what-is-asyncio" title="Permanent link">&para;</a></h2>
+<h3 id="21-changes-to-python-to-add-support-for-coroutines">2.1 Changes to Python to add Support for Coroutines<a class="headerlink" href="#21-changes-to-python-to-add-support-for-coroutines" title="Permanent link">&para;</a></h3>
+<h3 id="22-the-asyncio-module">2.2 The asyncio Module<a class="headerlink" href="#22-the-asyncio-module" title="Permanent link">&para;</a></h3>
+<h2 id="3-when-to-use-asyncio">3. When to Use Asyncio<a class="headerlink" href="#3-when-to-use-asyncio" title="Permanent link">&para;</a></h2>
+<h3 id="31-reasons-to-use-asyncio-in-python">3.1 Reasons to Use Asyncio in Python<a class="headerlink" href="#31-reasons-to-use-asyncio-in-python" title="Permanent link">&para;</a></h3>
+<h3 id="32-other-reasons-to-use-asyncio">3.2 Other Reasons to Use Asyncio<a class="headerlink" href="#32-other-reasons-to-use-asyncio" title="Permanent link">&para;</a></h3>
+<h3 id="33-when-to-not-use-asyncio">3.3 When to Not Use Asyncio<a class="headerlink" href="#33-when-to-not-use-asyncio" title="Permanent link">&para;</a></h3>
+<h2 id="4-coroutines-in-python">4. Coroutines in Python<a class="headerlink" href="#4-coroutines-in-python" title="Permanent link">&para;</a></h2>
+<h3 id="41-what-is-a-coroutine">4.1 What is a Coroutine<a class="headerlink" href="#41-what-is-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="42-coroutine-vs-routine-and-subroutine">4.2 Coroutine vs Routine and Subroutine<a class="headerlink" href="#42-coroutine-vs-routine-and-subroutine" title="Permanent link">&para;</a></h3>
+<h3 id="43-coroutine-vs-generator">4.3 Coroutine vs Generator<a class="headerlink" href="#43-coroutine-vs-generator" title="Permanent link">&para;</a></h3>
+<h3 id="44-coroutine-vs-task">4.4 Coroutine vs Task<a class="headerlink" href="#44-coroutine-vs-task" title="Permanent link">&para;</a></h3>
+<h3 id="45-coroutine-vs-thread">4.5 Coroutine vs Thread<a class="headerlink" href="#45-coroutine-vs-thread" title="Permanent link">&para;</a></h3>
+<h3 id="46-coroutine-vs-process">4.6 Coroutine vs Process<a class="headerlink" href="#46-coroutine-vs-process" title="Permanent link">&para;</a></h3>
+<h3 id="47-when-were-coroutines-added-to-python">4.7 When Were Coroutines Added to Python<a class="headerlink" href="#47-when-were-coroutines-added-to-python" title="Permanent link">&para;</a></h3>
+<h2 id="5-define-create-and-run-coroutines">5. Define, Create and Run Coroutines<a class="headerlink" href="#5-define-create-and-run-coroutines" title="Permanent link">&para;</a></h2>
+<h3 id="51-how-to-define-a-coroutine">5.1 How to Define a Coroutine<a class="headerlink" href="#51-how-to-define-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="52-how-to-create-a-coroutine">5.2 How to Create a Coroutine<a class="headerlink" href="#52-how-to-create-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="53-how-to-run-a-coroutine-from-python">5.3 How to Run a Coroutine From Python<a class="headerlink" href="#53-how-to-run-a-coroutine-from-python" title="Permanent link">&para;</a></h3>
+<h2 id="6-what-is-the-event-loop">6. What is the Event Loop<a class="headerlink" href="#6-what-is-the-event-loop" title="Permanent link">&para;</a></h2>
+<h3 id="61-what-is-the-asyncio-event-loop">6.1 What is the Asyncio Event Loop<a class="headerlink" href="#61-what-is-the-asyncio-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="62-how-to-start-and-get-an-event-loop">6.2 How To Start and Get An Event Loop<a class="headerlink" href="#62-how-to-start-and-get-an-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="63-what-is-an-event-loop-object">6.3 What is an Event Loop Object<a class="headerlink" href="#63-what-is-an-event-loop-object" title="Permanent link">&para;</a></h3>
+<h3 id="64-why-get-access-to-the-event-loop">6.4 Why Get Access to The Event Loop<a class="headerlink" href="#64-why-get-access-to-the-event-loop" title="Permanent link">&para;</a></h3>
+<h2 id="7-create-and-run-asyncio-tasks">7. Create and Run Asyncio Tasks<a class="headerlink" href="#7-create-and-run-asyncio-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="71-what-is-an-asyncio-task">7.1 What is an Asyncio Task<a class="headerlink" href="#71-what-is-an-asyncio-task" title="Permanent link">&para;</a></h3>
+<h3 id="72-how-to-create-a-task">7.2 How to Create a Task<a class="headerlink" href="#72-how-to-create-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="73-when-does-a-task-run">7.3 When Does a Task Run?<a class="headerlink" href="#73-when-does-a-task-run" title="Permanent link">&para;</a></h3>
+<h2 id="8-work-with-and-query-tasks">8. Work With and Query Tasks<a class="headerlink" href="#8-work-with-and-query-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="81-task-life-cycle">8.1 Task Life-Cycle<a class="headerlink" href="#81-task-life-cycle" title="Permanent link">&para;</a></h3>
+<h3 id="82-how-to-check-task-status">8.2 How to Check Task Status<a class="headerlink" href="#82-how-to-check-task-status" title="Permanent link">&para;</a></h3>
+<h3 id="83-how-to-get-task-result">8.3 How to Get Task Result<a class="headerlink" href="#83-how-to-get-task-result" title="Permanent link">&para;</a></h3>
+<h3 id="84-how-to-get-task-exception">8.4 How to Get Task Exception<a class="headerlink" href="#84-how-to-get-task-exception" title="Permanent link">&para;</a></h3>
+<h3 id="85-how-to-cancel-a-task">8.5 How to Cancel a Task<a class="headerlink" href="#85-how-to-cancel-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="86-how-to-use-callback-with-a-task">8.6 How to Use Callback With a Task<a class="headerlink" href="#86-how-to-use-callback-with-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="87-how-to-set-the-task-name">8.7 How to Set the Task Name<a class="headerlink" href="#87-how-to-set-the-task-name" title="Permanent link">&para;</a></h3>
+<h2 id="9-current-and-running-tasks">9. Current and Running Tasks<a class="headerlink" href="#9-current-and-running-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="91-how-to-get-the-current-task">9.1 How to Get the Current Task<a class="headerlink" href="#91-how-to-get-the-current-task" title="Permanent link">&para;</a></h3>
+<h3 id="92-how-to-get-all-tasks">9.2 How to Get All Tasks<a class="headerlink" href="#92-how-to-get-all-tasks" title="Permanent link">&para;</a></h3>
+<h2 id="10-run-many-coroutines-concurrently">10. Run Many Coroutines Concurrently<a class="headerlink" href="#10-run-many-coroutines-concurrently" title="Permanent link">&para;</a></h2>
+<h3 id="101-what-is-asyncio-gather">10.1 What is Asyncio gather()<a class="headerlink" href="#101-what-is-asyncio-gather" title="Permanent link">&para;</a></h3>
+<h3 id="102-how-to-use-asyncio-gather">10.2 How to use Asyncio gather()<a class="headerlink" href="#102-how-to-use-asyncio-gather" title="Permanent link">&para;</a></h3>
+<h3 id="103-example-of-gather-for-many-coroutines-in-a-list">10.3 Example of gather() For Many Coroutines in a List<a class="headerlink" href="#103-example-of-gather-for-many-coroutines-in-a-list" title="Permanent link">&para;</a></h3>
+<h2 id="11-wait-for-a-collection-of-tasks">11. Wait for A Collection of Tasks<a class="headerlink" href="#11-wait-for-a-collection-of-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="111-what-is-asynciowait">11.1 What is asyncio.wait()<a class="headerlink" href="#111-what-is-asynciowait" title="Permanent link">&para;</a></h3>
+<h3 id="112-how-to-use-asynciowait">11.2 How to Use asyncio.wait()<a class="headerlink" href="#112-how-to-use-asynciowait" title="Permanent link">&para;</a></h3>
+<h3 id="113-example-of-waiting-for-all-tasks">11.3 Example of Waiting for All Tasks<a class="headerlink" href="#113-example-of-waiting-for-all-tasks" title="Permanent link">&para;</a></h3>
+<h2 id="12-wait-for-a-coroutine-with-a-time-limit">12. Wait for a Coroutine with a Time Limit<a class="headerlink" href="#12-wait-for-a-coroutine-with-a-time-limit" title="Permanent link">&para;</a></h2>
+<h3 id="121-what-is-asyncio-wait_for">12.1 What is Asyncio wait_for()<a class="headerlink" href="#121-what-is-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<h3 id="122-how-to-use-asyncio-wait_for">12.2 How to Use Asyncio wait_for()<a class="headerlink" href="#122-how-to-use-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<h3 id="123-example-of-asyncio-wait_for-with-a-timeout">12.3 Example of Asyncio wait_for() With a Timeout<a class="headerlink" href="#123-example-of-asyncio-wait_for-with-a-timeout" title="Permanent link">&para;</a></h3>
+<h2 id="13-shield-tasks-from-cancellation">13. Shield Tasks from Cancellation<a class="headerlink" href="#13-shield-tasks-from-cancellation" title="Permanent link">&para;</a></h2>
+<h3 id="131-what-is-asyncio-shield">13.1 What is Asyncio shield()<a class="headerlink" href="#131-what-is-asyncio-shield" title="Permanent link">&para;</a></h3>
+<h3 id="132-how-to-use-asyncio-shield">13.2 How to Use Asyncio shield()<a class="headerlink" href="#132-how-to-use-asyncio-shield" title="Permanent link">&para;</a></h3>
+<h3 id="133-example-of-asyncio-shield-for-a-task">13.3 Example of Asyncio shield() for a Task<a class="headerlink" href="#133-example-of-asyncio-shield-for-a-task" title="Permanent link">&para;</a></h3>
+<h2 id="14-run-a-blocking-task-in-asyncio">14. Run a Blocking Task in Asyncio<a class="headerlink" href="#14-run-a-blocking-task-in-asyncio" title="Permanent link">&para;</a></h2>
+<h3 id="141-need-to-run-blocking-tasks-in-asyncio">14.1 Need to Run Blocking Tasks in Asyncio<a class="headerlink" href="#141-need-to-run-blocking-tasks-in-asyncio" title="Permanent link">&para;</a></h3>
+<h3 id="142-how-to-run-blocking-tasks">14.2 How to Run Blocking Tasks<a class="headerlink" href="#142-how-to-run-blocking-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="143-example-of-running-io-bound-task-in-asyncio-with-to_thread">14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()<a class="headerlink" href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" title="Permanent link">&para;</a></h3>
+<h2 id="15-asynchronous-iterators">15. Asynchronous Iterators<a class="headerlink" href="#15-asynchronous-iterators" title="Permanent link">&para;</a></h2>
+<h3 id="151-what-are-asynchronous-iterators">15.1 What Are Asynchronous Iterators<a class="headerlink" href="#151-what-are-asynchronous-iterators" title="Permanent link">&para;</a></h3>
+<h3 id="152-what-is-the-async-for-loop">15.2 What is the “async for” loop?<a class="headerlink" href="#152-what-is-the-async-for-loop" title="Permanent link">&para;</a></h3>
+<h3 id="153-how-to-use-asynchronous-iterators">15.3 How to Use Asynchronous Iterators<a class="headerlink" href="#153-how-to-use-asynchronous-iterators" title="Permanent link">&para;</a></h3>
+<h3 id="154-example-of-an-asynchronous-iterator">15.4 Example of an Asynchronous Iterator<a class="headerlink" href="#154-example-of-an-asynchronous-iterator" title="Permanent link">&para;</a></h3>
+<h2 id="16-asynchronous-generators">16. Asynchronous Generators<a class="headerlink" href="#16-asynchronous-generators" title="Permanent link">&para;</a></h2>
+<h3 id="161-what-are-asynchronous-generators">16.1 What Are Asynchronous Generators<a class="headerlink" href="#161-what-are-asynchronous-generators" title="Permanent link">&para;</a></h3>
+<h3 id="162-how-to-use-an-asynchronous-generator">16.2 How to Use an Asynchronous Generator<a class="headerlink" href="#162-how-to-use-an-asynchronous-generator" title="Permanent link">&para;</a></h3>
+<h3 id="163-example-of-an-asynchronous-generator">16.3 Example of an Asynchronous Generator<a class="headerlink" href="#163-example-of-an-asynchronous-generator" title="Permanent link">&para;</a></h3>
+<h2 id="17-asynchronous-context-managers">17. Asynchronous Context Managers<a class="headerlink" href="#17-asynchronous-context-managers" title="Permanent link">&para;</a></h2>
+<h3 id="171-what-is-an-asynchronous-context-manager">17.1 What is an Asynchronous Context Manager<a class="headerlink" href="#171-what-is-an-asynchronous-context-manager" title="Permanent link">&para;</a></h3>
+<h3 id="172-how-to-use-asynchronous-context-managers">17.2 How to Use Asynchronous Context Managers<a class="headerlink" href="#172-how-to-use-asynchronous-context-managers" title="Permanent link">&para;</a></h3>
+<h3 id="173-example-of-an-asynchronous-context-manager-and-async-with">17.3 Example of an Asynchronous Context Manager and “async with”<a class="headerlink" href="#173-example-of-an-asynchronous-context-manager-and-async-with" title="Permanent link">&para;</a></h3>
+<h2 id="18-asynchronous-comprehensions">18. Asynchronous Comprehensions<a class="headerlink" href="#18-asynchronous-comprehensions" title="Permanent link">&para;</a></h2>
+<h3 id="181-what-are-asynchronous-comprehensions">18.1 What are Asynchronous Comprehensions<a class="headerlink" href="#181-what-are-asynchronous-comprehensions" title="Permanent link">&para;</a></h3>
+<h3 id="182-comprehensions">18.2 Comprehensions<a class="headerlink" href="#182-comprehensions" title="Permanent link">&para;</a></h3>
+<h3 id="183-asynchronous-comprehensions">18.3 Asynchronous Comprehensions<a class="headerlink" href="#183-asynchronous-comprehensions" title="Permanent link">&para;</a></h3>
+<h3 id="184-await-comprehensions">18.4 Await Comprehensions<a class="headerlink" href="#184-await-comprehensions" title="Permanent link">&para;</a></h3>
+<h2 id="19-run-commands-in-non-blocking-subprocesses">19. Run Commands in Non-Blocking Subprocesses<a class="headerlink" href="#19-run-commands-in-non-blocking-subprocesses" title="Permanent link">&para;</a></h2>
+<h3 id="191-what-is-asynciosubprocessprocess">19.1 What is asyncio.subprocess.Process<a class="headerlink" href="#191-what-is-asynciosubprocessprocess" title="Permanent link">&para;</a></h3>
+<h3 id="192-how-to-run-a-command-directly">19.2 How to Run a Command Directly<a class="headerlink" href="#192-how-to-run-a-command-directly" title="Permanent link">&para;</a></h3>
+<h3 id="193-how-to-run-a-command-via-the-shell">19.3 How to Run a Command Via the Shell<a class="headerlink" href="#193-how-to-run-a-command-via-the-shell" title="Permanent link">&para;</a></h3>
+<h2 id="20-non-blocking-streams">20. Non-Blocking Streams<a class="headerlink" href="#20-non-blocking-streams" title="Permanent link">&para;</a></h2>
+<h3 id="201-asyncio-streams">20.1 Asyncio Streams<a class="headerlink" href="#201-asyncio-streams" title="Permanent link">&para;</a></h3>
+<h3 id="202-how-to-open-a-connection">20.2 How to Open a Connection<a class="headerlink" href="#202-how-to-open-a-connection" title="Permanent link">&para;</a></h3>
+<h3 id="203-how-to-start-a-server">20.3 How to Start a Server<a class="headerlink" href="#203-how-to-start-a-server" title="Permanent link">&para;</a></h3>
+<h3 id="204-how-to-write-data-with-the-streamwriter">20.4 How to Write Data with the StreamWriter<a class="headerlink" href="#204-how-to-write-data-with-the-streamwriter" title="Permanent link">&para;</a></h3>
+<h3 id="205-how-to-read-data-with-the-streamreader">20.5 How to Read Data with the StreamReader<a class="headerlink" href="#205-how-to-read-data-with-the-streamreader" title="Permanent link">&para;</a></h3>
+<h3 id="206-how-to-close-connection">20.6 How to Close Connection<a class="headerlink" href="#206-how-to-close-connection" title="Permanent link">&para;</a></h3>
+<h2 id="21-example-of-checking-website-status">21. Example of Checking Website Status<a class="headerlink" href="#21-example-of-checking-website-status" title="Permanent link">&para;</a></h2>
+<h3 id="211-how-to-check-http-status-with-asyncio">21.1 How to Check HTTP Status with Asyncio<a class="headerlink" href="#211-how-to-check-http-status-with-asyncio" title="Permanent link">&para;</a></h3>
+<h3 id="212-open-http-connection">21.2 Open HTTP Connection<a class="headerlink" href="#212-open-http-connection" title="Permanent link">&para;</a></h3>
+<h3 id="213-write-http-request">21.3 Write HTTP Request<a class="headerlink" href="#213-write-http-request" title="Permanent link">&para;</a></h3>
+<h3 id="214-read-http-response">21.4 Read HTTP Response<a class="headerlink" href="#214-read-http-response" title="Permanent link">&para;</a></h3>
+<h3 id="215-close-http-connection">21.5 Close HTTP Connection<a class="headerlink" href="#215-close-http-connection" title="Permanent link">&para;</a></h3>
+<h3 id="216-example-of-checking-http-status-sequentially">21.6 Example of Checking HTTP Status Sequentially<a class="headerlink" href="#216-example-of-checking-http-status-sequentially" title="Permanent link">&para;</a></h3>
+<h3 id="217-example-of-checking-website-status-concurrently">21.7 Example of Checking Website Status Concurrently<a class="headerlink" href="#217-example-of-checking-website-status-concurrently" title="Permanent link">&para;</a></h3>
+<h2 id="22-python-asyncio-common-errors">22. Python Asyncio Common Errors<a class="headerlink" href="#22-python-asyncio-common-errors" title="Permanent link">&para;</a></h2>
+<h3 id="221-error-1-trying-to-run-coroutines-by-calling-them">22.1 Error 1: Trying to Run Coroutines by Calling Them<a class="headerlink" href="#221-error-1-trying-to-run-coroutines-by-calling-them" title="Permanent link">&para;</a></h3>
+<h3 id="222-error-2-not-letting-coroutines-run-in-the-event-loop">22.2 Error 2: Not Letting Coroutines Run in the Event Loop<a class="headerlink" href="#222-error-2-not-letting-coroutines-run-in-the-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="223-error-3-using-the-low-level-asyncio-api">22.3 Error 3: Using the Low-Level Asyncio API<a class="headerlink" href="#223-error-3-using-the-low-level-asyncio-api" title="Permanent link">&para;</a></h3>
+<h3 id="224-error-4-exiting-the-main-coroutine-too-early">22.4 Error 4: Exiting the Main Coroutine Too Early<a class="headerlink" href="#224-error-4-exiting-the-main-coroutine-too-early" title="Permanent link">&para;</a></h3>
+<h3 id="225-error-5-assuming-race-conditions-and-deadlocks-are-impossible">22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible<a class="headerlink" href="#225-error-5-assuming-race-conditions-and-deadlocks-are-impossible" title="Permanent link">&para;</a></h3>
+<h2 id="23-python-asyncio-common-questions">23. Python Asyncio Common Questions<a class="headerlink" href="#23-python-asyncio-common-questions" title="Permanent link">&para;</a></h2>
+<h3 id="231-how-to-stop-a-task">23.1 How to Stop a Task?<a class="headerlink" href="#231-how-to-stop-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="232-how-to-wait-for-a-task-to-finish">23.2 How to Wait for a Task To Finish?<a class="headerlink" href="#232-how-to-wait-for-a-task-to-finish" title="Permanent link">&para;</a></h3>
+<h3 id="233-how-to-get-a-return-value-from-a-task">23.3 How to Get a Return Value from a Task?<a class="headerlink" href="#233-how-to-get-a-return-value-from-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="234-how-to-run-a-task-in-the-background">23.4 How to Run a Task in the Background?<a class="headerlink" href="#234-how-to-run-a-task-in-the-background" title="Permanent link">&para;</a></h3>
+<h3 id="235-how-to-wait-for-all-background-tasks">23.5 How to Wait for All Background Tasks?<a class="headerlink" href="#235-how-to-wait-for-all-background-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="236-does-a-running-task-stop-the-event-loop-from-exiting">23.6 Does a Running Task Stop the Event Loop from Exiting?<a class="headerlink" href="#236-does-a-running-task-stop-the-event-loop-from-exiting" title="Permanent link">&para;</a></h3>
+<h3 id="237-how-to-show-progress-of-running-tasks">23.7 How to Show Progress of Running Tasks?<a class="headerlink" href="#237-how-to-show-progress-of-running-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="238-how-to-run-a-task-after-a-delay">23.8 How to Run a Task After a Delay?<a class="headerlink" href="#238-how-to-run-a-task-after-a-delay" title="Permanent link">&para;</a></h3>
+<h3 id="239-how-to-run-a-follow-up-task">23.9 How to Run a Follow-Up Task?<a class="headerlink" href="#239-how-to-run-a-follow-up-task" title="Permanent link">&para;</a></h3>
+<h3 id="2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio">23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?<a class="headerlink" href="#2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio" title="Permanent link">&para;</a></h3>
+<p>The asyncio module provides two approaches for executing blocking calls in asyncio programs.</p>
+<ul>
+<li>asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。</li>
+</ul>
+<p>The first is to use the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">asyncio.to_thread()</a> function.</p>
+<ul>
+<li>第一种是使用 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">asyncio.to_thread()</a> 函数。</li>
+</ul>
+<p>This is in the high-level API and is intended for application developers.</p>
+<ul>
+<li>这是高级 API 中的内容，适用于应用程序开发人员。</li>
+</ul>
+<p>The <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">asyncio.to_thread()</a> function takes a function name to execute and any arguments.</p>
+<ul>
+<li><code>asyncio.to_thread()</code> 函数接受要执行的函数名称和任何参数。</li>
+</ul>
+<p>The function is executed in a separate thread. It returns a coroutine that can be awaited or scheduled as an independent task.</p>
+<ul>
+<li>该函数在单独的线程中执行。 它返回一个可以作为独立任务等待或调度的协程。</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>例如：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># execute a function in a separate thread</span>
+<span class="c1"># 在单独的线程中执行函数</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">to_thread</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>The task will not begin executing until the returned coroutine is given an opportunity to run in the event loop.</p>
+<ul>
+<li>任务一开始并不会执行。直到协程返回并且给个在事件循环中运行的机会时，才会运行。</li>
+</ul>
+<p>The asyncio.to_thread() function creates a <strong>ThreadPoolExecutor</strong> behind the scenes to execute blocking calls.</p>
+<ul>
+<li><code>asyncio.to_thread()</code> 函数在后台创建一个 <strong>ThreadPoolExecutor</strong> 来执行阻塞调用。</li>
+</ul>
+<p>As such, the <code>asyncio.to_thread()</code> function is only appropriate for IO-bound tasks.</p>
+<ul>
+<li>因此，<code>asyncio.to_thread()</code> 函数仅适用于 IO 密集型任务。</li>
+</ul>
+<p>An alternative approach is to use the <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor">loop.run_in_executor()</a> function.</p>
+<ul>
+<li>另一种方法是使用<a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor">loop.run_in_executor()</a>函数。</li>
+</ul>
+<p>This is in the low-level asyncio API and first requires access to the event loop, such as via the <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop">asyncio.get_running_loop()</a> function.</p>
+<ul>
+<li>这是在低级 asyncio API 中，首先需要访问事件循环，例如通过 <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop">asyncio.get_running_loop()</a> 函数。</li>
+</ul>
+<p>The <code>loop.run_in_executor()</code> function takes an executor and a function to execute.</p>
+<ul>
+<li><code>Loop.run_in_executor()</code> 函数需要一个执行器和一个要执行的函数。</li>
+</ul>
+<p>If None is provided for the executor, then the default executor is used, which is a ThreadPoolExecutor.</p>
+<ul>
+<li>如果没有为执行器提供 None，则使用默认执行器，即 ThreadPoolExecutor。</li>
+</ul>
+<p>The <code>loop.run_in_executor()</code> function returns an awaitable that can be awaited if needed. The task will begin executing immediately, so the returned awaitable does not need to be awaited or scheduled for the blocking call to start executing.</p>
+<ul>
+<li><code>Loop.run_in_executor()</code> 函数返回一个可等待的对象，如果需要可以等待。 该任务将立即开始执行，因此不需要等待或安排返回的可等待对象来开始执行阻塞调用。</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>例如：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the event loop</span>
+<span class="c1"># 获取事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+<span class="c1"># execute a function in a separate thread</span>
+<span class="c1"># 在单独的线程中执行函数</span>
+<span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>Alternatively, an executor can be created and passed to the loop.run_in_executor() function, which will execute the asynchronous call in the executor.</p>
+<ul>
+<li>或者，可以创建一个执行器并将其传递给<code>loop.run_in_executor()</code>函数，该函数将在执行器中执行异步调用。</li>
+</ul>
+<p>The caller must manage the executor in this case, shutting it down once the caller is finished with it.</p>
+<ul>
+<li>在这种情况下，调用者必须管理执行器，在调用者完成后将其关闭。</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li>例如:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a process pool</span>
+<span class="c1"># 创建一个进程池</span>
+<span class="k">with</span> <span class="n">ProcessPoolExecutor</span> <span class="k">as</span> <span class="n">exe</span><span class="p">:</span>
+    <span class="c1"># get the event loop</span>
+    <span class="c1"># 获取事件循环</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+    <span class="c1"># execute a function in a separate thread</span>
+    <span class="c1"># 在单独的线程中执行函数</span>
+    <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+    <span class="c1"># process pool is shutdown automatically...</span>
+    <span class="c1"># 进程池自动关闭...</span>
+</code></pre></div>
+<p>These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.</p>
+<ul>
+<li>这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。</li>
+</ul>
+<h2 id="24-common-objections-to-using-asyncio">24. Common Objections to Using Asyncio<a class="headerlink" href="#24-common-objections-to-using-asyncio" title="Permanent link">&para;</a></h2>
+<p>Asyncio and coroutines may not be the best solution for all concurrency problems in your program.</p>
+<ul>
+<li>异步和协程可能不是解决程序中所有并发问题的最佳解决方案。</li>
+</ul>
+<p>That being said, there may also be some misunderstandings that are preventing you from making full and best use of the capabilities of the asyncio in Python.</p>
+<ul>
+<li>话虽如此，也可能存在一些误解，阻碍您充分、最佳地利用 Python 中 asyncio 的功能。</li>
+</ul>
+<p>In this section, we review some of the common objections seen by developers when considering using the asyncio.</p>
+<ul>
+<li>在本节中，我们将回顾开发人员在考虑使用 asyncio 时遇到的一些常见反对意见。</li>
+</ul>
+<h3 id="241-what-about-the-global-interpreter-lock-gil">24.1 What About the Global Interpreter Lock (GIL)?<a class="headerlink" href="#241-what-about-the-global-interpreter-lock-gil" title="Permanent link">&para;</a></h3>
+<p>The GIL protects the internals of the Python interpreter from concurrent access and modification from multiple threads.</p>
+<ul>
+<li>GIL 保护 Python 解释器的内部免受多个线程的并发访问和修改。</li>
+</ul>
+<p>The asyncio event loop runs in one thread.</p>
+<ul>
+<li>asyncio 事件循环在一个线程中运行。</li>
+</ul>
+<p>This means that all coroutines run in a single thread.</p>
+<ul>
+<li>这意味着所有协程都在单个线程中运行。</li>
+</ul>
+<p>As such the GIL is not an issue when using asyncio and coroutine.</p>
+<ul>
+<li>因此，使用 asyncio 和协程时，GIL 不是问题。</li>
+</ul>
+<h3 id="242-are-python-coroutines-real">24.2 Are Python Coroutines “Real“?<a class="headerlink" href="#242-are-python-coroutines-real" title="Permanent link">&para;</a></h3>
+<p>Coroutines are managed in software.</p>
+<ul>
+<li>协程由软件管理。</li>
+</ul>
+<p>Coroutines run and are managed (switched) within the asyncio event loop in the Python runtime.</p>
+<ul>
+<li>协程在 Python 运行时的 <strong>asyncio 事件循环</strong>中运行和管理（切换）。</li>
+</ul>
+<p>They are not a software representation of a capability provided by the underlying operating system, like threads and processes.</p>
+<ul>
+<li>它们不是底层操作系统级别提供的功能以及软件表示，例如线程和进程。</li>
+</ul>
+<p>In this sense, Python does not have support for “native coroutines”, but I’m not sure such things exist in modern operating systems.</p>
+<ul>
+<li>从这个意义上说，Python 不支持“原生协程”，但我不确定现代操作系统中是否存在这样的东西。</li>
+</ul>
+<h3 id="243-isnt-python-concurrency-buggy">24.3 Isn’t Python Concurrency Buggy?<a class="headerlink" href="#243-isnt-python-concurrency-buggy" title="Permanent link">&para;</a></h3>
+<p>No.</p>
+<ul>
+<li>不🙅🏻‍♀️。</li>
+</ul>
+<p>Python provides first-class concurrency with coroutines, threads, and processes.</p>
+<ul>
+<li>Python 通过协程、线程和进程提供一流的并发性。</li>
+</ul>
+<p>It has for a long time now and it is widely used in open source and commercial projects.</p>
+<ul>
+<li>它已经存在很长时间了，并且广泛应用于开源和商业项目中。</li>
+</ul>
+<h3 id="244-isnt-python-a-bad-choice-for-concurrency">24.4 Isn’t Python a Bad Choice for Concurrency?<a class="headerlink" href="#244-isnt-python-a-bad-choice-for-concurrency" title="Permanent link">&para;</a></h3>
+<p>Developers love python for many reasons, most commonly because it is easy to use and fast for development.</p>
+<ul>
+<li>开发人员喜爱 Python 的原因有很多，最常见的是因为它易于使用且开发速度快。</li>
+</ul>
+<p>Python is commonly used for glue code, one-off scripts, but more and more for large-scale software systems.</p>
+<ul>
+<li>Python 通常用于粘合代码、一次性脚本，但越来越多地用于大型软件系统。</li>
+</ul>
+<p>If you are using Python and then you need concurrency, then you work with what you have. The question is moot.</p>
+<ul>
+<li>如果您使用 Python 并且需要并发性，那么您可以使用现有的东西。 这个问题毫无意义。</li>
+</ul>
+<p>If you need concurrency and you have not chosen a language, perhaps another language would be more appropriate, or perhaps not. Consider the full scope of functional and non-functional requirements (or user needs, wants, and desires) for your project and the capabilities of different development platforms.</p>
+<ul>
+<li>如果您需要并发性并且尚未选择一种语言，那么另一种语言可能更合适，也可能不合适。 需要考虑项目的全部功能和非功能需求（或用户的需求、想法和愿望）以及不同开发平台的功能。</li>
+</ul>
+<h3 id="255-why-not-use-threads-instead">25.5 Why Not Use Threads Instead?<a class="headerlink" href="#255-why-not-use-threads-instead" title="Permanent link">&para;</a></h3>
+<p>You can use threads instead of asyncio.</p>
+<ul>
+<li>您可以使用线程而不是异步。</li>
+</ul>
+<p>Any program developed using threads can be rewritten to use asyncio and coroutines.</p>
+<ul>
+<li>任何使用<strong>线程</strong>开发的程序都可以使用 <strong>asyncio 和协程</strong>重写。</li>
+</ul>
+<p>Any program developed using coroutines and asyncio can be rewritten to use threads.</p>
+<ul>
+<li>任何使用<strong>协程和 asyncio</strong> 开发的程序都可以使用<strong>线程</strong>重写。</li>
+</ul>
+<p>Adopting asyncio in a project is a choice, the rationale is yours.</p>
+<ul>
+<li>在项目中采用 asyncio 是一种选择，其理由由您决定。</li>
+</ul>
+<p>For the most part, they are <strong>functionally equivalent.</strong>（功能等效）</p>
+<ul>
+<li>在大多数情况下，它们在功能上是等效的。</li>
+</ul>
+<p>Many use cases will execute faster using threads and may be more familiar(亲切) to a wider array of Python developers.</p>
+<ul>
+<li>许多用例使用线程将执行得更快，并且可能为更广泛的 Python 开发人员所熟悉。</li>
+</ul>
+<p>Some use cases in the areas of network programming and executing system commands may be simpler(最简单) (less code) when using asyncio, and significantly more scalable than using threads.</p>
+<ul>
+<li>使用 asyncio 时，网络编程和执行系统命令领域的一些用例可能会更简单（最简单）（代码更少），并且比使用线程更具可扩展性。</li>
+</ul>
+<h2 id="25-further-reading">25. Further Reading<a class="headerlink" href="#25-further-reading" title="Permanent link">&para;</a></h2>
+<p>This section lists helpful additional resources on the topic.</p>
+<h3 id="251-python-asyncio-books">25.1 Python Asyncio Books<a class="headerlink" href="#251-python-asyncio-books" title="Permanent link">&para;</a></h3>
+<p>This section lists my books on Python asyncio, designed to help you get started and get good, super fast.</p>
+<ul>
+<li><a href="https://superfastpython.com/paj-further-reading">Python Asyncio Jump-Start</a>, Jason Brownlee, 2022. (my book!)</li>
+<li><a href="https://amzn.to/3XFEZgj">Python Asyncio Interview Questions</a></li>
+<li><a href="https://superfastpython.gumroad.com/l/pacs">Asyncio Module API Cheat Sheet</a></li>
+</ul>
+<p>Other books on asyncio include:</p>
+<ul>
+<li><a href="https://amzn.to/3LZvxNn">Python Concurrency with asyncio</a>, Matthew Fowler, 2022.</li>
+<li><a href="https://amzn.to/3lNp2ml">Using Asyncio in Python</a>, Caleb Hattingh, 2020.</li>
+</ul>
+<h3 id="252-apis">25.2 APIs<a class="headerlink" href="#252-apis" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio — Asynchronous I/O</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Asyncio Coroutines and Tasks</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-stream.html">Asyncio Streams</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-subprocess.html">Asyncio Subprocesses</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-queue.html">Asyncio Queues</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-sync.html">Asyncio Synchronization Primitives</a></li>
+</ul>
+<h3 id="253-references">25.3 References<a class="headerlink" href="#253-references" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Asynchronous_I/O">Asynchronous I/O, Wikipedia.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine, Wikipedia.</a></li>
+</ul>
+<h2 id="26-conclusions">26. Conclusions<a class="headerlink" href="#26-conclusions" title="Permanent link">&para;</a></h2>
+<p>This is a large guide, and you have discovered in great detail how asyncio and coroutines work in Python and how to best use them in your project.</p>
+<p><strong>Did you find this guide useful?</strong></p>
+<p>I’d love to know, please share a kind word in the comments below.</p>
+<p><strong>Have you used asyncio on a project?</strong></p>
+<p>I’d love to hear about it, please let me know in the comments.</p>
+<p><strong>Do you have any questions?</strong></p>
+<p>Leave your question in a comment below and I will reply fast with my best advice.</p>
+<p>Join the discussion on <a href="https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/">reddit</a> and <a href="https://news.ycombinator.com/item?id=33547323">hackernews</a>.</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月27日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月27日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
