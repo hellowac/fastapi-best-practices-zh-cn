@@ -230,143 +230,937 @@ Let’s dive in.
 
 ### 23.2 How to Wait for a Task To Finish?
 
+=== "English"
+
+We can wait for a task to finish by awaiting the asyncio.Task object directly.
+
+For example:
+
+```python
+...
+# wait for the task to finish
+await task
+```
+
+We may create and wait for the task in a single line.
+
+For example:
+
+```python
+...
+# create and wait for the task to finish
+await asyncio.create_task(custom_coro())
+```
+
+=== "Chinese"
+
+We can wait for a task to finish by awaiting the asyncio.Task object directly.
+
+For example:
+
+```python
+...
+# wait for the task to finish
+await task
+```
+
+We may create and wait for the task in a single line.
+
+For example:
+
+```python
+...
+# create and wait for the task to finish
+await asyncio.create_task(custom_coro())
+```
+
 ### 23.3 How to Get a Return Value from a Task?
+
+=== "English"
+
+    We may need to return values from coroutines to the caller.
+    
+    We can retrieve a return value from a coroutine by awaiting it.
+    
+    It assumes that the other coroutine being awaited returns a value.
+    
+    For example:
+    
+    ```python
+    # coroutine that returns a value
+    async def other_coro():
+        return 100
+    ```
+    
+    Awaiting the other coroutine will suspend the calling coroutine and schedule the other coroutine for execution. Once the other coroutine has been completed, the calling coroutine will resume. The return value will be passed from the other coroutine to the caller.
+    
+    For example:
+    
+    ```python
+    ...
+    # execute coroutine and retrieve return value
+    value = await other_coro()
+    ```
+    
+    A coroutine can be wrapped in an **asyncio.Task** object.
+    
+    This is helpful for independently executing the coroutine without having the current coroutine await it.
+    
+    This can be achieved using the [asyncio.create_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task) function.
+    
+    For example:
+    
+    ```python
+    ...
+    # wrap coroutine in a task and schedule it for execution
+    task = asyncio.create_task(other_coro())
+    ```
+    
+    You can learn more about how to create tasks in the tutorial:
+    
+    - [How to Create an Asyncio Task in Python](https://superfastpython.com/asyncio-create-task)
+    
+    There are two ways to retrieve the return value from an asyncio.Task, they are:
+    
+    1. Await the task.
+    2. Call the result() method.
+    
+    We can await the task to retrieve the return value.
+    
+    If the task is scheduled or running, then the caller will suspend until the task is complete and the return value will be provided.
+    
+    If the task is completed, the return value will be provided immediately.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the return value from a task
+    value = await task
+    ```
+    
+    Unlike a coroutine, we can await a task more than once without raising an error.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the return value from a task
+    value = await task
+    # get the return value from a task
+    value = await task
+    ```
+    
+    We can also get the return value from the task by calling the [result()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result) method on the **asyncio.Task** object.
+
+    For example:
+    
+    ```python
+    ...
+    # get the return value from a task
+    value = task.result()
+    ```
+    
+    This requires that the task is done. If not, an **InvalidStateError** exception will be raised.
+    
+    If the task was canceled a **CancelledError** exception will be raised.
+    
+    You can learn more about getting the result from tasks in the tutorial:
+    
+    - [How to Get Asyncio Task Results](https://superfastpython.com/asyncio-task-result)
+
+=== "Chinese"
+
+    我们可能需要将值从协程返回给调用者。
+    
+    我们可以通过等待协程来检索返回值。
+    
+    它假设正在等待的另一个协程返回一个值。
+    
+    例如:
+    
+    ```python
+    # 有返回值的协程
+    async def other_coro():
+        return 100
+    ```
+    
+    等待另一个协程将挂起**调用协程**并安排另一个协程执行。 一旦其他协程完成，调用协程将恢复。 返回值将从另一个协程传递给调用者。
+    
+    例如:
+    
+    ```python
+    ...
+    # 执行协程并获取返回值
+    value = await other_coro()
+    ```
+    
+    协程可以包装在 **asyncio.Task** 对象中。
+    
+    **这对于独立执行协程很有帮助，而无需当前协程等待它。**
+    
+    这可以使用 [asyncio.create_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task) 函数来实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 将协程包装在任务中并安排其执行
+    task = asyncio.create_task(other_coro())
+    ```
+    
+    您可以在教程中了解有关如何创建任务的更多信息：
+    
+    - [在Python中如何创建一个Asyncio任务](https://superfastpython.com/asyncio-create-task)
+    
+    有两种方法可以从 **asyncio.Task** 中检索返回值，它们是：
+    
+    1. 等待任务.
+    2. 调用 **result()** 方法.
+    
+    我们可以等待任务来检索返回值。
+    
+    如果任务已调度或正在运行，则调用者将挂起，直到任务完成并提供返回值。
+    
+    如果任务完成，将立即提供返回值。
+    
+    例如:
+    
+    ```python
+    ...
+    # 获取任务的返回值
+    value = await task
+    ```
+    
+    与协程不同，我们可以多次等待任务而不会引发错误。
+    
+    例如:
+    
+    ```python
+    ...
+    # 获取任务的返回值
+    value = await task
+    # 获取任务的返回值
+    value = await task
+    ```
+    
+    我们还可以通过调用 **asyncio.Task** 对象上的 [result()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result) 方法来获取任务的返回值。
+
+    例如:
+    
+    ```python
+    ...
+    # 获取任务的返回值
+    value = task.result()
+    ```
+    
+    这就要求任务完成。 如果不是，将引发 **InvalidStateError** 异常。
+    
+    如果任务被取消，则会引发 **CancelledError** 异常。
+    
+    您可以了解有关从教程中的任务获取结果的更多信息：
+    
+    - [如何获取 Asyncio 任务结果](https://superfastpython.com/asyncio-task-result)
 
 ### 23.4 How to Run a Task in the Background?
 
+=== "English"
+
+    We can run a coroutine in the background by wrapping it in an **asyncio.Task** object.
+    
+    This can be achieved by calling the **asyncio.create_task()** function and passing it the coroutine.
+    
+    The coroutine will be wrapped in a Task object and will be scheduled for execution. The task object will be returned and the caller will not suspend.
+    
+    For example:
+    
+    ```python
+    ...
+    # schedule the task for execution
+    task = asyncio.create_task(other_coroutine())
+    ```
+    
+    The task will not begin executing until at least the current coroutine is suspended, for any reason.
+    
+    We can help things along by suspending for a moment to allow the task to start running.
+    
+    This can be achieved by sleeping for zero seconds.
+    
+    For example:
+    
+    ```python
+    ...
+    # suspend for a moment to allow the task to start running
+    await asyncio.sleep(0)
+    ```
+    
+    This will suspend the caller only for a brief moment and allow the ask an opportunity to run.
+    
+    This is not required as the caller may suspend at some future time or terminate as part of normal execution.
+    
+    We may also await the task directly once the caller has run out of things to do.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for the task to complete
+    await task
+    ```
+
+=== "Chinese"
+
+    我们可以通过将协程包装在 **asyncio.Task** 对象中来在后台运行协程。
+    
+    这可以通过调用 **asyncio.create_task()** 函数并向其传递协程来实现。
+    
+    协程将被包装在 Task 对象中并被安排执行。 任务对象将被返回，并且调用者不会挂起。
+    
+    例如:
+    
+    ```python
+    ...
+    # 调度任务执行
+    task = asyncio.create_task(other_coroutine())
+    ```
+    
+    至少在当前协程出于任何原因被挂起之前，该任务不会开始执行。
+    
+    我们可以通过暂停片刻以允许任务开始运行来帮助完成任务。
+    
+    这可以通过休眠零秒来实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 暂停片刻以允许任务开始运行
+    await asyncio.sleep(0)
+    ```
+    
+    这只会将调用者暂停一小会儿，并允许有机会运行。
+    
+    这不是必需的，因为调用者可能会在将来的某个时间挂起或作为正常执行的一部分终止。
+    
+    一旦调用者没有事情可做，我们也可以直接等待任务。
+    
+    例如:
+    
+    ```python
+    ...
+    # 等待任务完成
+    await task
+    ```
+
 ### 23.5 How to Wait for All Background Tasks?
+
+=== "English"
+
+    We can wait for all independent tasks in an asyncio program.
+    
+    This can be achieved by first getting a set of all currently running tasks via the **asyncio.all_tasks()** function.
+    
+    For example:
+    
+    ```python
+    ...
+    # get a set of all running tasks
+    all_tasks = asyncio.all_tasks()
+    ```
+    
+    This will return a set that contains one **asyncio.Task** object for each task that is currently running, including the **main()** coroutine.
+    
+    We cannot wait on this set directly, as it will block forever as it includes the task that is the current task.
+    
+    Therefore we can get the **asyncio.Task** object for the currently running task and remove it from the set.
+    
+    This can be achieved by first calling the **asyncio.current_task()** method to get the task for the current coroutine and then remove it from the set via the **remove()** method.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the current tasks
+    current_task = asyncio.current_task()
+    # remove the current task from the list of all tasks
+    all_tasks.remove(current_task)
+    ```
+    
+    Finally, we can wait on the set of remaining tasks.
+    
+    This will suspend the caller until all tasks in the set are complete.
+    
+    For example:
+    
+    ```python
+    ...
+    # suspend until all tasks are completed
+    await asyncio.wait(all_tasks)
+    ```
+    
+    Tying this together, the snippet below added to the end of the **main()** coroutine will wait for all background tasks to complete.
+    
+    ```python
+    ...
+    # get a set of all running tasks
+    all_tasks = asyncio.all_tasks()
+    # get the current tasks
+    current_task = asyncio.current_task()
+    # remove the current task from the list of all tasks
+    all_tasks.remove(current_task)
+    # suspend until all tasks are completed
+    await asyncio.wait(all_tasks)
+    ```
+
+=== "Chinese"
+
+    我们可以等待 asyncio 程序中的所有独立任务。
+    
+    首先可以通过 **asyncio.all_tasks()** 函数获取一组所有当前正在运行的任务来实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 获取所有正在运行的任务的集合
+    all_tasks = asyncio.all_tasks()
+    ```
+    
+    这将返回一个集合，其中包含当前正在运行的每个任务的一个 **asyncio.Task** 对象，包括 **main()** 协程。
+    
+    我们不能直接等待这个集合，因为它会永远阻塞，因为它包含当前任务的任务。
+    
+    因此，我们可以获取当前正在运行的任务的 **asyncio.Task** 对象并将其从集合中删除。
+    
+    这首先可以通过调用 **asyncio.current_task()** 方法来获取当前协程的任务，然后通过 **remove()** 方法将其从集合中删除来实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 获取当前任务
+    current_task = asyncio.current_task()
+    # 从所有任务列表中删除当前任务
+    all_tasks.remove(current_task)
+    ```
+    
+    最后，我们可以等待剩余的任务集。
+    
+    这将挂起调用者，直到该组中的所有任务完成。
+    
+    例如:
+    
+    ```python
+    ...
+    # 挂起直到所有任务完成
+    await asyncio.wait(all_tasks)
+    ```
+    
+    将它们结合在一起，添加到 **main()** 协程末尾的下面的代码片段将等待所有后台任务完成。
+    
+    ```python
+    ...
+    # 获取所有正在运行的任务的集合
+    all_tasks = asyncio.all_tasks()
+    # 获取当前任务
+    current_task = asyncio.current_task()
+    # 从所有任务列表中删除当前任务
+    all_tasks.remove(current_task)
+    # 挂起直到所有任务完成
+    await asyncio.wait(all_tasks)
+    ```
 
 ### 23.6 Does a Running Task Stop the Event Loop from Exiting?
 
+=== "English"
+
+    No.
+    
+    A task that is scheduled and run independently will not stop the event loop from exiting.
+    
+    If your main coroutine has no other activities to complete and there are independent tasks running in the background, you should retrieve the running tasks and wait on them
+    
+    The previous question/answer shows exactly how to do this.
+
+=== "Chinese"
+
+    不。
+    
+    独立调度和运行的任务不会阻止事件循环退出。
+    
+    如果您的主协程没有其他活动需要完成，并且有独立任务在后台运行，您应该检索正在运行的任务并等待它们
+    
+    上一个问题/答案准确地展示了如何做到这一点。
+
 ### 23.7 How to Show Progress of Running Tasks?
+
+=== "English"
+
+    We can show progress using a done callback function on each task.
+    
+    A done callback is a function that we can register on an **asyncio.Task**.
+    
+    It is called once the task is done, either normally or if it fails.
+    
+    The done callback function is a regular function, not a coroutine, and takes the **asyncio.Task** that it is associated with as an argument.
+    
+    We can use the same callback function for all tasks and report progress in a general way, such as by reporting a message.
+    
+    For example:
+    
+    ```python
+    # callback function to show progress of tasks
+    def progress(task):
+        # report progress of the task
+        print('.', end='')
+    ```
+    
+    We can register a callback function on each **asyncio.Task** that we issue.
+    
+    This can be achieved using the [add_done_callback()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback) method on each task and passing it the name of the callback function.
+    
+    For example:
+    
+    ```python
+    ...
+    # add a done callback to a task
+    task.add_done_callback(progress)
+    ```
+
+=== "Chinese"
+
+    我们可以使用每个任务的回调函数来显示进度。
+
+    执行完成后的回调函数是我们可以在 **asyncio.Task** 上注册的函数。
+    
+    一旦任务执行完，无论正常还是失败，都会调用它。
+    
+    done 回调函数是一个常规函数，而不是协程，并且将与其关联的 **asyncio.Task** 作为参数。
+    
+    我们可以对所有任务使用相同的回调函数，并以通用方式报告进度，例如报告消息。
+    
+    例如:
+    
+    ```python
+    # 回调函数显示任务进度
+    def progress(task):
+        # 报告任务进度
+        print('.', end='')
+    ```
+    
+    我们可以在我们发出的每个 **asyncio.Task** 上注册一个回调函数。
+    
+    这可以通过在每个任务上使用 [add_done_callback()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback) 方法并向其传递回调函数的名称来实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 向任务添加回调函数
+    task.add_done_callback(progress)
+    ```
 
 ### 23.8 How to Run a Task After a Delay?
 
+=== "English"
+
+    We can develop a custom wrapper coroutine to execute a target coroutine after a delay.
+    
+    The wrapper coroutine may take two arguments, a coroutine and a time in seconds.
+    
+    It will sleep for the given delay interval in seconds, then await the provided coroutine.
+    
+    The **delay()** coroutine below implements this.
+    
+    ```python
+    # coroutine that will start another coroutine after a delay in seconds
+    async def delay(coro, seconds):
+        # suspend for a time limit in seconds
+        await asyncio.sleep(seconds)
+        # execute the other coroutine
+        await coro
+    ```
+    
+    To use the wrapper coroutine, a coroutine object can be created and either awaited directly or executed independently as a task.
+    
+    For example, the caller may suspend and schedule the delayed coroutine and wait for it to be done:
+    
+    ```python
+    ...
+    # execute a coroutine after a delay
+    await delay(coro, 10)
+    ```
+    
+    Alternatively, the caller may schedule the delayed coroutine to run independently:
+    
+    ```python
+    ...
+    # execute a coroutine after a delay independently
+    _ = asyncio.create_task(delay(coro, 10))
+    ```
+
+=== "Chinese"
+
+    我们可以开发一个自定义包装协程来在延迟后执行目标协程。
+    
+    包装协程可以采用两个参数，一个协程和一个以秒为单位的时间。
+    
+    它将休眠给定的延迟间隔（以秒为单位），然后等待提供的协程执行完毕。
+    
+    下面的 **delay()** 协程实现了这一点。
+    
+    ```python
+    # 延迟几秒后启动另一个协程的协程
+    async def delay(coro, seconds):
+        # 暂停时间限制（以秒为单位）
+        await asyncio.sleep(seconds)
+        # 执行另一个协程
+        await coro
+    ```
+    
+    要使用包装协程，可以创建协程对象并直接等待或作为任务独立执行。
+    
+    例如，调用者可以挂起并调度延迟协程并等待其完成：
+    
+    ```python
+    ...
+    # 延迟后执行协程
+    await delay(coro, 10)
+    ```
+    
+    或者，调用者可以安排延迟协程独立运行：
+    
+    ```python
+    ...
+    # 在延迟后独立执行协程
+    _ = asyncio.create_task(delay(coro, 10))
+    ```
+
 ### 23.9 How to Run a Follow-Up Task?
+
+=== "English"
+
+    There are three main ways to issue follow-up tasks in asyncio.
+
+    They are:
+    
+    1. Schedule the follow-up task from the completed task itself.
+    2. Schedule the follow-up task from the caller.
+    3. Schedule the follow-up task automatically using a done callback.
+
+    Let’s take a closer look at each approach.
+    
+    The task that is completed can issue its own follow-up task.
+    
+    This may require checking some state in order to determine whether the follow-up task should be issued or not.
+    
+    The task can then be scheduled via a call to `asyncio.create_task()`.
+    
+    For example:
+
+    ```python
+    ...
+    # schedule a follow-up task
+    task = asyncio.create_task(followup_task())
+    ```
+
+    The task itself may choose to await the follow-up task or let it complete in the background independently.
+
+    For example:
+
+    ```python
+    ...
+    # wait for the follow-up task to complete
+    await task
+    ```
+
+    The caller that issued the task can choose to issue a follow-up task.
+
+    For example, when the caller issues the first task, it may keep the asyncio.Task object.
+    
+    It can then check the result of the task or whether the task was completed successfully or not.
+    
+    The caller can then decide to issue a follow-up task.
+    
+    It may or may not await the follow-up task directly.
+    
+    For example:
+
+    ```python
+    ...
+    # issue and await the first task
+    task = await asyncio.create_task(task())
+    # check the result of the task
+    if task.result():
+        # issue the follow-up task
+        followup = await asyncio.create_task(followup_task())
+    ```
+
+    We can execute a follow-up task automatically using a done callback function.
+
+    For example, the caller that issues the task can register a done callback function on the task itself.
+    
+    The done callback function must take the asyncio.Task object as an argument and will be called only after the task is done. It can then choose to issue a follow-up task.
+    
+    The done callback function is a regular Python function, not a coroutine, so it cannot await the follow-up task
+    
+    For example, the callback function may look as follows:
+
+    ```python
+    # callback function
+    def callback(task):
+        # schedule and await the follow-up task
+        _ = asyncio.create_task(followup())
+    ```
+
+    The caller can issue the first task and register the done callback function.
+
+    For example:
+
+    ```python
+    ...
+    # schedule and the task
+    task = asyncio.create_task(work())
+    # add the done callback function
+    task.add_done_callback(callback)
+    ```
+
+=== "Chinese"
+
+    **asyncio** 中发出**后续任务**(follow-up tasks)的方式主要有三种。
+
+    他们是:
+    
+    1. 从已完成的任务本身调度后续任务。
+    2. 从调用者调度后续任务。
+    3. 使用回调函数自动调度后续任务。
+
+    让我们仔细看看每种方法。
+    
+    完成的任务可以发出自己的后续任务。
+    
+    这可能需要检查某些状态以确定是否应该发出后续任务。
+    
+    然后可以通过调用 `asyncio.create_task()` 来安排任务 .
+    
+    例如:
+
+    ```python
+    ...
+    # schedule a follow-up task
+    task = asyncio.create_task(followup_task())
+    ```
+
+    任务本身可以**选择等待**后续任务或让它在后台独立完成。
+
+    例如:
+
+    ```python
+    ...
+    # 等待后续任务执行完毕
+    await task
+    ```
+
+    下发任务的调用者可以选择下发后续任务。
+
+    例如，当调用者发出第一个任务时，它可能会保留 `asyncio.Task` 对象。
+    
+    然后它可以检查任务的结果或任务是否成功完成。
+    
+    然后调用者可以决定是否发出后续任务。
+    
+    它也可以直接选择等待/不等待后续任务执行完毕。
+    
+    例如:
+
+    ```python
+    ...
+    # 发出并等待第一个任务
+    task = await asyncio.create_task(task())
+    # 检查任务结果
+    if task.result():
+        # 下达后续任务
+        followup = await asyncio.create_task(followup_task())
+    ```
+    
+    我们可以使用回调函数自动执行后续任务。
+
+    例如，发出任务的调用者可以在任务本身上注册执行完成后的回调函数。
+    
+    回调函数必须将 `asyncio.Task` 对象作为参数，并且只有在任务完成后才会被调用。 然后它可以选择是否发出后续任务。
+    
+    回调函数是一个常规的Python函数，而不是协程，因此它不能等待后续任务
+    
+    例如，回调函数可能如下所示：
+
+    ```python
+    # 回调函数
+    def callback(task):
+        # 调度并等待后续任务
+        _ = asyncio.create_task(followup())
+    ```
+    
+    调用者可以发出第一个任务并注册执行完成后的回调函数。
+
+    例如:
+
+    ```python
+    ...
+    # 调度任务
+    task = asyncio.create_task(work())
+    # 添加执行完后的回调函数
+    task.add_done_callback(callback)
+    ```
 
 ### 23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?
 
-The asyncio module provides two approaches for executing blocking calls in asyncio programs.
+=== "English"
 
-- asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。
-
-The first is to use the [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) function.
-
-- 第一种是使用 [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) 函数。
-
-This is in the high-level API and is intended for application developers.
-
-- 这是高级 API 中的内容，适用于应用程序开发人员。
-
-The [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) function takes a function name to execute and any arguments.
-
-- `asyncio.to_thread()` 函数接受要执行的函数名称和任何参数。
-
-The function is executed in a separate thread. It returns a coroutine that can be awaited or scheduled as an independent task.
-
-- 该函数在单独的线程中执行。 它返回一个可以作为独立任务等待或调度的协程。
-
-For example:
-
-- 例如：
-
-```python
-...
-# execute a function in a separate thread
-# 在单独的线程中执行函数
-await asyncio.to_thread(task)
-```
-
-The task will not begin executing until the returned coroutine is given an opportunity to run in the event loop.
-
-- 任务一开始并不会执行。直到协程返回并且给个在事件循环中运行的机会时，才会运行。
-
-The asyncio.to_thread() function creates a **ThreadPoolExecutor** behind the scenes to execute blocking calls.
-
-- `asyncio.to_thread()` 函数在后台创建一个 **ThreadPoolExecutor** 来执行阻塞调用。
-
-As such, the `asyncio.to_thread()` function is only appropriate for IO-bound tasks.
-
-- 因此，`asyncio.to_thread()` 函数仅适用于 IO 密集型任务。
-
-An alternative approach is to use the [loop.run_in_executor()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor) function.
-
-- 另一种方法是使用[loop.run_in_executor()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)函数。
-
-This is in the low-level asyncio API and first requires access to the event loop, such as via the [asyncio.get_running_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop) function.
-
-- 这是在低级 asyncio API 中，首先需要访问事件循环，例如通过 [asyncio.get_running_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop) 函数。
-
-The `loop.run_in_executor()` function takes an executor and a function to execute.
-
-- `Loop.run_in_executor()` 函数需要一个执行器和一个要执行的函数。
-
-If None is provided for the executor, then the default executor is used, which is a ThreadPoolExecutor.
-
-- 如果没有为执行器提供 None，则使用默认执行器，即 ThreadPoolExecutor。
-
-The `loop.run_in_executor()` function returns an awaitable that can be awaited if needed. The task will begin executing immediately, so the returned awaitable does not need to be awaited or scheduled for the blocking call to start executing.
-
-- `Loop.run_in_executor()` 函数返回一个可等待的对象，如果需要可以等待。 该任务将立即开始执行，因此不需要等待或安排返回的可等待对象来开始执行阻塞调用。
-
-For example:
-
-- 例如：
-
-```python
-...
-# get the event loop
-# 获取事件循环
-loop = asyncio.get_running_loop()
-# execute a function in a separate thread
-# 在单独的线程中执行函数
-await loop.run_in_executor(None, task)
-```
-
-Alternatively, an executor can be created and passed to the loop.run_in_executor() function, which will execute the asynchronous call in the executor.
-
-- 或者，可以创建一个执行器并将其传递给`loop.run_in_executor()`函数，该函数将在执行器中执行异步调用。
-
-The caller must manage the executor in this case, shutting it down once the caller is finished with it.
-
-- 在这种情况下，调用者必须管理执行器，在调用者完成后将其关闭。
-
-For example:
-
-- 例如:
-
-```python
-...
-# create a process pool
-# 创建一个进程池
-with ProcessPoolExecutor as exe:
+    The asyncio module provides two approaches for executing blocking calls in asyncio programs.
+    
+    The first is to use the [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) function.
+    
+    This is in the high-level API and is intended for application developers.
+    
+    The [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) function takes a function name to execute and any arguments.
+    
+    The function is executed in a separate thread. It returns a coroutine that can be awaited or scheduled as an independent task.
+    
+    For example:
+    
+    ```python
+    ...
+    # execute a function in a separate thread
+    await asyncio.to_thread(task)
+    ```
+    
+    The task will not begin executing until the returned coroutine is given an opportunity to run in the event loop.
+    
+    The asyncio.to_thread() function creates a **ThreadPoolExecutor** behind the scenes to execute blocking calls.
+    
+    As such, the `asyncio.to_thread()` function is only appropriate for IO-bound tasks.
+    
+    An alternative approach is to use the [loop.run_in_executor()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor) function.
+    
+    This is in the low-level asyncio API and first requires access to the event loop, such as via the [asyncio.get_running_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop) function.
+    
+    The `loop.run_in_executor()` function takes an executor and a function to execute.
+    
+    If None is provided for the executor, then the default executor is used, which is a ThreadPoolExecutor.
+    
+    The `loop.run_in_executor()` function returns an awaitable that can be awaited if needed. The task will begin executing immediately, so the returned awaitable does not need to be awaited or scheduled for the blocking call to start executing.
+    
+    For example:
+    
+    ```python
+    ...
     # get the event loop
-    # 获取事件循环
     loop = asyncio.get_running_loop()
     # execute a function in a separate thread
+    await loop.run_in_executor(None, task)
+    ```
+    
+    Alternatively, an executor can be created and passed to the loop.run_in_executor() function, which will execute the asynchronous call in the executor.
+    
+    The caller must manage the executor in this case, shutting it down once the caller is finished with it.
+    
+    For example:
+
+    ```python
+    ...
+    # create a process pool
+    with ProcessPoolExecutor as exe:
+        # get the event loop
+        loop = asyncio.get_running_loop()
+        # execute a function in a separate thread
+        await loop.run_in_executor(exe, task)
+        # process pool is shutdown automatically...
+    ```
+
+    These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.
+
+=== "Chinese"
+
+    asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。
+    
+    第一种是使用 [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) 函数。
+    
+    这是高级 API 中的内容，适用于应用程序开发人员。
+    
+    `asyncio.to_thread()` 函数接受要执行的函数名称和任何参数。
+    
+    该函数在单独的线程中执行。 它返回一个可以作为独立任务等待或调度的协程。
+    
+    例如：
+    
+    ```python
+    ...
     # 在单独的线程中执行函数
-    await loop.run_in_executor(exe, task)
-    # process pool is shutdown automatically...
-    # 进程池自动关闭...
-```
-
-These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.
-
-- 这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。
+    await asyncio.to_thread(task)
+    ```
+    
+    任务一开始并不会执行。直到协程返回并且给个在事件循环中运行的机会时，才会运行。
+    
+    `asyncio.to_thread()` 函数在后台创建一个 **ThreadPoolExecutor** 来执行阻塞调用。
+    
+    因此，`asyncio.to_thread()` 函数仅适用于 IO 密集型任务。
+    
+    另一种方法是使用[loop.run_in_executor()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_in_executor)函数。
+    
+    这是在低级 asyncio API 中，首先需要访问事件循环，例如通过 [asyncio.get_running_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop) 函数。
+    
+    `Loop.run_in_executor()` 函数需要一个执行器和一个要执行的函数。
+    
+    如果没有为执行器提供参数，则默认值为 None，将使用默认执行器，即 **ThreadPoolExecutor**。
+    
+    `Loop.run_in_executor()` 函数返回一个可等待的对象，如果需要可以等待。 该任务将立即开始执行，因此不需要等待或安排返回的可等待对象来开始执行阻塞调用。
+    
+    例如：
+    
+    ```python
+    ...
+    # 获取事件循环
+    loop = asyncio.get_running_loop()
+    # 在单独的线程中执行函数
+    await loop.run_in_executor(None, task)
+    ```
+    
+    或者，可以创建一个执行器并将其传递给`loop.run_in_executor()`函数，该函数将在执行器中执行异步调用。
+    
+    在这种情况下，调用者必须管理执行器，在调用者完成后将其关闭。
+    
+    例如:
+    
+    ```python
+    ...
+    # 创建一个进程池
+    with ProcessPoolExecutor as exe:
+        # 获取事件循环
+        loop = asyncio.get_running_loop()
+        # 在单独的线程中执行函数
+        # process pool is shutdown automatically...
+        # 进程池自动关闭...
+    ```
+    
+    这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。
 
 ## 24. Common Objections to Using Asyncio
 
-Asyncio and coroutines may not be the best solution for all concurrency problems in your program.
+=== "English"
 
-- 异步和协程可能不是解决程序中所有并发问题的最佳解决方案。
+    Asyncio and coroutines may not be the best solution for all concurrency problems in your program.
+    
+    That being said, there may also be some misunderstandings that are preventing you from making full and best use of the capabilities of the asyncio in Python.
+    
+    In this section, we review some of the common objections seen by developers when considering using the asyncio.
 
-That being said, there may also be some misunderstandings that are preventing you from making full and best use of the capabilities of the asyncio in Python.
+=== "Chinese"
 
-- 话虽如此，也可能存在一些误解，阻碍您充分、最佳地利用 Python 中 asyncio 的功能。
+    异步和协程可能不是解决程序中所有并发问题的最佳解决方案。
 
-In this section, we review some of the common objections seen by developers when considering using the asyncio.
+    话虽如此，也可能存在一些误解，阻碍您充分、最佳地利用 Python 中 asyncio 的功能。
 
-- 在本节中，我们将回顾开发人员在考虑使用 asyncio 时遇到的一些常见反对意见。
+    在本节中，我们将回顾开发人员在考虑使用 asyncio 时遇到的一些常见反对意见。
 
 ### 24.1 What About the Global Interpreter Lock (GIL)?
 
