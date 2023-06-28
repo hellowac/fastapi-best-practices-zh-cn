@@ -1,278 +1,1661 @@
 # Python Asyncio: The Complete Guide
 
-**Asyncio** allows us to use asynchronous programming with coroutine-based concurrency in Python.
+=== "English"
 
-Although asyncio has been available in Python for many years now, it remains one of the most interesting and yet one of the most frustrating areas of Python.
+    **Asyncio** allows us to use asynchronous programming with coroutine-based concurrency in Python.
 
-It is just plain hard to get started with asyncio for new developers.
+    Although asyncio has been available in Python for many years now, it remains one of the most interesting and yet one of the most frustrating areas of Python.
 
-This guide provides a detailed and comprehensive(全面的) review of asyncio in Python, including how to define, create and run coroutines, what is asynchronous programming, what is non-blocking-io, concurrency primitives(原始并发) used with coroutines, common questions, and best practices.
+    It is just plain hard to get started with asyncio for new developers.
 
-This is a massive 29,000+ word guide. You may want to bookmark it so you can refer to it as you develop your concurrent programs.
+    This guide provides a detailed and comprehensive(全面的) review of asyncio in Python, including how to define, create and run coroutines, what is asynchronous programming, what is non-blocking-io, concurrency primitives(原始并发) used with coroutines, common questions, and best practices.
 
-Let’s dive in.
+    This is a massive 29,000+ word guide. You may want to bookmark it so you can refer to it as you develop your concurrent programs.
+
+    Let’s dive in.
+
+=== "Chinese"
+
+    **Asyncio** 允许我们在 Python 中使用基于协程的并发的异步编程。
+
+    尽管 asyncio 已经在 Python 中使用很多年了，但它仍然是 Python 中最有趣但也是最令人沮丧的领域之一。
+
+    对于新开发人员来说，开始使用 asyncio 非常困难。
+
+    本指南对 Python 中的 asyncio 进行了详细而全面的回顾，包括如何定义、创建和运行协程、什么是异步编程、什么是非阻塞 io、与协程一起使用的并发原语、 常见问题和最佳实践。
+
+    这是一本超过 29,000 字的海量指南。 您可能需要为其添加书签，以便在开发并发程序时可以参考它。
+
+    让我们深入了解一下。
 
 ## 1. What is Asynchronous Programming
 
+=== "English"
+
+=== "Chinese"
+
 ### 1.1 Asynchronous Tasks
+
+=== "English"
+
+=== "Chinese"
 
 ### 1.2 Asynchronous Programming
 
+=== "English"
+
+=== "Chinese"
+
 ### 1.3 Asynchronous Programming in Python
+
+=== "English"
+
+=== "Chinese"
 
 ## 2. What is Asyncio
 
+=== "English"
+
+=== "Chinese"
+
 ### 2.1 Changes to Python to add Support for Coroutines
+
+=== "English"
+
+=== "Chinese"
 
 ### 2.2 The asyncio Module
 
+=== "English"
+
+=== "Chinese"
+
 ## 3. When to Use Asyncio
+
+=== "English"
+
+=== "Chinese"
 
 ### 3.1 Reasons to Use Asyncio in Python
 
+=== "English"
+
+=== "Chinese"
+
 ### 3.2 Other Reasons to Use Asyncio
+
+=== "English"
+
+=== "Chinese"
 
 ### 3.3 When to Not Use Asyncio
 
+=== "English"
+
+=== "Chinese"
+
 ## 4. Coroutines in Python
+
+=== "English"
+
+=== "Chinese"
 
 ### 4.1 What is a Coroutine
 
+=== "English"
+
+=== "Chinese"
+
 ### 4.2 Coroutine vs Routine and Subroutine
+
+=== "English"
+
+=== "Chinese"
 
 ### 4.3 Coroutine vs Generator
 
+=== "English"
+
+=== "Chinese"
+
 ### 4.4 Coroutine vs Task
+
+=== "English"
+
+=== "Chinese"
 
 ### 4.5 Coroutine vs Thread
 
+=== "English"
+
+=== "Chinese"
+
 ### 4.6 Coroutine vs Process
+
+=== "English"
+
+=== "Chinese"
 
 ### 4.7 When Were Coroutines Added to Python
 
+=== "English"
+
+=== "Chinese"
+
 ## 5. Define, Create and Run Coroutines
+
+=== "English"
+
+=== "Chinese"
 
 ### 5.1 How to Define a Coroutine
 
+=== "English"
+
+=== "Chinese"
+
 ### 5.2 How to Create a Coroutine
+
+=== "English"
+
+=== "Chinese"
 
 ### 5.3 How to Run a Coroutine From Python
 
+=== "English"
+
+=== "Chinese"
+
 ## 6. What is the Event Loop
+
+=== "English"
+
+=== "Chinese"
 
 ### 6.1 What is the Asyncio Event Loop
 
+=== "English"
+
+=== "Chinese"
+
 ### 6.2 How To Start and Get An Event Loop
+
+=== "English"
+
+=== "Chinese"
 
 ### 6.3 What is an Event Loop Object
 
+=== "English"
+
+=== "Chinese"
+
 ### 6.4 Why Get Access to The Event Loop
+
+=== "English"
+
+=== "Chinese"
 
 ## 7. Create and Run Asyncio Tasks
 
+=== "English"
+
+=== "Chinese"
+
 ### 7.1 What is an Asyncio Task
+
+=== "English"
+
+=== "Chinese"
 
 ### 7.2 How to Create a Task
 
+=== "English"
+
+=== "Chinese"
+
 ### 7.3 When Does a Task Run?
+
+=== "English"
+
+=== "Chinese"
 
 ## 8. Work With and Query Tasks
 
+=== "English"
+
+=== "Chinese"
+
 ### 8.1 Task Life-Cycle
+
+=== "English"
+
+=== "Chinese"
 
 ### 8.2 How to Check Task Status
 
+=== "English"
+
+=== "Chinese"
+
 ### 8.3 How to Get Task Result
+
+=== "English"
+
+=== "Chinese"
 
 ### 8.4 How to Get Task Exception
 
+=== "English"
+
+=== "Chinese"
+
 ### 8.5 How to Cancel a Task
+
+=== "English"
+
+=== "Chinese"
 
 ### 8.6 How to Use Callback With a Task
 
+=== "English"
+
+=== "Chinese"
+
 ### 8.7 How to Set the Task Name
+
+=== "English"
+
+=== "Chinese"
 
 ## 9. Current and Running Tasks
 
+=== "English"
+
+=== "Chinese"
+
 ### 9.1 How to Get the Current Task
+
+=== "English"
+
+=== "Chinese"
 
 ### 9.2 How to Get All Tasks
 
+=== "English"
+
+=== "Chinese"
+
 ## 10. Run Many Coroutines Concurrently
+
+=== "English"
+
+=== "Chinese"
 
 ### 10.1 What is Asyncio gather()
 
+=== "English"
+
+=== "Chinese"
+
 ### 10.2 How to use Asyncio gather()
+
+=== "English"
+
+=== "Chinese"
 
 ### 10.3 Example of gather() For Many Coroutines in a List
 
+=== "English"
+
+=== "Chinese"
+
 ## 11. Wait for A Collection of Tasks
+
+=== "English"
+
+=== "Chinese"
 
 ### 11.1 What is asyncio.wait()
 
+=== "English"
+
+=== "Chinese"
+
 ### 11.2 How to Use asyncio.wait()
+
+=== "English"
+
+=== "Chinese"
 
 ### 11.3 Example of Waiting for All Tasks
 
+=== "English"
+
+=== "Chinese"
+
 ## 12. Wait for a Coroutine with a Time Limit
+
+=== "English"
+
+=== "Chinese"
 
 ### 12.1 What is Asyncio wait_for()
 
+=== "English"
+
+=== "Chinese"
+
 ### 12.2 How to Use Asyncio wait_for()
+
+=== "English"
+
+=== "Chinese"
 
 ### 12.3 Example of Asyncio wait_for() With a Timeout
 
+=== "English"
+
+=== "Chinese"
+
 ## 13. Shield Tasks from Cancellation
+
+=== "English"
+
+=== "Chinese"
 
 ### 13.1 What is Asyncio shield()
 
+=== "English"
+
+=== "Chinese"
+
 ### 13.2 How to Use Asyncio shield()
+
+=== "English"
+
+=== "Chinese"
 
 ### 13.3 Example of Asyncio shield() for a Task
 
+=== "English"
+
+=== "Chinese"
+
 ## 14. Run a Blocking Task in Asyncio
+
+=== "English"
+
+=== "Chinese"
 
 ### 14.1 Need to Run Blocking Tasks in Asyncio
 
+=== "English"
+
+=== "Chinese"
+
 ### 14.2 How to Run Blocking Tasks
+
+=== "English"
+
+=== "Chinese"
 
 ### 14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
 
+=== "English"
+
+=== "Chinese"
+
 ## 15. Asynchronous Iterators
+
+=== "English"
+
+=== "Chinese"
 
 ### 15.1 What Are Asynchronous Iterators
 
+=== "English"
+
+=== "Chinese"
+
 ### 15.2 What is the “async for” loop?
+
+=== "English"
+
+=== "Chinese"
 
 ### 15.3 How to Use Asynchronous Iterators
 
+=== "English"
+
+=== "Chinese"
+
 ### 15.4 Example of an Asynchronous Iterator
+
+=== "English"
+
+=== "Chinese"
 
 ## 16. Asynchronous Generators
 
+=== "English"
+
+=== "Chinese"
+
 ### 16.1 What Are Asynchronous Generators
+
+=== "English"
+
+=== "Chinese"
 
 ### 16.2 How to Use an Asynchronous Generator
 
+=== "English"
+
+=== "Chinese"
+
 ### 16.3 Example of an Asynchronous Generator
+
+=== "English"
+
+=== "Chinese"
 
 ## 17. Asynchronous Context Managers
 
+=== "English"
+
+=== "Chinese"
+
 ### 17.1 What is an Asynchronous Context Manager
+
+=== "English"
+
+=== "Chinese"
 
 ### 17.2 How to Use Asynchronous Context Managers
 
+=== "English"
+
+=== "Chinese"
+
 ### 17.3 Example of an Asynchronous Context Manager and “async with”
+
+=== "English"
+
+=== "Chinese"
 
 ## 18. Asynchronous Comprehensions
 
+=== "English"
+
+=== "Chinese"
+
 ### 18.1 What are Asynchronous Comprehensions
+
+=== "English"
+
+=== "Chinese"
 
 ### 18.2 Comprehensions
 
+=== "English"
+
+=== "Chinese"
+
 ### 18.3 Asynchronous Comprehensions
+
+=== "English"
+
+=== "Chinese"
 
 ### 18.4 Await Comprehensions
 
+=== "English"
+
+=== "Chinese"
+
 ## 19. Run Commands in Non-Blocking Subprocesses
+
+=== "English"
+
+=== "Chinese"
 
 ### 19.1 What is asyncio.subprocess.Process
 
+=== "English"
+
+=== "Chinese"
+
 ### 19.2 How to Run a Command Directly
+
+=== "English"
+
+=== "Chinese"
 
 ### 19.3 How to Run a Command Via the Shell
 
+=== "English"
+
+=== "Chinese"
+
 ## 20. Non-Blocking Streams
+
+=== "English"
+
+=== "Chinese"
 
 ### 20.1 Asyncio Streams
 
+=== "English"
+
+=== "Chinese"
+
 ### 20.2 How to Open a Connection
+
+=== "English"
+
+=== "Chinese"
 
 ### 20.3 How to Start a Server
 
+=== "English"
+
+=== "Chinese"
+
 ### 20.4 How to Write Data with the StreamWriter
+
+=== "English"
+
+=== "Chinese"
 
 ### 20.5 How to Read Data with the StreamReader
 
+=== "English"
+
+=== "Chinese"
+
 ### 20.6 How to Close Connection
+
+=== "English"
+
+=== "Chinese"
 
 ## 21. Example of Checking Website Status
 
+=== "English"
+
+=== "Chinese"
+
 ### 21.1 How to Check HTTP Status with Asyncio
+
+=== "English"
+
+=== "Chinese"
 
 ### 21.2 Open HTTP Connection
 
+=== "English"
+
+=== "Chinese"
+
 ### 21.3 Write HTTP Request
+
+=== "English"
+
+=== "Chinese"
 
 ### 21.4 Read HTTP Response
 
+=== "English"
+
+=== "Chinese"
+
 ### 21.5 Close HTTP Connection
+
+=== "English"
+
+=== "Chinese"
 
 ### 21.6 Example of Checking HTTP Status Sequentially
 
+=== "English"
+
+=== "Chinese"
+
 ### 21.7 Example of Checking Website Status Concurrently
+
+=== "English"
+
+    A benefit of asyncio is that we can execute many coroutines concurrently.
+
+    We can query the status of websites concurrently in asyncio using the [asyncio.gather()](https://docs.python.org/3/library/asyncio-task.html#asyncio.gather) function.
+
+    This function takes one or more coroutines, suspends executing the provided coroutines, and returns the results from each as an iterable. We can then traverse the list of URLs and iterable of return values from the coroutines and report results.
+
+    This may be a simpler approach than the above.
+
+    First, we can create a list of coroutines.
+
+    ```python
+    ...
+    # create all coroutine requests
+    coros = [get_status(url) for url in sites]
+    ```
+
+    Next, we can execute the coroutines and get the iterable of results using asyncio.gather().
+
+    Note that we cannot provide the list of coroutines directly, but instead must unpack the list into separate expressions that are provided as positional arguments to the function.
+
+    ```python
+    ...
+    # execute all coroutines and wait
+    results = await asyncio.gather(*coros)
+    ```
+
+    This will execute all of the coroutines concurrently and retrieve their results.
+
+    We can then traverse the list of URLs and returned status and report each in turn.
+
+    ```python
+    ...
+    # process all results
+    for url, status in zip(sites, results):
+        # report status
+        print(f'{url:30}:\t{status}')
+    ```
+
+    Tying this together, the complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # check the status of many webpages
+    import asyncio
+    from urllib.parse import urlsplit
+    
+    # get the HTTP/S status of a webpage
+    async def get_status(url):
+        # split the url into components
+        url_parsed = urlsplit(url)
+        # open the connection
+        if url_parsed.scheme == 'https':
+            reader, writer = await asyncio.open_connection(url_parsed.hostname, 443, ssl=True)
+        else:
+            reader, writer = await asyncio.open_connection(url_parsed.hostname, 80)
+        # send GET request
+        query = f'GET {url_parsed.path} HTTP/1.1\r\nHost: {url_parsed.hostname}\r\n\r\n'
+        # write query to socket
+        writer.write(query.encode())
+        # wait for the bytes to be written to the socket
+        await writer.drain()
+        # read the single line response
+        response = await reader.readline()
+        # close the connection
+        writer.close()
+        # decode and strip white space
+        status = response.decode().strip()
+        # return the response
+        return status
+    
+    # main coroutine
+    async def main():
+        # list of top 10 websites to check
+        sites = ['https://www.google.com/',
+            'https://www.youtube.com/',
+            'https://www.facebook.com/',
+            'https://twitter.com/',
+            'https://www.instagram.com/',
+            'https://www.baidu.com/',
+            'https://www.wikipedia.org/',
+            'https://yandex.ru/',
+            'https://yahoo.com/',
+            'https://www.whatsapp.com/'
+            ]
+        # create all coroutine requests
+        coros = [get_status(url) for url in sites]
+        # execute all coroutines and wait
+        results = await asyncio.gather(*coros)
+        # process all results
+        for url, status in zip(sites, results):
+            # report status
+            print(f'{url:30}:\t{status}')
+    
+    # run the asyncio program
+    asyncio.run(main())
+    ```
+
+    Running the example executes the main() coroutine as before.
+
+    In this case, a list of coroutines is created in a list comprehension.
+
+    The asyncio.gather() function is then called, passing the coroutines and suspending the main() coroutine until they are all complete.
+
+    The coroutines execute, querying each website concurrently and returning their status.
+
+    The main() coroutine resumes and receives an iterable of status values. This iterable along with the list of URLs is then traversed using the zip() built-in function and the statuses are reported.
+
+    This highlights a simpler approach to executing the coroutines concurrently and reporting the results after all tasks are completed.
+
+    It is also faster than the sequential version above, completing in about 1.4 seconds on my system.
+
+    ```text
+    https://www.google.com/       : HTTP/1.1 200 OK
+    https://www.youtube.com/      : HTTP/1.1 200 OK
+    https://www.facebook.com/     : HTTP/1.1 302 Found
+    https://twitter.com/          : HTTP/1.1 200 OK
+    https://www.instagram.com/    : HTTP/1.1 200 OK
+    https://www.baidu.com/        : HTTP/1.1 200 OK
+    https://www.wikipedia.org/    : HTTP/1.1 200 OK
+    https://yandex.ru/            : HTTP/1.1 302 Moved temporarily
+    https://yahoo.com/            : HTTP/1.1 301 Moved Permanently
+    https://www.whatsapp.com/     : HTTP/1.1 302 Found
+    ```
+
+    Next, let’s explore common errors when getting started with asyncio.
+
+=== "Chinese"
+
+    asyncio 的一个好处是我们可以同时执行许多协程。
+
+    我们可以使用 [asyncio.gather()](https://docs.python.org/3/library/asyncio-task.html#asyncio.gather) 函数在 asyncio 中同时查询网站的状态。
+
+    该函数采用一个或多个协程，暂停执行所提供的协程，并将每个协程的结果作为可迭代对象返回。 然后我们可以遍历协程的 URL 列表和可迭代的返回值并报告结果。
+
+    这可能是比上面更简单的方法。
+
+    首先，我们可以创建一个协程列表。
+
+    ```python
+    ...
+    # 创建所有协程请求
+    coros = [get_status(url) for url in sites]
+    ```
+
+    接下来，我们可以执行协程并使用 **asyncio.gather()** 获取可迭代的结果。
+
+    请注意，我们无法直接提供协程列表，而是必须将列表解压缩为单独的表达式，这些表达式作为函数的位置参数提供。
+
+    ```python
+    ...
+    # 执行所有协程并等待
+    results = await asyncio.gather(*coros)
+    ```
+
+    这将同时执行所有协程并检索它们的结果。
+
+    然后我们可以遍历 URL 列表和返回的状态并依次报告。
+
+    ```python
+    ...
+    # 处理所有结果
+    for url, status in zip(sites, results):
+        # 报告状态
+        print(f'{url:30}:\t{status}')
+    ```
+
+    将它们结合在一起，下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 检查许多网页的状态
+    import asyncio
+    from urllib.parse import urlsplit
+    
+    # 获取网页的 HTTP/S 状态
+    async def get_status(url):
+        # 将 url 拆分为多个组件
+        url_parsed = urlsplit(url)
+        # 打开连接
+        if url_parsed.scheme == 'https':
+            reader, writer = await asyncio.open_connection(url_parsed.hostname, 443, ssl=True)
+        else:
+            reader, writer = await asyncio.open_connection(url_parsed.hostname, 80)
+        # 发送 GET 请求
+        query = f'GET {url_parsed.path} HTTP/1.1\r\nHost: {url_parsed.hostname}\r\n\r\n'
+        # 将查询写入套接字
+        writer.write(query.encode())
+        # 等待字节写入套接字
+        await writer.drain()
+        # 读取单行响应
+        response = await reader.readline()
+        # 关闭连接
+        writer.close()
+        # 解码并去除空白字符
+        status = response.decode().strip()
+        # 返回响应
+        return status
+    
+    # 主协程
+    async def main():
+        # 要检查的前 10 个网站列表
+        sites = ['https://www.google.com/',
+            'https://www.youtube.com/',
+            'https://www.facebook.com/',
+            'https://twitter.com/',
+            'https://www.instagram.com/',
+            'https://www.baidu.com/',
+            'https://www.wikipedia.org/',
+            'https://yandex.ru/',
+            'https://yahoo.com/',
+            'https://www.whatsapp.com/'
+            ]
+        # 创建所有协程请求
+        coros = [get_status(url) for url in sites]
+        # 执行所有协程并等待
+        results = await asyncio.gather(*coros)
+        # 处理所有结果
+        for url, status in zip(sites, results):
+            # 报告状态
+            print(f'{url:30}:\t{status}')
+    
+    # 运行异步程序
+    asyncio.run(main())
+    ```
+
+    运行该示例会像以前一样执行 **main()** 协程。
+
+    在这种情况下，协程列表是在列表推导式中创建的。
+
+    然后调用 **asyncio.gather()** 函数，传递协程并挂起 **main()** 协程，直到它们全部完成。
+
+    协程执行，同时查询每个网站并返回其状态。
+
+    **main()** 协程恢复并接收可迭代的状态值。 然后使用 **zip()** 内置函数遍历该可迭代对象以及 URL 列表，并报告状态。
+
+    这突出显示了一种**更简单的方法**来**同时执行协程**并在所有任务完成后报告结果。
+
+    它也比上面的顺序版本更快，在我的系统上大约需要 1.4 秒即可完成。
+
+    ```text
+    https://www.google.com/       : HTTP/1.1 200 OK
+    https://www.youtube.com/      : HTTP/1.1 200 OK
+    https://www.facebook.com/     : HTTP/1.1 302 Found
+    https://twitter.com/          : HTTP/1.1 200 OK
+    https://www.instagram.com/    : HTTP/1.1 200 OK
+    https://www.baidu.com/        : HTTP/1.1 200 OK
+    https://www.wikipedia.org/    : HTTP/1.1 200 OK
+    https://yandex.ru/            : HTTP/1.1 302 Moved temporarily
+    https://yahoo.com/            : HTTP/1.1 301 Moved Permanently
+    https://www.whatsapp.com/     : HTTP/1.1 302 Found
+    ```
+
+    接下来，让我们探讨一下 **asyncio** 入门时的常见错误。
 
 ## 22. Python Asyncio Common Errors
 
+=== "English"
+
+    This section gives examples of general errors encountered by developers when using asyncio in Python.
+
+    The 5 most common asyncio errors are:
+
+    1. Trying to run coroutines by calling them.
+    2. Not letting coroutines run in the event loop.
+    3. Using the asyncio low-level API.
+    4. Exiting the main coroutine too early.
+    5. Assuming race conditions and deadlocks are not possible.
+    
+    Let’s take a closer look at each in turn.
+
+=== "Chinese"
+
+    本节提供了开发人员在 Python 中使用 asyncio 时遇到的常见错误的示例。
+
+    5 个最常见的异步错误是：
+
+    1. 尝试通过调用协程来运行它们。
+    2. 不让协程在事件循环中运行。
+    3. 使用 asyncio 低级 API。
+    4. 过早退出主协程。
+    5. 假设竞争条件和死锁是不存在的。
+    
+    Let’s take a closer look at each in turn.
+
 ### 22.1 Error 1: Trying to Run Coroutines by Calling Them
+
+=== "English"
+
+    The most common error encountered by beginners to asyncio is calling a coroutine like a function.
+
+    For example, we can define a coroutine using the “async def” expression:
+
+    ```python
+    # custom coroutine
+    async def custom_coro():
+        print('hi there')
+    ```
+
+    The beginner will then attempt to call this coroutine like a function and expect the print message to be reported.
+
+    For example:
+
+    ```python
+    ...
+    # error attempt at calling a coroutine like a function
+    custom_coro()
+    ```
+    
+    Calling a coroutine like a function will not execute the body of the coroutine.
+
+    Instead, it will create a coroutine object.
+
+    This object can then be awaited within the asyncio runtime, e.g. the event loop.
+
+    We can start the event loop to run the coroutine using the asyncio.run() function.
+
+    For example:
+
+    ```python
+    ...
+    # run a coroutine
+    asyncio.run(custom_coro())
+    ```
+
+    Alternatively, we can suspend the current coroutine and schedule the other coroutine using the “await” expression.
+
+    For example:
+
+    ```python
+    ...
+    # schedule a coroutine
+    await custom_coro()
+    ```
+
+    You can learn more about running coroutines in the tutorial:
+    
+    - [How to Run an Asyncio Coroutine in Python](https://superfastpython.com/asyncio-run-coroutine)
+
+=== "Chinese"
+
+    asyncio 初学者遇到的最常见错误是像函数一样调用协程。
+
+    例如，我们可以使用“async def”表达式定义一个协程：
+
+    ```python
+    # 自定义协程
+    async def custom_coro():
+        print('hi there')
+    ```
+
+    然后，初学者将尝试像函数一样调用这个协程，并期望报告打印消息。
+
+    例如：
+
+    ```python
+    ...
+    # 尝试像函数一样调用协程时出错
+    custom_coro()
+    ```
+    
+    像函数一样调用协程不会执行协程主体。
+
+    相反，它将创建一个协程对象。
+
+    然后可以在 asyncio 运行时中等待该对象，例如：事件循环（Event Loop）。
+
+    我们可以使用 `asyncio.run()` 函数启动事件循环来运行协程。
+
+    例如：
+
+    ```python
+    ...
+    # 运行协程
+    asyncio.run(custom_coro())
+    ```
+
+    或者，我们可以挂起当前协程并使用“**await**”表达式调度另一个协程。
+
+    例如：
+
+    ```python
+    ...
+    # 调度一个协程
+    await custom_coro()
+    ```
+
+    您可以在教程中了解有关运行协程的更多信息：
+    
+    - [如何在 Python 中运行 Asyncio 协程](https://superfastpython.com/asyncio-run-coroutine)
 
 ### 22.2 Error 2: Not Letting Coroutines Run in the Event Loop
 
+=== "English"
+
+    If a coroutine is not run, you will get a runtime warning as follows:
+
+    ```text
+    sys:1: RuntimeWarning: coroutine 'custom_coro' was never awaited
+    ```
+
+    This will happen if you create a coroutine object but do not schedule it for execution within the asyncio event loop.
+
+    For example, you may attempt to call a coroutine from a regular Python program:
+
+    ```python
+    ...
+    # attempt to call the coroutine
+    custom_coro()
+    ```
+
+    This will not call the coroutine.
+
+    Instead, it will create a coroutine object.
+
+    For example:
+
+    ```python
+    ...
+    # create a coroutine object
+    coro = custom_coro()
+    ```
+
+    If you do not allow this coroutine to run, you will get a runtime error.
+
+    You can let the coroutine run, as we saw in the previous section, by starting the asyncio event loop and passing it the coroutine object.
+
+    For example:
+
+    ```python
+    ...
+    # create a coroutine object
+    coro = custom_coro()
+    # run a coroutine
+    asyncio.run(coro)
+    ```
+
+    Or, on one line in a compound statement:
+
+    ```python
+    ...
+    # run a coroutine
+    asyncio.run(custom_coro())
+    ```
+
+    You can learn more about running coroutines in the tutorial:
+
+    - [How to Run an Asyncio Coroutine in Python](https://superfastpython.com/asyncio-run-coroutine)
+
+    If you get this error within an asyncio program, it is because you have created a coroutine and have not scheduled it for execution.
+
+    This can be achieved using the await expression.
+
+    For example:
+
+    ```python
+    ...
+    # create a coroutine object
+    coro = custom_coro()
+    # suspend and allow the other coroutine to run
+    await coro
+    ```
+
+    Or, you can schedule it to run independently as a task.
+
+    For example:
+
+    ```python
+    ...
+    # create a coroutine object
+    coro = custom_coro()
+    # schedule the coro to run as a task interdependently
+    task = asyncio.create_task(coro)
+    ```
+
+    You can learn more about creating tasks in the tutorial:
+
+    - How to Create an Asyncio Task in Python
+
+=== "Chinese"
+
+    如果协程未运行，您将收到如下运行时警告：
+
+    ```text
+    sys:1: RuntimeWarning: coroutine 'custom_coro' was never awaited
+    ```
+
+    如果您创建一个协程对象但没有安排它在 asyncio 事件循环中执行，就会发生这种情况。
+
+    例如，您可以尝试从常规 Python 程序调用协程：
+
+    ```python
+    ...
+    # 尝试调用协程
+    custom_coro()
+    ```
+
+    这不会调用协程。
+
+    相反，它将创建一个协程对象。
+
+    例如：
+
+    ```python
+    ...
+    # 创建一个协程对象
+    coro = custom_coro()
+    ```
+
+    如果您不允许该协程运行，您将收到运行时错误。
+
+    正如我们在上一节中看到的，您可以通过启动 asyncio 事件循环并向其传递协程对象来让协程运行。
+
+    例如：
+
+    ```python
+    ...
+    # 创建一个协程对象
+    coro = custom_coro()
+    # 运行协程
+    asyncio.run(coro)
+    ```
+
+    或者，在复合语句的一行中：
+
+    ```python
+    ...
+    # 运行协程
+    asyncio.run(custom_coro())
+    ```
+
+    您可以在教程中了解有关运行协程的更多信息：
+
+    - [如何在 Python 中运行 Asyncio 协程](https://superfastpython.com/asyncio-run-coroutine)
+
+    如果您在 asyncio 程序中收到此错误，那是因为您创建了一个协程但尚未安排其执行。
+
+    这可以使用 **await** 表达式来实现。
+
+    例如：
+
+    ```python
+    ...
+    # 创建一个协程对象
+    coro = custom_coro()
+    # 挂起并允许其他协程运行
+    await coro
+    ```
+
+    或者，您可以安排它作为任务独立运行。
+
+    例如：
+
+    ```python
+    ...
+    # 创建一个协程对象
+    coro = custom_coro()
+    # 安排 coro 作为任务相互依赖地运行
+    task = asyncio.create_task(coro)
+    ```
+
+    您可以在教程中了解有关创建任务的更多信息：
+
+    - [如何在 Python 中创建Asyncio任务](https://superfastpython.com/asyncio-create-task)
+
 ### 22.3 Error 3: Using the Low-Level Asyncio API
+
+=== "English"
+
+    A big problem with beginners is that they use the wrong asyncio API.
+
+    This is common for a number of reasons.
+
+    - The API has changed a lot with recent versions of Python.
+    - The API docs page makes things confusing, showing both APIs.
+    - Examples elsewhere on the web mix up using the different APIs.
+    
+    Using the wrong API makes things more verbose (e.g. more code), more difficult, and way less understandable.
+
+    Asyncio offers [two APIs](https://docs.python.org/3/library/asyncio.html).
+
+    1. High-level API for application developers (us)
+    2. Low-level API for framework and library developers (not us)
+    
+    The lower-level API provides the foundation for the high-level API and includes the internals of the event loop, transport protocols, policies, and more.
+
+    > … there are low-level APIs for library and framework developers
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    We should almost always stick to the high-level API.
+
+    We absolutely must stick to the high-level API when getting started.
+
+    We may dip into the low-level API to achieve specific outcomes on occasion.
+
+    If you start getting a handle on the event loop or use a “loop” variable to do things, you are doing it wrong.
+
+    I am not saying don’t learn the low-level API.
+
+    Go for it. It’s great.
+
+    Just don’t start there.
+
+    Drive asyncio via the high-level API for a while. Develop some programs. Get comfortable with asynchronous programming and running coroutines at will.
+
+    Then later, dip in and have a look around.
+
+=== "Chinese"
+
+    初学者的一个大问题是他们使用了错误的 asyncio API。
+
+    由于多种原因，这种情况很常见。
+
+    - API 在最新版本的 Python 中发生了很大变化。
+    - API 文档页面显示了这两个 API，这让事情变得混乱。
+    - 网络上其他地方的示例混合使用不同的 API。
+    
+    使用错误的 API 会使事情变得更加冗长（例如更多代码）、更加困难并且更难以理解。
+
+    Asyncio 提供[两个 API](https://docs.python.org/3/library/asyncio.html).
+
+    1. 面向应用程序开发人员（我们）的高级 API
+    2. 面向框架和库开发人员（不是我们）的低级 API
+    
+    较低级别的 API 为高级 API 提供基础，包括事件循环、传输协议、策略等的内部结构。
+
+    > … 有供库和框架开发人员使用的低级 API
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    
+    我们几乎应该始终坚持使用高级 API。
+
+    开始时我们绝对必须坚持使用高级 API。
+
+    有时我们可能会利用低级 API 来实现特定的结果。
+
+    如果您开始获取事件循环的句柄或使用“loop”变量来执行操作，那么您就做错了。
+
+    我并不是说不要学习低级 API。
+
+    大胆试试吧。 这很棒。
+
+    只是不要从那里开始。
+
+    通过高级 API 驱动 asyncio 一段时间。 开发一些程序。 熟悉异步编程并随意运行协程。
+
+    然后，深入看看相关技术细节。
 
 ### 22.4 Error 4: Exiting the Main Coroutine Too Early
 
+=== "English"
+
+    A major point of confusion in asyncio programs is not giving tasks enough time to complete.
+
+    We can schedule many coroutines to run independently within an asyncio program via the **asyncio.create_task()** method.
+
+    The main coroutine, the entry point for the asyncio program, can then carry on with other activities.
+
+    If the main coroutine exits, then the asyncio program will terminate.
+
+    The program will terminate even if there are one or many coroutines running independently as tasks.
+
+    This can catch you off guard.
+
+    You may issue many tasks and then allow the main coroutine to resume, expecting all issued tasks to complete in their own time.
+
+    Instead, if the main coroutine has nothing else to do, it should wait on the remaining tasks.
+
+    This can be achieved by first getting a set of all running tasks via the **asyncio.all_tasks()** function, removing itself from this set, then waiting on the remaining tasks via the **asyncio.wait()** function.
+
+    For example:
+
+    ```python
+    ...
+    # get a set of all running tasks
+    all_tasks = asyncio.all_tasks()
+    # get the current tasks
+    current_task = asyncio.current_task()
+    # remove the current task from the list of all tasks
+    all_tasks.remove(current_task)
+    # suspend until all tasks are completed
+    await asyncio.wait(all_tasks)
+    ```
+
+=== "Chinese"
+
+    异步程序中的一个主要混乱点是没有给任务足够的时间来完成。
+
+    我们可以通过 **asyncio.create_task()** 方法安排许多协程在 asyncio 程序中独立运行。
+
+    主协程（asyncio 程序的入口点）可以继续执行其他活动。
+
+    如果主协程退出，则 asyncio 程序将终止。
+
+    即使有一个或多个协程作为任务独立运行，程序也会终止。
+
+    这可能会让你措手不及。
+
+    您可以发出许多任务，然后允许主协程恢复，并期望所有发出的任务都能在自己的时间内完成。
+
+    相反，如果主协程没有其他事情可做，它应该等待剩余的任务。
+
+    这可以通过首先通过 **asyncio.all_tasks()** 函数获取一组所有正在运行的任务，将其自身从该组中删除，然后通过 **asyncio.wait()** 函数等待剩余任务来实现。
+
+    例如:
+
+    ```python
+    ...
+    # 获取所有正在运行的任务的集合
+    all_tasks = asyncio.all_tasks()
+    # 获取当前任务
+    current_task = asyncio.current_task()
+    # 从所有任务列表中删除当前任务
+    all_tasks.remove(current_task)
+    # 暂停直到所有任务完成
+    await asyncio.wait(all_tasks)
+    ```
+
 ### 22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible
+
+=== "English"
+
+    Concurrent programming has the hazard of concurrency-specific failure modes.
+
+    This includes problems such as race conditions and deadlocks.
+
+    A race condition involves two or more units of concurrency executing the same critical section at the same time and leaving a resource or data in an inconsistent or unexpected state. This can lead to data corruption and data loss.
+
+    A deadlock is when a unit of concurrency waits for a condition that can never occur, such as for a resource to become available.
+
+    Many Python developers believe these problems are not possible with coroutines in asyncio.
+
+    The reason being that only one coroutine can run within the event loop at any one time.
+
+    It is true that only one coroutine can run at a time.
+
+    The problem is, coroutines can suspend and resume and may do so while using a shared resource or shared variable.
+
+    Without protecting critical sections, race conditions can occur in asyncio programs.
+
+    Without careful management of synchronization primitives, deadlocks can occur
+
+    As such, it is important that asyncio programs are created ensuring coroutine-safety, a concept similar to thread-safety and process-safety, applied to coroutines.
+
+=== "Chinese"
+
+    并发编程存在并发特定故障模式的危险。
+
+    这包括竞争条件和死锁等问题。
+
+    竞争条件涉及两个或多个并发单元同时执行同一关键部分，并使资源或数据处于不一致或意外状态。 这可能会导致数据损坏和数据丢失。
+
+    死锁是指并发单元等待永远不会发生的条件，例如资源可用。
+
+    许多 Python 开发人员认为 **asyncio** 中的协程不可能出现这些问题。
+
+    原因是任一时间只有一个协程可以在事件循环内运行。
+
+    确实，一次只能运行一个协程。
+
+    问题是，协程可以挂起和恢复，并且可以在使用共享资源或共享变量时执行此操作。
+
+    如果不保护关键部分，异步程序中可能会出现竞争条件。
+
+    如果不仔细管理同步原语，可能会发生死锁
+
+    因此，创建 **asyncio** 程序以确保协程安全（类似于线程安全和进程安全的概念）非常重要，适用于协程。
 
 ## 23. Python Asyncio Common Questions
 
+=== "English"
+
+    This section answers common questions asked by developers when using asyncio in Python.
+
+    **Do you have a question about asyncio?**
+
+    Ask your question in the comments below and I will do my best to answer it and perhaps add it to this list of questions.
+
+=== "Chinese"
+
+    本节回答开发人员在 Python 中使用 **asyncio** 时提出的常见问题。
+
+    **您对 asyncio 有疑问吗?**
+
+    在下面的评论中提出您的问题，我会尽力回答它，也许会将其添加到这个问题列表中。
+
 ### 23.1 How to Stop a Task?
+
+=== "English"
+
+    We can cancel a task via the **cancel()** method on an [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) object.
+
+    The **cancel()** method returns True if the task was canceled, or False otherwise.
+
+    For example:
+
+    ```python
+    ...
+    # cancel the task
+    was_cancelled = task.cancel()
+    ```
+
+    If the task is already done, it cannot be canceled and the cancel() method will return False and the task will not have the status of canceled.
+
+    The next time the task is given an opportunity to run, it will raise a CancelledError exception.
+
+    If the CancelledError exception is not handled within the wrapped coroutine, the task will be canceled.
+
+    Otherwise, if the CancelledError exception is handled within the wrapped coroutine, the task will not be canceled.
+
+    The cancel() method can also take a message argument which will be used in the content of the CancelledError.
+
+    We can explore how to cancel a running task.
+
+    In this example, we define a task coroutine that reports a message and then blocks for a moment.
+
+    We then define the main coroutine that is used as the entry point into the asyncio program. It reports a message, creates and schedules the task, then waits a moment.
+
+    The main coroutine then resumes and cancels the task while it is running. It waits a moment more to allow the task to respond to the request to cancel. The main coroutine then reports whether the request to cancel the task was successful.
+
+    The task is canceled and is then done.
+
+    The main coroutine then reports whether the status of the task is canceled before closing the program.
+
+    The complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # example of canceling a running task
+    import asyncio
+    
+    # define a coroutine for a task
+    async def task_coroutine():
+        # report a message
+        print('executing the task')
+        # block for a moment
+        await asyncio.sleep(1)
+    
+    # custom coroutine
+    async def main():
+        # report a message
+        print('main coroutine started')
+        # create and schedule the task
+        task = asyncio.create_task(task_coroutine())
+        # wait a moment
+        await asyncio.sleep(0.1)
+        # cancel the task
+        was_cancelled = task.cancel()
+        # report whether the cancel request was successful
+        print(f'was canceled: {was_cancelled}')
+        # wait a moment
+        await asyncio.sleep(0.1)
+        # check the status of the task
+        print(f'canceled: {task.cancelled()}')
+        # report a final message
+        print('main coroutine done')
+    
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+
+    Running the example starts the asyncio event loop and executes the **main()** coroutine.
+
+    The **main()** coroutine reports a message, then creates and schedules the task coroutine.
+
+    It then suspends and awaits a moment to allow the task coroutine to begin running.
+
+    The task runs, reports a message and sleeps for a while.
+
+    The **main()** coroutine resumes and cancels the task. It reports that the request to cancel the task was successful.
+
+    It then sleeps for a moment to allow the task to respond to the request to be canceled.
+
+    The **task_coroutine()** resumes and a **CancelledError** exception is raised that causes the task to fail and be done.
+
+    The **main()** coroutine resumes and reports whether the task has the status of canceled. In this case, it does.
+
+    This example highlights the normal case of canceling a running task.
+
+    ```text
+    main coroutine started
+    executing the task
+    was canceled: True
+    canceled: True
+    main coroutine done
+    ```
+
+=== "Chinese"
+
+    我们可以通过 [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) 对象上的 **cancel()** 方法取消任务。
+
+    如果任务被取消，则 **cancel()** 方法返回 `True`，否则返回 `False`。
+
+    例如:
+
+    ```python
+    ...
+    # 取消任务
+    was_cancelled = task.cancel()
+    ```
+
+    如果任务已经完成，则无法取消，**cancel()** 方法将返回 `False`，任务不会处于已取消状态。
+
+    下次任务有机会运行时，它将引发 **CancelledError** 异常。
+
+    如果未在包装的协程内处理 **CancelledError** 异常，则任务将被取消。
+
+    否则，如果在包装的协程内处理 **CancelledError** 异常，则任务将不会被取消。
+
+    **cancel()** 方法同样还可以传递一个消息参数，作为 **CancelledError** 异常的内容。
+
+    我们可以探讨如何取消正在运行的任务。
+
+    在这个例子中，我们定义了一个任务协程，它报告一条消息，然后阻塞一会儿。
+
+    然后，我们定义用作 **asyncio** 程序入口点的主协程。 它报告一条消息，创建并安排任务，然后等待片刻。
+
+    然后，主协程在任务运行时恢复并取消任务。 它会再等待一段时间，以便任务响应取消请求。 然后主协程报告取消任务的请求是否成功。
+
+    任务被取消，然后完成。
+
+    然后主协程在关闭程序之前报告任务的状态是否已取消。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 取消一个正在运行的任务的例子
+    import asyncio
+    
+    # 为任务定义一个协程
+    async def task_coroutine():
+        # 报告一条消息
+        print('executing the task')
+        # 阻塞片刻
+        await asyncio.sleep(1)
+    
+    # 自定义协程
+    async def main():
+        # 报告一条消息
+        print('main coroutine started')
+        # 创建并调度任务
+        task = asyncio.create_task(task_coroutine())
+        # 等待一下
+        await asyncio.sleep(0.1)
+        # 取消任务
+        was_cancelled = task.cancel()
+        # 报告取消请求是否成功
+        print(f'was canceled: {was_cancelled}')
+        # 等待一下
+        await asyncio.sleep(0.1)
+        # 检查任务的状态
+        print(f'canceled: {task.cancelled()}')
+        # 报告最后的消息
+        print('main coroutine done')
+    
+    # 启动异步程序
+    asyncio.run(main())
+    ```
+
+    运行该示例将启动 **asyncio** 事件循环并执行 **main()** 协程。
+
+    **main()** 协程报告一条消息，然后创建并调度任务协程。
+
+    然后它会挂起并等待一段时间以允许任务协程开始运行。
+
+    该任务运行，报告消息并休眠一段时间。
+
+    **main()** 协程恢复并取消任务。 它报告取消任务的请求已成功。
+
+    然后它会休眠一会儿，以允许任务响应要取消的请求。
+
+    **task_coroutine()** 恢复并引发 **CancelledError** 异常，导致任务失败并完成。
+
+    **main()** 协程恢复并报告任务是否处于已取消状态。 在这种情况下，确实如此。
+
+    此示例重点介绍了取消正在运行的任务的正常情况。
+
+    ```text
+    main coroutine started
+    executing the task
+    was canceled: True
+    canceled: True
+    main coroutine done
+    ```
 
 ### 23.2 How to Wait for a Task To Finish?
 
 === "English"
 
-We can wait for a task to finish by awaiting the asyncio.Task object directly.
+    We can wait for a task to finish by awaiting the **asyncio.Task** object directly.
 
-For example:
+    For example:
 
-```python
-...
-# wait for the task to finish
-await task
-```
+    ```python
+    ...
+    # wait for the task to finish
+    await task
+    ```
 
-We may create and wait for the task in a single line.
+    We may create and wait for the task in a single line.
 
-For example:
+    For example:
 
-```python
-...
-# create and wait for the task to finish
-await asyncio.create_task(custom_coro())
-```
+    ```python
+    ...
+    # create and wait for the task to finish
+    await asyncio.create_task(custom_coro())
+    ```
 
 === "Chinese"
 
-We can wait for a task to finish by awaiting the asyncio.Task object directly.
+    我们可以通过直接等待 **asyncio.Task** 对象来等待任务完成。
 
-For example:
+    例如:
 
-```python
-...
-# wait for the task to finish
-await task
-```
+    ```python
+    ...
+    # 等待任务完成
+    await task
+    ```
 
-We may create and wait for the task in a single line.
+    我们可以在一行中创建并等待任务完成。
 
-For example:
+    例如:
 
-```python
-...
-# create and wait for the task to finish
-await asyncio.create_task(custom_coro())
-```
+    ```python
+    ...
+    # 创建并等待任务完成
+    await asyncio.create_task(custom_coro())
+    ```
 
 ### 23.3 How to Get a Return Value from a Task?
 
