@@ -17,7 +17,7 @@
         <link rel="next" href="../network/internet_protocol_suite_part_i/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
       
       
 
@@ -3699,50 +3699,688 @@
 <h2 id="21-example-of-checking-website-status">21. Example of Checking Website Status<a class="headerlink" href="#21-example-of-checking-website-status" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="94:2"><input checked="checked" id="__tabbed_94_1" name="__tabbed_94" type="radio" /><input id="__tabbed_94_2" name="__tabbed_94" type="radio" /><div class="tabbed-labels"><label for="__tabbed_94_1">English</label><label for="__tabbed_94_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can query the HTTP status of websites using asyncio by opening a stream and writing and reading HTTP requests and responses.</p>
+<p>We can then use asyncio to query the status of many websites concurrently, and even report the results dynamically.</p>
+<p>Let’s get started.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以使用 asyncio 通过打开流并写入和读取 HTTP 请求和响应来查询网站的 HTTP 状态。</p>
+<p>然后我们可以使用 asyncio 同时查询多个网站的状态，甚至动态报告结果。</p>
+<p>让我们开始吧。</p>
+</div>
 </div>
 </div>
 <h3 id="211-how-to-check-http-status-with-asyncio">21.1 How to Check HTTP Status with Asyncio<a class="headerlink" href="#211-how-to-check-http-status-with-asyncio" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="95:2"><input checked="checked" id="__tabbed_95_1" name="__tabbed_95" type="radio" /><input id="__tabbed_95_2" name="__tabbed_95" type="radio" /><div class="tabbed-labels"><label for="__tabbed_95_1">English</label><label for="__tabbed_95_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The asyncio module provides support for opening socket connections and reading and writing data via streams.</p>
+<p>We can use this capability to check the status of web pages.</p>
+<p>This involves perhaps four steps, they are:</p>
+<ol>
+<li>Open a connection</li>
+<li>Write a request</li>
+<li>Read a response</li>
+<li>Close the connection</li>
+</ol>
+<p>Let’s take a closer look at each part in turn.</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio 模块提供对打开套接字连接以及通过流读写数据的支持。</p>
+<p>我们可以使用此功能来检查网页的状态。</p>
+<p>这可能涉及四个步骤，它们是：</p>
+<ol>
+<li>打开连接</li>
+<li>写一个请求</li>
+<li>读一个响应</li>
+<li>关闭连接</li>
+</ol>
+<p>让我们依次仔细看看每个部分。</p>
+</div>
 </div>
 </div>
 <h3 id="212-open-http-connection">21.2 Open HTTP Connection<a class="headerlink" href="#212-open-http-connection" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="96:2"><input checked="checked" id="__tabbed_96_1" name="__tabbed_96" type="radio" /><input id="__tabbed_96_2" name="__tabbed_96" type="radio" /><div class="tabbed-labels"><label for="__tabbed_96_1">English</label><label for="__tabbed_96_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A connection can be opened in asyncio using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> function.</p>
+<p>Among many arguments, the function takes the string hostname and integer port number</p>
+<p>This is a coroutine that must be awaited and returns a StreamReader and a StreamWriter for reading and writing with the socket.</p>
+<p>This can be used to open an HTTP connection on port 80.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open a socket connection</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>We can also open an SSL connection using the <strong>ssl=True</strong> argument. This can be used to open an HTTPS connection on port 443.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open a socket connection</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> 函数在 asyncio 中打开连接。</p>
+<p>在许多参数中，该函数采用字符串主机名和整数端口号</p>
+<p>这是一个必须等待的协程，并返回一个 <strong>StreamReader</strong> 和一个 <strong>StreamWriter</strong>，用于使用套接字进行读写。</p>
+<p>这可用于在端口 80 上打开 HTTP 连接。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开套接字连接</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>我们还可以使用 <strong>ssl=True</strong> 参数打开 SSL 连接。 这可用于在端口 443 上打开 HTTPS 连接。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开套接字连接</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="213-write-http-request">21.3 Write HTTP Request<a class="headerlink" href="#213-write-http-request" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="97:2"><input checked="checked" id="__tabbed_97_1" name="__tabbed_97" type="radio" /><input id="__tabbed_97_2" name="__tabbed_97" type="radio" /><div class="tabbed-labels"><label for="__tabbed_97_1">English</label><label for="__tabbed_97_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Once open, we can write a query to the <strong>StreamWriter</strong> to make an HTTP request.</p>
+<p>For example, an <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP version 1.1 request</a> is in plain text. We can request the file path ‘/’, which may look as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">GET</span> <span class="o">/</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">Host</span><span class="p">:</span> <span class="n">www</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span>
+</code></pre></div>
+<p>Importantly, there must be a carriage return and a line feed (\r\n) at the end of each line, and an empty line at the end.</p>
+<p>As Python strings this may look as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;GET / HTTP/1.1</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+<span class="s1">&#39;Host: www.google.com</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+<span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+</code></pre></div>
+<p>You can learn more about HTTP v1.1 request messages here:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_request_messages">HTTP/1.1 request messages</a></li>
+</ul>
+<p>This string must be encoded as bytes before being written to the <a href="https://docs.python.org/3/library/asyncio-stream.html#streamwriter">StreamWriter</a>.</p>
+<p>This can be achieved using the <a href="https://docs.python.org/3/library/stdtypes.html#str.encode">encode()</a> method on the string itself.</p>
+<p>The default ‘<strong>utf-8</strong>‘ encoding may be sufficient.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># encode string as bytes</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</code></pre></div>
+<p>You can see a listing of encodings here:</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/codecs.html#standard-encodings">Python Standard Encodings</a></li>
+</ul>
+<p>The bytes can then be written to the socket via the <strong>StreamWriter</strong> via the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write">write()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># encode string as bytes</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</code></pre></div>
+<p>You can see a listing of encodings here:</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/codecs.html#standard-encodings">Python Standard Encodings</a></li>
+</ul>
+<p>The bytes can then be written to the socket via the <strong>StreamWriter</strong> via the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write">write()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># write query to socket</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+</code></pre></div>
+<p>After writing the request, it is a good idea to wait for the byte data to be sent and for the socket to be ready.</p>
+<p>This can be achieved by the <strong>drain()</strong> method.</p>
+<p>This is a coroutine that must be awaited.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for the socket to be ready.</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>打开后，我们可以向 <strong>StreamWriter</strong> 写入查询以发出 HTTP 请求。</p>
+<p>例如，<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">HTTP 版本 1.1 请求</a> 是纯文本形式。 我们可以请求文件路径“/”，如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="n">GET</span> <span class="o">/</span> <span class="n">HTTP</span><span class="o">/</span><span class="mf">1.1</span>
+<span class="n">Host</span><span class="p">:</span> <span class="n">www</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">com</span>
+</code></pre></div>
+<p>重要的是，每行末尾必须有回车符和换行符（\r\n），并且末尾有一个空行。</p>
+<p>作为 Python 字符串，这可能如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;GET / HTTP/1.1</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+<span class="s1">&#39;Host: www.google.com</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+<span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+</code></pre></div>
+<p>您可以在此处了解有关 HTTP v1.1 请求消息的更多信息：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_request_messages">HTTP/1.1 请求消息</a></li>
+</ul>
+<p>在写入 <a href="https://docs.python.org/3/library/asyncio-stream.html#streamwriter">StreamWriter</a> 之前，必须将该字符串编码为字节。</p>
+<p>这可以通过对字符串本身使用 <a href="https://docs.python.org/3/library/stdtypes.html#str.encode">encode()</a> 方法来实现。</p>
+<p>默认的“<strong>utf-8</strong>”编码可能就足够了。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 将字符串编码为字节</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</code></pre></div>
+<p>您可以在此处查看编码列表：</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/codecs.html#standard-encodings">Python 标准编码</a></li>
+</ul>
+<p>然后可以通过 <strong>StreamWriter</strong> 通过 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write">write()</a> 将字节写入套接字 方法。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 将查询写入套接字</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+</code></pre></div>
+<p>写入请求后，最好等待字节数据发送和套接字准备就绪。</p>
+<p>这可以通过 <strong>drain()</strong> 方法来实现。</p>
+<p>这是一个必须等待的协程。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待套接字准备好。</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="214-read-http-response">21.4 Read HTTP Response<a class="headerlink" href="#214-read-http-response" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">English</label><label for="__tabbed_98_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Once the HTTP request has been made, we can read the response.</p>
+<p>This can be achieved via the <a href="https://docs.python.org/3/library/asyncio-stream.html#streamreader">StreamReader</a> for the socket.</p>
+<p>The response can be read using the <strong>read()</strong> method which will read a chunk of bytes, or the <strong>readline()</strong> method which will read one line of bytes.</p>
+<p>We might prefer the <strong>readline()</strong> method because we are using the text-based HTTP protocol which sends HTML data one line at a time.</p>
+<p>The <strong>readline()</strong> method is a coroutine and must be awaited.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read one line of response</span>
+<span class="n">line_bytes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages">HTTP 1.1 responses</a> are composed of two parts, a header separated by an empty line, then the body terminating with an empty line.</p>
+<p>The header has information about whether the request was successful and what type of file will be sent, and the body contains the content of the file, such as an HTML webpage.</p>
+<p>The first line of the HTTP header contains the HTTP status for the requested page on the server.</p>
+<p>You can learn more about HTTP v1.1 responses here:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages">HTTP/1.1 response messages</a></li>
+</ul>
+<p>Each line must be decoded from bytes into a string.</p>
+<p>This can be achieved using the <a href="https://docs.python.org/3/library/stdtypes.html#bytes.decode">decode()</a> method on the byte data. Again, the default encoding is ‘<strong>utf_8</strong>‘.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># decode bytes into a string</span>
+<span class="n">line_data</span> <span class="o">=</span> <span class="n">line_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>一旦发出 HTTP 请求，我们就可以读取响应。</p>
+<p>这可以通过套接字的 <a href="https://docs.python.org/3/library/asyncio-stream.html#streamreader">StreamReader</a> 来实现。</p>
+<p>可以使用 <strong>read()</strong> 方法读取响应，该方法将读取一大块字节，或者使用 <strong>readline()</strong> 方法读取一行字节。</p>
+<p>我们可能更喜欢 <strong>readline()</strong> 方法，因为我们使用基于文本的 HTTP 协议，它一次发送一行 HTML 数据。</p>
+<p><strong>readline()</strong> 方法是一个协程，必须等待。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 读取一行响应</span>
+<span class="n">line_bytes</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages">HTTP 1.1 响应</a> 由两部分组成，一个由空行分隔的标头，然后是由空行终止的正文。</p>
+<p>header 包含有关请求是否成功以及将发送什么类型的文件的信息，body 包含文件的内容，例如 HTML 网页。</p>
+<p>HTTP 标头的第一行包含服务器上所请求页面的 HTTP 状态。</p>
+<p>您可以在此处了解有关 HTTP v1.1 响应的更多信息：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#HTTP/1.1_response_messages">HTTP/1.1 响应消息</a></li>
+</ul>
+<p>每一行都必须从字节解码为字符串。</p>
+<p>这可以通过对字节数据使用 <a href="https://docs.python.org/3/library/stdtypes.html#bytes.decode">decode()</a> 方法来实现。 同样，默认编码是“<strong>utf_8</strong>”。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 将字节解码为字符串</span>
+<span class="n">line_data</span> <span class="o">=</span> <span class="n">line_bytes</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="215-close-http-connection">21.5 Close HTTP Connection<a class="headerlink" href="#215-close-http-connection" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="99:2"><input checked="checked" id="__tabbed_99_1" name="__tabbed_99" type="radio" /><input id="__tabbed_99_2" name="__tabbed_99" type="radio" /><div class="tabbed-labels"><label for="__tabbed_99_1">English</label><label for="__tabbed_99_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can close the socket connection by closing the <strong>StreamWriter</strong>.</p>
+<p>This can be achieved by calling the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.close">close()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># close the connection</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>This does not block and may not close the socket immediately.</p>
+<p>Now that we know how to make HTTP requests and read responses using <strong>asyncio</strong>, let’s look at some worked examples of checking web page statuses.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过关闭 <strong>StreamWriter</strong> 来关闭套接字连接。</p>
+<p>这可以通过调用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.close">close()</a> 方法来实现。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 关闭连接</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>这不会阻塞并且可能不会立即关闭套接字。</p>
+<p>现在我们知道如何使用 <strong>asyncio</strong> 发出 HTTP 请求并读取响应，让我们看一些检查网页状态的示例。</p>
+</div>
 </div>
 </div>
 <h3 id="216-example-of-checking-http-status-sequentially">21.6 Example of Checking HTTP Status Sequentially<a class="headerlink" href="#216-example-of-checking-http-status-sequentially" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="100:2"><input checked="checked" id="__tabbed_100_1" name="__tabbed_100" type="radio" /><input id="__tabbed_100_2" name="__tabbed_100" type="radio" /><div class="tabbed-labels"><label for="__tabbed_100_1">English</label><label for="__tabbed_100_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can develop an example to check the HTTP status for multiple websites using asyncio.</p>
+<p>In this example, we will first develop a coroutine that will check the status of a given URL. We will then call this coroutine once for each of the top 10 websites.</p>
+<p>Firstly, we can define a coroutine that will take a URL string and return the HTTP status.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># get the HTTP/S status of a webpage</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>The URL must be parsed into its constituent components.</p>
+<p>We require the hostname and file path when making the HTTP request. We also need to know the URL scheme (HTTP or HTTPS) in order to determine whether SSL is required nor not.</p>
+<p>This can be achieved using the <a href="https://docs.python.org/3/library/urllib.parse.html">urllib.parse.urlsplit()</a> function that takes a URL string and returns a named tuple of all the URL elements.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># split the url into components</span>
+<span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<p>We can then open the HTTP connection based on the URL scheme and use the URL hostname.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open the connection</span>
+<span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+    <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>Next, we can create the HTTP GET request using the hostname and file path and write the encoded bytes to the socket using the StreamWriter.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># send GET request</span>
+<span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+<span class="c1"># write query to socket</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="c1"># wait for the bytes to be written to the socket</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+<p>Next, we can read the HTTP response.</p>
+<p>We only require the first line of the response that contains the HTTP status.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read the single line response</span>
+<span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>The connection can then be closed.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># close the connection</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>Finally, we can decode the bytes read from the server, remote trailing white space, and return the HTTP status.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># decode and strip white space</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="c1"># return the response</span>
+<span class="k">return</span> <span class="n">status</span>
+</code></pre></div>
+<p>Tying this together, the complete get_status() coroutine is listed below.</p>
+<p>It does not have any error handling, such as the case where the host cannot be reached or is slow to respond.</p>
+<p>These additions would make a nice extension for the reader.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># get the HTTP/S status of a webpage</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># split the url into components</span>
+    <span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># open the connection</span>
+    <span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="c1"># send GET request</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+    <span class="c1"># write query to socket</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="c1"># wait for the bytes to be written to the socket</span>
+    <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+    <span class="c1"># read the single line response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="c1"># close the connection</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># decode and strip white space</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># return the response</span>
+    <span class="k">return</span> <span class="n">status</span>
+</code></pre></div>
+<p>Next, we can call the get_status() coroutine for multiple web pages or websites we want to check.</p>
+<p>In this case, we will define a list of the top 10 web pages in the world.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># list of top 10 websites to check</span>
+<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+    <span class="p">]</span>
+</code></pre></div>
+<p>We can then query each, in turn, using our get_status() coroutine.</p>
+<p>In this case, we will do so sequentially in a loop, and report the status of each in turn.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check the status of all websites</span>
+<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+    <span class="c1"># get the status for the url</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># report the url and its status</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>We can do better than sequential when using asyncio, but this provides a good starting point that we can improve upon later.</p>
+<p>Tying this together, the main() coroutine queries the status of the top 10 websites.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># list of top 10 websites to check</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+        <span class="p">]</span>
+    <span class="c1"># check the status of all websites</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+        <span class="c1"># get the status for the url</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># report the url and its status</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Finally, we can create the main() coroutine and use it as the entry point to the asyncio program.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Tying this together, the complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># check the status of many webpages</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlsplit</span>
+
+<span class="c1"># get the HTTP/S status of a webpage</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># split the url into components</span>
+    <span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># open the connection</span>
+    <span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="c1"># send GET request</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+    <span class="c1"># write query to socket</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="c1"># wait for the bytes to be written to the socket</span>
+    <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+    <span class="c1"># read the single line response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="c1"># close the connection</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># decode and strip white space</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># return the response</span>
+    <span class="k">return</span> <span class="n">status</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># list of top 10 websites to check</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+        <span class="p">]</span>
+    <span class="c1"># check the status of all websites</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+        <span class="c1"># get the status for the url</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># report the url and its status</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># run the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the main() coroutine and uses it as the entry point into the program.</p>
+<p>The main() coroutine runs, defining a list of the top 10 websites.</p>
+<p>The list of websites is then traversed sequentially. The main() coroutine suspends and calls the get_status() coroutine to query the status of one website.</p>
+<p>The get_status() coroutine runs, parses the URL, and opens a connection. It constructs an HTTP GET query and writes it to the host. A response is read, decoded, and returned.</p>
+<p>The main() coroutine resumes and reports the HTTP status of the URL.</p>
+<p>This is repeated for each URL in the list.</p>
+<p>The program takes about 5.6 seconds to complete, or about half a second per URL on average.</p>
+<p>This highlights how we can use asyncio to query the HTTP status of webpages.</p>
+<p>Nevertheless, it does not take full advantage of the asyncio to execute tasks concurrently.</p>
+<div class="highlight"><pre><span></span><code>https://www.google.com/       : HTTP/1.1 200 OK
+https://www.youtube.com/      : HTTP/1.1 200 OK
+https://www.facebook.com/     : HTTP/1.1 302 Found
+https://twitter.com/          : HTTP/1.1 200 OK
+https://www.instagram.com/    : HTTP/1.1 200 OK
+https://www.baidu.com/        : HTTP/1.1 200 OK
+https://www.wikipedia.org/    : HTTP/1.1 200 OK
+https://yandex.ru/            : HTTP/1.1 302 Moved temporarily
+https://yahoo.com/            : HTTP/1.1 301 Moved Permanently
+https://www.whatsapp.com/     : HTTP/1.1 302 Found
+</code></pre></div>
+<p>Next, let’s look at how we might update the example to execute the coroutines concurrently.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以开发一个示例来使用 asyncio 检查多个网站的 HTTP 状态。</p>
+<p>在此示例中，我们将首先开发一个协程来检查给定 URL 的状态。 然后，我们将为前 10 个网站中的每个网站调用一次该协程。</p>
+<p>首先，我们可以定义一个协程，它将接受 URL 字符串并返回 HTTP 状态。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取网页的 HTTP/S 状态</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>URL 必须被解析为其组成部分。</p>
+<p>发出 HTTP 请求时，我们需要主机名和文件路径。 我们还需要知道 URL 方案（HTTP 或 HTTPS），以便确定是否需要 SSL。</p>
+<p>这可以使用 <a href="https://docs.python.org/3/library/urllib.parse.html">urllib.parse.urlsplit()</a> 函数来实现，该函数接受 URL 字符串并返回所有 URL 的命名元组。 网址元素。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 将 url 拆分为多个部分</span>
+<span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<p>然后我们可以根据 URL 方案打开 HTTP 连接并使用 URL 主机名。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开连接</span>
+<span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+    <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>接下来，我们可以使用主机名和文件路径创建 HTTP GET 请求，并使用 <strong>StreamWriter</strong> 将编码字节写入套接字。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># send GET request</span>
+<span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+<span class="c1"># write query to socket</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="c1"># wait for the bytes to be written to the socket</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+<p>接下来，我们可以读取 HTTP 响应。</p>
+<p>我们只需要包含 HTTP 状态的响应的第一行。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 读取单行响应</span>
+<span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>然后可以关闭连接。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 关闭连接</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>最后，我们可以解码从服务器读取的字节、远程尾随空格，并返回 HTTP 状态。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 解码并去除空白</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="c1"># 返回响应</span>
+<span class="k">return</span> <span class="n">status</span>
+</code></pre></div>
+<p>将它们结合在一起，下面列出了完整的 <strong>get_status()</strong> 协程。</p>
+<p>它没有任何错误处理，例如无法到达主机或响应缓慢的情况。</p>
+<p>这些补充将为读者提供一个很好的扩展。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 获取网页的 HTTP/S 状态</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># 将 url 拆分为多个组件</span>
+    <span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># 打开连接</span>
+    <span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="c1"># 发送GET请求</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+    <span class="c1"># 将查询写入套接字</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="c1"># 等待字节写入套接字</span>
+    <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+    <span class="c1"># 读取单行响应</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="c1"># 关闭连接</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># 解码并去除空白</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># 返回响应</span>
+    <span class="k">return</span> <span class="n">status</span>
+</code></pre></div>
+<p>接下来，我们可以为我们想要检查的多个网页或网站调用 <strong>get_status()</strong> 协程。</p>
+<p>在本例中，我们将定义世界排名前 10 的网页列表。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 要检查的前 10 个网站列表</span>
+<span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+    <span class="p">]</span>
+</code></pre></div>
+<p>然后我们可以使用 get_status() 协程依次查询每个。</p>
+<p>在这种情况下，我们将在循环中按顺序执行此操作，并依次报告每个状态。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查所有网站的状态</span>
+<span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+    <span class="c1"># 获取 url 的状态</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># 报告 url 及其状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>使用 asyncio 时，我们可以比顺序做得更好，但这提供了一个很好的起点，我们可以在以后进行改进。</p>
+<p>将它们结合在一起，<strong>main()</strong> 协程查询前 10 个网站的状态。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 要检查的前 10 个网站列表</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+        <span class="p">]</span>
+    <span class="c1"># 检查所有网站的状态</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+        <span class="c1"># 获取 url 的状态</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># 报告 url 及其状态</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>最后，我们可以创建 <strong>main()</strong> 协程并将其用作 <strong>asyncio</strong> 程序的入口点。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>将它们结合在一起，下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 检查许多网页的状态</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlsplit</span>
+
+<span class="c1"># 获取网页的 HTTP/S 状态</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="c1"># 将 url 拆分为多个组件</span>
+    <span class="n">url_parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="c1"># 打开连接</span>
+    <span class="k">if</span> <span class="n">url_parsed</span><span class="o">.</span><span class="n">scheme</span> <span class="o">==</span> <span class="s1">&#39;https&#39;</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="c1"># 发送 GET 请求</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;GET </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> HTTP/1.1</span><span class="se">\r\n</span><span class="s1">Host: </span><span class="si">{</span><span class="n">url_parsed</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span>
+    <span class="c1"># 将查询写入套接字</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+    <span class="c1"># 等待字节写入套接字</span>
+    <span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+    <span class="c1"># 读取单行响应</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="c1"># 关闭连接</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1"># 解码并去除空白</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="c1"># 返回响应</span>
+    <span class="k">return</span> <span class="n">status</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 要检查的前 10 个网站列表</span>
+    <span class="n">sites</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://www.google.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.youtube.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.facebook.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://twitter.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.instagram.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.baidu.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.wikipedia.org/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yandex.ru/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://yahoo.com/&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.whatsapp.com/&#39;</span>
+        <span class="p">]</span>
+    <span class="c1"># 检查所有网站的状态</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">sites</span><span class="p">:</span>
+        <span class="c1"># 获取 url 的状态</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_status</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># 报告 url 及其状态</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">url</span><span class="si">:</span><span class="s1">30</span><span class="si">}</span><span class="s1">:</span><span class="se">\t</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 运行异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程并将其用作程序的入口点。</p>
+<p><strong>main()</strong> 协程运行，定义前 10 个网站的列表。</p>
+<p>然后按顺序遍历网站列表。 <strong>main()</strong> 协程挂起并调用 <strong>get_status()</strong> 协程来查询某个网站的状态。</p>
+<p><strong>get_status()</strong> 协程运行、解析 URL 并打开连接。 它构造一个 HTTP GET 查询并将其写入主机。 响应被读取、解码并返回。</p>
+<p><strong>main()</strong> 协程恢复并报告 URL 的 HTTP 状态。</p>
+<p>对列表中的每个 URL 重复此操作。</p>
+<p>该程序大约需要 5.6 秒才能完成，或者平均每个 URL 大约需要半秒。</p>
+<p>这突出显示了我们如何使用 asyncio 来查询网页的 HTTP 状态。</p>
+<p>尽管如此，它并没有充分利用 asyncio 来并发执行任务。</p>
+<div class="highlight"><pre><span></span><code>https://www.google.com/       : HTTP/1.1 200 OK
+https://www.youtube.com/      : HTTP/1.1 200 OK
+https://www.facebook.com/     : HTTP/1.1 302 Found
+https://twitter.com/          : HTTP/1.1 200 OK
+https://www.instagram.com/    : HTTP/1.1 200 OK
+https://www.baidu.com/        : HTTP/1.1 200 OK
+https://www.wikipedia.org/    : HTTP/1.1 200 OK
+https://yandex.ru/            : HTTP/1.1 302 Moved temporarily
+https://yahoo.com/            : HTTP/1.1 301 Moved Permanently
+https://www.whatsapp.com/     : HTTP/1.1 302 Found
+</code></pre></div>
+<p>接下来，让我们看看如何更新示例以同时执行协程。</p>
+</div>
 </div>
 </div>
 <h3 id="217-example-of-checking-website-status-concurrently">21.7 Example of Checking Website Status Concurrently<a class="headerlink" href="#217-example-of-checking-website-status-concurrently" title="Permanent link">&para;</a></h3>
@@ -3975,7 +4613,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 <li>过早退出主协程。</li>
 <li>假设竞争条件和死锁是不存在的。</li>
 </ol>
-<p>Let’s take a closer look at each in turn.</p>
+<p>让我们依次仔细看看每一个问题。</p>
 </div>
 </div>
 </div>
@@ -5236,7 +5874,7 @@ main coroutine done
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月28日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月29日</span>
       
         <br>
         创建日期:
@@ -5292,7 +5930,7 @@ main coroutine done
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
