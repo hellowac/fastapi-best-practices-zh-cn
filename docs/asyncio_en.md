@@ -536,49 +536,974 @@
 
 === "English"
 
+    We can execute commands using the [shell](https://en.wikipedia.org/wiki/Shell_(computing)).
+
+    The shell is a user interface for the command line, called a command line interpreter (CLI).
+
+    It will interpret and execute commands on behalf of the user.
+
+    It also offers features such as a primitive programming language for scripting, wildcards, piping, shell variables (e.g. PATH), and more.
+
+    For example, we can redirect the output of one command as input to another command, such as the contents of the “**/etc/services**” file into the word count “wc” command and count the number of lines:
+
+    ```python
+    cat /etc/services | wc -l
+    ```
+
+    Examples of shells in the Unix based operating systems include:
+
+    - ‘sh’
+    - ‘bash’
+    - ‘zsh’
+    - And so on.
+
+    On Windows, the shell is probably [cmd.exe](https://en.wikipedia.org/wiki/Cmd.exe).
+
+    See this great list of command line shells:
+
+    - [List of command-line interpreters](https://en.wikipedia.org/wiki/List_of_command-line_interpreters), Wikipedia
+
+    The shell is already running, it was used to start the Python program.
+
+    You don’t need to do anything special to get or have access to the shell.
+
+    We can execute a command from an asyncio program via the **create_subprocess_shell()** function.
+
+    The **asyncio.create_subprocess_shell()** function takes a command and executes it using the current user shell.
+
+    This is helpful as it not only allows the command to be executed, but allows the capabilities of the shell to be used, such as redirection, wildcards and more.
+
+    > … the specified command will be executed through the shell. This can be useful if you are using Python primarily for the enhanced control flow it offers over most system shells and still want convenient access to other shell features such as shell pipes, filename wildcards, environment variable expansion, and expansion of ~ to a user’s home directory.
+    >
+    > — [SUBPROCESS — SUBPROCESS MANAGEMENT](https://docs.python.org/3/library/subprocess.html)
+
+    The command will be executed in a subprocess of the process executing the asyncio program.
+
+    Importantly, the asyncio program is able to interact with the subprocess asynchronously, e.g. via coroutines.
+
+    > Because all asyncio subprocess functions are asynchronous and asyncio provides many tools to work with such functions, it is easy to execute and monitor multiple subprocesses in parallel.
+    >
+    > — ASYNCIO SUBPROCESSES
+
+    There can be security considerations when executing a command via the shell instead of directly.
+
+    This is because there is at least one level of indirection and interpretation between the request to execute the command and the command being executed, allowing possible malicious injection.
+
+    > Important It is the application’s responsibility to ensure that all whitespace and special characters are quoted appropriately to avoid shell injection vulnerabilities.
+    >
+    > — ASYNCIO SUBPROCESSES
+
+    Now that we know what **asyncio.create_subprocess_shell()** does, let’s look at how to use it.
+
 === "Chinese"
+
+    我们可以使用[shell](https://en.wikipedia.org/wiki/Shell_(computing))执行命令。
+
+    shell 是命令行的用户界面，称为命令行解释器 (CLI)。
+
+    它将代表用户解释并执行命令。
+
+    它还提供诸如用于脚本、通配符、管道、shell 变量（例如 PATH）等的原始编程语言等功能。
+    
+    例如，我们可以将一个命令的输出重定向为另一个命令的输入，例如将“**/etc/services**”文件的内容重定向到字数统计“wc”命令并统计行数：
+
+    ```python
+    cat /etc/services | wc -l
+    ```
+
+    基于 Unix 的操作系统中的 shell 示例包括：
+
+    - ‘sh’
+    - ‘bash’
+    - ‘zsh’
+    - 等等。
+
+    在 Windows 上，shell 可能是 [cmd.exe](https://en.wikipedia.org/wiki/Cmd.exe)。
+
+    请参阅这个很棒的命令行 shell 列表：
+
+    - [命令行解释器列表](https://en.wikipedia.org/wiki/List_of_command-line_interpreters), Wikipedia
+
+    shell已经在运行，它被用来启动Python程序。
+
+    您无需执行任何特殊操作即可获取或访问 shell。
+
+    我们可以通过 **create_subprocess_shell()** 函数从 asyncio 程序执行命令。
+
+    **asyncio.create_subprocess_shell()** 函数接受一个命令并使用当前用户 shell 执行它。
+
+    这很有用，因为它不仅允许执行命令，还允许使用 shell 的功能，例如重定向、通配符等。
+
+    > … 指定的命令将通过 shell 执行。 如果您使用 Python 主要是为了增强它在大多数系统 shell 上提供的控制流，并且仍然希望方便地访问其他 shell 功能（例如 shell 管道、文件名通配符、环境变量扩展以及将 ~ 扩展到用户主目录），那么这会很有用。
+    >
+    > — [SUBPROCESS — SUBPROCESS MANAGEMENT](https://docs.python.org/3/library/subprocess.html)
+
+    该命令将在执行 asyncio 程序的进程的子进程中执行。
+
+    重要的是，asyncio 程序能够与子进程异步交互，例如 通过协程。
+
+    > 因为所有 asyncio 子进程函数都是异步的，并且 asyncio 提供了许多工具来使用这些函数，所以很容易并行执行和监视多个子进程。
+    >
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+
+    通过 shell 而不是直接执行命令时可能存在安全考虑。
+
+    这是因为执行命令的请求和正在执行的命令之间至少存在一层间接和解释，从而允许可能的恶意注入。
+
+    > 重要的应用程序有责任确保所有空格和特殊字符都被正确引用，以避免 shell 注入漏洞。
+    >
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+
+    现在我们知道了 **asyncio.create_subprocess_shell()** 的作用，让我们看看如何使用它。
+
+#### 19.3.1 How to Use Asyncio create_subprocess_shell()
+
+=== "English"
+
+    The [asyncio.create_subprocess_shell()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell) function will execute a given string command via the current shell.
+
+    It returns a [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) object that represents the process.
+
+    It is very similar to the **create_subprocess_shell()** function we saw in a previous section. Nevertheless, we will review how to use the function and interact with the process via the Process instance (in case you skipped straight to this section).
+
+    The **create_subprocess_shell()** function is a coroutine, which means we must await it. It will return once the subprocess has been started, not when the subprocess is finished.
+
+    For example:
+
+    ```python
+    ...
+    # start a subprocess
+    process = await asyncio.create_subprocess_shell('ls')
+    We can wait for the subprocess to finish by awaiting the **wait()** method.
+    ```
+
+    For example:
+
+    ```python
+    ...
+    # wait for the subprocess to terminate
+    await process.wait()
+    ```
+
+    We can stop the subprocess directly by calling the **terminate()** or **kill()** methods, which will raise a signal in the subprocess.
+
+    The input and output of the command will be handled by the shell, e.g. **stdin**, **stderr**, and **stdout**.
+
+    We can have the asyncio program handle the input or output for the subprocess.
+
+    This can be achieved by specifying the input or output stream and specifying a constant to redirect, such as **asyncio.subprocess.PIPE**.
+
+    For example, we can redirect the output of a command to the asyncio program:
+
+    ```python
+    ...
+    # start a subprocess and redirect output
+    process = await asyncio.create_subprocess_shell('ls', stdout=asyncio.subprocess.PIPE)
+    ```
+
+    We can then read the output of the program via the **asyncio.subprocess.Process** instance via the **communicate()** method.
+
+    This method is a coroutine and must be awaited. It is used to both send and receive data with the subprocess.
+
+    For example:
+
+    ```python
+    ...
+    # read data from the subprocess
+    line = process.communicate()
+    ```
+
+    We can also send data to the subprocess via the **communicate()** method by setting the “input” argument in bytes.
+
+    For example:
+
+    ```python
+    ...
+    # start a subprocess and redirect input
+    process = await asyncio.create_subprocess_shell('ls', stdin=asyncio.subprocess.PIPE)
+    # send data to the subprocess
+    process.communicate(input=b'Hello\n')
+    ```
+
+    Behind the scenes the **asyncio.subprocess.PIPE** configures the subprocess to point to a **StreamReader** or **StreamWriter** for sending data to or from the subprocess, and the **communicate()** method will read or write bytes from the configured reader.
+
+    > If PIPE is passed to stdin argument, the Process.stdin attribute will point to a StreamWriter instance. If PIPE is passed to stdout or stderr arguments, the Process.stdout and Process.stderr attributes will point to StreamReader instances.
+    > 
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+
+    We can interact with the **StreamReader** or **StreamWriter** directly via the subprocess via the stdin, stdout, and stderr attributes.
+
+    For example:
+
+    ```python
+    ...
+    # read a line from the subprocess output stream
+    line = await process.stdout.readline()
+    ```
+
+    Now that we know how to use the **create_subprocess_shell()** function, let’s look at some worked examples.
+
+=== "Chinese"
+
+    [asyncio.create_subprocess_shell()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell) 函数将通过当前 shell 执行给定的字符串命令。
+
+    它返回一个表示进程的 [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) 对象。
+
+    它与我们在上一节中看到的 **create_subprocess_shell()** 函数非常相似。 尽管如此，我们将回顾如何使用该函数并通过 **Process** 实例与流程交互（如果您直接跳到本节）。
+
+    **create_subprocess_shell()** 函数是一个协程，这意味着我们必须等待它。 它会在子进程启动后返回，而不是在子进程完成时返回。
+
+    例如:
+
+    ```python
+    ...
+    # 启动一个子进程
+    process = await asyncio.create_subprocess_shell('ls')
+    ```
+
+    我们可以通过等待 **wait()** 方法来等待子进程完成。
+
+    例如:
+
+    ```python
+    ...
+    # 等待子进程终止
+    await process.wait()
+    ```
+
+    我们可以通过调用 **terminate()** 或 **kill()** 方法直接停止子进程，这将在子进程中引发一个信号。
+
+    命令的输入和输出将由 shell 处理，例如 **标准输入**、**标准错误**和**标准输出**。
+
+    我们可以让 asyncio 程序处理子进程的输入或输出。
+
+    这可以通过指定输入或输出流并指定要重定向的常量来实现，例如 **asyncio.subprocess.PIPE**。
+
+    例如，我们可以将命令的输出重定向到 asyncio 程序：
+
+    ```python
+    ...
+    # 启动子进程并重定向输出
+    process = await asyncio.create_subprocess_shell('ls', stdout=asyncio.subprocess.PIPE)
+    ```
+
+    然后我们可以通过**asyncio.subprocess.Process**实例通过**communicate()**方法读取程序的输出。
+
+    该方法是一个协程，必须等待。 它用于通过子进程发送和接收数据。
+
+    例如：
+
+    ```python
+    ...
+    # 从子进程读取数据
+    line = process.communicate()
+    ```
+
+    我们还可以通过以字节为单位设置“input”参数，通过 **communicate()** 方法将数据发送到子进程。
+
+    例如：
+
+    ```python
+    ...
+    # 启动子进程并重定向输入
+    process = await asyncio.create_subprocess_shell('ls', stdin=asyncio.subprocess.PIPE)
+    # 向子进程发送数据
+    process.communicate(input=b'Hello\n')
+    ```
+
+    在背后， **asyncio.subprocess.PIPE** 将子进程配置为指向 **StreamReader** 或 **StreamWriter** 用于向子进程发送数据或从子进程发送数据，以及 **communicate()** 方法 将从配置的读取器读取或写入字节。
+
+    > 如果 PIPE 传递给 stdin 参数，则 Process.stdin 属性将指向 StreamWriter 实例。 如果 PIPE 传递给 stdout 或 stderr 参数，则 Process.stdout 和 Process.stderr 属性将指向 StreamReader 实例。
+    > 
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+
+    我们可以通过子进程的 `stdin`、`stdout` 和 `stderr` 属性直接与 **StreamReader** 或 **StreamWriter** 交互。
+
+    例如：
+
+    ```python
+    ...
+    # 从子进程输出流中读取一行
+    line = await process.stdout.readline()
+    ```
+
+    现在我们知道如何使用 **create_subprocess_shell()** 函数，让我们看一些有效的示例。
+
+#### 19.3.2 Example of Asyncio create_subprocess_shell()
+
+=== "English"
+
+    We can explore how to run a command in a subprocess from asyncio using the shell.
+
+    In this example, we will execute the [“echo”](https://en.wikipedia.org/wiki/Echo_(command)) command to report back a string.
+
+    The echo command will report the provided string on standard output directly.
+
+    The complete example is listed below.
+
+    Note, this example assumes you have access to the “echo” command, I’m not sure it will work on Windows.
+
+    ```python
+    # SuperFastPython.com
+    # example of executing a shell command as a subprocess with asyncio
+    import asyncio
+    
+    # main coroutine
+    async def main():
+        # start executing a shell command in a subprocess
+        process = await asyncio.create_subprocess_shell('echo Hello World')
+        # report the details of the subprocess
+        print(f'subprocess: {process}')
+    
+    # entry point
+    asyncio.run(main())
+    ```
+
+    Running the example first creates the main() coroutine and executes it as the entry point into the asyncio program.
+
+    The main() coroutine runs and calls the create_subprocess_shell() function to execute a command.
+
+    The main() coroutine suspends while the subprocess is created. A Process instance is returned.
+
+    The main() coroutine resumes and reports the details of the subprocess. The main() process terminates and the asyncio program terminates.
+
+    The output of the echo command is reported on the command line.
+
+    This highlights how we can execute a command using the shell from an asyncio program.
+
+    ```text
+    subprocess: <Process 43916>
+    Hello World
+    ```
+
+=== "Chinese"
+
+    我们可以探索如何使用 shell 从 asyncio 的子进程中运行命令。
+
+    在此示例中，我们将执行 [“echo”](https://en.wikipedia.org/wiki/Echo_(command)) 命令来报告一个字符串。
+
+    echo 命令将直接在标准输出上报告提供的字符串。
+
+    下面列出了完整的示例。
+
+    请注意，此示例假设您有权访问“echo”命令，我不确定它是否适用于 Windows。
+
+    ```python
+    # SuperFastPython.com
+    # 使用 asyncio 作为子进程执行 shell 命令的示例
+    import asyncio
+    
+    # 主协程
+    async def main():
+        # 开始在子进程中执行 shell 命令
+        process = await asyncio.create_subprocess_shell('echo Hello World')
+        # 报告子流程的详细信息
+        print(f'subprocess: {process}')
+    
+    # 入口点
+    asyncio.run(main())
+    ```
+
+    运行该示例首先创建 **main()** 协程并将其作为 asyncio 程序的入口点执行。
+
+    **main()** 协程运行并调用 **create_subprocess_shell()** 函数来执行命令。
+
+    **main()** 协程在子进程创建时挂起。 返回一个 [**Process**](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) 实例。
+
+    **main()** 协程恢复并报告子流程的详细信息。 **main()** 进程终止，asyncio 程序终止。
+
+    echo 命令的输出在命令行上报告。
+
+    这突出显示了我们如何使用 asyncio 程序中的 shell 执行命令。
+
+    ```text
+    subprocess: <Process 43916>
+    Hello World
+    ```
 
 ## 20. Non-Blocking Streams
 
 === "English"
 
+    A major benefit of asyncio is the ability to use non-blocking streams.
+
+    Let’s take a closer look.
+
 === "Chinese"
+
+    asyncio 的一个主要好处是能够使用非阻塞流。
+
+    让我们仔细看看。
 
 ### 20.1 Asyncio Streams
 
 === "English"
 
+    Asyncio provides non-blocking I/O socket programming.
+
+    This is provided via streams.
+
+    > Streams are high-level async/await-ready primitives to work with network connections. Streams allow sending and receiving data without using callbacks or low-level protocols and transports.
+    >
+    > — ASYNCIO STREAMS
+
+    Sockets can be opened that provide access to a stream writer and a stream writer.
+
+    Data can then be written and read from the stream using coroutines, suspending when appropriate.
+
+    Once finished, the socket can be closed.
+
+    The asyncio streams capability is low-level meaning that any protocols required must be implemented manually.
+
+    This might include common web protocols, such as:
+
+    - HTTP or HTTPS for interacting with web servers
+    - SMTP for interacting with email servers
+    - FTP for interacting with file servers.
+
+    The streams can also be used to create a server to handle requests using a standard protocol, or to develop your own application-specific protocol.
+
+    Now that we know what asyncio streams are, let’s look at how to use them.
+
 === "Chinese"
+
+    Asyncio 提供非阻塞 I/O 套接字编程。
+
+    这是通过流(streams)提供的。
+
+    > 流(streams)是高级异步/等待就绪原语，可与网络连接一起使用。 流允许在不使用回调或低级协议和传输的情况下发送和接收数据。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    可以打开提供对流写入器和流写入器的访问的套接字。
+
+    然后可以使用协程在流中写入和读取数据，并在适当的时候挂起。
+
+    完成后，可以关闭套接字。
+
+    异步流功能是低级的，这意味着必须手动实现所需的任何协议。
+
+    这可能包括常见的网络协议，例如：
+
+    - 用于与 Web 服务器交互的 HTTP 或 HTTPS
+    - 用于与电子邮件服务器交互的 SMTP
+    - 用于与文件服务器交互的 FTP。
+    
+    这些流还可用于创建服务器来使用标准协议处理请求，或开发您自己的特定于应用程序的协议。
+
+    现在我们知道什么是异步流，让我们看看如何使用它们。
 
 ### 20.2 How to Open a Connection
 
 === "English"
 
+    An asyncio TCP client socket connection can be opened using the [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) function.
+
+    > Establish a network connection and return a pair of (reader, writer) objects. The returned reader and writer objects are instances of StreamReader and StreamWriter classes.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    This is a coroutine that must be awaited and will return once the socket connection is open.
+
+    The function returns a **StreamReader** and **StreamWriter** object for interacting with the socket.
+
+    For example:
+
+    ```python
+    ...
+    # open a connection
+    reader, writer = await asyncio.open_connection(...)
+    ```
+
+    The **asyncio.open_connection()** function takes many arguments in order to configure the socket connection.
+
+    The two required arguments are the host and the port.
+
+    The host is a string that specifies the server to connect to, such as a domain name or an IP address.
+
+    The port is the socket port number, such as 80 for HTTP servers, 443 for HTTPS servers, 23 for SMTP and so on.
+
+    For example:
+
+    ```python
+    ...
+    # open a connection to an http server
+    reader, writer = await asyncio.open_connection('www.google.com', 80)
+    ```
+
+    Encrypted socket connections are supported over the SSL protocol.
+
+    The most common example might be HTTPS which is replacing HTTP.
+
+    This can be achieved by setting the “**ssl**” argument to **True**.
+
+    For example:
+
+    ```python
+    ...
+    # open a connection to an https server
+    reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
+    ```
+
 === "Chinese"
+
+    可以使用 [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) 函数打开 asyncio TCP 客户端套接字连接。
+
+    > 建立网络连接并返回一对（reader、writer）对象。 返回的读取器和写入器对象是 StreamReader 和 StreamWriter 类的实例。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    这是一个必须等待的协程，一旦套接字连接打开就会返回。
+
+    该函数返回一个 **StreamReader** 和 **StreamWriter** 对象，用于与套接字交互。
+
+    例如:
+
+    ```python
+    ...
+    # 打开一个连接
+    reader, writer = await asyncio.open_connection(...)
+    ```
+
+    **asyncio.open_connection()** 函数需要许多参数来配置套接字连接。
+
+    两个必需的参数是主机和端口。
+
+    主机是一个字符串，指定要连接的服务器，例如域名或IP地址。
+
+    port 是套接字端口号，例如 HTTP 服务器为 80，HTTPS 服务器为 443，SMTP 为 23 等。
+
+    例如:
+
+    ```python
+    ...
+    # 打开与 http 服务器的连接
+    reader, writer = await asyncio.open_connection('www.google.com', 80)
+    ```
+
+    SSL 协议支持加密套接字连接。
+
+    最常见的例子可能是 HTTPS，它正在取代 HTTP。
+
+    这可以通过将“**ssl**”参数设置为**True**来实现。
+
+    例如:
+
+    ```python
+    ...
+    # 打开与 https 服务器的连接
+    reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
+    ```
 
 ### 20.3 How to Start a Server
 
 === "English"
 
+    An asyncio TCP server socket can be opened using the [asyncio.start_server()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server) function.
+
+    > Create a TCP server (socket type SOCK_STREAM) listening on port of the host address.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+
+    This is a coroutine that must be awaited.
+
+    The function returns an [asyncio.Server](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.Server) object that represents the running server.
+
+    For example:
+
+    ```python
+    ...
+    # start a tcp server
+    server = await asyncio.start_server(...)
+    ```
+
+    The three required arguments are the callback function, the host, and the port.
+
+    The callback function is a custom function specified by name that will be called each time a client connects to the server.
+
+    > The client_connected_cb callback is called whenever a new client connection is established. It receives a (reader, writer) pair as two arguments, instances of the StreamReader and StreamWriter classes.
+    >
+    > — ASYNCIO STREAMS
+
+    The host is the domain name or IP address that clients will specify to connect. The port is the socket port number on which to receive connections, such as 21 for FTP or 80 for HTTP.
+
+    For example:
+
+    ```python
+    # handle connections
+    async def handler(reader, writer):
+        # ...
+    
+    ...
+    # start a server to receive http connections
+    server = await asyncio.start_server(handler, '127.0.0.1', 80)
+    ```
+
 === "Chinese"
+
+    可以使用 [asyncio.start_server()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server) 函数打开 **asyncio TCP** 服务器套接字。
+
+    > 创建一个 TCP 服务器（套接字类型 **SOCK_STREAM**），侦听主机地址的端口。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+
+    这是一个必须等待的协程。
+
+    该函数返回一个代表正在运行的服务器的 [asyncio.Server](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.Server) 对象。
+
+    例如:
+
+    ```python
+    ...
+    # 启动一个tcp服务器
+    server = await asyncio.start_server(...)
+    ```
+
+    三个必需参数是回调函数、主机和端口。
+
+    回调函数是一个由名称指定的自定义函数，每次客户端连接到服务器时都会调用该函数。
+
+    > 每当建立新的客户端连接时，都会调用 `client_connected_cb` 回调。 它接收一个（读取器(reader)，写入器(writer)）对作为两个参数，即 **StreamReader** 和 **StreamWriter** 类的实例。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    主机是客户端指定连接的域名或IP地址。 **port** 是接收连接的套接字端口号，例如 **FTP** 为 `21`，**HTTP** 为 `80`。
+
+    例如:
+
+    ```python
+    # 处理连接
+    async def handler(reader, writer):
+        # ...
+    
+    ...
+    # 启动一个服务器来接收http连接
+    server = await asyncio.start_server(handler, '127.0.0.1', 80)
+    ```
 
 ### 20.4 How to Write Data with the StreamWriter
 
 === "English"
 
+    We can write data to the socket using an [asyncio.StreamWriter](https://docs.python.org/3/library/asyncio-stream.html#streamwriter).
+
+    > Represents a writer object that provides APIs to write data to the IO stream.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    Data is written as bytes.
+
+    Byte data can be written to the socket using the [write()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write) method.
+
+    > The method attempts to write the data to the underlying socket immediately. If that fails, the data is queued in an internal write buffer until it can be sent.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    For example:
+
+    ```python
+    ...
+    # write byte data
+    writer.write(byte_data)
+    ```
+
+    Alternatively, multiple “lines” of byte data organized into a list or iterable can be written using the [writelines()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.writelines) method.
+
+    For example:
+
+    ```python
+    ...
+    # write lines of byte data
+    writer.writelines(byte_lines)
+    ```
+
+    Neither method for writing data blocks or suspends the calling coroutine.
+
+    After writing byte data it is a good idea to drain the socket via the [drain()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.drain) method.
+
+    > Wait until it is appropriate to resume writing to the stream.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    This is a coroutine and will suspend the caller until the bytes have been transmitted and the socket is ready.
+
+    For example:
+
+    ```python
+    ...
+    # write byte data
+    writer.write(byte_data)
+    # wait for data to be transmitted
+    await writer.drain()
+    ```
+
 === "Chinese"
+
+    我们可以使用 [asyncio.StreamWriter](https://docs.python.org/3/library/asyncio-stream.html#streamwriter) 将数据写入套接字。
+
+    > 表示一个 writer 对象，它提供 API 将数据写入 IO 流。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    数据以字节形式写入。
+
+    可以使用 [write()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write) 方法将字节数据写入套接字。
+
+    > 该方法尝试立即将数据写入底层套接字。 如果失败，数据将在内部写入缓冲区中排队，直到可以发送。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    例如:
+
+    ```python
+    ...
+    # 写入字节数据
+    writer.write(byte_data)
+    ```
+
+    或者，可以使用 [writelines()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter) 写入组织成列表或可迭代的多“行”字节数据。 writelines) 方法。
+
+    例如:
+
+    ```python
+    ...
+    # 写入字节数据行
+    writer.writelines(byte_lines)
+    ```
+
+    这两种方法都不会写入数据块或挂起调用协程。
+
+    写入字节数据后，最好通过 [drain()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.drain) 方法排空套接字。
+
+    > 等到合适的时候再继续写入流。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    这是一个协程，将挂起调用者，直到字节已传输且套接字准备就绪。
+
+    例如:
+
+    ```python
+    ...
+    # 写入字节数据
+    writer.write(byte_data)
+    # 等待数据传输
+    await writer.drain()
+    ```
 
 ### 20.5 How to Read Data with the StreamReader
 
 === "English"
 
+    We can read data from the socket using an [asyncio.StreamReader](https://docs.python.org/3/library/asyncio-stream.html#streamreader).
+
+    > Represents a reader object that provides APIs to read data from the IO stream.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    Data is read in byte format, therefore strings may need to be encoded before being used.
+
+    All read methods are coroutines that must be awaited.
+
+    An arbitrary number of bytes can be read via the read() method, which will read until the end of file (EOF).
+
+    ```python
+    ...
+    # read byte data
+    byte_data = await reader.read()
+    ```
+
+    Additionally, the number of bytes to read can be specified via the “n” argument.
+
+    > Read up to n bytes. If n is not provided, or set to -1, read until EOF and return all read bytes.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    This may be helpful if you know the number of bytes expected from the next response.
+
+    For example:
+
+    ```python
+    ...
+    # read byte data
+    byte_data = await reader.read(n=100)
+    ```
+
+    A single line of data can be read using the readline() method.
+
+    This will return bytes until a new line character ‘\n’ is encountered, or EOF.
+
+    > Read one line, where “line” is a sequence of bytes ending with \n. If EOF is received and \n was not found, the method returns partially read data. If EOF is received and the internal buffer is empty, return an empty bytes object.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    This is helpful when reading standard protocols that operate with lines of text.
+
+    ```python
+    ...
+    # read a line data
+    byte_line = await reader.readline()
+    ```
+
+    Additionally, there is a readexactly() method to read an exact number of bytes otherwise raise an exception, and a readuntil() that will read bytes until a specified character in byte form is read.
+
 === "Chinese"
+
+    我们可以使用 [asyncio.StreamReader](https://docs.python.org/3/library/asyncio-stream.html#streamreader) 从套接字读取数据。
+
+    > 表示一个读取器对象，它提供 API 以从 IO 流读取数据。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    数据以字节格式读取，因此字符串在使用之前可能需要进行编码。
+
+    所有读取方法都是必须等待的协程。
+
+    可以通过 **read()** 方法读取任意数量的字节，该方法将读取到文件末尾 (EOF)。
+
+    ```python
+    ...
+    # 读取字节数据
+    byte_data = await reader.read()
+    ```
+
+    此外，可以通过“n”参数指定要读取的字节数。
+
+    > 最多读取 n 个字节。 如果未提供 n 或设置为 -1，则读取直到 EOF 并返回所有读取的字节。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    如果您知道下一个响应的预期字节数，这可能会有所帮助。
+
+    例如:
+
+    ```python
+    ...
+    # 读取字节数据
+    byte_data = await reader.read(n=100)
+    ```
+
+    可以使用 **readline()** 方法读取单行数据。
+
+    这将返回字节，直到遇到新行字符“\n”或 EOF。
+
+    > 读取一行，其中“line”是以\n结尾的字节序列。 如果收到 EOF 但未找到 \n，则该方法返回部分读取的数据。 如果收到 EOF 并且内部缓冲区为空，则返回一个空字节对象。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    这在阅读使用文本行操作的标准协议时很有帮助。
+
+    ```python
+    ...
+    # 读取一行数据
+    byte_line = await reader.readline()
+    ```
+
+    此外，还有一个 **readexactly()** 方法用于读取确切的字节数，否则会引发异常，还有一个 **readuntil()** 方法将读取字节，直到读取字节形式的指定字符。
 
 ### 20.6 How to Close Connection
 
 === "English"
 
+    The socket can be closed via the asyncio.StreamWriter.
+
+    The close() method can be called which will close the socket.
+
+    > The method closes the stream and the underlying socket.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+    
+    This method does not block.
+
+    For example:
+
+    ```python
+    ...
+    # close the socket
+    writer.close()
+    ```
+
+    Although the close() method does not block, we can wait for the socket to close completely before continuing on.
+
+    This can be achieved via the wait_closed() method.
+
+    > Wait until the stream is closed. Should be called after close() to wait until the underlying connection is closed.
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    This is a coroutine that can be awaited.
+
+    For example:
+
+    ```python
+    ...
+    # close the socket
+    writer.close()
+    # wait for the socket to close
+    await writer.wait_closed()
+    ```
+
+    We can check if the socket has been closed or is in the process of being closed via the is_closing() method.
+
+    For example:
+
+    ```python
+    ...
+    # check if the socket is closed or closing
+    if writer.is_closing():
+        # ...
+    ```
+
 === "Chinese"
+
+    可以通过 **asyncio.StreamWriter** 关闭套接字。
+
+    可以调用 **close()** 方法来关闭套接字。
+
+    > 该方法关闭流和底层套接字。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+    
+    该方法不会阻塞。
+
+    例如：
+
+    ```python
+    ...
+    # 关闭套接字
+    writer.close()
+    ```
+
+    虽然 **close()** 方法不会阻塞，但我们可以等待套接字完全关闭后再继续。
+
+    这可以通过 **wait_close()** 方法来实现。
+
+    > 等待流关闭。 应在 **close()** 之后调用以等待底层连接关闭。
+    >
+    > — [ASYNCIO STREAMS](https://docs.python.org/3/library/asyncio-stream.html)
+
+    这是一个可以等待的协程。
+
+    例如：
+
+    ```python
+    ...
+    # 关闭套接字
+    writer.close()
+    # 等待套接字关闭
+    await writer.wait_closed()
+    ```
+
+    我们可以通过 **is_close()** 方法检查套接字是否已关闭或正在关闭过程中。
+
+    例如：
+
+    ```python
+    ...
+    # 检查套接字是否已关闭或正在关闭
+    if writer.is_closing():
+        # ...
+    ```
 
 ## 21. Example of Checking Website Status
 
