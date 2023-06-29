@@ -17,7 +17,7 @@
         <link rel="next" href="../network/internet_protocol_suite_part_i/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
       
       
 
@@ -1177,6 +1177,26 @@
   <a href="#193-how-to-run-a-command-via-the-shell" class="md-nav__link">
     19.3 How to Run a Command Via the Shell
   </a>
+  
+    <nav class="md-nav" aria-label="19.3 How to Run a Command Via the Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1931-how-to-use-asyncio-create_subprocess_shell" class="md-nav__link">
+    19.3.1 How to Use Asyncio create_subprocess_shell()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1932-example-of-asyncio-create_subprocess_shell" class="md-nav__link">
+    19.3.2 Example of Asyncio create_subprocess_shell()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2669,6 +2689,26 @@
     19.3 How to Run a Command Via the Shell
   </a>
   
+    <nav class="md-nav" aria-label="19.3 How to Run a Command Via the Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1931-how-to-use-asyncio-create_subprocess_shell" class="md-nav__link">
+    19.3.1 How to Use Asyncio create_subprocess_shell()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1932-example-of-asyncio-create_subprocess_shell" class="md-nav__link">
+    19.3.2 Example of Asyncio create_subprocess_shell()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3643,61 +3683,697 @@
 <h3 id="193-how-to-run-a-command-via-the-shell">19.3 How to Run a Command Via the Shell<a class="headerlink" href="#193-how-to-run-a-command-via-the-shell" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="86:2"><input checked="checked" id="__tabbed_86_1" name="__tabbed_86" type="radio" /><input id="__tabbed_86_2" name="__tabbed_86" type="radio" /><div class="tabbed-labels"><label for="__tabbed_86_1">English</label><label for="__tabbed_86_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can execute commands using the <a href="https://en.wikipedia.org/wiki/Shell_(computing)">shell</a>.</p>
+<p>The shell is a user interface for the command line, called a command line interpreter (CLI).</p>
+<p>It will interpret and execute commands on behalf of the user.</p>
+<p>It also offers features such as a primitive programming language for scripting, wildcards, piping, shell variables (e.g. PATH), and more.</p>
+<p>For example, we can redirect the output of one command as input to another command, such as the contents of the “<strong>/etc/services</strong>” file into the word count “wc” command and count the number of lines:</p>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">services</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+<p>Examples of shells in the Unix based operating systems include:</p>
+<ul>
+<li>‘sh’</li>
+<li>‘bash’</li>
+<li>‘zsh’</li>
+<li>And so on.</li>
+</ul>
+<p>On Windows, the shell is probably <a href="https://en.wikipedia.org/wiki/Cmd.exe">cmd.exe</a>.</p>
+<p>See this great list of command line shells:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/List_of_command-line_interpreters">List of command-line interpreters</a>, Wikipedia</li>
+</ul>
+<p>The shell is already running, it was used to start the Python program.</p>
+<p>You don’t need to do anything special to get or have access to the shell.</p>
+<p>We can execute a command from an asyncio program via the <strong>create_subprocess_shell()</strong> function.</p>
+<p>The <strong>asyncio.create_subprocess_shell()</strong> function takes a command and executes it using the current user shell.</p>
+<p>This is helpful as it not only allows the command to be executed, but allows the capabilities of the shell to be used, such as redirection, wildcards and more.</p>
+<blockquote>
+<p>… the specified command will be executed through the shell. This can be useful if you are using Python primarily for the enhanced control flow it offers over most system shells and still want convenient access to other shell features such as shell pipes, filename wildcards, environment variable expansion, and expansion of ~ to a user’s home directory.</p>
+<p>— <a href="https://docs.python.org/3/library/subprocess.html">SUBPROCESS — SUBPROCESS MANAGEMENT</a></p>
+</blockquote>
+<p>The command will be executed in a subprocess of the process executing the asyncio program.</p>
+<p>Importantly, the asyncio program is able to interact with the subprocess asynchronously, e.g. via coroutines.</p>
+<blockquote>
+<p>Because all asyncio subprocess functions are asynchronous and asyncio provides many tools to work with such functions, it is easy to execute and monitor multiple subprocesses in parallel.</p>
+<p>— ASYNCIO SUBPROCESSES</p>
+</blockquote>
+<p>There can be security considerations when executing a command via the shell instead of directly.</p>
+<p>This is because there is at least one level of indirection and interpretation between the request to execute the command and the command being executed, allowing possible malicious injection.</p>
+<blockquote>
+<p>Important It is the application’s responsibility to ensure that all whitespace and special characters are quoted appropriately to avoid shell injection vulnerabilities.</p>
+<p>— ASYNCIO SUBPROCESSES</p>
+</blockquote>
+<p>Now that we know what <strong>asyncio.create_subprocess_shell()</strong> does, let’s look at how to use it.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以使用<a href="https://en.wikipedia.org/wiki/Shell_(computing)">shell</a>执行命令。</p>
+<p>shell 是命令行的用户界面，称为命令行解释器 (CLI)。</p>
+<p>它将代表用户解释并执行命令。</p>
+<p>它还提供诸如用于脚本、通配符、管道、shell 变量（例如 PATH）等的原始编程语言等功能。</p>
+<p>例如，我们可以将一个命令的输出重定向为另一个命令的输入，例如将“<strong>/etc/services</strong>”文件的内容重定向到字数统计“wc”命令并统计行数：</p>
+<div class="highlight"><pre><span></span><code><span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">services</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</code></pre></div>
+<p>基于 Unix 的操作系统中的 shell 示例包括：</p>
+<ul>
+<li>‘sh’</li>
+<li>‘bash’</li>
+<li>‘zsh’</li>
+<li>等等。</li>
+</ul>
+<p>在 Windows 上，shell 可能是 <a href="https://en.wikipedia.org/wiki/Cmd.exe">cmd.exe</a>。</p>
+<p>请参阅这个很棒的命令行 shell 列表：</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/List_of_command-line_interpreters">命令行解释器列表</a>, Wikipedia</li>
+</ul>
+<p>shell已经在运行，它被用来启动Python程序。</p>
+<p>您无需执行任何特殊操作即可获取或访问 shell。</p>
+<p>我们可以通过 <strong>create_subprocess_shell()</strong> 函数从 asyncio 程序执行命令。</p>
+<p><strong>asyncio.create_subprocess_shell()</strong> 函数接受一个命令并使用当前用户 shell 执行它。</p>
+<p>这很有用，因为它不仅允许执行命令，还允许使用 shell 的功能，例如重定向、通配符等。</p>
+<blockquote>
+<p>… 指定的命令将通过 shell 执行。 如果您使用 Python 主要是为了增强它在大多数系统 shell 上提供的控制流，并且仍然希望方便地访问其他 shell 功能（例如 shell 管道、文件名通配符、环境变量扩展以及将 ~ 扩展到用户主目录），那么这会很有用。</p>
+<p>— <a href="https://docs.python.org/3/library/subprocess.html">SUBPROCESS — SUBPROCESS MANAGEMENT</a></p>
+</blockquote>
+<p>该命令将在执行 asyncio 程序的进程的子进程中执行。</p>
+<p>重要的是，asyncio 程序能够与子进程异步交互，例如 通过协程。</p>
+<blockquote>
+<p>因为所有 asyncio 子进程函数都是异步的，并且 asyncio 提供了许多工具来使用这些函数，所以很容易并行执行和监视多个子进程。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-subprocess.html">ASYNCIO SUBPROCESSES</a></p>
+</blockquote>
+<p>通过 shell 而不是直接执行命令时可能存在安全考虑。</p>
+<p>这是因为执行命令的请求和正在执行的命令之间至少存在一层间接和解释，从而允许可能的恶意注入。</p>
+<blockquote>
+<p>重要的应用程序有责任确保所有空格和特殊字符都被正确引用，以避免 shell 注入漏洞。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-subprocess.html">ASYNCIO SUBPROCESSES</a></p>
+</blockquote>
+<p>现在我们知道了 <strong>asyncio.create_subprocess_shell()</strong> 的作用，让我们看看如何使用它。</p>
+</div>
+</div>
+</div>
+<h4 id="1931-how-to-use-asyncio-create_subprocess_shell">19.3.1 How to Use Asyncio create_subprocess_shell()<a class="headerlink" href="#1931-how-to-use-asyncio-create_subprocess_shell" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="87:2"><input checked="checked" id="__tabbed_87_1" name="__tabbed_87" type="radio" /><input id="__tabbed_87_2" name="__tabbed_87" type="radio" /><div class="tabbed-labels"><label for="__tabbed_87_1">English</label><label for="__tabbed_87_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>The <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell">asyncio.create_subprocess_shell()</a> function will execute a given string command via the current shell.</p>
+<p>It returns a <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process">asyncio.subprocess.Process</a> object that represents the process.</p>
+<p>It is very similar to the <strong>create_subprocess_shell()</strong> function we saw in a previous section. Nevertheless, we will review how to use the function and interact with the process via the Process instance (in case you skipped straight to this section).</p>
+<p>The <strong>create_subprocess_shell()</strong> function is a coroutine, which means we must await it. It will return once the subprocess has been started, not when the subprocess is finished.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># start a subprocess</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span>
+<span class="n">We</span> <span class="n">can</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">the</span> <span class="n">subprocess</span> <span class="n">to</span> <span class="n">finish</span> <span class="n">by</span> <span class="n">awaiting</span> <span class="n">the</span> <span class="o">**</span><span class="n">wait</span><span class="p">()</span><span class="o">**</span> <span class="n">method</span><span class="o">.</span>
+</code></pre></div>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for the subprocess to terminate</span>
+<span class="k">await</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</code></pre></div>
+<p>We can stop the subprocess directly by calling the <strong>terminate()</strong> or <strong>kill()</strong> methods, which will raise a signal in the subprocess.</p>
+<p>The input and output of the command will be handled by the shell, e.g. <strong>stdin</strong>, <strong>stderr</strong>, and <strong>stdout</strong>.</p>
+<p>We can have the asyncio program handle the input or output for the subprocess.</p>
+<p>This can be achieved by specifying the input or output stream and specifying a constant to redirect, such as <strong>asyncio.subprocess.PIPE</strong>.</p>
+<p>For example, we can redirect the output of a command to the asyncio program:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># start a subprocess and redirect output</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+</code></pre></div>
+<p>We can then read the output of the program via the <strong>asyncio.subprocess.Process</strong> instance via the <strong>communicate()</strong> method.</p>
+<p>This method is a coroutine and must be awaited. It is used to both send and receive data with the subprocess.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read data from the subprocess</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</code></pre></div>
+<p>We can also send data to the subprocess via the <strong>communicate()</strong> method by setting the “input” argument in bytes.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># start a subprocess and redirect input</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="c1"># send data to the subprocess</span>
+<span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Hello</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Behind the scenes the <strong>asyncio.subprocess.PIPE</strong> configures the subprocess to point to a <strong>StreamReader</strong> or <strong>StreamWriter</strong> for sending data to or from the subprocess, and the <strong>communicate()</strong> method will read or write bytes from the configured reader.</p>
+<blockquote>
+<p>If PIPE is passed to stdin argument, the Process.stdin attribute will point to a StreamWriter instance. If PIPE is passed to stdout or stderr arguments, the Process.stdout and Process.stderr attributes will point to StreamReader instances.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-subprocess.html">ASYNCIO SUBPROCESSES</a></p>
+</blockquote>
+<p>We can interact with the <strong>StreamReader</strong> or <strong>StreamWriter</strong> directly via the subprocess via the stdin, stdout, and stderr attributes.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read a line from the subprocess output stream</span>
+<span class="n">line</span> <span class="o">=</span> <span class="k">await</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>Now that we know how to use the <strong>create_subprocess_shell()</strong> function, let’s look at some worked examples.</p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell">asyncio.create_subprocess_shell()</a> 函数将通过当前 shell 执行给定的字符串命令。</p>
+<p>它返回一个表示进程的 <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process">asyncio.subprocess.Process</a> 对象。</p>
+<p>它与我们在上一节中看到的 <strong>create_subprocess_shell()</strong> 函数非常相似。 尽管如此，我们将回顾如何使用该函数并通过 <strong>Process</strong> 实例与流程交互（如果您直接跳到本节）。</p>
+<p><strong>create_subprocess_shell()</strong> 函数是一个协程，这意味着我们必须等待它。 它会在子进程启动后返回，而不是在子进程完成时返回。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 启动一个子进程</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>我们可以通过等待 <strong>wait()</strong> 方法来等待子进程完成。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待子进程终止</span>
+<span class="k">await</span> <span class="n">process</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</code></pre></div>
+<p>我们可以通过调用 <strong>terminate()</strong> 或 <strong>kill()</strong> 方法直接停止子进程，这将在子进程中引发一个信号。</p>
+<p>命令的输入和输出将由 shell 处理，例如 <strong>标准输入</strong>、<strong>标准错误</strong>和<strong>标准输出</strong>。</p>
+<p>我们可以让 asyncio 程序处理子进程的输入或输出。</p>
+<p>这可以通过指定输入或输出流并指定要重定向的常量来实现，例如 <strong>asyncio.subprocess.PIPE</strong>。</p>
+<p>例如，我们可以将命令的输出重定向到 asyncio 程序：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 启动子进程并重定向输出</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+</code></pre></div>
+<p>然后我们可以通过<strong>asyncio.subprocess.Process</strong>实例通过<strong>communicate()</strong>方法读取程序的输出。</p>
+<p>该方法是一个协程，必须等待。 它用于通过子进程发送和接收数据。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从子进程读取数据</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+</code></pre></div>
+<p>我们还可以通过以字节为单位设置“input”参数，通过 <strong>communicate()</strong> 方法将数据发送到子进程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 启动子进程并重定向输入</span>
+<span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="c1"># 向子进程发送数据</span>
+<span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;Hello</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>在背后， <strong>asyncio.subprocess.PIPE</strong> 将子进程配置为指向 <strong>StreamReader</strong> 或 <strong>StreamWriter</strong> 用于向子进程发送数据或从子进程发送数据，以及 <strong>communicate()</strong> 方法 将从配置的读取器读取或写入字节。</p>
+<blockquote>
+<p>如果 PIPE 传递给 stdin 参数，则 Process.stdin 属性将指向 StreamWriter 实例。 如果 PIPE 传递给 stdout 或 stderr 参数，则 Process.stdout 和 Process.stderr 属性将指向 StreamReader 实例。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-subprocess.html">ASYNCIO SUBPROCESSES</a></p>
+</blockquote>
+<p>我们可以通过子进程的 <code>stdin</code>、<code>stdout</code> 和 <code>stderr</code> 属性直接与 <strong>StreamReader</strong> 或 <strong>StreamWriter</strong> 交互。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从子进程输出流中读取一行</span>
+<span class="n">line</span> <span class="o">=</span> <span class="k">await</span> <span class="n">process</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>现在我们知道如何使用 <strong>create_subprocess_shell()</strong> 函数，让我们看一些有效的示例。</p>
+</div>
+</div>
+</div>
+<h4 id="1932-example-of-asyncio-create_subprocess_shell">19.3.2 Example of Asyncio create_subprocess_shell()<a class="headerlink" href="#1932-example-of-asyncio-create_subprocess_shell" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="88:2"><input checked="checked" id="__tabbed_88_1" name="__tabbed_88" type="radio" /><input id="__tabbed_88_2" name="__tabbed_88" type="radio" /><div class="tabbed-labels"><label for="__tabbed_88_1">English</label><label for="__tabbed_88_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>We can explore how to run a command in a subprocess from asyncio using the shell.</p>
+<p>In this example, we will execute the <a href="https://en.wikipedia.org/wiki/Echo_(command)">“echo”</a> command to report back a string.</p>
+<p>The echo command will report the provided string on standard output directly.</p>
+<p>The complete example is listed below.</p>
+<p>Note, this example assumes you have access to the “echo” command, I’m not sure it will work on Windows.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of executing a shell command as a subprocess with asyncio</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># start executing a shell command in a subprocess</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;echo Hello World&#39;</span><span class="p">)</span>
+    <span class="c1"># report the details of the subprocess</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;subprocess: </span><span class="si">{</span><span class="n">process</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># entry point</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the main() coroutine and executes it as the entry point into the asyncio program.</p>
+<p>The main() coroutine runs and calls the create_subprocess_shell() function to execute a command.</p>
+<p>The main() coroutine suspends while the subprocess is created. A Process instance is returned.</p>
+<p>The main() coroutine resumes and reports the details of the subprocess. The main() process terminates and the asyncio program terminates.</p>
+<p>The output of the echo command is reported on the command line.</p>
+<p>This highlights how we can execute a command using the shell from an asyncio program.</p>
+<div class="highlight"><pre><span></span><code>subprocess: &lt;Process 43916&gt;
+Hello World
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何使用 shell 从 asyncio 的子进程中运行命令。</p>
+<p>在此示例中，我们将执行 <a href="https://en.wikipedia.org/wiki/Echo_(command)">“echo”</a> 命令来报告一个字符串。</p>
+<p>echo 命令将直接在标准输出上报告提供的字符串。</p>
+<p>下面列出了完整的示例。</p>
+<p>请注意，此示例假设您有权访问“echo”命令，我不确定它是否适用于 Windows。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 使用 asyncio 作为子进程执行 shell 命令的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 开始在子进程中执行 shell 命令</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_subprocess_shell</span><span class="p">(</span><span class="s1">&#39;echo Hello World&#39;</span><span class="p">)</span>
+    <span class="c1"># 报告子流程的详细信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;subprocess: </span><span class="si">{</span><span class="n">process</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 入口点</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程并将其作为 asyncio 程序的入口点执行。</p>
+<p><strong>main()</strong> 协程运行并调用 <strong>create_subprocess_shell()</strong> 函数来执行命令。</p>
+<p><strong>main()</strong> 协程在子进程创建时挂起。 返回一个 <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process"><strong>Process</strong></a> 实例。</p>
+<p><strong>main()</strong> 协程恢复并报告子流程的详细信息。 <strong>main()</strong> 进程终止，asyncio 程序终止。</p>
+<p>echo 命令的输出在命令行上报告。</p>
+<p>这突出显示了我们如何使用 asyncio 程序中的 shell 执行命令。</p>
+<div class="highlight"><pre><span></span><code>subprocess: &lt;Process 43916&gt;
+Hello World
+</code></pre></div>
+</div>
 </div>
 </div>
 <h2 id="20-non-blocking-streams">20. Non-Blocking Streams<a class="headerlink" href="#20-non-blocking-streams" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="87:2"><input checked="checked" id="__tabbed_87_1" name="__tabbed_87" type="radio" /><input id="__tabbed_87_2" name="__tabbed_87" type="radio" /><div class="tabbed-labels"><label for="__tabbed_87_1">English</label><label for="__tabbed_87_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="89:2"><input checked="checked" id="__tabbed_89_1" name="__tabbed_89" type="radio" /><input id="__tabbed_89_2" name="__tabbed_89" type="radio" /><div class="tabbed-labels"><label for="__tabbed_89_1">English</label><label for="__tabbed_89_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A major benefit of asyncio is the ability to use non-blocking streams.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio 的一个主要好处是能够使用非阻塞流。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="201-asyncio-streams">20.1 Asyncio Streams<a class="headerlink" href="#201-asyncio-streams" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="88:2"><input checked="checked" id="__tabbed_88_1" name="__tabbed_88" type="radio" /><input id="__tabbed_88_2" name="__tabbed_88" type="radio" /><div class="tabbed-labels"><label for="__tabbed_88_1">English</label><label for="__tabbed_88_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="90:2"><input checked="checked" id="__tabbed_90_1" name="__tabbed_90" type="radio" /><input id="__tabbed_90_2" name="__tabbed_90" type="radio" /><div class="tabbed-labels"><label for="__tabbed_90_1">English</label><label for="__tabbed_90_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Asyncio provides non-blocking I/O socket programming.</p>
+<p>This is provided via streams.</p>
+<blockquote>
+<p>Streams are high-level async/await-ready primitives to work with network connections. Streams allow sending and receiving data without using callbacks or low-level protocols and transports.</p>
+<p>— ASYNCIO STREAMS</p>
+</blockquote>
+<p>Sockets can be opened that provide access to a stream writer and a stream writer.</p>
+<p>Data can then be written and read from the stream using coroutines, suspending when appropriate.</p>
+<p>Once finished, the socket can be closed.</p>
+<p>The asyncio streams capability is low-level meaning that any protocols required must be implemented manually.</p>
+<p>This might include common web protocols, such as:</p>
+<ul>
+<li>HTTP or HTTPS for interacting with web servers</li>
+<li>SMTP for interacting with email servers</li>
+<li>FTP for interacting with file servers.</li>
+</ul>
+<p>The streams can also be used to create a server to handle requests using a standard protocol, or to develop your own application-specific protocol.</p>
+<p>Now that we know what asyncio streams are, let’s look at how to use them.</p>
+</div>
+<div class="tabbed-block">
+<p>Asyncio 提供非阻塞 I/O 套接字编程。</p>
+<p>这是通过流(streams)提供的。</p>
+<blockquote>
+<p>流(streams)是高级异步/等待就绪原语，可与网络连接一起使用。 流允许在不使用回调或低级协议和传输的情况下发送和接收数据。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>可以打开提供对流写入器和流写入器的访问的套接字。</p>
+<p>然后可以使用协程在流中写入和读取数据，并在适当的时候挂起。</p>
+<p>完成后，可以关闭套接字。</p>
+<p>异步流功能是低级的，这意味着必须手动实现所需的任何协议。</p>
+<p>这可能包括常见的网络协议，例如：</p>
+<ul>
+<li>用于与 Web 服务器交互的 HTTP 或 HTTPS</li>
+<li>用于与电子邮件服务器交互的 SMTP</li>
+<li>用于与文件服务器交互的 FTP。</li>
+</ul>
+<p>这些流还可用于创建服务器来使用标准协议处理请求，或开发您自己的特定于应用程序的协议。</p>
+<p>现在我们知道什么是异步流，让我们看看如何使用它们。</p>
+</div>
 </div>
 </div>
 <h3 id="202-how-to-open-a-connection">20.2 How to Open a Connection<a class="headerlink" href="#202-how-to-open-a-connection" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="89:2"><input checked="checked" id="__tabbed_89_1" name="__tabbed_89" type="radio" /><input id="__tabbed_89_2" name="__tabbed_89" type="radio" /><div class="tabbed-labels"><label for="__tabbed_89_1">English</label><label for="__tabbed_89_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="91:2"><input checked="checked" id="__tabbed_91_1" name="__tabbed_91" type="radio" /><input id="__tabbed_91_2" name="__tabbed_91" type="radio" /><div class="tabbed-labels"><label for="__tabbed_91_1">English</label><label for="__tabbed_91_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An asyncio TCP client socket connection can be opened using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> function.</p>
+<blockquote>
+<p>Establish a network connection and return a pair of (reader, writer) objects. The returned reader and writer objects are instances of StreamReader and StreamWriter classes.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This is a coroutine that must be awaited and will return once the socket connection is open.</p>
+<p>The function returns a <strong>StreamReader</strong> and <strong>StreamWriter</strong> object for interacting with the socket.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open a connection</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p>The <strong>asyncio.open_connection()</strong> function takes many arguments in order to configure the socket connection.</p>
+<p>The two required arguments are the host and the port.</p>
+<p>The host is a string that specifies the server to connect to, such as a domain name or an IP address.</p>
+<p>The port is the socket port number, such as 80 for HTTP servers, 443 for HTTPS servers, 23 for SMTP and so on.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open a connection to an http server</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>Encrypted socket connections are supported over the SSL protocol.</p>
+<p>The most common example might be HTTPS which is replacing HTTP.</p>
+<p>This can be achieved by setting the “<strong>ssl</strong>” argument to <strong>True</strong>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># open a connection to an https server</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> 函数打开 asyncio TCP 客户端套接字连接。</p>
+<blockquote>
+<p>建立网络连接并返回一对（reader、writer）对象。 返回的读取器和写入器对象是 StreamReader 和 StreamWriter 类的实例。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>这是一个必须等待的协程，一旦套接字连接打开就会返回。</p>
+<p>该函数返回一个 <strong>StreamReader</strong> 和 <strong>StreamWriter</strong> 对象，用于与套接字交互。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开一个连接</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>asyncio.open_connection()</strong> 函数需要许多参数来配置套接字连接。</p>
+<p>两个必需的参数是主机和端口。</p>
+<p>主机是一个字符串，指定要连接的服务器，例如域名或IP地址。</p>
+<p>port 是套接字端口号，例如 HTTP 服务器为 80，HTTPS 服务器为 443，SMTP 为 23 等。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开与 http 服务器的连接</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+<p>SSL 协议支持加密套接字连接。</p>
+<p>最常见的例子可能是 HTTPS，它正在取代 HTTP。</p>
+<p>这可以通过将“<strong>ssl</strong>”参数设置为<strong>True</strong>来实现。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 打开与 https 服务器的连接</span>
+<span class="n">reader</span><span class="p">,</span> <span class="n">writer</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">open_connection</span><span class="p">(</span><span class="s1">&#39;www.google.com&#39;</span><span class="p">,</span> <span class="mi">443</span><span class="p">,</span> <span class="n">ssl</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="203-how-to-start-a-server">20.3 How to Start a Server<a class="headerlink" href="#203-how-to-start-a-server" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="90:2"><input checked="checked" id="__tabbed_90_1" name="__tabbed_90" type="radio" /><input id="__tabbed_90_2" name="__tabbed_90" type="radio" /><div class="tabbed-labels"><label for="__tabbed_90_1">English</label><label for="__tabbed_90_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="92:2"><input checked="checked" id="__tabbed_92_1" name="__tabbed_92" type="radio" /><input id="__tabbed_92_2" name="__tabbed_92" type="radio" /><div class="tabbed-labels"><label for="__tabbed_92_1">English</label><label for="__tabbed_92_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An asyncio TCP server socket can be opened using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server">asyncio.start_server()</a> function.</p>
+<blockquote>
+<p>Create a TCP server (socket type SOCK_STREAM) listening on port of the host address.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>This is a coroutine that must be awaited.</p>
+<p>The function returns an <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.Server">asyncio.Server</a> object that represents the running server.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># start a tcp server</span>
+<span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p>The three required arguments are the callback function, the host, and the port.</p>
+<p>The callback function is a custom function specified by name that will be called each time a client connects to the server.</p>
+<blockquote>
+<p>The client_connected_cb callback is called whenever a new client connection is established. It receives a (reader, writer) pair as two arguments, instances of the StreamReader and StreamWriter classes.</p>
+<p>— ASYNCIO STREAMS</p>
+</blockquote>
+<p>The host is the domain name or IP address that clients will specify to connect. The port is the socket port number on which to receive connections, such as 21 for FTP or 80 for HTTP.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># handle connections</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">writer</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+
+<span class="o">...</span>
+<span class="c1"># start a server to receive http connections</span>
+<span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server">asyncio.start_server()</a> 函数打开 <strong>asyncio TCP</strong> 服务器套接字。</p>
+<blockquote>
+<p>创建一个 TCP 服务器（套接字类型 <strong>SOCK_STREAM</strong>），侦听主机地址的端口。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>这是一个必须等待的协程。</p>
+<p>该函数返回一个代表正在运行的服务器的 <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.Server">asyncio.Server</a> 对象。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 启动一个tcp服务器</span>
+<span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<p>三个必需参数是回调函数、主机和端口。</p>
+<p>回调函数是一个由名称指定的自定义函数，每次客户端连接到服务器时都会调用该函数。</p>
+<blockquote>
+<p>每当建立新的客户端连接时，都会调用 <code>client_connected_cb</code> 回调。 它接收一个（读取器(reader)，写入器(writer)）对作为两个参数，即 <strong>StreamReader</strong> 和 <strong>StreamWriter</strong> 类的实例。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>主机是客户端指定连接的域名或IP地址。 <strong>port</strong> 是接收连接的套接字端口号，例如 <strong>FTP</strong> 为 <code>21</code>，<strong>HTTP</strong> 为 <code>80</code>。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 处理连接</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">reader</span><span class="p">,</span> <span class="n">writer</span><span class="p">):</span>
+    <span class="c1"># ...</span>
+
+<span class="o">...</span>
+<span class="c1"># 启动一个服务器来接收http连接</span>
+<span class="n">server</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">start_server</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="204-how-to-write-data-with-the-streamwriter">20.4 How to Write Data with the StreamWriter<a class="headerlink" href="#204-how-to-write-data-with-the-streamwriter" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="91:2"><input checked="checked" id="__tabbed_91_1" name="__tabbed_91" type="radio" /><input id="__tabbed_91_2" name="__tabbed_91" type="radio" /><div class="tabbed-labels"><label for="__tabbed_91_1">English</label><label for="__tabbed_91_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="93:2"><input checked="checked" id="__tabbed_93_1" name="__tabbed_93" type="radio" /><input id="__tabbed_93_2" name="__tabbed_93" type="radio" /><div class="tabbed-labels"><label for="__tabbed_93_1">English</label><label for="__tabbed_93_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can write data to the socket using an <a href="https://docs.python.org/3/library/asyncio-stream.html#streamwriter">asyncio.StreamWriter</a>.</p>
+<blockquote>
+<p>Represents a writer object that provides APIs to write data to the IO stream.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>Data is written as bytes.</p>
+<p>Byte data can be written to the socket using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write">write()</a> method.</p>
+<blockquote>
+<p>The method attempts to write the data to the underlying socket immediately. If that fails, the data is queued in an internal write buffer until it can be sent.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># write byte data</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+</code></pre></div>
+<p>Alternatively, multiple “lines” of byte data organized into a list or iterable can be written using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.writelines">writelines()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># write lines of byte data</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">byte_lines</span><span class="p">)</span>
+</code></pre></div>
+<p>Neither method for writing data blocks or suspends the calling coroutine.</p>
+<p>After writing byte data it is a good idea to drain the socket via the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.drain">drain()</a> method.</p>
+<blockquote>
+<p>Wait until it is appropriate to resume writing to the stream.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This is a coroutine and will suspend the caller until the bytes have been transmitted and the socket is ready.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># write byte data</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+<span class="c1"># wait for data to be transmitted</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>我们可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#streamwriter">asyncio.StreamWriter</a> 将数据写入套接字。</p>
+<blockquote>
+<p>表示一个 writer 对象，它提供 API 将数据写入 IO 流。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>数据以字节形式写入。</p>
+<p>可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.write">write()</a> 方法将字节数据写入套接字。</p>
+<blockquote>
+<p>该方法尝试立即将数据写入底层套接字。 如果失败，数据将在内部写入缓冲区中排队，直到可以发送。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 写入字节数据</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+</code></pre></div>
+<p>或者，可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter">writelines()</a> 写入组织成列表或可迭代的多“行”字节数据。 writelines) 方法。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 写入字节数据行</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">byte_lines</span><span class="p">)</span>
+</code></pre></div>
+<p>这两种方法都不会写入数据块或挂起调用协程。</p>
+<p>写入字节数据后，最好通过 <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.StreamWriter.drain">drain()</a> 方法排空套接字。</p>
+<blockquote>
+<p>等到合适的时候再继续写入流。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>这是一个协程，将挂起调用者，直到字节已传输且套接字准备就绪。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 写入字节数据</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">byte_data</span><span class="p">)</span>
+<span class="c1"># 等待数据传输</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">drain</span><span class="p">()</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="205-how-to-read-data-with-the-streamreader">20.5 How to Read Data with the StreamReader<a class="headerlink" href="#205-how-to-read-data-with-the-streamreader" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="92:2"><input checked="checked" id="__tabbed_92_1" name="__tabbed_92" type="radio" /><input id="__tabbed_92_2" name="__tabbed_92" type="radio" /><div class="tabbed-labels"><label for="__tabbed_92_1">English</label><label for="__tabbed_92_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="94:2"><input checked="checked" id="__tabbed_94_1" name="__tabbed_94" type="radio" /><input id="__tabbed_94_2" name="__tabbed_94" type="radio" /><div class="tabbed-labels"><label for="__tabbed_94_1">English</label><label for="__tabbed_94_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can read data from the socket using an <a href="https://docs.python.org/3/library/asyncio-stream.html#streamreader">asyncio.StreamReader</a>.</p>
+<blockquote>
+<p>Represents a reader object that provides APIs to read data from the IO stream.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>Data is read in byte format, therefore strings may need to be encoded before being used.</p>
+<p>All read methods are coroutines that must be awaited.</p>
+<p>An arbitrary number of bytes can be read via the read() method, which will read until the end of file (EOF).</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read byte data</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+<p>Additionally, the number of bytes to read can be specified via the “n” argument.</p>
+<blockquote>
+<p>Read up to n bytes. If n is not provided, or set to -1, read until EOF and return all read bytes.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This may be helpful if you know the number of bytes expected from the next response.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read byte data</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+<p>A single line of data can be read using the readline() method.</p>
+<p>This will return bytes until a new line character ‘\n’ is encountered, or EOF.</p>
+<blockquote>
+<p>Read one line, where “line” is a sequence of bytes ending with \n. If EOF is received and \n was not found, the method returns partially read data. If EOF is received and the internal buffer is empty, return an empty bytes object.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This is helpful when reading standard protocols that operate with lines of text.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># read a line data</span>
+<span class="n">byte_line</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>Additionally, there is a readexactly() method to read an exact number of bytes otherwise raise an exception, and a readuntil() that will read bytes until a specified character in byte form is read.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以使用 <a href="https://docs.python.org/3/library/asyncio-stream.html#streamreader">asyncio.StreamReader</a> 从套接字读取数据。</p>
+<blockquote>
+<p>表示一个读取器对象，它提供 API 以从 IO 流读取数据。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>数据以字节格式读取，因此字符串在使用之前可能需要进行编码。</p>
+<p>所有读取方法都是必须等待的协程。</p>
+<p>可以通过 <strong>read()</strong> 方法读取任意数量的字节，该方法将读取到文件末尾 (EOF)。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 读取字节数据</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+<p>此外，可以通过“n”参数指定要读取的字节数。</p>
+<blockquote>
+<p>最多读取 n 个字节。 如果未提供 n 或设置为 -1，则读取直到 EOF 并返回所有读取的字节。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>如果您知道下一个响应的预期字节数，这可能会有所帮助。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 读取字节数据</span>
+<span class="n">byte_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+<p>可以使用 <strong>readline()</strong> 方法读取单行数据。</p>
+<p>这将返回字节，直到遇到新行字符“\n”或 EOF。</p>
+<blockquote>
+<p>读取一行，其中“line”是以\n结尾的字节序列。 如果收到 EOF 但未找到 \n，则该方法返回部分读取的数据。 如果收到 EOF 并且内部缓冲区为空，则返回一个空字节对象。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>这在阅读使用文本行操作的标准协议时很有帮助。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 读取一行数据</span>
+<span class="n">byte_line</span> <span class="o">=</span> <span class="k">await</span> <span class="n">reader</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+</code></pre></div>
+<p>此外，还有一个 <strong>readexactly()</strong> 方法用于读取确切的字节数，否则会引发异常，还有一个 <strong>readuntil()</strong> 方法将读取字节，直到读取字节形式的指定字符。</p>
+</div>
 </div>
 </div>
 <h3 id="206-how-to-close-connection">20.6 How to Close Connection<a class="headerlink" href="#206-how-to-close-connection" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="93:2"><input checked="checked" id="__tabbed_93_1" name="__tabbed_93" type="radio" /><input id="__tabbed_93_2" name="__tabbed_93" type="radio" /><div class="tabbed-labels"><label for="__tabbed_93_1">English</label><label for="__tabbed_93_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="95:2"><input checked="checked" id="__tabbed_95_1" name="__tabbed_95" type="radio" /><input id="__tabbed_95_2" name="__tabbed_95" type="radio" /><div class="tabbed-labels"><label for="__tabbed_95_1">English</label><label for="__tabbed_95_2">Chinese</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The socket can be closed via the asyncio.StreamWriter.</p>
+<p>The close() method can be called which will close the socket.</p>
+<blockquote>
+<p>The method closes the stream and the underlying socket.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This method does not block.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># close the socket</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>Although the close() method does not block, we can wait for the socket to close completely before continuing on.</p>
+<p>This can be achieved via the wait_closed() method.</p>
+<blockquote>
+<p>Wait until the stream is closed. Should be called after close() to wait until the underlying connection is closed.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>This is a coroutine that can be awaited.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># close the socket</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># wait for the socket to close</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">()</span>
+</code></pre></div>
+<p>We can check if the socket has been closed or is in the process of being closed via the is_closing() method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if the socket is closed or closing</span>
+<span class="k">if</span> <span class="n">writer</span><span class="o">.</span><span class="n">is_closing</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>可以通过 <strong>asyncio.StreamWriter</strong> 关闭套接字。</p>
+<p>可以调用 <strong>close()</strong> 方法来关闭套接字。</p>
+<blockquote>
+<p>该方法关闭流和底层套接字。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>该方法不会阻塞。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 关闭套接字</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>虽然 <strong>close()</strong> 方法不会阻塞，但我们可以等待套接字完全关闭后再继续。</p>
+<p>这可以通过 <strong>wait_close()</strong> 方法来实现。</p>
+<blockquote>
+<p>等待流关闭。 应在 <strong>close()</strong> 之后调用以等待底层连接关闭。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-stream.html">ASYNCIO STREAMS</a></p>
+</blockquote>
+<p>这是一个可以等待的协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 关闭套接字</span>
+<span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># 等待套接字关闭</span>
+<span class="k">await</span> <span class="n">writer</span><span class="o">.</span><span class="n">wait_closed</span><span class="p">()</span>
+</code></pre></div>
+<p>我们可以通过 <strong>is_close()</strong> 方法检查套接字是否已关闭或正在关闭过程中。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查套接字是否已关闭或正在关闭</span>
+<span class="k">if</span> <span class="n">writer</span><span class="o">.</span><span class="n">is_closing</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h2 id="21-example-of-checking-website-status">21. Example of Checking Website Status<a class="headerlink" href="#21-example-of-checking-website-status" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="94:2"><input checked="checked" id="__tabbed_94_1" name="__tabbed_94" type="radio" /><input id="__tabbed_94_2" name="__tabbed_94" type="radio" /><div class="tabbed-labels"><label for="__tabbed_94_1">English</label><label for="__tabbed_94_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="96:2"><input checked="checked" id="__tabbed_96_1" name="__tabbed_96" type="radio" /><input id="__tabbed_96_2" name="__tabbed_96" type="radio" /><div class="tabbed-labels"><label for="__tabbed_96_1">English</label><label for="__tabbed_96_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can query the HTTP status of websites using asyncio by opening a stream and writing and reading HTTP requests and responses.</p>
@@ -3712,7 +4388,7 @@
 </div>
 </div>
 <h3 id="211-how-to-check-http-status-with-asyncio">21.1 How to Check HTTP Status with Asyncio<a class="headerlink" href="#211-how-to-check-http-status-with-asyncio" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="95:2"><input checked="checked" id="__tabbed_95_1" name="__tabbed_95" type="radio" /><input id="__tabbed_95_2" name="__tabbed_95" type="radio" /><div class="tabbed-labels"><label for="__tabbed_95_1">English</label><label for="__tabbed_95_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="97:2"><input checked="checked" id="__tabbed_97_1" name="__tabbed_97" type="radio" /><input id="__tabbed_97_2" name="__tabbed_97" type="radio" /><div class="tabbed-labels"><label for="__tabbed_97_1">English</label><label for="__tabbed_97_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The asyncio module provides support for opening socket connections and reading and writing data via streams.</p>
@@ -3741,7 +4417,7 @@
 </div>
 </div>
 <h3 id="212-open-http-connection">21.2 Open HTTP Connection<a class="headerlink" href="#212-open-http-connection" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="96:2"><input checked="checked" id="__tabbed_96_1" name="__tabbed_96" type="radio" /><input id="__tabbed_96_2" name="__tabbed_96" type="radio" /><div class="tabbed-labels"><label for="__tabbed_96_1">English</label><label for="__tabbed_96_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">English</label><label for="__tabbed_98_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A connection can be opened in asyncio using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> function.</p>
@@ -3780,7 +4456,7 @@
 </div>
 </div>
 <h3 id="213-write-http-request">21.3 Write HTTP Request<a class="headerlink" href="#213-write-http-request" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="97:2"><input checked="checked" id="__tabbed_97_1" name="__tabbed_97" type="radio" /><input id="__tabbed_97_2" name="__tabbed_97" type="radio" /><div class="tabbed-labels"><label for="__tabbed_97_1">English</label><label for="__tabbed_97_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="99:2"><input checked="checked" id="__tabbed_99_1" name="__tabbed_99" type="radio" /><input id="__tabbed_99_2" name="__tabbed_99" type="radio" /><div class="tabbed-labels"><label for="__tabbed_99_1">English</label><label for="__tabbed_99_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Once open, we can write a query to the <strong>StreamWriter</strong> to make an HTTP request.</p>
@@ -3881,7 +4557,7 @@
 </div>
 </div>
 <h3 id="214-read-http-response">21.4 Read HTTP Response<a class="headerlink" href="#214-read-http-response" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">English</label><label for="__tabbed_98_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="100:2"><input checked="checked" id="__tabbed_100_1" name="__tabbed_100" type="radio" /><input id="__tabbed_100_2" name="__tabbed_100" type="radio" /><div class="tabbed-labels"><label for="__tabbed_100_1">English</label><label for="__tabbed_100_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Once the HTTP request has been made, we can read the response.</p>
@@ -3938,7 +4614,7 @@
 </div>
 </div>
 <h3 id="215-close-http-connection">21.5 Close HTTP Connection<a class="headerlink" href="#215-close-http-connection" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="99:2"><input checked="checked" id="__tabbed_99_1" name="__tabbed_99" type="radio" /><input id="__tabbed_99_2" name="__tabbed_99" type="radio" /><div class="tabbed-labels"><label for="__tabbed_99_1">English</label><label for="__tabbed_99_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="101:2"><input checked="checked" id="__tabbed_101_1" name="__tabbed_101" type="radio" /><input id="__tabbed_101_2" name="__tabbed_101" type="radio" /><div class="tabbed-labels"><label for="__tabbed_101_1">English</label><label for="__tabbed_101_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can close the socket connection by closing the <strong>StreamWriter</strong>.</p>
@@ -3965,7 +4641,7 @@
 </div>
 </div>
 <h3 id="216-example-of-checking-http-status-sequentially">21.6 Example of Checking HTTP Status Sequentially<a class="headerlink" href="#216-example-of-checking-http-status-sequentially" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="100:2"><input checked="checked" id="__tabbed_100_1" name="__tabbed_100" type="radio" /><input id="__tabbed_100_2" name="__tabbed_100" type="radio" /><div class="tabbed-labels"><label for="__tabbed_100_1">English</label><label for="__tabbed_100_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="102:2"><input checked="checked" id="__tabbed_102_1" name="__tabbed_102" type="radio" /><input id="__tabbed_102_2" name="__tabbed_102" type="radio" /><div class="tabbed-labels"><label for="__tabbed_102_1">English</label><label for="__tabbed_102_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can develop an example to check the HTTP status for multiple websites using asyncio.</p>
@@ -4384,7 +5060,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 </div>
 <h3 id="217-example-of-checking-website-status-concurrently">21.7 Example of Checking Website Status Concurrently<a class="headerlink" href="#217-example-of-checking-website-status-concurrently" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="101:2"><input checked="checked" id="__tabbed_101_1" name="__tabbed_101" type="radio" /><input id="__tabbed_101_2" name="__tabbed_101" type="radio" /><div class="tabbed-labels"><label for="__tabbed_101_1">English</label><label for="__tabbed_101_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="103:2"><input checked="checked" id="__tabbed_103_1" name="__tabbed_103" type="radio" /><input id="__tabbed_103_2" name="__tabbed_103" type="radio" /><div class="tabbed-labels"><label for="__tabbed_103_1">English</label><label for="__tabbed_103_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A benefit of asyncio is that we can execute many coroutines concurrently.</p>
@@ -4589,7 +5265,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 </div>
 <h2 id="22-python-asyncio-common-errors">22. Python Asyncio Common Errors<a class="headerlink" href="#22-python-asyncio-common-errors" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="102:2"><input checked="checked" id="__tabbed_102_1" name="__tabbed_102" type="radio" /><input id="__tabbed_102_2" name="__tabbed_102" type="radio" /><div class="tabbed-labels"><label for="__tabbed_102_1">English</label><label for="__tabbed_102_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="104:2"><input checked="checked" id="__tabbed_104_1" name="__tabbed_104" type="radio" /><input id="__tabbed_104_2" name="__tabbed_104" type="radio" /><div class="tabbed-labels"><label for="__tabbed_104_1">English</label><label for="__tabbed_104_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section gives examples of general errors encountered by developers when using asyncio in Python.</p>
@@ -4618,7 +5294,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 </div>
 <h3 id="221-error-1-trying-to-run-coroutines-by-calling-them">22.1 Error 1: Trying to Run Coroutines by Calling Them<a class="headerlink" href="#221-error-1-trying-to-run-coroutines-by-calling-them" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="103:2"><input checked="checked" id="__tabbed_103_1" name="__tabbed_103" type="radio" /><input id="__tabbed_103_2" name="__tabbed_103" type="radio" /><div class="tabbed-labels"><label for="__tabbed_103_1">English</label><label for="__tabbed_103_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="105:2"><input checked="checked" id="__tabbed_105_1" name="__tabbed_105" type="radio" /><input id="__tabbed_105_2" name="__tabbed_105" type="radio" /><div class="tabbed-labels"><label for="__tabbed_105_1">English</label><label for="__tabbed_105_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The most common error encountered by beginners to asyncio is calling a coroutine like a function.</p>
@@ -4689,7 +5365,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 </div>
 <h3 id="222-error-2-not-letting-coroutines-run-in-the-event-loop">22.2 Error 2: Not Letting Coroutines Run in the Event Loop<a class="headerlink" href="#222-error-2-not-letting-coroutines-run-in-the-event-loop" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="104:2"><input checked="checked" id="__tabbed_104_1" name="__tabbed_104" type="radio" /><input id="__tabbed_104_2" name="__tabbed_104" type="radio" /><div class="tabbed-labels"><label for="__tabbed_104_1">English</label><label for="__tabbed_104_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="106:2"><input checked="checked" id="__tabbed_106_1" name="__tabbed_106" type="radio" /><input id="__tabbed_106_2" name="__tabbed_106" type="radio" /><div class="tabbed-labels"><label for="__tabbed_106_1">English</label><label for="__tabbed_106_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If a coroutine is not run, you will get a runtime warning as follows:</p>
@@ -4808,7 +5484,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 </div>
 <h3 id="223-error-3-using-the-low-level-asyncio-api">22.3 Error 3: Using the Low-Level Asyncio API<a class="headerlink" href="#223-error-3-using-the-low-level-asyncio-api" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="105:2"><input checked="checked" id="__tabbed_105_1" name="__tabbed_105" type="radio" /><input id="__tabbed_105_2" name="__tabbed_105" type="radio" /><div class="tabbed-labels"><label for="__tabbed_105_1">English</label><label for="__tabbed_105_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="107:2"><input checked="checked" id="__tabbed_107_1" name="__tabbed_107" type="radio" /><input id="__tabbed_107_2" name="__tabbed_107" type="radio" /><div class="tabbed-labels"><label for="__tabbed_107_1">English</label><label for="__tabbed_107_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A big problem with beginners is that they use the wrong asyncio API.</p>
@@ -4871,7 +5547,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 </div>
 <h3 id="224-error-4-exiting-the-main-coroutine-too-early">22.4 Error 4: Exiting the Main Coroutine Too Early<a class="headerlink" href="#224-error-4-exiting-the-main-coroutine-too-early" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="106:2"><input checked="checked" id="__tabbed_106_1" name="__tabbed_106" type="radio" /><input id="__tabbed_106_2" name="__tabbed_106" type="radio" /><div class="tabbed-labels"><label for="__tabbed_106_1">English</label><label for="__tabbed_106_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="108:2"><input checked="checked" id="__tabbed_108_1" name="__tabbed_108" type="radio" /><input id="__tabbed_108_2" name="__tabbed_108" type="radio" /><div class="tabbed-labels"><label for="__tabbed_108_1">English</label><label for="__tabbed_108_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A major point of confusion in asyncio programs is not giving tasks enough time to complete.</p>
@@ -4920,7 +5596,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 </div>
 <h3 id="225-error-5-assuming-race-conditions-and-deadlocks-are-impossible">22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible<a class="headerlink" href="#225-error-5-assuming-race-conditions-and-deadlocks-are-impossible" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="107:2"><input checked="checked" id="__tabbed_107_1" name="__tabbed_107" type="radio" /><input id="__tabbed_107_2" name="__tabbed_107" type="radio" /><div class="tabbed-labels"><label for="__tabbed_107_1">English</label><label for="__tabbed_107_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="109:2"><input checked="checked" id="__tabbed_109_1" name="__tabbed_109" type="radio" /><input id="__tabbed_109_2" name="__tabbed_109" type="radio" /><div class="tabbed-labels"><label for="__tabbed_109_1">English</label><label for="__tabbed_109_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Concurrent programming has the hazard of concurrency-specific failure modes.</p>
@@ -4951,7 +5627,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 </div>
 <h2 id="23-python-asyncio-common-questions">23. Python Asyncio Common Questions<a class="headerlink" href="#23-python-asyncio-common-questions" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="108:2"><input checked="checked" id="__tabbed_108_1" name="__tabbed_108" type="radio" /><input id="__tabbed_108_2" name="__tabbed_108" type="radio" /><div class="tabbed-labels"><label for="__tabbed_108_1">English</label><label for="__tabbed_108_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="110:2"><input checked="checked" id="__tabbed_110_1" name="__tabbed_110" type="radio" /><input id="__tabbed_110_2" name="__tabbed_110" type="radio" /><div class="tabbed-labels"><label for="__tabbed_110_1">English</label><label for="__tabbed_110_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section answers common questions asked by developers when using asyncio in Python.</p>
@@ -4966,7 +5642,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 </div>
 <h3 id="231-how-to-stop-a-task">23.1 How to Stop a Task?<a class="headerlink" href="#231-how-to-stop-a-task" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="109:2"><input checked="checked" id="__tabbed_109_1" name="__tabbed_109" type="radio" /><input id="__tabbed_109_2" name="__tabbed_109" type="radio" /><div class="tabbed-labels"><label for="__tabbed_109_1">English</label><label for="__tabbed_109_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="111:2"><input checked="checked" id="__tabbed_111_1" name="__tabbed_111" type="radio" /><input id="__tabbed_111_2" name="__tabbed_111" type="radio" /><div class="tabbed-labels"><label for="__tabbed_111_1">English</label><label for="__tabbed_111_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can cancel a task via the <strong>cancel()</strong> method on an <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel">asyncio.Task</a> object.</p>
@@ -5109,7 +5785,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="232-how-to-wait-for-a-task-to-finish">23.2 How to Wait for a Task To Finish?<a class="headerlink" href="#232-how-to-wait-for-a-task-to-finish" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="110:2"><input checked="checked" id="__tabbed_110_1" name="__tabbed_110" type="radio" /><input id="__tabbed_110_2" name="__tabbed_110" type="radio" /><div class="tabbed-labels"><label for="__tabbed_110_1">English</label><label for="__tabbed_110_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="112:2"><input checked="checked" id="__tabbed_112_1" name="__tabbed_112" type="radio" /><input id="__tabbed_112_2" name="__tabbed_112" type="radio" /><div class="tabbed-labels"><label for="__tabbed_112_1">English</label><label for="__tabbed_112_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can wait for a task to finish by awaiting the <strong>asyncio.Task</strong> object directly.</p>
@@ -5142,7 +5818,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="233-how-to-get-a-return-value-from-a-task">23.3 How to Get a Return Value from a Task?<a class="headerlink" href="#233-how-to-get-a-return-value-from-a-task" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="111:2"><input checked="checked" id="__tabbed_111_1" name="__tabbed_111" type="radio" /><input id="__tabbed_111_2" name="__tabbed_111" type="radio" /><div class="tabbed-labels"><label for="__tabbed_111_1">English</label><label for="__tabbed_111_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="113:2"><input checked="checked" id="__tabbed_113_1" name="__tabbed_113" type="radio" /><input id="__tabbed_113_2" name="__tabbed_113" type="radio" /><div class="tabbed-labels"><label for="__tabbed_113_1">English</label><label for="__tabbed_113_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We may need to return values from coroutines to the caller.</p>
@@ -5269,7 +5945,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="234-how-to-run-a-task-in-the-background">23.4 How to Run a Task in the Background?<a class="headerlink" href="#234-how-to-run-a-task-in-the-background" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="112:2"><input checked="checked" id="__tabbed_112_1" name="__tabbed_112" type="radio" /><input id="__tabbed_112_2" name="__tabbed_112" type="radio" /><div class="tabbed-labels"><label for="__tabbed_112_1">English</label><label for="__tabbed_112_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="114:2"><input checked="checked" id="__tabbed_114_1" name="__tabbed_114" type="radio" /><input id="__tabbed_114_2" name="__tabbed_114" type="radio" /><div class="tabbed-labels"><label for="__tabbed_114_1">English</label><label for="__tabbed_114_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can run a coroutine in the background by wrapping it in an <strong>asyncio.Task</strong> object.</p>
@@ -5326,7 +6002,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="235-how-to-wait-for-all-background-tasks">23.5 How to Wait for All Background Tasks?<a class="headerlink" href="#235-how-to-wait-for-all-background-tasks" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="113:2"><input checked="checked" id="__tabbed_113_1" name="__tabbed_113" type="radio" /><input id="__tabbed_113_2" name="__tabbed_113" type="radio" /><div class="tabbed-labels"><label for="__tabbed_113_1">English</label><label for="__tabbed_113_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="115:2"><input checked="checked" id="__tabbed_115_1" name="__tabbed_115" type="radio" /><input id="__tabbed_115_2" name="__tabbed_115" type="radio" /><div class="tabbed-labels"><label for="__tabbed_115_1">English</label><label for="__tabbed_115_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can wait for all independent tasks in an asyncio program.</p>
@@ -5407,7 +6083,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="236-does-a-running-task-stop-the-event-loop-from-exiting">23.6 Does a Running Task Stop the Event Loop from Exiting?<a class="headerlink" href="#236-does-a-running-task-stop-the-event-loop-from-exiting" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="114:2"><input checked="checked" id="__tabbed_114_1" name="__tabbed_114" type="radio" /><input id="__tabbed_114_2" name="__tabbed_114" type="radio" /><div class="tabbed-labels"><label for="__tabbed_114_1">English</label><label for="__tabbed_114_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="116:2"><input checked="checked" id="__tabbed_116_1" name="__tabbed_116" type="radio" /><input id="__tabbed_116_2" name="__tabbed_116" type="radio" /><div class="tabbed-labels"><label for="__tabbed_116_1">English</label><label for="__tabbed_116_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>No.</p>
@@ -5424,7 +6100,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="237-how-to-show-progress-of-running-tasks">23.7 How to Show Progress of Running Tasks?<a class="headerlink" href="#237-how-to-show-progress-of-running-tasks" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="115:2"><input checked="checked" id="__tabbed_115_1" name="__tabbed_115" type="radio" /><input id="__tabbed_115_2" name="__tabbed_115" type="radio" /><div class="tabbed-labels"><label for="__tabbed_115_1">English</label><label for="__tabbed_115_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="117:2"><input checked="checked" id="__tabbed_117_1" name="__tabbed_117" type="radio" /><input id="__tabbed_117_2" name="__tabbed_117" type="radio" /><div class="tabbed-labels"><label for="__tabbed_117_1">English</label><label for="__tabbed_117_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can show progress using a done callback function on each task.</p>
@@ -5469,7 +6145,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="238-how-to-run-a-task-after-a-delay">23.8 How to Run a Task After a Delay?<a class="headerlink" href="#238-how-to-run-a-task-after-a-delay" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="116:2"><input checked="checked" id="__tabbed_116_1" name="__tabbed_116" type="radio" /><input id="__tabbed_116_2" name="__tabbed_116" type="radio" /><div class="tabbed-labels"><label for="__tabbed_116_1">English</label><label for="__tabbed_116_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="118:2"><input checked="checked" id="__tabbed_118_1" name="__tabbed_118" type="radio" /><input id="__tabbed_118_2" name="__tabbed_118" type="radio" /><div class="tabbed-labels"><label for="__tabbed_118_1">English</label><label for="__tabbed_118_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can develop a custom wrapper coroutine to execute a target coroutine after a delay.</p>
@@ -5522,7 +6198,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="239-how-to-run-a-follow-up-task">23.9 How to Run a Follow-Up Task?<a class="headerlink" href="#239-how-to-run-a-follow-up-task" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="117:2"><input checked="checked" id="__tabbed_117_1" name="__tabbed_117" type="radio" /><input id="__tabbed_117_2" name="__tabbed_117" type="radio" /><div class="tabbed-labels"><label for="__tabbed_117_1">English</label><label for="__tabbed_117_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="119:2"><input checked="checked" id="__tabbed_119_1" name="__tabbed_119" type="radio" /><input id="__tabbed_119_2" name="__tabbed_119" type="radio" /><div class="tabbed-labels"><label for="__tabbed_119_1">English</label><label for="__tabbed_119_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>There are three main ways to issue follow-up tasks in asyncio.</p>
@@ -5639,7 +6315,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio">23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?<a class="headerlink" href="#2310-how-to-execute-a-blocking-io-or-cpu-bound-function-in-asyncio" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="118:2"><input checked="checked" id="__tabbed_118_1" name="__tabbed_118" type="radio" /><input id="__tabbed_118_2" name="__tabbed_118" type="radio" /><div class="tabbed-labels"><label for="__tabbed_118_1">English</label><label for="__tabbed_118_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="120:2"><input checked="checked" id="__tabbed_120_1" name="__tabbed_120" type="radio" /><input id="__tabbed_120_2" name="__tabbed_120" type="radio" /><div class="tabbed-labels"><label for="__tabbed_120_1">English</label><label for="__tabbed_120_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The asyncio module provides two approaches for executing blocking calls in asyncio programs.</p>
@@ -5724,7 +6400,7 @@ main coroutine done
 </div>
 </div>
 <h2 id="24-common-objections-to-using-asyncio">24. Common Objections to Using Asyncio<a class="headerlink" href="#24-common-objections-to-using-asyncio" title="Permanent link">&para;</a></h2>
-<div class="tabbed-set tabbed-alternate" data-tabs="119:2"><input checked="checked" id="__tabbed_119_1" name="__tabbed_119" type="radio" /><input id="__tabbed_119_2" name="__tabbed_119" type="radio" /><div class="tabbed-labels"><label for="__tabbed_119_1">English</label><label for="__tabbed_119_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="121:2"><input checked="checked" id="__tabbed_121_1" name="__tabbed_121" type="radio" /><input id="__tabbed_121_2" name="__tabbed_121" type="radio" /><div class="tabbed-labels"><label for="__tabbed_121_1">English</label><label for="__tabbed_121_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Asyncio and coroutines may not be the best solution for all concurrency problems in your program.</p>
@@ -5930,7 +6606,7 @@ main coroutine done
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
