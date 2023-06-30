@@ -436,103 +436,1853 @@
 
 === "Chinese"
 
-## 16. Asynchronous Generators
+## 16. 异步生成器
+
+**16. Asynchronous Generators**
 
 === "English"
 
+    Generators are a fundamental part of Python.
+    
+    A generator is a function that has at least one **“yield”** expression. They are functions that can be suspended and resumed, just like coroutines.
+    
+    In fact, Python coroutines are an extension of Python generators.
+    
+    Asyncio allows us to develop asynchronous generators.
+    
+    We can create an asynchronous generator by defining a coroutine that makes use of the “yield” expression.
+    
+    Let’s take a closer look.
+
 === "Chinese"
 
-### 16.1 What Are Asynchronous Generators
+    生成器是 Python 的基本组成部分。
+    
+    生成器是一种至少具有一个“**yield**”表达式的函数。 它们是可以暂停和恢复的函数，就像协程一样。
+    
+    事实上，Python 协程是 Python 生成器的扩展。
+    
+    Asyncio 允许我们开发异步生成器。
+    
+    我们可以通过定义使用“**yield**”表达式的协程来创建异步生成器。
+    
+    让我们仔细看看。
+
+### 16.1 什么是异步生成器
+
+**16.1 What Are Asynchronous Generators**
 
 === "English"
 
+    An asynchronous generator is a coroutine that uses the yield expression.
+    
+    Before we dive into the details of asynchronous generators, let’s first review classical Python generators.
+
 === "Chinese"
 
-### 16.2 How to Use an Asynchronous Generator
+    异步生成器是使用yield 表达式的协程。
+    
+    在我们深入了解异步生成器的细节之前，让我们首先回顾一下经典的 Python 生成器。
+
+#### 16.1.1 生成器
+
+**16.1.1 Generators**
 
 === "English"
 
+    A generator is a Python function that returns a value via a yield expression.
+    
+    For example:
+    
+    ```python
+    # define a generator
+    def generator():
+        for i in range(10):
+            yield i
+    ```
+    
+    The generator is executed to the yield expression, after which a value is returned. This suspends the generator at that point. The next time the generator is executed it is resumed from the point it was resumed and runs until the next yield expression.
+    
+    > generator: A function which returns a generator iterator. It looks like a normal function except that it contains yield expressions for producing a series of values usable in a for-loop or that can be retrieved one at a time with the next() function.
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    Technically, a generator function creates and returns a generator iterator. The generator iterator executes the content of the generator function, yielding and resuming as needed.
+    
+    > generator iterator: An object created by a generator function. Each yield temporarily suspends processing, remembering the location execution state […] When the generator iterator resumes, it picks up where it left off …
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    A generator can be executed in steps by using the next() built-in function.
+    
+    For example:
+    
+    ```python
+    ...
+    # create the generator
+    gen = generator()
+    # step the generator
+    result = next(gen)
+    ```
+    
+    Although, it is more common to iterate the generator to completion, such as using a for-loop or a list comprehension.
+    
+    For example:
+    
+    ```python
+    ...
+    # traverse the generator and collect results
+    results = [item for item in generator()]
+    ```
+    
+    Next, let’s take a closer look at asynchronous generators.
+
 === "Chinese"
 
-### 16.3 Example of an Asynchronous Generator
+    生成器是一个Python函数，它通过yield表达式返回一个值。
+    
+    例如:
+    
+    ```python
+    # 定义生成器
+    def generator():
+        for i in range(10):
+            yield i
+    ```
+    
+    生成器执行到yield表达式，然后返回一个值。 这会在此时暂停生成器。 下次执行生成器时，它将从恢复点恢复并运行到下一个 yield 表达式。
+    
+    > 生成器: 返回生成器迭代器的函数。 它看起来像一个普通函数，只不过它包含用于生成一系列可在 for 循环中使用的值的yield 表达式，或者可以使用 **next()** 函数一次检索一个值。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    从技术上讲，生成器函数创建并返回生成器迭代器。 生成器迭代器执行生成器函数的内容，根据需要产生并恢复。
+    
+    > 生成迭代器: 由生成器函数创建的对象。 每个yield都会暂时挂起处理，记住位置执行状态[...]当生成器迭代器恢复时，它会从上次停止的地方继续...
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    可以使用 **next()** 内置函数逐步执行生成器。
+    
+    例如:
+    
+    ```python
+    ...
+    # 创建生成器
+    gen = generator()
+    # 生成器的下一步
+    result = next(gen)
+    ```
+    
+    尽管如此，更常见的是迭代生成器以完成，例如使用 for 循环或列表理解。
+    
+    例如:
+    
+    ```python
+    ...
+    # 遍历生成器并收集结果
+    results = [item for item in generator()]
+    ```
+    
+    接下来，让我们仔细看看异步生成器。
+
+#### 16.1.2 异步生成器
+
+**16.1.2 Asynchronous Generators**
 
 === "English"
 
+    An asynchronous generator is a coroutine that uses the yield expression.
+    
+    Unlike a function generator, the coroutine can schedule and await other coroutines and tasks.
+    
+    > asynchronous generator: A function which returns an asynchronous generator iterator. It looks like a coroutine function defined with async def except that it contains yield expressions for producing a series of values usable in an async for loop.
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    Like a classical generator, an asynchronous generator function can be used to create an asynchronous generator iterator that can be traversed using the built-in anext() function, instead of the next() function.
+    
+    > asynchronous generator iterator: An object created by a asynchronous generator function. This is an asynchronous iterator which when called using the __anext__() method returns an awaitable object which will execute the body of the asynchronous generator function until the next yield expression.
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    This means that the asynchronous generator iterator implements the **\_\_anext\_\_()** method and can be used with the async for expression.
+    
+    This means that each iteration of the generator is scheduled and executed as awaitable. The “**async for**” expression will schedule and execute each iteration of the generator, suspending the calling coroutine and awaiting the result.
+    
+    You can learn more about the “**async for**” expression in the tutorial:
+    
+    - [Asyncio async for loop](https://superfastpython.com/asyncio-async-for/)
+
 === "Chinese"
 
-## 17. Asynchronous Context Managers
+    异步生成器是使用yield 表达式的协程。
+    
+    与函数生成器不同，协程可以调度和等待其他协程和任务。
+    
+    > 异步生成器: 返回异步生成器迭代器的函数。 它看起来像一个使用 **async def** 定义的协程函数，只不过它包含用于生成一系列可在 **async for** 循环中使用的值的 yield 表达式。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    与经典生成器一样，异步生成器函数可用于创建异步生成器迭代器，该迭代器可以使用内置 **anext()** 函数（而不是 **next()** 函数）进行遍历。
+    
+    > 基于异步生成器的迭代器：由异步生成器函数创建的对象。 这是一个异步迭代器，当使用 **\_\_anext\_\_()** 方法调用时，它会返回一个可等待对象，该对象将执行异步生成器函数的主体，直到下一个 yield 表达式。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    这意味着异步生成器迭代器实现了 **\_\_anext\_\_()** 方法，并且可以与 async for 表达式一起使用。
+    
+    这意味着生成器的每次迭代都被调度并作为可等待执行。 “**async for**”表达式将调度并执行生成器的每次迭代，挂起调用协程并等待结果。
+    
+    您可以在教程中了解有关“**async for**”表达式的更多信息：
+    
+    - [Asyncio 的异步 for 循环](https://superfastpython.com/asyncio-async-for/)
+
+### 16.2 如何使用异步生成器
+
+**16.2 How to Use an Asynchronous Generator**
 
 === "English"
 
+    In this section, we will take a close look at how to define, create, step, and traverse an asynchronous generator in asyncio programs.
+
+    Let’s start with how to define an asynchronous generator.
+
 === "Chinese"
 
-### 17.1 What is an Asynchronous Context Manager
+    在本节中，我们将仔细研究如何在 asyncio 程序中定义、创建、单步执行和遍历异步生成器。
+    
+    让我们从如何定义异步生成器开始。
+
+#### 16.2.1 定义异步生成器
+
+**16.2.1 Define an Asynchronous Generator**
 
 === "English"
 
+    We can define an asynchronous generator by defining a coroutine that has at least one yield expression.
+    
+    This means that the function is defined using the “**async def**” expression.
+    
+    For example:
+    
+    ```python
+    # define an asynchronous generator
+    async def async_generator():
+        for i in range(10)
+            yield i
+    ```
+    
+    Because the asynchronous generator is a coroutine and each iterator returns an awaitable that is scheduled and executed in the asyncio event loop, we can execute and await awaitables within the body of the generator.
+    
+    For example:
+    
+    ```python
+    # define an asynchronous generator that awaits
+    async def async_generator():
+        for i in range(10)
+            # suspend and sleep a moment
+            await asyncio.sleep(1)
+            # yield a value to the caller
+            yield i
+    ```
+    
+    Next, let’s look at how we might use an asynchronous generator.
+
 === "Chinese"
 
-### 17.2 How to Use Asynchronous Context Managers
+    我们可以通过定义一个至少具有一个yield 表达式的协程来定义异步生成器。
+    
+    这意味着该函数是使用“**async def**”表达式定义的。
+    
+    例如:
+    
+    ```python
+    # 定义一个异步生成器
+    async def async_generator():
+        for i in range(10)
+            yield i
+    ```
+    
+    因为异步生成器是一个协程，并且每个迭代器返回一个在 asyncio 事件循环中调度和执行的等待对象，所以我们可以在生成器的主体内执行和等待等待对象。
+    
+    例如:
+    
+    ```python
+    # 定义一个等待的异步生成器
+    async def async_generator():
+        for i in range(10)
+            # 暂停并睡眠一会儿
+            await asyncio.sleep(1)
+            # 向调用者产生一个值
+            yield i
+    ```
+    
+    接下来，让我们看看如何使用异步生成器。
+
+#### 16.2.2 创建异步生成器
+
+**16.2.2 Create Asynchronous Generator**
 
 === "English"
 
+    To use an asynchronous generator we must create the generator.
+    
+    This looks like calling it, but instead creates and returns an iterator object.
+    
+    For example:
+    
+    ```python
+    ...
+    # create the iterator
+    it = async_generator()
+    ```
+    
+    This returns a type of asynchronous iterator called an asynchronous generator iterator.
+
 === "Chinese"
 
-### 17.3 Example of an Asynchronous Context Manager and “async with”
+    要使用异步生成器，我们必须创建生成器。
+    
+    这看起来像是调用它，但实际上是创建并返回一个迭代器对象。
+    
+    例如：
+    
+    ```python
+    ...
+    # 创建迭代器
+    it = async_generator()
+    ```
+    
+    这会返回一种称为异步生成器的可迭代的异步迭代器。
+
+#### 16.2.3 使用异步生成器
+
+**16.2.3 Step an Asynchronous Generator**
 
 === "English"
 
+    One step of the generator can be traversed using the [anext()](https://docs.python.org/3/library/functions.html#anext) built-in function, just like a classical generator using the **next()** function.
+    
+    The result is an awaitable that is awaited.
+    
+    For example:
+    
+    ```python
+    ...
+    # get an awaitable for one step of the generator
+    awaitable = anext(gen)
+    # execute the one step of the generator and get the result
+    result = await awaitable
+    ```
+    
+    This can be achieved in one step.
+    
+    For example:
+    
+    ```python
+    ...
+    # step the async generator
+    result = await anext(gen)
+    ```
+
 === "Chinese"
 
-## 18. Asynchronous Comprehensions
+    可以使用 [anext()](https://docs.python.org/3/library/functions.html#anext) 内置函数遍历生成器的一步，就像使用 **next()** 函数的经典生成器一样 。
+    
+    结果是一个值得期待的结果。
+    
+    例如:
+    
+    ```python
+    ...
+    # 获取生成器一步的等待值
+    awaitable = anext(gen)
+    # 执行生成器的一步并得到结果
+    result = await awaitable
+    ```
+    
+    这可以一步实现。
+    
+    例如:
+    
+    ```python
+    ...
+    # 启动异步生成器
+    result = await anext(gen)
+    ```
+
+#### 16.2.4 遍历异步生成器
+
+**16.2.4 Traverse an Asynchronous Generator**
 
 === "English"
 
+    The asynchronous generator can also be traversed in a loop using the “**async for**” expression that will await each iteration of the loop automatically.
+    
+    For example:
+    
+    ```text
+    ...
+    # traverse an asynchronous generator
+    async for result in async_generator():
+        print(result)
+    ```
+    
+    You can learn more about the “async for” expression in the tutorial:
+    
+    We may also use an asynchronous list comprehension with the “async for” expression to collect the results of the generator.
+    
+    For example:
+    
+    ```text
+    ...
+    # async list comprehension with async generator
+    results = [item async for item in async_generator()]
+    ```
+
 === "Chinese"
 
-### 18.1 What are Asynchronous Comprehensions
+    还可以使用“**async for**”表达式在循环中遍历异步生成器，该表达式将自动等待循环的每次迭代。
+    
+    例如：
+    
+    ```text
+    ...
+    # 遍历异步生成器
+    async for result in async_generator():
+        print(result)
+    ```
+    
+    您可以在教程中了解有关“async for”表达式的更多信息：
+    
+    我们还可以使用异步列表理解和“async for”表达式来收集生成器的结果。
+    
+    例如：
+    
+    ```text
+    ...
+    # 使用异步生成器的异步列表推导式
+    results = [item async for item in async_generator()]
+    ```
+
+### 16.3 异步生成器示例
+
+**16.3 Example of an Asynchronous Generator**
 
 === "English"
 
+    We can explore how to traverse an asynchronous generator using the “**async for**” expression.
+    
+    In this example, we will update the previous example to traverse the generator to completion using an “**async for**” loop.
+    
+    This loop will automatically await each awaitable returned from the generator, retrieve the yielded value, and make it available within the loop body so that in this case it can be reported.
+    
+    This is perhaps the most common usage pattern for asynchronous generators.
+    
+    The complete example is listed below.
+    
+    ```python
+    # SuperFastPython.com
+    # example of asynchronous generator with async for loop
+    import asyncio
+     
+    # define an asynchronous generator
+    async def async_generator():
+        # normal loop
+        for i in range(10):
+            # block to simulate doing work
+            await asyncio.sleep(1)
+            # yield the result
+            yield i
+     
+    # main coroutine
+    async def main():
+        # loop over async generator with async for loop
+        async for item in async_generator():
+            print(item)
+     
+    # execute the asyncio program
+    asyncio.run(main())
+    ```
+    
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the asyncio program.
+    
+    The **main()** coroutine runs and starts the for loop.
+    
+    An instance of the asynchronous generator is created and the loop automatically steps it using the **anext()** function to return an awaitable. The loop then awaits the awaitable and retrieves a value which is made available to the body of the loop where it is reported.
+    
+    This process is then repeated, suspending the main() coroutine, executing an iteration of the generator, and suspending, and resuming the **main()** coroutine until the generator is exhausted.
+    
+    This highlights how an asynchronous generator can be traversed using an async for expression.
+    
+    ```text
+    0
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    ```
+    
+    You can learn more about async generators in the tutorial:
+    
+    - [Asynchronous Generators in Python](https://superfastpython.com/asynchronous-generators-in-python/)
+    
+    Next, we will explore asynchronous context managers.
+
 === "Chinese"
 
-### 18.2 Comprehensions
+    我们可以探索如何使用“**async for**”表达式遍历异步生成器。
+    
+    在此示例中，我们将更新前面的示例，以使用“**async for**”循环遍历生成器直至完成。
+    
+    该循环将自动等待从生成器返回的每个等待，检索生成的值，并使其在循环体内可用，以便在这种情况下可以报告它。
+    
+    这可能是异步生成器最常见的使用模式。
+    
+    下面列出了完整的示例。
+    
+    ```python
+    # SuperFastPython.com
+    # 带有 async for 循环的异步生成器示例
+    import asyncio
+     
+    # define an asynchronous generator
+    async def async_generator():
+        # 正常循环
+        for i in range(10):
+            # 块来模拟做工作
+            await asyncio.sleep(1)
+            # 产生结果
+            yield i
+     
+    # 主协程
+    async def main():
+        # 使用 async for 循环遍历异步生成器
+        async for item in async_generator():
+            print(item)
+     
+    # 执行异步程序
+    asyncio.run(main())
+    ```
+    
+    运行该示例首先创建 **main()** 协程，并将其用作 asyncio 程序的入口点。
+    
+    **main()** 协程运行并启动 for 循环。
+    
+    创建异步生成器的实例，循环使用 **anext()** 函数自动步进它以返回可等待的对象。 然后，循环等待可等待对象并检索一个值，该值可供报告该值的循环体使用。
+    
+    然后重复这个过程，挂起 **main()** 协程，执行生成器的迭代，挂起并恢复 **main()** 协程，直到生成器耗尽。
+    
+    这突出显示了如何使用 **async for** 表达式遍历异步生成器。
+    
+    ```text
+    0
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    ```
+    
+    您可以在教程中了解有关异步生成器的更多信息：
+    
+    - [Python 中的异步生成器](https://superfastpython.com/asynchronous-generators-in-python/)
+    
+    接下来，我们将探讨异步上下文管理器。
+
+## 17. 异步上下文管理器
+
+**17. Asynchronous Context Managers**
 
 === "English"
 
+    A context manager is a Python construct that provides a try-finally like environment with a consistent interface and handy syntax, e.g. via the “with” expression.
+    
+    It is commonly used with resources, ensuring the resource is always closed or released after we are finished with it, regardless of whether the usage of the resources was successful or failed with an exception.
+    
+    Asyncio allows us to develop asynchronous context managers.
+    
+    We can create and use asynchronous context managers in asyncio programs by defining an object that implements the **\_\_aenter\_\_()** and **\_\_aexit\_\_()** methods as coroutines.
+    
+    Let’s take a closer look.
+
 === "Chinese"
 
-### 18.3 Asynchronous Comprehensions
+    上下文管理器是一个 Python 结构，它提供了一个类似 try-finally 的环境，具有一致的接口和方便的语法，例如 通过“with”表达。
+    
+    它通常与资源一起使用，确保资源在使用完毕后始终关闭或释放，无论资源的使用是否成功或因异常而失败。
+    
+    Asyncio 允许我们开发异步上下文管理器。
+    
+    我们可以通过定义一个实现 **\_\_aenter\_\_()** 和 **\_\_aexit\_\_()** 方法的对象作为协程来在 asyncio 程序中创建和使用异步上下文管理器。
+    
+    让我们仔细看看。
+
+### 17.1 什么是异步上下文管理器
+
+**17.1 What is an Asynchronous Context Manager**
 
 === "English"
 
+    An asynchronous context manager is a Python object that implements the **\_\_aenter\_\_()** and **\_\_aexit\_\ _()** methods.
+    
+    Before we dive into the details of asynchronous context managers, let’s review classical context managers.
+
 === "Chinese"
 
-### 18.4 Await Comprehensions
+    异步上下文管理器是一个实现 **\_\_aenter\_\_()** 和 **\_\_aexit\_\_()** 方法的 Python 对象。
+    
+    在我们深入了解异步上下文管理器的细节之前，让我们回顾一下经典的上下文管理器。
+
+#### 17.1.1  上下文管理器
+
+**17.1.1  Context Manager**
 
 === "English"
 
+    A context manager is a Python object that implements the \_\_enter\_\_() and \_\_exit\_\_() methods.
+    
+    > A context manager is an object that defines the runtime context to be established when executing a with statement. The context manager handles the entry into, and the exit from, the desired runtime context for the execution of the block of code.
+    >
+    > — [WITH STATEMENT CONTEXT MANAGERS](https://docs.python.org/3/reference/datamodel.html#context-managers)
+    
+    - The \_\_enter\_\_() method defines what happens at the beginning of a block, such as opening or preparing resources, like a file, socket or thread pool.
+    - The \_\_exit\_\_() method defines what happens when the block is exited, such as closing a prepared resource.
+    
+    > Typical uses of context managers include saving and restoring various kinds of global state, locking and unlocking resources, closing opened files, etc.
+    >
+    > — [WITH STATEMENT CONTEXT MANAGERS](https://docs.python.org/3/reference/datamodel.html#context-managers)
+    
+    A context manager is used via the “with” expression.
+    
+    Typically the context manager object is created in the beginning of the “with” expression and the \_\_enter\_\_() method is called automatically. The body of the content makes use of the resource via the named context manager object, then the \_\_aexit\_\_() method is called automatically when the block is exited, normally or via an exception.
+    
+    For example:
+    
+    ```python
+    ...
+    # open a context manager
+    with ContextManager() as manager:
+        # ...
+    # closed automatically
+    This mirrors a try-finally expression.
+    ```
+    
+    For example:
+    
+    ```python
+    ...
+    # create the object
+    manager = ContextManager()
+    try:
+        manager.__enter__()
+        # ...
+    finally:
+        manager.__exit__()
+    ```
+    
+    Next, let’s take a look at asynchronous context managers.
+
 === "Chinese"
 
-## 19. Run Commands in Non-Blocking Subprocesses
+    上下文管理器是一个实现 \_\_enter\_\_() 和 \_\_exit\_\_() 方法的 Python 对象。
+    
+    > 上下文管理器是一个对象，它定义执行 with 语句时要建立的运行时上下文。 上下文管理器处理执行代码块所需的运行时上下文的进入和退出。
+    >
+    > — [WITH STATEMENT CONTEXT MANAGERS](https://docs.python.org/3/reference/datamodel.html#context-managers)
+    
+    - \_\_enter\_\_() 方法定义在块开始时发生的情况，例如打开或准备资源，如文件、套接字或线程池。
+    - \_\_exit\_\_() 方法定义退出块时会发生什么，例如关闭准备好的资源。
+    
+    > 上下文管理器的典型用途包括保存和恢复各种全局状态、锁定和解锁资源、关闭打开的文件等。
+    >
+    > — [WITH STATEMENT CONTEXT MANAGERS](https://docs.python.org/3/reference/datamodel.html#context-managers)
+    
+    上下文管理器通过“with”表达式使用。
+    
+    通常，上下文管理器对象是在“with”表达式的开头创建的，并且自动调用 \_\_enter\_\_() 方法。 内容的主体通过指定的上下文管理器对象使用资源，然后当块正常或通过异常退出时，自动调用 \_\_aexit\_\_() 方法。
+    
+    例如:
+    
+    ```python
+    ...
+    # 打开上下文管理器
+    with ContextManager() as manager:
+        # ...
+    # 自动关闭
+    This mirrors a try-finally expression.
+    ```
+    
+    例如:
+    
+    ```python
+    ...
+    # 创建对象
+    manager = ContextManager()
+    try:
+        manager.__enter__()
+        # ...
+    finally:
+        manager.__exit__()
+    ```
+    
+    接下来，让我们看一下异步上下文管理器。
+
+#### 17.1.2 异步上下文管理器
+
+**17.1.2  Asynchronous Context Manager**
 
 === "English"
 
+    Asynchronous context managers were introduced in “[PEP 492 – Coroutines with async and await syntax](https://peps.python.org/pep-0492/)“.
+    
+    They provide a context manager that can be suspended when entering and exiting.
+    
+    > An asynchronous context manager is a context manager that is able to suspend execution in its \_\_aenter\_\_ and \_\_aexit\_\_ methods.
+    >
+    > — ASYNCHRONOUS CONTEXT MANAGERS
+    
+    The \_\_aenter\_\_ and \_\_aexit\_\_ methods are defined as coroutines and are awaited by the caller.
+    
+    This is achieved using the “**async with**” expression.
+    
+    You can learn more about the “**async with**” expression in the tutorial:
+    
+    - [What is Asyncio async with](https://superfastpython.com/asyncio-async-with/)
+    
+    As such, asynchronous context managers can only be used within asyncio programs, such as within calling coroutines.
+    
+    What is “async with”
+    
+    The “**async with**” expression is for creating and using asynchronous context managers.
+    
+    It is an extension of the “**with**” expression for use in coroutines within asyncio programs.
+    
+    The “**async with**” expression is just like the “**with**” expression used for context managers, except it allows asynchronous context managers to be used within coroutines.
+    
+    In order to better understand “**async with**“, let’s take a closer look at asynchronous context managers.
+    
+    The async with expression allows a coroutine to create and use an asynchronous version of a context manager.
+    
+    For example:
+    
+    ```python
+    ...
+    # create and use an asynchronous context manager
+    async with AsyncContextManager() as manager:
+        # ...
+    ```
+    
+    This is equivalent to something like:
+    
+    ```python
+    ...
+    # create or enter the async context manager
+    manager = await AsyncContextManager()
+    try:
+        # ...
+    finally:
+        # close or exit the context manager
+        await manager.close()
+    ```
+    
+    Notice that we are implementing much the same pattern as a traditional context manager, except that creating and closing the context manager involve awaiting coroutines.
+    
+    This suspends the execution of the current coroutine, schedules a new coroutine and waits for it to complete.
+    
+    As such an asynchronous context manager must implement the **\_\_aenter\_\_()** and **\_\_aexit\_\_()** methods that must be defined via the async def expression. This makes them coroutines themselves which may also await.
+
 === "Chinese"
 
-### 19.1 What is asyncio.subprocess.Process
+    异步上下文管理器在“[PEP 492 – 具有异步和等待语法的协程](https://peps.python.org/pep-0492/)”中引入。
+    
+    它们提供了一个上下文管理器，可以在进入和退出时暂停。
+    
+    > 异步上下文管理器是能够在其 \_\_aenter\_\_ 和 \_\_aexit\_\_ 方法中暂停执行的上下文管理器。
+    >
+    > — [ASYNCHRONOUS CONTEXT MANAGERS](https://docs.python.org/3/reference/datamodel.html#asynchronous-context-managers)
+    
+    **\_\_aenter\_\_** 和 **\_\_aexit\_\_** 方法被定义为协程并由调用者等待。
+    
+    这是使用“**async with**”表达式来实现的。
+    
+    您可以在教程中了解有关“**async with**”表达式的更多信息：
+    
+    - [Asyncio 异步是什么](https://superfastpython.com/asyncio-async-with/)
+    
+    因此，异步上下文管理器只能在 asyncio 程序中使用，例如在调用协程中。
+    
+    什么是“异步”
+    
+    “**async with**”表达式用于创建和使用异步上下文管理器。
+    
+    它是“**with**”表达式的扩展，用于 asyncio 程序中的协程。
+    
+    “**async with**”表达式就像用于上下文管理器的“**with**”表达式一样，只不过它允许在协程中使用异步上下文管理器。
+    
+    为了更好地理解“**async with**”，让我们仔细看看异步上下文管理器。
+    
+    async with 表达式允许协程创建和使用上下文管理器的异步版本。
+    
+    例如:
+    
+    ```python
+    ...
+    # 创建并使用异步上下文管理器
+    async with AsyncContextManager() as manager:
+        # ...
+    ```
+    
+    这相当于：
+    
+    ```python
+    ...
+    # 创建或进入异步上下文管理器
+    manager = await AsyncContextManager()
+    try:
+        # ...
+    finally:
+        # 关闭或退出上下文管理器
+        await manager.close()
+    ```
+    
+    请注意，我们实现的模式与传统上下文管理器几乎相同，只是创建和关闭上下文管理器涉及等待协程。
+    
+    这会暂停当前协程的执行，安排一个新的协程并等待其完成。
+    
+    因此，异步上下文管理器必须实现 **\_\_aenter\_\_()** 和 **\_\_aexit\_\_()** 方法，这些方法必须通过 async def 表达式定义。 这使得它们本身成为协程，也可能等待。
+
+### 17.2 如何使用异步上下文管理器
+
+**17.2 How to Use Asynchronous Context Managers**
 
 === "English"
 
+    In this section, we will explore how we can define, create, and use asynchronous context managers in our asyncio programs.
+
 === "Chinese"
 
-### 19.2 How to Run a Command Directly
+    在本节中，我们将探讨如何在 asyncio 程序中定义、创建和使用异步上下文管理器。
+
+#### 17.2.1 定义异步上下文管理器
+
+**17.2.1 Define an Asynchronous Context Manager**
 
 === "English"
 
+    We can define an asynchronous context manager as a Python object that implements the **__aenter__()** and **__aexit__()** methods.
+    
+    Importantly, both methods must be defined as coroutines using the “**async def**” and therefore must return awaitables.
+    
+    For example:
+
+    ```python
+    # define an asynchronous context manager
+    class AsyncContextManager:
+        # enter the async context manager
+        async def __aenter__(self):
+            # report a message
+            print('>entering the context manager')
+     
+        # exit the async context manager
+        async def __aexit__(self, exc_type, exc, tb):
+            # report a message
+            print('>exiting the context manager')
+    ```
+
+    Because each of the methods are coroutines, they may themselves await coroutines or tasks.
+    
+    For example:
+
+    ```python
+    # define an asynchronous context manager
+    class AsyncContextManager:
+        # enter the async context manager
+        async def __aenter__(self):
+            # report a message
+            print('>entering the context manager')
+            # block for a moment
+            await asyncio.sleep(0.5)
+     
+        # exit the async context manager
+        async def __aexit__(self, exc_type, exc, tb):
+            # report a message
+            print('>exiting the context manager')
+            # block for a moment
+            await asyncio.sleep(0.5)
+    ```
+
 === "Chinese"
 
-### 19.3 How to Run a Command Via the Shell
+    我们可以将异步上下文管理器定义为实现 **__aenter__()** 和 **__aexit__()** 方法的 Python 对象。
+    
+    重要的是，这两种方法都必须使用“**async def**”定义为协程，因此必须返回可等待对象。
+    
+    例如:
+
+    ```python
+    # 定义异步上下文管理器
+    class AsyncContextManager:
+        # 进入异步上下文管理器
+        async def __aenter__(self):
+            # 报告消息
+            print('>entering the context manager')
+     
+        # 退出异步上下文管理器
+        async def __aexit__(self, exc_type, exc, tb):
+            # 报告消息
+            print('>exiting the context manager')
+    ```
+
+    因为每个方法都是协程，所以它们本身可能等待协程或任务。
+    
+    例如:
+
+    ```python
+    # 定义异步上下文管理器
+    class AsyncContextManager:
+        # 进入异步上下文管理器
+        async def __aenter__(self):
+            # 报告消息
+            print('>entering the context manager')
+            # 暂时阻塞
+            await asyncio.sleep(0.5)
+     
+        # 退出异步上下文管理器
+        async def __aexit__(self, exc_type, exc, tb):
+            # 报告消息
+            print('>exiting the context manager')
+            # 暂时阻塞
+            await asyncio.sleep(0.5)
+    ```
+
+#### 17.2.2 使用异步上下文管理器
+
+**17.2.2 Use an Asynchronous Context Manager**
+
+=== "English"
+
+    An asynchronous context manager is used via the “**async with**” expression.
+    
+    This will automatically await the enter and exit coroutines, suspending the calling coroutine as needed.
+    
+    For example:
+    
+    ```python
+    ...
+    # use an asynchronous context manager
+    async with AsyncContextManager() as manager:
+        # ...
+    ```
+
+    As such, the “**async with**” expression and asynchronous context managers more generally can only be used within asyncio programs, such as within coroutines.
+    
+    Now that we know how to use asynchronous context managers, let’s look at a worked example.
+
+=== "Chinese"
+
+    异步上下文管理器通过“**async with**”表达式使用。
+    
+    这将自动等待进入和退出协程，并根据需要暂停调用协程。
+    
+    例如：
+    
+    ```python
+    ...
+    # 使用异步上下文管理器
+    async with AsyncContextManager() as manager:
+        # ...
+    ```
+
+    因此，“**async with**”表达式和异步上下文管理器更一般地只能在 asyncio 程序中使用，例如在协程中。
+    
+    现在我们知道如何使用异步上下文管理器，让我们看一个有效的示例。
+
+### 17.3 异步上下文管理器和“async with”的示例
+
+**17.3 Example of an Asynchronous Context Manager and “async with”**
+
+=== "English"
+
+    We can explore how to use an asynchronous context manager via the “**async with**” expression.
+    
+    In this example, we will update the above example to use the context manager in a normal manner.
+    
+    We will use an “**async with**” expression and on one line, create and enter the context manager. This will automatically await the enter method.
+    
+    We can then make use of the manager within the inner block. In this case, we will just report a message.
+    
+    Exiting the inner block will automatically await the exit method of the context manager.
+    
+    Contrasting this example with the previous example shows how much heavy lifting the “**async with**” expression does for us in an asyncio program.
+    
+    The complete example is listed below.
+    
+    ```python
+    # SuperFastPython.com
+    # example of an asynchronous context manager via async with
+    import asyncio
+     
+    # define an asynchronous context manager
+    class AsyncContextManager:
+        # enter the async context manager
+        async def __aenter__(self):
+            # report a message
+            print('>entering the context manager')
+            # block for a moment
+            await asyncio.sleep(0.5)
+     
+        # exit the async context manager
+        async def __aexit__(self, exc_type, exc, tb):
+            # report a message
+            print('>exiting the context manager')
+            # block for a moment
+            await asyncio.sleep(0.5)
+     
+    # define a simple coroutine
+    async def custom_coroutine():
+        # create and use the asynchronous context manager
+        async with AsyncContextManager() as manager:
+            # report the result
+            print(f'within the manager')
+     
+    # start the asyncio program
+    asyncio.run(custom_coroutine())
+    ```
+    
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the asyncio program.
+    
+    The **main()** coroutine runs and creates an instance of our **AsyncContextManager** class in an “**async with**” expression.
+    
+    This expression automatically calls the enter method and awaits the coroutine. A message is reported and the coroutine blocks for a moment.
+    
+    The **main()** coroutine resumes and executes the body of the context manager, printing a message.
+    
+    The block is exited and the exit method of the context manager is awaited automatically, reporting a message and sleeping a moment.
+    
+    This highlights the normal usage pattern for an asynchronous context manager in an asyncio program.
+    
+    ```python
+    >entering the context manager
+    within the manager
+    >exiting the context manager
+    ```
+    
+    You can learn more about async context managers in the tutorial:
+    
+    - [Asynchronous Context Managers in Python](https://superfastpython.com/asynchronous-context-manager/)
+    
+    Next, we will explore asynchronous comprehensions.
+
+=== "Chinese"
+
+    我们可以通过“**async with**”表达式探索如何使用异步上下文管理器。
+    
+    在此示例中，我们将更新上面的示例以正常方式使用上下文管理器。
+    
+    我们将使用“**async with**”表达式，并在一行中创建并输入上下文管理器。 这将自动等待输入方法。
+    
+    然后我们可以在内部块中使用管理器。 在这种情况下，我们只会报告一条消息。
+    
+    退出内部块将自动等待上下文管理器的退出方法。
+    
+    将此示例与前面的示例进行对比，可以看出“**async with**”表达式在 asyncio 程序中为我们带来了多大的负担。
+    
+    下面列出了完整的示例。
+    
+    ```python
+    # SuperFastPython.com
+    # 通过 async with 实现异步上下文管理器的示例
+    import asyncio
+     
+    # 定义异步上下文管理器
+    class AsyncContextManager:
+        # 进入异步上下文管理器
+        async def __aenter__(self):
+            # 报告消息
+            print('>entering the context manager')
+            # 暂时阻塞
+            await asyncio.sleep(0.5)
+     
+        # 退出异步上下文管理器
+        async def __aexit__(self, exc_type, exc, tb):
+            # 报告消息
+            print('>exiting the context manager')
+            # 暂时阻塞
+            await asyncio.sleep(0.5)
+     
+    # 定义一个简单的协程
+    async def custom_coroutine():
+        # 创建并使用异步上下文管理器
+        async with AsyncContextManager() as manager:
+            # 报告结果
+            print(f'within the manager')
+     
+    # 启动异步程序
+    asyncio.run(custom_coroutine())
+    ```
+    
+    运行该示例首先创建 **main()** 协程，并将其用作 asyncio 程序的入口点。
+    
+    **main()** 协程运行并在“**async with**”表达式中创建 **AsyncContextManager** 类的实例。
+    
+    该表达式自动调用 Enter 方法并等待协程。 报告一条消息，协程阻塞片刻。
+    
+    **main()** 协程恢复并执行上下文管理器的主体，打印一条消息。
+    
+    该块退出并自动等待上下文管理器的退出方法，报告消息并休眠一会儿。
+    
+    这突出显示了 asyncio 程序中异步上下文管理器的正常使用模式。
+    
+    ```python
+    >entering the context manager
+    within the manager
+    >exiting the context manager
+    ```
+    
+    您可以在教程中了解有关异步上下文管理器的更多信息：
+    
+    - [Asynchronous Context Managers in Python](https://superfastpython.com/asynchronous-context-manager/)
+    
+    接下来，我们将探索异步推导式。
+
+## 18. 异步推导式
+
+**18. Asynchronous Comprehensions**
+
+=== "English"
+
+    Comprehensions, like list and dict comprehensions are one feature of Python when we think of “pythonic“.
+    
+    It is a way we do loops that is different to many other languages.
+    
+    Asyncio allows us to use asynchronous comprehensions.
+    
+    We can traverse an asynchronous generators and asynchronous iterators using an asynchronous comprehension via the “**async for**” expression.
+    
+    Let’s take a closer look.
+
+=== "Chinese"
+
+    当我们想到“Pythonic”时，推导式（例如列表推导式和字典推导式）是 Python 的特征之一。
+    
+    这是我们执行循环的一种与许多其他语言不同的方式。
+    
+    Asyncio 允许我们使用异步推导式。
+    
+    我们可以通过“**async for**”表达式使用异步推导式来遍历异步生成器和异步迭代器。
+    
+    让我们仔细看看。
+
+### 18.1 什么是异步推导式
+
+**18.1 What are Asynchronous Comprehensions**
+
+=== "English"
+
+    An async comprehension is an asynchronous version of a classical comprehension.
+    
+    Asyncio supports two types of asynchronous comprehensions, they are the “async for” comprehension and the “await” comprehension.
+    
+    > PEP 530 adds support for using async for in list, set, dict comprehensions and generator expressions
+    >
+    > — [PEP 530: ASYNCHRONOUS COMPREHENSIONS, WHAT’S NEW IN PYTHON 3.6.](https://docs.python.org/3/whatsnew/3.6.html#pep-530-asynchronous-comprehensions)
+    
+    Before we look at each, let’s first recall classical comprehensions.
+
+=== "Chinese"
+
+    异步理解是经典理解的异步版本。
+    
+    Asyncio 支持两种类型的异步理解，它们是“async for”推导和“await”推导。
+    
+    > PEP 530 添加了对在 列表、集合、字典理解和生成器表达式使用异步的支持
+    >
+    > — [PEP 530: ASYNCHRONOUS COMPREHENSIONS, WHAT’S NEW IN PYTHON 3.6.](https://docs.python.org/3/whatsnew/3.6.html#pep-530-asynchronous-comprehensions)
+    
+    在我们讨论每一个之前，让我们首先回顾一下经典的推导式。
+
+### 18.2 推导式
+
+**18.2 Comprehensions**
+
+=== "English"
+
+    Comprehensions allow data collections like lists, dicts, and sets to be created in a concise way.
+    
+    > List comprehensions provide a concise way to create lists.
+    >
+    > — [LIST COMPREHENSIONS](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+    
+    A list comprehension allows a list to be created from a for expression within the new list expression.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a list using a list comprehension
+    result = [a*2 for a in range(100)]
+    ```
+    
+    Comprehensions are also supported for creating dicts and sets.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a dict using a comprehension
+    result = {a:i for a,i in zip(['a','b','c'],range(3))}
+    # create a set using a comprehension
+    result = {a for a in [1, 2, 3, 2, 3, 1, 5, 4]}
+    ```
+
+=== "Chinese"
+
+    推导式允许以简洁的方式创建列表、字典和集合等数据集合。
+    
+    > 列表推导式提供了一种创建列表的简洁方法。
+    >
+    > — [LIST COMPREHENSIONS](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions)
+    
+    列表推导式允许从新列表表达式中的 for 表达式创建列表。
+    
+    例如:
+    
+    ```python
+    ...
+    # 使用列表理解创建列表
+    result = [a*2 for a in range(100)]
+    ```
+    
+    还支持创建字典和集合的推导式。
+    
+    例如:
+    
+    ```python
+    ...
+    # 使用理解创建一个字典
+    result = {a:i for a,i in zip(['a','b','c'],range(3))}
+    # 使用推导式创建一个集合
+    result = {a for a in [1, 2, 3, 2, 3, 1, 5, 4]}
+    ```
+
+### 18.3 异步推导式
+
+**18.3 Asynchronous Comprehensions**
+
+=== "English"
+
+    An asynchronous comprehension allows a list, set, or dict to be created using the “async for” expression with an asynchronous iterable.
+    
+    > We propose to allow using async for inside list, set and dict comprehensions.
+    >
+    > — PEP 530 – ASYNCHRONOUS COMPREHENSIONS
+    
+    For example:
+    
+    ```python
+    ...
+    # async list comprehension with an async iterator
+    result = [a async for a in aiterable]
+    ```
+    
+    This will create and schedule coroutines or tasks as needed and yield their results into a list.
+    
+    Recall that the “[async for](https://superfastpython.com/asyncio-async-for/)” expression may only be used within coroutines and tasks.
+    
+    Also, recall that an asynchronous iterator is an iterator that yields awaitables.
+    
+    The “**async for**” expression allows the caller to traverse an asynchronous iterator of awaitables and retrieve the result from each.
+    
+    Internally, the async for loop will automatically resolve or await each awaitable, scheduling coroutines as needed.
+    
+    An async generator automatically implements the methods for the async iterator and may also be used in an asynchronous comprehension.
+    
+    For example:
+    
+    ```python
+    ...
+    # async list comprehension with an async generator
+    result = [a async for a in agenerator]
+    ```
+
+=== "Chinese"
+
+    异步理解允许使用带有异步迭代的“**async for**”表达式来创建列表、集合或字典。
+    
+    > 我们建议允许对内部列表、集合和字典理解使用异步。
+    >
+    > — PEP 530 – ASYNCHRONOUS COMPREHENSIONS
+    
+    例如:
+    
+    ```python
+    ...
+    # 使用异步迭代器的异步列表理解
+    result = [a async for a in aiterable]
+    ```
+    
+    这将根据需要创建和调度协程或任务，并将其结果生成到列表中。
+    
+    回想一下，“[async for](https://superfastpython.com/asyncio-async-for/)”表达式只能在协程和任务中使用。
+    
+    另外，请记住，异步迭代器是产生可等待项的迭代器。
+    
+    “**async for**”表达式允许调用者遍历可等待项的异步迭代器并从每个迭代器中检索结果。
+    
+    在内部，async for 循环将自动解析或等待每个可等待的、根据需要调度协程。
+    
+    异步生成器自动实现异步迭代器的方法，也可以在异步推导式中使用。
+    
+    例如:
+    
+    ```python
+    ...
+    # 使用异步生成器的异步列表推导式
+    result = [a async for a in agenerator]
+    ```
+
+### 18.4 Await 推导式
+
+**18.4 Await Comprehensions**
+
+=== "English"
+
+    The **“await”** expression may also be used within a list, set, or dict comprehension, referred to as an await comprehension.
+    
+    > We propose to allow the use of await expressions in both asynchronous and synchronous comprehensions
+    >
+    > — [PEP 530 – ASYNCHRONOUS COMPREHENSIONS](https://peps.python.org/pep-0530/)
+    
+    Like an async comprehension, it may only be used within an asyncio coroutine or task.
+    
+    This allows a data structure, like a list, to be created by suspending and awaiting a series of awaitables.
+    
+    For example:
+    
+    ```python
+    ...
+    # await list compression with a collection of awaitables
+    results = [await a for a in awaitables]
+    ```
+    
+    This will create a list of results by awaiting each awaitable in turn.
+    
+    The current coroutine will be suspended to execute awaitables sequentially, which is different and perhaps slower than executing them concurrently using **asyncio.gather()**.
+    
+    You can learn more about async comprehensions in the tutorial:
+    
+    - [Asynchronous Comprehensions in Python](https://superfastpython.com/asynchronous-comprehensions/)
+    
+    Next, we will explore how to run commands using subprocesses from asyncio.
+
+=== "Chinese"
+
+    **“await”** 表达式也可以在列表、集合或字典理解中使用，称为**await 推导**。
+    
+    > 我们建议在异步和同步中都使用**await推导**或**列表推导**
+    >
+    > — [PEP 530 – ASYNCHRONOUS COMPREHENSIONS](https://peps.python.org/pep-0530/)
+    
+    与异步理解一样，它只能在异步协程或任务中使用。
+    
+    这允许通过挂起和等待一系列可等待项来创建数据结构，例如列表。
+    
+    例如:
+    
+    ```python
+    ...
+    # 在可等待对象合集中使用await列表推导
+    results = [await a for a in awaitables]
+    ```
+    
+    这将通过依次等待每个可等待项来创建结果列表。
+    
+    当前协程将被挂起以顺序执行可等待项，这与使用 **asyncio.gather()** 并发执行它们不同，并且可能更慢。
+    
+    您可以在教程中了解有关异步推导的更多信息：
+    
+    - [Python 中的异步推导式](https://superfastpython.com/asynchronous-comprehensions/)
+    
+    接下来，我们将探索如何使用 asyncio 中的子进程来运行命令。
+
+## 19. 在非阻塞子进程中运行命令
+
+**19. Run Commands in Non-Blocking Subprocesses**
+
+=== "English"
+
+    We can execute commands from asyncio.
+    
+    The command will run in a subprocess that we can write to and read from using non-blocking I/O.
+    
+    Let’s take a closer look.
+
+=== "Chinese"
+
+    We can execute commands from asyncio.
+    
+    The command will run in a subprocess that we can write to and read from using non-blocking I/O.
+    
+    Let’s take a closer look.
+
+### 19.1 什么是 asyncio.subprocess.Process
+
+**19.1 What is asyncio.subprocess.Process**
+
+=== "English"
+
+    The [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) class provides a representation of a subprocess run by asyncio.
+    
+    It provides a handle on a subprocess in asyncio programs, allowing actions to be performed on it, such as waiting and terminating it.
+    
+    > Process is a high-level wrapper that allows communicating with subprocesses and watching for their completion.
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#interacting-with-subprocesses)
+    
+    The API is very similar to the [multiprocessing.Process](https://docs.python.org/3/library/subprocess.html#subprocess.Popen) class and perhaps more so with the [subprocess.Popen](https://docs.python.org/3/library/subprocess.html#subprocess.Popen) class.
+    
+    Specifically, it shares methods such as **wait()**, **communicate()**, and **send_signal()** and attributes such as stdin, stdout, and stderr with the subprocess.Popen.
+    
+    Now that we know what the **asyncio.subprocess.Process** class is, let’s look at how we might use it in our asyncio programs.
+    
+    We do not create a **asyncio.subprocess.Process** directly.
+    
+    Instead, an instance of the class is created for us when executing a subprocess in an asyncio program.
+    
+    > An object that wraps OS processes created by the create_subprocess_exec() and create_subprocess_shell() functions.
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#interacting-with-subprocesses)
+    
+    There are two ways to execute an external program as a subprocess and acquire a Process instance, they are:
+    
+    - asyncio.create_subprocess_exec() for running commands directly.
+    - asyncio.create_subprocess_shell() for running commands via the shell.
+
+    Let’s look at examples of each in turn.
+
+=== "Chinese"
+
+    asyncio通过[asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) 类提供了对于运行子进程的支持和表示。
+    
+    它提供了 asyncio 程序中子进程的句柄，允许对其执行操作，例如等待和终止它。
+    
+    > Process是一个高级包装过后的类，允许与子进程通信并监视其完成情况。
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#interacting-with-subprocesses)
+    
+    该 API 与 [multiprocessing.Process](https://docs.python.org/3/library/subprocess.html#subprocess.Popen) 类非常相似，也许与 [subprocess.Popen](https://docs.python.org/3/library/subprocess.html#subprocess.Popen) 类更新相似。
+    
+    具体来说，它与 **subprocess.Popen** 共享 **wait()**、**communicate()** 和 **send_signal()** 等方法以及 `stdin`、`stdout` 和 `stderr` 等属性。
+    
+    现在我们知道了 **asyncio.subprocess.Process** 类是什么，让我们看看如何在 asyncio 程序中使用它。
+    
+    我们不直接创建 **asyncio.subprocess.Process**。
+    
+    相反，当在 asyncio 程序中执行子进程时，会为我们创建该类的实例。
+    
+    > 包装由 **create_subprocess_exec()** 和 **create_subprocess_shell()** 函数创建的操作系统进程的对象。
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#interacting-with-subprocesses)
+    
+    有两种方法可以将外部程序作为子进程执行并获取 Process 实例，它们是：
+    
+    - **asyncio.create_subprocess_exec()** 用于直接运行命令。
+    - **asyncio.create_subprocess_shell()** 用于通过 shell 运行命令。
+
+    让我们依次看一下每个例子。
+
+### 19.2 如何直接运行命令
+
+**19.2 How to Run a Command Directly**
+
+=== "English"
+
+    A [command](https://en.wikipedia.org/wiki/Command-line_interface) is a program executed on the command line (terminal or command prompt). It is another program that is run directly.
+    
+    Common examples on Linux and macOS might be:
+    
+    - ‘ls‘ to list the contents of a directory
+    - ‘cat‘ to report the content of a file
+    - ‘date‘ to report the date
+    - ‘echo‘ to report back a string
+    - ‘sleep‘ to sleep for a number of seconds
+    
+    And so on.
+    
+    We can execute a command from an asyncio program via the **create_subprocess_exec()** function.
+    
+    The **asyncio.create_subprocess_exec()** function takes a command and executes it directly.
+    
+    This is helpful as it allows the command to be executed in a subprocess and for asyncio coroutines to read, write, and wait for it.
+    
+    > Because all asyncio subprocess functions are asynchronous and asyncio provides many tools to work with such functions, it is easy to execute and monitor multiple subprocesses in parallel.
+    >
+    > — ASYNCIO SUBPROCESSES
+    
+    Unlike the **asyncio.create_subprocess_shell()** function, the **asyncio.create_subprocess_exec()** will not execute the command using the shell.
+    
+    This means that the capabilities provided by the shell, such as shell variables, scripting, and wildcards are not available when executing the command.
+    
+    It also means that executing the command may be more secure as there is no opportunity for a [shell injection](https://en.wikipedia.org/wiki/Code_injection#Shell_injection).
+    
+    Now that we know what **asyncio.create_subprocess_exec()** does, let’s look at how to use it.
+
+=== "Chinese"
+
+    [command](https://en.wikipedia.org/wiki/Command-line_interface) 是在命令行（终端或命令提示符）上执行的程序。 这是另一个直接运行的程序。
+    
+    Linux 和 macOS 上的常见示例可能是：
+    
+    - ‘ls‘ 列出目录的内容
+    - ‘cat‘ 报告文件的内容
+    - ‘date‘ 报告日期
+    - ‘echo‘ 报告一个字符串
+    - ‘sleep‘ 睡眠几秒钟
+    
+    等等。
+    
+    我们可以通过 **create_subprocess_exec()** 函数从 asyncio 程序执行命令。
+    
+    **asyncio.create_subprocess_exec()** 函数接受一个命令并直接执行它。
+    
+    这很有用，因为它允许在子进程中执行命令，并允许异步协程读取、写入和等待它。
+    
+    > 因为所有 asyncio 子进程函数都是异步的，并且 asyncio 提供了许多工具来使用这些函数，所以很容易并行执行和监视多个子进程。
+    >
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+    
+    与 **asyncio.create_subprocess_shell()** 函数不同，**asyncio.create_subprocess_exec()** 不会使用 shell 执行命令。
+    
+    这意味着 shell 提供的功能（例如 shell 变量、脚本和通配符）在执行命令时不可用。
+    
+    这也意味着执行命令可能更安全，因为没有机会进行[shell注入](https://en.wikipedia.org/wiki/Code_injection#Shell_injection)。
+    
+    现在我们知道了 **asyncio.create_subprocess_exec()** 的作用，让我们看看如何使用它。
+
+#### 19.2.1 如何使用 Asyncio 的 create_subprocess_exec()
+
+**19.2.1 How to Use Asyncio create_subprocess_exec()**
+
+=== "English"
+
+    The [asyncio.create_subprocess_exec()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_exec) function will execute a given string command in a subprocess.
+    
+    It returns a [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) object that represents the subprocess.
+    
+    > Process is a high-level wrapper that allows communicating with subprocesses and watching for their completion.
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process)
+    
+    The create_subprocess_exec() function is a coroutine, which means we must await it. It will return once the subprocess has been started, not when the subprocess is finished.
+    
+    For example:
+    
+    ```python
+    ...
+    # execute a command in a subprocess
+    process = await asyncio.create_subprocess_exec('ls')
+    ```
+    
+    Arguments to the command being executed must be provided as subsequent arguments to the **create_subprocess_exec()** function.
+    
+    For example:
+    
+    ```python
+    ...
+    # execute a command with arguments in a subprocess
+    process = await asyncio.create_subprocess_exec('ls', '-l')
+    ```
+    
+    We can wait for the subprocess to finish by awaiting the **wait()** method.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for the subprocess to terminate
+    await process.wait()
+    ```
+    
+    We can stop the subprocess directly by calling the **terminate()** or **kill()** methods, which will raise a signal in the subprocess.
+    
+    For example:
+    
+    ```python
+    ...
+    # terminate the subprocess
+    process.terminate()
+    ```
+    
+    The input and output of the command will be handled by **stdin**, **stderr**, and **stdout**.
+    
+    We can have the asyncio program handle the input or output for the subprocess.
+    
+    This can be achieved by specifying the input or output stream and specifying a constant to redirect, such as **asyncio.subprocess.PIPE**.
+    
+    For example, we can redirect the output of a command to the asyncio program:
+    
+    ```python
+    ...
+    # start a subprocess and redirect output
+    process = await asyncio.create_subprocess_exec('ls', stdout=asyncio.subprocess.PIPE)
+    ```
+    
+    We can then read the output of the program via the **asyncio.subprocess.Process** instance via the **communicate()** method.
+    
+    This method is a coroutine and must be awaited. It is used to both send and receive data with the subprocess.
+    
+    For example:
+    
+    ```python
+    ...
+    # read data from the subprocess
+    line = process.communicate()
+    ```
+    
+    We can also send data to the subprocess via the **communicate()** method by setting the **“input”** argument in bytes.
+    
+    For example:
+    
+    ```python
+    ...
+    # start a subprocess and redirect input
+    process = await asyncio.create_subprocess_exec('ls', stdin=asyncio.subprocess.PIPE)
+    # send data to the subprocess
+    process.communicate(input=b'Hello\n')
+    ```
+    
+    Behind the scenes the **asyncio.subprocess.PIPE** configures the subprocess to point to a **StreamReader** or **StreamWriter** for sending data to or from the subprocess, and the **communicate()** method will read or write bytes from the configured reader.
+    
+    > If PIPE is passed to stdin argument, the Process.stdin attribute will point to a StreamWriter instance. If PIPE is passed to stdout or stderr arguments, the Process.stdout and Process.stderr attributes will point to StreamReader instances.
+    >
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+    
+    We can interact with the **StreamReader** or **StreamWriter** directly via the subprocess via the stdin, stdout, and stderr attributes.
+    
+    For example:
+    
+    ```python
+    ...
+    # read a line from the subprocess output stream
+    line = await process.stdout.readline()
+    ```
+    
+    Now that we know how to use the **create_subprocess_exec()** function, let’s look at some worked examples.
+
+=== "Chinese"
+
+    [asyncio.create_subprocess_exec()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_exec) 函数将在子进程中执行给定的字符串命令。
+    
+    它返回一个表示子进程的 [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) 对象。
+    
+    > Process是一个高级包装器，允许与子进程通信并监视其完成情况。
+    >
+    > — [INTERACTING WITH SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process)
+    
+    create_subprocess_exec() 函数是一个协程，这意味着我们必须等待它。 它会在子进程启动后返回，而不是在子进程完成时返回。
+    
+    例如:
+    
+    ```python
+    ...
+    # 在子进程中执行命令
+    process = await asyncio.create_subprocess_exec('ls')
+    ```
+    
+    正在执行的命令的参数必须作为 **create_subprocess_exec()** 函数的后续参数提供。
+    
+    例如:
+    
+    ```python
+    ...
+    # 在子进程中执行带参数的命令
+    process = await asyncio.create_subprocess_exec('ls', '-l')
+    ```
+    
+    我们可以通过等待 **wait()** 方法来等待子进程完成。
+    
+    例如:
+    
+    ```python
+    ...
+    # 等待子进程终止
+    await process.wait()
+    ```
+    
+    我们可以通过调用 **terminate()** 或 **kill()** 方法直接停止子进程，这将在子进程中引发一个信号。
+    
+    例如：
+    
+    ```python
+    ...
+    # 终止子进程
+    process.terminate()
+    ```
+    
+    命令的输入和输出将由 **stdin**、**stderr** 和 **stdout** 处理。
+    
+    我们可以让 asyncio 程序处理子进程的输入或输出。
+    
+    这可以通过指定输入或输出流并指定要重定向的常量来实现，例如 **asyncio.subprocess.PIPE**。
+    
+    例如，我们可以将命令的输出重定向到 asyncio 程序：
+
+    ```python
+    ...
+    # 启动子进程并重定向输出
+    process = await asyncio.create_subprocess_exec('ls', stdout=asyncio.subprocess.PIPE)
+    ```
+    
+    然后我们可以通过**asyncio.subprocess.Process**实例通过**communicate()**方法读取程序的输出。
+    
+    该方法是一个协程，必须等待。 它用于通过子进程发送和接收数据。
+    
+    例如：
+
+    ```python
+    ...
+    # 从子进程读取数据
+    line = process.communicate()
+    ```
+    
+    我们还可以通过 **communicate()** 方法通过设置 **“input”** 参数（以字节为单位）将数据发送到子进程。
+    
+    例如：
+
+    ```python
+    ...
+    # 启动子进程并重定向输入
+    process = await asyncio.create_subprocess_exec('ls', stdin=asyncio.subprocess.PIPE)
+    # 向子进程发送数据
+    process.communicate(input=b'Hello\n')
+    ```
+    
+    在背后， **asyncio.subprocess.PIPE** 将子进程配置为指向 **StreamReader** 或 **StreamWriter** 用于向子进程发送数据或从子进程发送数据，以及 **communicate()** 方法 将从配置的读取器读取或写入字节。
+    
+    > 如果 PIPE 传递给 stdin 参数，则 Process.stdin 属性将指向 **StreamWriter** 实例。 如果 PIPE 传递给 **stdout** 或 **stderr** 参数，则 **Process.stdout** 和 **Process.stderr** 属性将指向 **StreamReader** 实例。
+    >
+    > — [ASYNCIO SUBPROCESSES](https://docs.python.org/3/library/asyncio-subprocess.html)
+    
+    我们可以通过子进程通过 `stdin`、`stdout` 和 `stderr` 属性直接与 **StreamReader** 或 **StreamWriter** 交互。
+    
+    例如：
+
+    ```python
+    ...
+    # 从子进程输出流中读取一行
+    line = await process.stdout.readline()
+    ```
+    
+    现在我们知道如何使用 **create_subprocess_exec()** 函数，让我们看一些有效的示例。
+
+#### 19.2.2 Asyncio 的 create_subprocess_exec() 的示例
+
+**19.2.2 Example of Asyncio create_subprocess_exec()**
+
+=== "English"
+
+    We can explore how to run a command in a subprocess from asyncio.
+    
+    In this example, we will execute the [“echo”](https://en.wikipedia.org/wiki/Echo_(command)) command to report back a string.
+    
+    The echo command will report the provided string on standard output directly.
+    
+    The complete example is listed below.
+    
+    **Note**, this example assumes you have access to the **“echo”** command, I’m not sure it will work on Windows.
+    
+    ```python
+    # SuperFastPython.com
+    # example of executing a command as a subprocess with asyncio
+    import asyncio
+     
+    # main coroutine
+    async def main():
+        # start executing a command in a subprocess
+        process = await asyncio.create_subprocess_exec('echo', 'Hello World')
+        # report the details of the subprocess
+        print(f'subprocess: {process}')
+     
+    # entry point
+    asyncio.run(main())
+    ```
+    
+    Running the example first creates the **main()** coroutine and executes it as the entry point into the asyncio program.
+    
+    The **main()** coroutine runs and calls the create_subprocess_exec() function to execute a command.
+    
+    The **main()** coroutine suspends while the subprocess is created. A Process instance is returned.
+    
+    The **main()** coroutine resumes and reports the details of the subprocess. The **main()** process terminates and the asyncio program terminates.
+    
+    The output of the echo command is reported on the command line.
+    
+    This highlights how we can execute a command from an asyncio program.
+    
+    ```text
+    Hello World
+    subprocess: <Process 50249>
+    ```
+
+=== "Chinese"
+
+    我们可以探索如何在 asyncio 的子进程中运行命令。
+    
+    在此示例中，我们将执行 [“echo”](https://en.wikipedia.org/wiki/Echo_(command)) 命令来报告一个字符串。
+    
+    echo 命令将直接在标准输出上报告提供的字符串。
+    
+    下面列出了完整的示例。
+    
+    **注意**，此示例假设您有权访问 **“echo”** 命令，我不确定它是否适用于 Windows。
+    
+    ```python
+    # SuperFastPython.com
+    # 使用 asyncio 作为子进程执行命令的示例
+    import asyncio
+     
+    # 主协程
+    async def main():
+        # 开始在子进程中执行命令
+        process = await asyncio.create_subprocess_exec('echo', 'Hello World')
+        # 报告子流程的详细信息
+        print(f'subprocess: {process}')
+     
+    # 入口点
+    asyncio.run(main())
+    ```
+    
+    运行该示例首先创建 **main()** 协程，并将其作为 asyncio 程序的入口点执行。
+    
+    **main()** 协程运行并调用 create_subprocess_exec() 函数来执行命令。
+    
+    创建子进程时，**main()** 协程会挂起。 返回一个 Process 实例。
+    
+    **main()** 协程恢复并报告子进程的详细信息。 **main()** 进程终止，并且 asyncio 程序终止。
+    
+    echo 命令的输出在命令行上报告。
+    
+    这突出显示了我们如何从 asyncio 程序执行命令。
+    
+    ```text
+    Hello World
+    subprocess: <Process 50249>
+    ```
+
+### 19.3 如何跟shell一起运行一个命令
+
+**How to Run a Command Via the Shell**
 
 === "English"
 
@@ -656,7 +2406,9 @@
 
     现在我们知道了 **asyncio.create_subprocess_shell()** 的作用，让我们看看如何使用它。
 
-#### 19.3.1 How to Use Asyncio create_subprocess_shell()
+#### 19.3.1 如何使用 Asyncio 的 create_subprocess_shell()
+
+**19.3.1 How to Use Asyncio create_subprocess_shell()**
 
 === "English"
 
@@ -829,7 +2581,9 @@
 
     现在我们知道如何使用 **create_subprocess_shell()** 函数，让我们看一些有效的示例。
 
-#### 19.3.2 Example of Asyncio create_subprocess_shell()
+#### 19.3.2 Asyncio 的 create_subprocess_shell() 的示例
+
+**19.3.2 Example of Asyncio create_subprocess_shell()**
 
 === "English"
 
@@ -921,7 +2675,9 @@
     Hello World
     ```
 
-## 20. Non-Blocking Streams
+## 20. 非阻塞流
+
+**20. Non-Blocking Streams**
 
 === "English"
 
@@ -935,7 +2691,9 @@
 
     让我们仔细看看。
 
-### 20.1 Asyncio Streams
+### 20.1 Asyncio 的流
+
+**20.1 Asyncio Streams**
 
 === "English"
 
@@ -993,7 +2751,9 @@
 
     现在我们知道什么是异步流，让我们看看如何使用它们。
 
-### 20.2 How to Open a Connection
+### 20.2 如何打开一个连接
+
+**20.2 How to Open a Connection**
 
 === "English"
 
@@ -1095,7 +2855,9 @@
     reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
     ```
 
-### 20.3 How to Start a Server
+### 20.3 如何启动一个侦听服务
+
+**20.3 How to Start a Server**
 
 === "English"
 
@@ -1181,7 +2943,9 @@
     server = await asyncio.start_server(handler, '127.0.0.1', 80)
     ```
 
-### 20.4 How to Write Data with the StreamWriter
+### 20.4 如何使用 StreamWriter 写入数据
+
+**20.4 How to Write Data with the StreamWriter**
 
 === "English"
 
@@ -1291,7 +3055,9 @@
     await writer.drain()
     ```
 
-### 20.5 How to Read Data with the StreamReader
+### 20.5 如何使用 StreamReader 读取数据
+
+**20.5 How to Read Data with the StreamReader**
 
 === "English"
 
@@ -1401,7 +3167,9 @@
 
     此外，还有一个 **readexactly()** 方法用于读取确切的字节数，否则会引发异常，还有一个 **readuntil()** 方法将读取字节，直到读取字节形式的指定字符。
 
-### 20.6 How to Close Connection
+### 20.6 如何关闭连接
+
+**20.6 How to Close Connection**
 
 === "English"
 
@@ -1505,7 +3273,9 @@
         # ...
     ```
 
-## 21. Example of Checking Website Status
+## 21. 检查网站状态的示例
+
+**21. Example of Checking Website Status**
 
 === "English"
 
@@ -1523,7 +3293,9 @@
     
     让我们开始吧。
 
-### 21.1 How to Check HTTP Status with Asyncio
+### 21.1 如何使用 Asyncio 检查 HTTP 状态
+
+**21.1 How to Check HTTP Status with Asyncio**
 
 === "English"
 
@@ -1555,7 +3327,9 @@
     
     让我们依次仔细看看每个部分。
 
-### 21.2 Open HTTP Connection
+### 21.2 打开 HTTP 连接
+
+**21.2 Open HTTP Connection**
 
 === "English"
 
@@ -1613,7 +3387,9 @@
     reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
     ```
 
-### 21.3 Write HTTP Request
+### 21.3 写入 HTTP 请求
+
+**21.3 Write HTTP Request**
 
 === "English"
 
@@ -1763,7 +3539,9 @@
     await writer.drain()
     ```
 
-### 21.4 Read HTTP Response
+### 21.4 读取 HTTP 响应
+
+**21.4 Read HTTP Response**
 
 === "English"
 
@@ -1849,7 +3627,9 @@
     line_data = line_bytes.decode()
     ```
 
-### 21.5 Close HTTP Connection
+### 21.5 关闭 HTTP 连接
+
+**21.5 Close HTTP Connection**
 
 === "English"
 
@@ -1887,7 +3667,9 @@
     
     现在我们知道如何使用 **asyncio** 发出 HTTP 请求并读取响应，让我们看一些检查网页状态的示例。
 
-### 21.6 Example of Checking HTTP Status Sequentially
+### 21.6 按顺序检查 HTTP 状态的示例
+
+**21.6 Example of Checking HTTP Status Sequentially**
 
 === "English"
 
@@ -2425,7 +4207,9 @@
     
     接下来，让我们看看如何更新示例以同时执行协程。
 
-### 21.7 Example of Checking Website Status Concurrently
+### 21.7 并发检查网站状态的示例
+
+**21.7 Example of Checking Website Status Concurrently**
 
 === "English"
 
@@ -2683,7 +4467,9 @@
 
     接下来，让我们探讨一下 **asyncio** 入门时的常见错误。
 
-## 22. Python Asyncio Common Errors
+## 22. Python Asyncio 常见错误
+
+**22. Python Asyncio Common Errors**
 
 === "English"
 
@@ -2713,7 +4499,9 @@
     
     让我们依次仔细看看每一个问题。
 
-### 22.1 Error 1: Trying to Run Coroutines by Calling Them
+### 22.1 错误 1: 尝试通过函数调用的方式来运行协程
+
+**22.1 Error 1: Trying to Run Coroutines by Calling Them**
 
 === "English"
 
@@ -2819,7 +4607,9 @@
     
     - [如何在 Python 中运行 Asyncio 协程](https://superfastpython.com/asyncio-run-coroutine)
 
-### 22.2 Error 2: Not Letting Coroutines Run in the Event Loop
+### 22.2 错误 2: 不在事件循环中运行协程
+
+**22.2 Error 2: Not Letting Coroutines Run in the Event Loop**
 
 === "English"
 
@@ -2993,7 +4783,9 @@
 
     - [如何在 Python 中创建Asyncio任务](https://superfastpython.com/asyncio-create-task)
 
-### 22.3 Error 3: Using the Low-Level Asyncio API
+### 22.3 错误 3: 使用低级的 Asyncio API
+
+**22.3 Error 3: Using the Low-Level Asyncio API**
 
 === "English"
 
@@ -3076,7 +4868,9 @@
 
     然后，深入看看相关技术细节。
 
-### 22.4 Error 4: Exiting the Main Coroutine Too Early
+### 22.4 错误 4: 退出主协程太早
+
+**22.4 Error 4: Exiting the Main Coroutine Too Early**
 
 === "English"
 
@@ -3146,7 +4940,9 @@
     await asyncio.wait(all_tasks)
     ```
 
-### 22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible
+### 22.5 错误 5: 假设竞争条件和死锁是不可能的
+
+**22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible**
 
 === "English"
 
@@ -3196,7 +4992,9 @@
 
     因此，创建 **asyncio** 程序以确保协程安全（类似于线程安全和进程安全的概念）非常重要，适用于协程。
 
-## 23. Python Asyncio Common Questions
+## 23. Python Asyncio 常见问题
+
+**23. Python Asyncio Common Questions**
 
 === "English"
 
@@ -3214,7 +5012,9 @@
 
     在下面的评论中提出您的问题，我会尽力回答它，也许会将其添加到这个问题列表中。
 
-### 23.1 How to Stop a Task?
+### 23.1 如何停止任务？
+
+**23.1 How to Stop a Task?**
 
 === "English"
 
@@ -3414,7 +5214,9 @@
     main coroutine done
     ```
 
-### 23.2 How to Wait for a Task To Finish?
+### 23.2 如何等待任务完成？
+
+**23.2 How to Wait for a Task To Finish?**
 
 === "English"
 
@@ -3460,7 +5262,9 @@
     await asyncio.create_task(custom_coro())
     ```
 
-### 23.3 How to Get a Return Value from a Task?
+### 23.3 如何获取任务的返回值？
+
+**23.3 How to Get a Return Value from a Task?**
 
 === "English"
 
@@ -3648,7 +5452,9 @@
     
     - [如何获取 Asyncio 任务结果](https://superfastpython.com/asyncio-task-result)
 
-### 23.4 How to Run a Task in the Background?
+### 23.4 如何在后台运行任务？
+
+**23.4 How to Run a Task in the Background?**
 
 === "English"
 
@@ -3738,7 +5544,9 @@
     await task
     ```
 
-### 23.5 How to Wait for All Background Tasks?
+### 23.5 如何等待所有后台任务？
+
+**23.5 How to Wait for All Background Tasks?**
 
 === "English"
 
@@ -3856,7 +5664,9 @@
     await asyncio.wait(all_tasks)
     ```
 
-### 23.6 Does a Running Task Stop the Event Loop from Exiting?
+### 23.6 正在运行的任务是否会阻止事件循环退出？
+
+**23.6 Does a Running Task Stop the Event Loop from Exiting?**
 
 === "English"
 
@@ -3878,7 +5688,9 @@
     
     上一个问题/答案准确地展示了如何做到这一点。
 
-### 23.7 How to Show Progress of Running Tasks?
+### 23.7 如何显示运行任务的进度？
+
+**23.7 How to Show Progress of Running Tasks?**
 
 === "English"
 
@@ -3946,7 +5758,9 @@
     task.add_done_callback(progress)
     ```
 
-### 23.8 How to Run a Task After a Delay?
+### 23.8 如何在延迟后运行任务？
+
+**23.8 How to Run a Task After a Delay?**
 
 === "English"
 
@@ -4022,7 +5836,9 @@
     _ = asyncio.create_task(delay(coro, 10))
     ```
 
-### 23.9 How to Run a Follow-Up Task?
+### 23.9 如何运行后续任务？
+
+**23.9 How to Run a Follow-Up Task?**
 
 === "English"
 
@@ -4198,7 +6014,9 @@
     task.add_done_callback(callback)
     ```
 
-### 23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?
+### 23.10 如何在 Asyncio 中执行阻塞 I/O 或 CPU 密集型函数？
+
+**23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?**
 
 === "English"
 
@@ -4330,7 +6148,9 @@
     
     这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。
 
-## 24. Common Objections to Using Asyncio
+## 24. 使用 Asyncio 的常见反对意见
+
+**24. Common Objections to Using Asyncio**
 
 === "English"
 
@@ -4348,149 +6168,246 @@
 
     在本节中，我们将回顾开发人员在考虑使用 asyncio 时遇到的一些常见反对意见。
 
-### 24.1 What About the Global Interpreter Lock (GIL)?
+### 24.1 全局解释器锁 (GIL) 怎么样？
 
-The GIL protects the internals of the Python interpreter from concurrent access and modification from multiple threads.
+**24.1 What About the Global Interpreter Lock (GIL)?**
 
-- GIL 保护 Python 解释器的内部免受多个线程的并发访问和修改。
+=== "English"
 
-The asyncio event loop runs in one thread.
+    The GIL protects the internals of the Python interpreter from concurrent access and modification from multiple threads.
+    
+    The asyncio event loop runs in one thread.
+    
+    This means that all coroutines run in a single thread.
+    
+    As such the GIL is not an issue when using asyncio and coroutine.
 
-- asyncio 事件循环在一个线程中运行。
+=== "Chinese"
 
-This means that all coroutines run in a single thread.
+    GIL 保护 Python 解释器的内部免受多个线程的并发访问和修改。
 
-- 这意味着所有协程都在单个线程中运行。
+    asyncio 事件循环在一个线程中运行。
 
-As such the GIL is not an issue when using asyncio and coroutine.
+    这意味着所有协程都在单个线程中运行。
 
-- 因此，使用 asyncio 和协程时，GIL 不是问题。
+    因此，使用 asyncio 和协程时，GIL 不是问题。
 
-### 24.2 Are Python Coroutines “Real“?
+### 24.2 Python 协程是“真实的”吗？
 
-Coroutines are managed in software.
+**24.2 Are Python Coroutines “Real“?**
 
-- 协程由软件管理。
+=== "English"
 
-Coroutines run and are managed (switched) within the asyncio event loop in the Python runtime.
+    Coroutines are managed in software.
+    
+    Coroutines run and are managed (switched) within the asyncio event loop in the Python runtime.
+    
+    They are not a software representation of a capability provided by the underlying operating system, like threads and processes.
+    
+    In this sense, Python does not have support for “native coroutines”, but I’m not sure such things exist in modern operating systems.
 
-- 协程在 Python 运行时的 **asyncio 事件循环**中运行和管理（切换）。
+=== "Chinese"
 
-They are not a software representation of a capability provided by the underlying operating system, like threads and processes.
+    协程由软件管理。
+    
+    协程在 Python 运行时的 **asyncio 事件循环**中运行和管理（切换）。
+    
+    它们不是底层操作系统级别提供的功能以及软件表示，例如线程和进程。
+    
+    从这个意义上说，Python 不支持“原生协程”，但我不确定现代操作系统中是否存在这样的东西。
 
-- 它们不是底层操作系统级别提供的功能以及软件表示，例如线程和进程。
+### 24.3 Python 的并发性不是有问题吗？
 
-In this sense, Python does not have support for “native coroutines”, but I’m not sure such things exist in modern operating systems.
+**24.3 Isn’t Python Concurrency Buggy?**
 
-- 从这个意义上说，Python 不支持“原生协程”，但我不确定现代操作系统中是否存在这样的东西。
+=== "English"
 
-### 24.3 Isn’t Python Concurrency Buggy?
+    No.
+    
+    Python provides first-class concurrency with coroutines, threads, and processes.
+    
+    It has for a long time now and it is widely used in open source and commercial projects.
 
-No.
+=== "Chinese"
 
-- 不🙅🏻‍♀️。
+    不🙅🏻‍♀️。
+    
+    Python 通过协程、线程和进程提供一流的并发性。
+    
+    它已经存在很长时间了，并且广泛应用于开源和商业项目中。
 
-Python provides first-class concurrency with coroutines, threads, and processes.
+### 24.4 对于并发来说，Python 不是一个糟糕的选择吗？
 
-- Python 通过协程、线程和进程提供一流的并发性。
+**24.4 Isn’t Python a Bad Choice for Concurrency?**
 
-It has for a long time now and it is widely used in open source and commercial projects.
+=== "English"
 
-- 它已经存在很长时间了，并且广泛应用于开源和商业项目中。
+    Developers love python for many reasons, most commonly because it is easy to use and fast for development.
+    
+    Python is commonly used for glue code, one-off scripts, but more and more for large-scale software systems.
+    
+    If you are using Python and then you need concurrency, then you work with what you have. The question is moot.
+    
+    If you need concurrency and you have not chosen a language, perhaps another language would be more appropriate, or perhaps not. Consider the full scope of functional and non-functional requirements (or user needs, wants, and desires) for your project and the capabilities of different development platforms.
 
-### 24.4 Isn’t Python a Bad Choice for Concurrency?
+=== "Chinese"
 
-Developers love python for many reasons, most commonly because it is easy to use and fast for development.
+    开发人员喜爱 Python 的原因有很多，最常见的是因为它易于使用且开发速度快。
+    
+    Python 通常用于粘合代码、一次性脚本，但越来越多地用于大型软件系统。
+    
+    如果您使用 Python 并且需要并发性，那么您可以使用现有的东西。 这个问题毫无意义。
+    
+    如果您需要并发性并且尚未选择一种语言，那么另一种语言可能更合适，也可能不合适。 需要考虑项目的全部功能和非功能需求（或用户的需求、想法和愿望）以及不同开发平台的功能。
 
-- 开发人员喜爱 Python 的原因有很多，最常见的是因为它易于使用且开发速度快。
+### 25.5 为什么不使用线程来代替？
 
-Python is commonly used for glue code, one-off scripts, but more and more for large-scale software systems.
+**25.5 Why Not Use Threads Instead?**
 
-- Python 通常用于粘合代码、一次性脚本，但越来越多地用于大型软件系统。
+=== "English"
 
-If you are using Python and then you need concurrency, then you work with what you have. The question is moot.
+    You can use threads instead of asyncio.
+    
+    Any program developed using threads can be rewritten to use asyncio and coroutines.
+    
+    Any program developed using coroutines and asyncio can be rewritten to use threads.
+    
+    Adopting asyncio in a project is a choice, the rationale is yours.
+    
+    For the most part, they are **functionally equivalent.**（功能等效）
+    
+    Many use cases will execute faster using threads and may be more familiar(亲切) to a wider array of Python developers.
+    
+    Some use cases in the areas of network programming and executing system commands may be simpler(最简单) (less code) when using asyncio, and significantly more scalable than using threads.
 
-- 如果您使用 Python 并且需要并发性，那么您可以使用现有的东西。 这个问题毫无意义。
+=== "Chinese"
 
-If you need concurrency and you have not chosen a language, perhaps another language would be more appropriate, or perhaps not. Consider the full scope of functional and non-functional requirements (or user needs, wants, and desires) for your project and the capabilities of different development platforms.
+    - 您可以使用线程而不是异步。
+    
+    - 任何使用**线程**开发的程序都可以使用 **asyncio 和协程**重写。
+    
+    - 任何使用**协程和 asyncio** 开发的程序都可以使用**线程**重写。
+    
+    - 在项目中采用 asyncio 是一种选择，其理由由您决定。
+    
+    - 在大多数情况下，它们在功能上是等效的。
+    
+    - 许多用例使用线程将执行得更快，并且可能为更广泛的 Python 开发人员所熟悉。
+    
+    - 使用 asyncio 时，网络编程和执行系统命令领域的一些用例可能会更简单（最简单）（代码更少），并且比使用线程更具可扩展性。
 
-- 如果您需要并发性并且尚未选择一种语言，那么另一种语言可能更合适，也可能不合适。 需要考虑项目的全部功能和非功能需求（或用户的需求、想法和愿望）以及不同开发平台的功能。
+## 25. 进一步阅读
 
-### 25.5 Why Not Use Threads Instead?
+**25. Further Reading**
 
-You can use threads instead of asyncio.
+=== "English"
 
-- 您可以使用线程而不是异步。
+    This section lists helpful additional resources on the topic.
 
-Any program developed using threads can be rewritten to use asyncio and coroutines.
+=== "Chinese"
 
-- 任何使用**线程**开发的程序都可以使用 **asyncio 和协程**重写。
+    本节列出了有关该主题的有用的其他资源。
 
-Any program developed using coroutines and asyncio can be rewritten to use threads.
+### 25.1 Python 异步书籍
 
-- 任何使用**协程和 asyncio** 开发的程序都可以使用**线程**重写。
+**25.1 Python Asyncio Books**
 
-Adopting asyncio in a project is a choice, the rationale is yours.
+=== "English"
 
-- 在项目中采用 asyncio 是一种选择，其理由由您决定。
+    This section lists my books on Python asyncio, designed to help you get started and get good, super fast.
+    
+    - [Python Asyncio Jump-Start](https://superfastpython.com/paj-further-reading), Jason Brownlee, 2022. (my book!)
+    - [Python Asyncio Interview Questions](https://amzn.to/3XFEZgj)
+    - [Asyncio Module API Cheat Sheet](https://superfastpython.gumroad.com/l/pacs)
+    
+    Other books on asyncio include:
+    
+    - [Python Concurrency with asyncio](https://amzn.to/3LZvxNn), Matthew Fowler, 2022.
+    - [Using Asyncio in Python](https://amzn.to/3lNp2ml), Caleb Hattingh, 2020.
 
-For the most part, they are **functionally equivalent.**（功能等效）
+=== "Chinese"
 
-- 在大多数情况下，它们在功能上是等效的。
-
-Many use cases will execute faster using threads and may be more familiar(亲切) to a wider array of Python developers.
-
-- 许多用例使用线程将执行得更快，并且可能为更广泛的 Python 开发人员所熟悉。
-
-Some use cases in the areas of network programming and executing system commands may be simpler(最简单) (less code) when using asyncio, and significantly more scalable than using threads.
-
-- 使用 asyncio 时，网络编程和执行系统命令领域的一些用例可能会更简单（最简单）（代码更少），并且比使用线程更具可扩展性。
-
-## 25. Further Reading
-
-This section lists helpful additional resources on the topic.
-
-### 25.1 Python Asyncio Books
-
-This section lists my books on Python asyncio, designed to help you get started and get good, super fast.
-
-- [Python Asyncio Jump-Start](https://superfastpython.com/paj-further-reading), Jason Brownlee, 2022. (my book!)
-- [Python Asyncio Interview Questions](https://amzn.to/3XFEZgj)
-- [Asyncio Module API Cheat Sheet](https://superfastpython.gumroad.com/l/pacs)
-
-Other books on asyncio include:
-
-- [Python Concurrency with asyncio](https://amzn.to/3LZvxNn), Matthew Fowler, 2022.
-- [Using Asyncio in Python](https://amzn.to/3lNp2ml), Caleb Hattingh, 2020.
+    本节列出了我有关 Python asyncio 的书籍，旨在帮助您快速入门并获得良好的效果。
+    
+    - [Python Asyncio Jump-Start](https://superfastpython.com/paj-further-reading), Jason Brownlee, 2022. (my book!)
+    - [Python Asyncio Interview Questions](https://amzn.to/3XFEZgj)
+    - [Asyncio Module API Cheat Sheet](https://superfastpython.gumroad.com/l/pacs)
+    
+    其他关于 asyncio 的书籍包括：
+    
+    - [Python Concurrency with asyncio](https://amzn.to/3LZvxNn), Matthew Fowler, 2022.
+    - [Using Asyncio in Python](https://amzn.to/3lNp2ml), Caleb Hattingh, 2020.
 
 ### 25.2 APIs
 
-- [asyncio — Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)
-- [Asyncio Coroutines and Tasks](https://docs.python.org/3/library/asyncio-task.html)
-- [Asyncio Streams](https://docs.python.org/3/library/asyncio-stream.html)
-- [Asyncio Subprocesses](https://docs.python.org/3/library/asyncio-subprocess.html)
-- [Asyncio Queues](https://docs.python.org/3/library/asyncio-queue.html)
-- [Asyncio Synchronization Primitives](https://docs.python.org/3/library/asyncio-sync.html)
+=== "English"
 
-### 25.3 References
+    - [asyncio — Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)
+    - [Asyncio Coroutines and Tasks](https://docs.python.org/3/library/asyncio-task.html)
+    - [Asyncio Streams](https://docs.python.org/3/library/asyncio-stream.html)
+    - [Asyncio Subprocesses](https://docs.python.org/3/library/asyncio-subprocess.html)
+    - [Asyncio Queues](https://docs.python.org/3/library/asyncio-queue.html)
+    - [Asyncio Synchronization Primitives](https://docs.python.org/3/library/asyncio-sync.html)
 
-- [Asynchronous I/O, Wikipedia.](https://en.wikipedia.org/wiki/Asynchronous_I/O)
-- [Coroutine, Wikipedia.](https://en.wikipedia.org/wiki/Coroutine)
+=== "Chinese"
 
-## 26. Conclusions
+    - [asyncio — Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)
+    - [Asyncio Coroutines and Tasks](https://docs.python.org/3/library/asyncio-task.html)
+    - [Asyncio Streams](https://docs.python.org/3/library/asyncio-stream.html)
+    - [Asyncio Subprocesses](https://docs.python.org/3/library/asyncio-subprocess.html)
+    - [Asyncio Queues](https://docs.python.org/3/library/asyncio-queue.html)
+    - [Asyncio Synchronization Primitives](https://docs.python.org/3/library/asyncio-sync.html)
 
-This is a large guide, and you have discovered in great detail how asyncio and coroutines work in Python and how to best use them in your project.
+### 25.3 参考
 
-**Did you find this guide useful?**
+**25.3 References**
 
-I’d love to know, please share a kind word in the comments below.
+=== "English"
 
-**Have you used asyncio on a project?**
+    - [Asynchronous I/O, Wikipedia.](https://en.wikipedia.org/wiki/Asynchronous_I/O)
+    - [Coroutine, Wikipedia.](https://en.wikipedia.org/wiki/Coroutine)
 
-I’d love to hear about it, please let me know in the comments.
+=== "Chinese"
 
-**Do you have any questions?**
+    - [Asynchronous I/O, Wikipedia.](https://en.wikipedia.org/wiki/Asynchronous_I/O)
+    - [Coroutine, Wikipedia.](https://en.wikipedia.org/wiki/Coroutine)
 
-Leave your question in a comment below and I will reply fast with my best advice.
+## 26. 结论
 
-Join the discussion on [reddit](https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/) and [hackernews](https://news.ycombinator.com/item?id=33547323).
+**26. Conclusions**
+
+=== "English"
+
+    This is a large guide, and you have discovered in great detail how asyncio and coroutines work in Python and how to best use them in your project.
+    
+    **Did you find this guide useful?**
+    
+    I’d love to know, please share a kind word in the comments below.
+    
+    **Have you used asyncio on a project?**
+    
+    I’d love to hear about it, please let me know in the comments.
+    
+    **Do you have any questions?**
+    
+    Leave your question in a comment below and I will reply fast with my best advice.
+    
+    Join the discussion on [reddit](https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/) and [hackernews](https://news.ycombinator.com/item?id=33547323).
+
+=== "Chinese"
+
+    这是一本很大的指南，您已经详细了解了 asyncio 和协程如何在 Python 中工作以及如何在您的项目中最好地使用它们。
+    
+    **您觉得本指南有用吗？**
+    
+    我很想知道，请在下面的评论中分享一句好话。
+    
+    **你在项目中使用过 asyncio 吗？**
+    
+    我很想听听，请在评论中告诉我。
+    
+    **你有任何问题吗？**
+    
+    在下面的评论中留下您的问题，我会快速回复并提供我最好的建议。
+    
+    在 [reddit](https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/) 和 [hackernews](https://news.ycombinator.com/item?id=33547323) 中加入讨论。
