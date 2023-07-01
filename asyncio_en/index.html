@@ -17,7 +17,7 @@
         <link rel="next" href="../network/internet_protocol_suite_part_i/">
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.26e3688c.min.css">
       
       
 
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#python-asyncio-the-complete-guide" class="md-skip">
+        <a href="#python-asyncio-完整指南" class="md-skip">
           跳转至
         </a>
       
@@ -477,30 +477,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-what-is-asynchronous-programming" class="md-nav__link">
-    1. What is Asynchronous Programming
+  <a href="#1-什么是异步编程" class="md-nav__link">
+    1. 什么是异步编程
   </a>
   
-    <nav class="md-nav" aria-label="1. What is Asynchronous Programming">
+    <nav class="md-nav" aria-label="1. 什么是异步编程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-asynchronous-tasks" class="md-nav__link">
-    1.1 Asynchronous Tasks
+  <a href="#11-异步任务" class="md-nav__link">
+    1.1 异步任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12-asynchronous-programming" class="md-nav__link">
-    1.2 Asynchronous Programming
+  <a href="#12-异步编程" class="md-nav__link">
+    1.2 异步编程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#13-asynchronous-programming-in-python" class="md-nav__link">
-    1.3 Asynchronous Programming in Python
+  <a href="#13-python-异步编程" class="md-nav__link">
+    1.3 Python 异步编程
   </a>
   
 </li>
@@ -511,23 +511,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-what-is-asyncio" class="md-nav__link">
-    2. What is Asyncio
+  <a href="#2-asyncio-是什么" class="md-nav__link">
+    2. Asyncio 是什么
   </a>
   
-    <nav class="md-nav" aria-label="2. What is Asyncio">
+    <nav class="md-nav" aria-label="2. Asyncio 是什么">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21-changes-to-python-to-add-support-for-coroutines" class="md-nav__link">
-    2.1 Changes to Python to add Support for Coroutines
+  <a href="#21-对-python-进行更改以添加对协程的支持" class="md-nav__link">
+    2.1 对 Python 进行更改以添加对协程的支持
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-the-asyncio-module" class="md-nav__link">
-    2.2 The asyncio Module
+  <a href="#22-asyncio-模块" class="md-nav__link">
+    2.2 asyncio 模块
   </a>
   
 </li>
@@ -538,30 +538,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-when-to-use-asyncio" class="md-nav__link">
-    3. When to Use Asyncio
+  <a href="#3-asyncio-在什么时候使用" class="md-nav__link">
+    3. Asyncio 在什么时候使用
   </a>
   
-    <nav class="md-nav" aria-label="3. When to Use Asyncio">
+    <nav class="md-nav" aria-label="3. Asyncio 在什么时候使用">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-reasons-to-use-asyncio-in-python" class="md-nav__link">
-    3.1 Reasons to Use Asyncio in Python
+  <a href="#31-使用python-asyncio的原因" class="md-nav__link">
+    3.1 使用Python Asyncio的原因
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 使用Python Asyncio的原因">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-原因-1-使用协程" class="md-nav__link">
+    3.1.1 原因 1: 使用协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-other-reasons-to-use-asyncio" class="md-nav__link">
-    3.2 Other Reasons to Use Asyncio
+  <a href="#312-原因-2-使用异步编程" class="md-nav__link">
+    3.1.2 原因 2: 使用异步编程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-when-to-not-use-asyncio" class="md-nav__link">
-    3.3 When to Not Use Asyncio
+  <a href="#313-原因-3-使用非阻塞io" class="md-nav__link">
+    3.1.3 原因 3: 使用非阻塞I/O
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-使用asyncio的其他原因" class="md-nav__link">
+    3.2 使用Asyncio的其他原因
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-asyncio在什么时候不适用" class="md-nav__link">
+    3.3 Asyncio在什么时候不适用
   </a>
   
 </li>
@@ -572,58 +599,58 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-coroutines-in-python" class="md-nav__link">
-    4. Coroutines in Python
+  <a href="#4-python-中的协程" class="md-nav__link">
+    4. Python 中的协程
   </a>
   
-    <nav class="md-nav" aria-label="4. Coroutines in Python">
+    <nav class="md-nav" aria-label="4. Python 中的协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-what-is-a-coroutine" class="md-nav__link">
-    4.1 What is a Coroutine
+  <a href="#41-什么是协程" class="md-nav__link">
+    4.1 什么是协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42-coroutine-vs-routine-and-subroutine" class="md-nav__link">
-    4.2 Coroutine vs Routine and Subroutine
+  <a href="#42-协程与例程和子例程" class="md-nav__link">
+    4.2 协程与例程和子例程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#43-coroutine-vs-generator" class="md-nav__link">
-    4.3 Coroutine vs Generator
+  <a href="#43-协程与生成器" class="md-nav__link">
+    4.3 协程与生成器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#44-coroutine-vs-task" class="md-nav__link">
-    4.4 Coroutine vs Task
+  <a href="#44-协程与任务" class="md-nav__link">
+    4.4 协程与任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#45-coroutine-vs-thread" class="md-nav__link">
-    4.5 Coroutine vs Thread
+  <a href="#45-协程与线程" class="md-nav__link">
+    4.5 协程与线程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#46-coroutine-vs-process" class="md-nav__link">
-    4.6 Coroutine vs Process
+  <a href="#46-协程与进程" class="md-nav__link">
+    4.6 协程与进程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#47-when-were-coroutines-added-to-python" class="md-nav__link">
-    4.7 When Were Coroutines Added to Python
+  <a href="#47-python-何时添加了协程" class="md-nav__link">
+    4.7 Python 何时添加了协程
   </a>
   
 </li>
@@ -634,30 +661,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-define-create-and-run-coroutines" class="md-nav__link">
-    5. Define, Create and Run Coroutines
+  <a href="#5-定义创建和运行协程" class="md-nav__link">
+    5. 定义、创建和运行协程
   </a>
   
-    <nav class="md-nav" aria-label="5. Define, Create and Run Coroutines">
+    <nav class="md-nav" aria-label="5. 定义、创建和运行协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-how-to-define-a-coroutine" class="md-nav__link">
-    5.1 How to Define a Coroutine
+  <a href="#51-如何定义协程" class="md-nav__link">
+    5.1 如何定义协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#52-how-to-create-a-coroutine" class="md-nav__link">
-    5.2 How to Create a Coroutine
+  <a href="#52-如何创建协程" class="md-nav__link">
+    5.2 如何创建协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#53-how-to-run-a-coroutine-from-python" class="md-nav__link">
-    5.3 How to Run a Coroutine From Python
+  <a href="#53-python中如何运行协程" class="md-nav__link">
+    5.3 Python中如何运行协程
   </a>
   
 </li>
@@ -668,37 +695,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-what-is-the-event-loop" class="md-nav__link">
-    6. What is the Event Loop
+  <a href="#6-事件循环是什么" class="md-nav__link">
+    6. 事件循环是什么
   </a>
   
-    <nav class="md-nav" aria-label="6. What is the Event Loop">
+    <nav class="md-nav" aria-label="6. 事件循环是什么">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#61-what-is-the-asyncio-event-loop" class="md-nav__link">
-    6.1 What is the Asyncio Event Loop
+  <a href="#61-asyncio-的事件循环是什么" class="md-nav__link">
+    6.1 Asyncio 的事件循环是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#62-how-to-start-and-get-an-event-loop" class="md-nav__link">
-    6.2 How To Start and Get An Event Loop
+  <a href="#62-事件循环如何获取和启动" class="md-nav__link">
+    6.2 事件循环如何获取和启动
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#63-what-is-an-event-loop-object" class="md-nav__link">
-    6.3 What is an Event Loop Object
+  <a href="#63-事件循环对象是什么" class="md-nav__link">
+    6.3 事件循环对象是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#64-why-get-access-to-the-event-loop" class="md-nav__link">
-    6.4 Why Get Access to The Event Loop
+  <a href="#64-为什么要访问事件循环" class="md-nav__link">
+    6.4 为什么要访问事件循环
   </a>
   
 </li>
@@ -709,30 +736,50 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-create-and-run-asyncio-tasks" class="md-nav__link">
-    7. Create and Run Asyncio Tasks
+  <a href="#7-asyncio-任务的创建和运行" class="md-nav__link">
+    7. Asyncio 任务的创建和运行
   </a>
   
-    <nav class="md-nav" aria-label="7. Create and Run Asyncio Tasks">
+    <nav class="md-nav" aria-label="7. Asyncio 任务的创建和运行">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#71-what-is-an-asyncio-task" class="md-nav__link">
-    7.1 What is an Asyncio Task
+  <a href="#71-asyncio-任务是什么" class="md-nav__link">
+    7.1 Asyncio 任务是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#72-how-to-create-a-task" class="md-nav__link">
-    7.2 How to Create a Task
+  <a href="#72-怎么创建任务" class="md-nav__link">
+    7.2 怎么创建任务
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 怎么创建任务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-使用高级-api-创建任务" class="md-nav__link">
+    7.2.1 使用高级 API 创建任务
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-使用低级-api-创建任务" class="md-nav__link">
+    7.2.2 使用低级 API 创建任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#73-when-does-a-task-run" class="md-nav__link">
-    7.3 When Does a Task Run?
+  <a href="#73-何时运行任务" class="md-nav__link">
+    7.3 何时运行任务？
   </a>
   
 </li>
@@ -743,58 +790,78 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-work-with-and-query-tasks" class="md-nav__link">
-    8. Work With and Query Tasks
+  <a href="#8-使用和查询任务" class="md-nav__link">
+    8. 使用和查询任务
   </a>
   
-    <nav class="md-nav" aria-label="8. Work With and Query Tasks">
+    <nav class="md-nav" aria-label="8. 使用和查询任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#81-task-life-cycle" class="md-nav__link">
-    8.1 Task Life-Cycle
+  <a href="#81-任务的生命周期" class="md-nav__link">
+    8.1 任务的生命周期
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#82-how-to-check-task-status" class="md-nav__link">
-    8.2 How to Check Task Status
+  <a href="#82-如何检查任务的状态" class="md-nav__link">
+    8.2 如何检查任务的状态
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 如何检查任务的状态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-检查任务是否完成" class="md-nav__link">
+    8.2.1 检查任务是否完成
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#83-how-to-get-task-result" class="md-nav__link">
-    8.3 How to Get Task Result
+  <a href="#822-检查任务是否被取消" class="md-nav__link">
+    8.2.2 检查任务是否被取消
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-如何获取任务结果" class="md-nav__link">
+    8.3 如何获取任务结果
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#84-how-to-get-task-exception" class="md-nav__link">
-    8.4 How to Get Task Exception
+  <a href="#84-如何获取任务异常" class="md-nav__link">
+    8.4 如何获取任务异常
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#85-how-to-cancel-a-task" class="md-nav__link">
-    8.5 How to Cancel a Task
+  <a href="#85-如何取消任务" class="md-nav__link">
+    8.5 如何取消任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#86-how-to-use-callback-with-a-task" class="md-nav__link">
-    8.6 How to Use Callback With a Task
+  <a href="#86-如何在任务中使用回调" class="md-nav__link">
+    8.6 如何在任务中使用回调
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#87-how-to-set-the-task-name" class="md-nav__link">
-    8.7 How to Set the Task Name
+  <a href="#87-如何设置任务名称" class="md-nav__link">
+    8.7 如何设置任务名称
   </a>
   
 </li>
@@ -805,23 +872,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-current-and-running-tasks" class="md-nav__link">
-    9. Current and Running Tasks
+  <a href="#9-当前和正在运行的任务" class="md-nav__link">
+    9. 当前和正在运行的任务
   </a>
   
-    <nav class="md-nav" aria-label="9. Current and Running Tasks">
+    <nav class="md-nav" aria-label="9. 当前和正在运行的任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#91-how-to-get-the-current-task" class="md-nav__link">
-    9.1 How to Get the Current Task
+  <a href="#91-如何获取当前任务" class="md-nav__link">
+    9.1 如何获取当前任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#92-how-to-get-all-tasks" class="md-nav__link">
-    9.2 How to Get All Tasks
+  <a href="#92-如何获取所有任务" class="md-nav__link">
+    9.2 如何获取所有任务
   </a>
   
 </li>
@@ -832,30 +899,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-run-many-coroutines-concurrently" class="md-nav__link">
-    10. Run Many Coroutines Concurrently
+  <a href="#10-同时运行多个协程" class="md-nav__link">
+    10. 同时运行多个协程
   </a>
   
-    <nav class="md-nav" aria-label="10. Run Many Coroutines Concurrently">
+    <nav class="md-nav" aria-label="10. 同时运行多个协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#101-what-is-asyncio-gather" class="md-nav__link">
-    10.1 What is Asyncio gather()
+  <a href="#101-什么是-asyncio-gather" class="md-nav__link">
+    10.1 什么是 Asyncio Gather()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#102-how-to-use-asyncio-gather" class="md-nav__link">
-    10.2 How to use Asyncio gather()
+  <a href="#102-如何使用-asyncio-gather" class="md-nav__link">
+    10.2 如何使用 Asyncio Gather()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#103-example-of-gather-for-many-coroutines-in-a-list" class="md-nav__link">
-    10.3 Example of gather() For Many Coroutines in a List
+  <a href="#103-对于列表中的多个协程的-gather-示例" class="md-nav__link">
+    10.3 对于列表中的多个协程的 Gather() 示例
   </a>
   
 </li>
@@ -866,30 +933,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#11-wait-for-a-collection-of-tasks" class="md-nav__link">
-    11. Wait for A Collection of Tasks
+  <a href="#11-等待任务的集合" class="md-nav__link">
+    11. 等待任务的集合
   </a>
   
-    <nav class="md-nav" aria-label="11. Wait for A Collection of Tasks">
+    <nav class="md-nav" aria-label="11. 等待任务的集合">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#111-what-is-asynciowait" class="md-nav__link">
-    11.1 What is asyncio.wait()
+  <a href="#111-什么是-asynciowait" class="md-nav__link">
+    11.1 什么是 asyncio.wait()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#112-how-to-use-asynciowait" class="md-nav__link">
-    11.2 How to Use asyncio.wait()
+  <a href="#112-如何使用-asynciowait" class="md-nav__link">
+    11.2 如何使用 asyncio.wait()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#113-example-of-waiting-for-all-tasks" class="md-nav__link">
-    11.3 Example of Waiting for All Tasks
+  <a href="#113-等待所有任务的示例" class="md-nav__link">
+    11.3 等待所有任务的示例
   </a>
   
 </li>
@@ -900,30 +967,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#12-wait-for-a-coroutine-with-a-time-limit" class="md-nav__link">
-    12. Wait for a Coroutine with a Time Limit
+  <a href="#12-等待有时间限制的协程" class="md-nav__link">
+    12. 等待有时间限制的协程
   </a>
   
-    <nav class="md-nav" aria-label="12. Wait for a Coroutine with a Time Limit">
+    <nav class="md-nav" aria-label="12. 等待有时间限制的协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#121-what-is-asyncio-wait_for" class="md-nav__link">
-    12.1 What is Asyncio wait_for()
+  <a href="#121-什么是-asyncio-wait_for" class="md-nav__link">
+    12.1 什么是 Asyncio wait_for()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#122-how-to-use-asyncio-wait_for" class="md-nav__link">
-    12.2 How to Use Asyncio wait_for()
+  <a href="#122-如何使用-asyncio-wait_for" class="md-nav__link">
+    12.2 如何使用 Asyncio wait_for()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#123-example-of-asyncio-wait_for-with-a-timeout" class="md-nav__link">
-    12.3 Example of Asyncio wait_for() With a Timeout
+  <a href="#123-带有超时的-asyncio-wait_for-示例" class="md-nav__link">
+    12.3 带有超时的 Asyncio wait_for() 示例
   </a>
   
 </li>
@@ -934,30 +1001,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#13-shield-tasks-from-cancellation" class="md-nav__link">
-    13. Shield Tasks from Cancellation
+  <a href="#13-防止任务被取消" class="md-nav__link">
+    13. 防止任务被取消
   </a>
   
-    <nav class="md-nav" aria-label="13. Shield Tasks from Cancellation">
+    <nav class="md-nav" aria-label="13. 防止任务被取消">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#131-what-is-asyncio-shield" class="md-nav__link">
-    13.1 What is Asyncio shield()
+  <a href="#131-什么是-asyncio-shield" class="md-nav__link">
+    13.1 什么是 Asyncio shield()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#132-how-to-use-asyncio-shield" class="md-nav__link">
-    13.2 How to Use Asyncio shield()
+  <a href="#132-如何使用-asyncioshield" class="md-nav__link">
+    13.2 如何使用 Asyncioshield()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#133-example-of-asyncio-shield-for-a-task" class="md-nav__link">
-    13.3 Example of Asyncio shield() for a Task
+  <a href="#133-任务的-asyncioshield-示例" class="md-nav__link">
+    13.3 任务的 Asyncioshield() 示例
   </a>
   
 </li>
@@ -968,30 +1035,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#14-run-a-blocking-task-in-asyncio" class="md-nav__link">
-    14. Run a Blocking Task in Asyncio
+  <a href="#14-在-asyncio-中运行阻塞任务" class="md-nav__link">
+    14. 在 Asyncio 中运行阻塞任务
   </a>
   
-    <nav class="md-nav" aria-label="14. Run a Blocking Task in Asyncio">
+    <nav class="md-nav" aria-label="14. 在 Asyncio 中运行阻塞任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#141-need-to-run-blocking-tasks-in-asyncio" class="md-nav__link">
-    14.1 Need to Run Blocking Tasks in Asyncio
+  <a href="#141-需要在-asyncio-中运行阻塞任务" class="md-nav__link">
+    14.1 需要在 Asyncio 中运行阻塞任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#142-how-to-run-blocking-tasks" class="md-nav__link">
-    14.2 How to Run Blocking Tasks
+  <a href="#142-如何运行阻塞任务" class="md-nav__link">
+    14.2 如何运行阻塞任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" class="md-nav__link">
-    14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+  <a href="#143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例" class="md-nav__link">
+    14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例
   </a>
   
 </li>
@@ -1002,37 +1069,91 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#15-asynchronous-iterators" class="md-nav__link">
-    15. Asynchronous Iterators
+  <a href="#15-异步迭代器" class="md-nav__link">
+    15. 异步迭代器
   </a>
   
-    <nav class="md-nav" aria-label="15. Asynchronous Iterators">
+    <nav class="md-nav" aria-label="15. 异步迭代器">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#151-what-are-asynchronous-iterators" class="md-nav__link">
-    15.1 What Are Asynchronous Iterators
+  <a href="#151-什么是异步迭代器" class="md-nav__link">
+    15.1 什么是异步迭代器
+  </a>
+  
+    <nav class="md-nav" aria-label="15.1 什么是异步迭代器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1511-迭代器" class="md-nav__link">
+    15.1.1 迭代器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#152-what-is-the-async-for-loop" class="md-nav__link">
-    15.2 What is the “async for” loop?
+  <a href="#1512-异步迭代器" class="md-nav__link">
+    15.1.2 异步迭代器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-什么是async-for循环" class="md-nav__link">
+    15.2 什么是“async for”循环？
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#153-how-to-use-asynchronous-iterators" class="md-nav__link">
-    15.3 How to Use Asynchronous Iterators
+  <a href="#153-如何使用异步迭代器" class="md-nav__link">
+    15.3 如何使用异步迭代器
+  </a>
+  
+    <nav class="md-nav" aria-label="15.3 如何使用异步迭代器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1531-定义异步迭代器" class="md-nav__link">
+    15.3.1 定义异步迭代器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#154-example-of-an-asynchronous-iterator" class="md-nav__link">
-    15.4 Example of an Asynchronous Iterator
+  <a href="#1532-创建异步迭代器" class="md-nav__link">
+    15.3.2 创建异步迭代器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1533-单步执行异步迭代器" class="md-nav__link">
+    15.3.3 单步执行异步迭代器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1534-遍历异步迭代器" class="md-nav__link">
+    15.3.4 遍历异步迭代器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-异步迭代器的示例" class="md-nav__link">
+    15.4 异步迭代器的示例
   </a>
   
 </li>
@@ -2102,30 +2223,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-what-is-asynchronous-programming" class="md-nav__link">
-    1. What is Asynchronous Programming
+  <a href="#1-什么是异步编程" class="md-nav__link">
+    1. 什么是异步编程
   </a>
   
-    <nav class="md-nav" aria-label="1. What is Asynchronous Programming">
+    <nav class="md-nav" aria-label="1. 什么是异步编程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#11-asynchronous-tasks" class="md-nav__link">
-    1.1 Asynchronous Tasks
+  <a href="#11-异步任务" class="md-nav__link">
+    1.1 异步任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#12-asynchronous-programming" class="md-nav__link">
-    1.2 Asynchronous Programming
+  <a href="#12-异步编程" class="md-nav__link">
+    1.2 异步编程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#13-asynchronous-programming-in-python" class="md-nav__link">
-    1.3 Asynchronous Programming in Python
+  <a href="#13-python-异步编程" class="md-nav__link">
+    1.3 Python 异步编程
   </a>
   
 </li>
@@ -2136,23 +2257,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-what-is-asyncio" class="md-nav__link">
-    2. What is Asyncio
+  <a href="#2-asyncio-是什么" class="md-nav__link">
+    2. Asyncio 是什么
   </a>
   
-    <nav class="md-nav" aria-label="2. What is Asyncio">
+    <nav class="md-nav" aria-label="2. Asyncio 是什么">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#21-changes-to-python-to-add-support-for-coroutines" class="md-nav__link">
-    2.1 Changes to Python to add Support for Coroutines
+  <a href="#21-对-python-进行更改以添加对协程的支持" class="md-nav__link">
+    2.1 对 Python 进行更改以添加对协程的支持
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-the-asyncio-module" class="md-nav__link">
-    2.2 The asyncio Module
+  <a href="#22-asyncio-模块" class="md-nav__link">
+    2.2 asyncio 模块
   </a>
   
 </li>
@@ -2163,30 +2284,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-when-to-use-asyncio" class="md-nav__link">
-    3. When to Use Asyncio
+  <a href="#3-asyncio-在什么时候使用" class="md-nav__link">
+    3. Asyncio 在什么时候使用
   </a>
   
-    <nav class="md-nav" aria-label="3. When to Use Asyncio">
+    <nav class="md-nav" aria-label="3. Asyncio 在什么时候使用">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-reasons-to-use-asyncio-in-python" class="md-nav__link">
-    3.1 Reasons to Use Asyncio in Python
+  <a href="#31-使用python-asyncio的原因" class="md-nav__link">
+    3.1 使用Python Asyncio的原因
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 使用Python Asyncio的原因">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311-原因-1-使用协程" class="md-nav__link">
+    3.1.1 原因 1: 使用协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-other-reasons-to-use-asyncio" class="md-nav__link">
-    3.2 Other Reasons to Use Asyncio
+  <a href="#312-原因-2-使用异步编程" class="md-nav__link">
+    3.1.2 原因 2: 使用异步编程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-when-to-not-use-asyncio" class="md-nav__link">
-    3.3 When to Not Use Asyncio
+  <a href="#313-原因-3-使用非阻塞io" class="md-nav__link">
+    3.1.3 原因 3: 使用非阻塞I/O
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-使用asyncio的其他原因" class="md-nav__link">
+    3.2 使用Asyncio的其他原因
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-asyncio在什么时候不适用" class="md-nav__link">
+    3.3 Asyncio在什么时候不适用
   </a>
   
 </li>
@@ -2197,58 +2345,58 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-coroutines-in-python" class="md-nav__link">
-    4. Coroutines in Python
+  <a href="#4-python-中的协程" class="md-nav__link">
+    4. Python 中的协程
   </a>
   
-    <nav class="md-nav" aria-label="4. Coroutines in Python">
+    <nav class="md-nav" aria-label="4. Python 中的协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#41-what-is-a-coroutine" class="md-nav__link">
-    4.1 What is a Coroutine
+  <a href="#41-什么是协程" class="md-nav__link">
+    4.1 什么是协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#42-coroutine-vs-routine-and-subroutine" class="md-nav__link">
-    4.2 Coroutine vs Routine and Subroutine
+  <a href="#42-协程与例程和子例程" class="md-nav__link">
+    4.2 协程与例程和子例程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#43-coroutine-vs-generator" class="md-nav__link">
-    4.3 Coroutine vs Generator
+  <a href="#43-协程与生成器" class="md-nav__link">
+    4.3 协程与生成器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#44-coroutine-vs-task" class="md-nav__link">
-    4.4 Coroutine vs Task
+  <a href="#44-协程与任务" class="md-nav__link">
+    4.4 协程与任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#45-coroutine-vs-thread" class="md-nav__link">
-    4.5 Coroutine vs Thread
+  <a href="#45-协程与线程" class="md-nav__link">
+    4.5 协程与线程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#46-coroutine-vs-process" class="md-nav__link">
-    4.6 Coroutine vs Process
+  <a href="#46-协程与进程" class="md-nav__link">
+    4.6 协程与进程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#47-when-were-coroutines-added-to-python" class="md-nav__link">
-    4.7 When Were Coroutines Added to Python
+  <a href="#47-python-何时添加了协程" class="md-nav__link">
+    4.7 Python 何时添加了协程
   </a>
   
 </li>
@@ -2259,30 +2407,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-define-create-and-run-coroutines" class="md-nav__link">
-    5. Define, Create and Run Coroutines
+  <a href="#5-定义创建和运行协程" class="md-nav__link">
+    5. 定义、创建和运行协程
   </a>
   
-    <nav class="md-nav" aria-label="5. Define, Create and Run Coroutines">
+    <nav class="md-nav" aria-label="5. 定义、创建和运行协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51-how-to-define-a-coroutine" class="md-nav__link">
-    5.1 How to Define a Coroutine
+  <a href="#51-如何定义协程" class="md-nav__link">
+    5.1 如何定义协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#52-how-to-create-a-coroutine" class="md-nav__link">
-    5.2 How to Create a Coroutine
+  <a href="#52-如何创建协程" class="md-nav__link">
+    5.2 如何创建协程
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#53-how-to-run-a-coroutine-from-python" class="md-nav__link">
-    5.3 How to Run a Coroutine From Python
+  <a href="#53-python中如何运行协程" class="md-nav__link">
+    5.3 Python中如何运行协程
   </a>
   
 </li>
@@ -2293,37 +2441,37 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-what-is-the-event-loop" class="md-nav__link">
-    6. What is the Event Loop
+  <a href="#6-事件循环是什么" class="md-nav__link">
+    6. 事件循环是什么
   </a>
   
-    <nav class="md-nav" aria-label="6. What is the Event Loop">
+    <nav class="md-nav" aria-label="6. 事件循环是什么">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#61-what-is-the-asyncio-event-loop" class="md-nav__link">
-    6.1 What is the Asyncio Event Loop
+  <a href="#61-asyncio-的事件循环是什么" class="md-nav__link">
+    6.1 Asyncio 的事件循环是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#62-how-to-start-and-get-an-event-loop" class="md-nav__link">
-    6.2 How To Start and Get An Event Loop
+  <a href="#62-事件循环如何获取和启动" class="md-nav__link">
+    6.2 事件循环如何获取和启动
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#63-what-is-an-event-loop-object" class="md-nav__link">
-    6.3 What is an Event Loop Object
+  <a href="#63-事件循环对象是什么" class="md-nav__link">
+    6.3 事件循环对象是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#64-why-get-access-to-the-event-loop" class="md-nav__link">
-    6.4 Why Get Access to The Event Loop
+  <a href="#64-为什么要访问事件循环" class="md-nav__link">
+    6.4 为什么要访问事件循环
   </a>
   
 </li>
@@ -2334,30 +2482,50 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-create-and-run-asyncio-tasks" class="md-nav__link">
-    7. Create and Run Asyncio Tasks
+  <a href="#7-asyncio-任务的创建和运行" class="md-nav__link">
+    7. Asyncio 任务的创建和运行
   </a>
   
-    <nav class="md-nav" aria-label="7. Create and Run Asyncio Tasks">
+    <nav class="md-nav" aria-label="7. Asyncio 任务的创建和运行">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#71-what-is-an-asyncio-task" class="md-nav__link">
-    7.1 What is an Asyncio Task
+  <a href="#71-asyncio-任务是什么" class="md-nav__link">
+    7.1 Asyncio 任务是什么
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#72-how-to-create-a-task" class="md-nav__link">
-    7.2 How to Create a Task
+  <a href="#72-怎么创建任务" class="md-nav__link">
+    7.2 怎么创建任务
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 怎么创建任务">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-使用高级-api-创建任务" class="md-nav__link">
+    7.2.1 使用高级 API 创建任务
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-使用低级-api-创建任务" class="md-nav__link">
+    7.2.2 使用低级 API 创建任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#73-when-does-a-task-run" class="md-nav__link">
-    7.3 When Does a Task Run?
+  <a href="#73-何时运行任务" class="md-nav__link">
+    7.3 何时运行任务？
   </a>
   
 </li>
@@ -2368,58 +2536,78 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-work-with-and-query-tasks" class="md-nav__link">
-    8. Work With and Query Tasks
+  <a href="#8-使用和查询任务" class="md-nav__link">
+    8. 使用和查询任务
   </a>
   
-    <nav class="md-nav" aria-label="8. Work With and Query Tasks">
+    <nav class="md-nav" aria-label="8. 使用和查询任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#81-task-life-cycle" class="md-nav__link">
-    8.1 Task Life-Cycle
+  <a href="#81-任务的生命周期" class="md-nav__link">
+    8.1 任务的生命周期
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#82-how-to-check-task-status" class="md-nav__link">
-    8.2 How to Check Task Status
+  <a href="#82-如何检查任务的状态" class="md-nav__link">
+    8.2 如何检查任务的状态
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 如何检查任务的状态">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-检查任务是否完成" class="md-nav__link">
+    8.2.1 检查任务是否完成
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#83-how-to-get-task-result" class="md-nav__link">
-    8.3 How to Get Task Result
+  <a href="#822-检查任务是否被取消" class="md-nav__link">
+    8.2.2 检查任务是否被取消
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83-如何获取任务结果" class="md-nav__link">
+    8.3 如何获取任务结果
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#84-how-to-get-task-exception" class="md-nav__link">
-    8.4 How to Get Task Exception
+  <a href="#84-如何获取任务异常" class="md-nav__link">
+    8.4 如何获取任务异常
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#85-how-to-cancel-a-task" class="md-nav__link">
-    8.5 How to Cancel a Task
+  <a href="#85-如何取消任务" class="md-nav__link">
+    8.5 如何取消任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#86-how-to-use-callback-with-a-task" class="md-nav__link">
-    8.6 How to Use Callback With a Task
+  <a href="#86-如何在任务中使用回调" class="md-nav__link">
+    8.6 如何在任务中使用回调
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#87-how-to-set-the-task-name" class="md-nav__link">
-    8.7 How to Set the Task Name
+  <a href="#87-如何设置任务名称" class="md-nav__link">
+    8.7 如何设置任务名称
   </a>
   
 </li>
@@ -2430,23 +2618,23 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-current-and-running-tasks" class="md-nav__link">
-    9. Current and Running Tasks
+  <a href="#9-当前和正在运行的任务" class="md-nav__link">
+    9. 当前和正在运行的任务
   </a>
   
-    <nav class="md-nav" aria-label="9. Current and Running Tasks">
+    <nav class="md-nav" aria-label="9. 当前和正在运行的任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#91-how-to-get-the-current-task" class="md-nav__link">
-    9.1 How to Get the Current Task
+  <a href="#91-如何获取当前任务" class="md-nav__link">
+    9.1 如何获取当前任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#92-how-to-get-all-tasks" class="md-nav__link">
-    9.2 How to Get All Tasks
+  <a href="#92-如何获取所有任务" class="md-nav__link">
+    9.2 如何获取所有任务
   </a>
   
 </li>
@@ -2457,30 +2645,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-run-many-coroutines-concurrently" class="md-nav__link">
-    10. Run Many Coroutines Concurrently
+  <a href="#10-同时运行多个协程" class="md-nav__link">
+    10. 同时运行多个协程
   </a>
   
-    <nav class="md-nav" aria-label="10. Run Many Coroutines Concurrently">
+    <nav class="md-nav" aria-label="10. 同时运行多个协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#101-what-is-asyncio-gather" class="md-nav__link">
-    10.1 What is Asyncio gather()
+  <a href="#101-什么是-asyncio-gather" class="md-nav__link">
+    10.1 什么是 Asyncio Gather()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#102-how-to-use-asyncio-gather" class="md-nav__link">
-    10.2 How to use Asyncio gather()
+  <a href="#102-如何使用-asyncio-gather" class="md-nav__link">
+    10.2 如何使用 Asyncio Gather()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#103-example-of-gather-for-many-coroutines-in-a-list" class="md-nav__link">
-    10.3 Example of gather() For Many Coroutines in a List
+  <a href="#103-对于列表中的多个协程的-gather-示例" class="md-nav__link">
+    10.3 对于列表中的多个协程的 Gather() 示例
   </a>
   
 </li>
@@ -2491,30 +2679,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#11-wait-for-a-collection-of-tasks" class="md-nav__link">
-    11. Wait for A Collection of Tasks
+  <a href="#11-等待任务的集合" class="md-nav__link">
+    11. 等待任务的集合
   </a>
   
-    <nav class="md-nav" aria-label="11. Wait for A Collection of Tasks">
+    <nav class="md-nav" aria-label="11. 等待任务的集合">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#111-what-is-asynciowait" class="md-nav__link">
-    11.1 What is asyncio.wait()
+  <a href="#111-什么是-asynciowait" class="md-nav__link">
+    11.1 什么是 asyncio.wait()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#112-how-to-use-asynciowait" class="md-nav__link">
-    11.2 How to Use asyncio.wait()
+  <a href="#112-如何使用-asynciowait" class="md-nav__link">
+    11.2 如何使用 asyncio.wait()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#113-example-of-waiting-for-all-tasks" class="md-nav__link">
-    11.3 Example of Waiting for All Tasks
+  <a href="#113-等待所有任务的示例" class="md-nav__link">
+    11.3 等待所有任务的示例
   </a>
   
 </li>
@@ -2525,30 +2713,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#12-wait-for-a-coroutine-with-a-time-limit" class="md-nav__link">
-    12. Wait for a Coroutine with a Time Limit
+  <a href="#12-等待有时间限制的协程" class="md-nav__link">
+    12. 等待有时间限制的协程
   </a>
   
-    <nav class="md-nav" aria-label="12. Wait for a Coroutine with a Time Limit">
+    <nav class="md-nav" aria-label="12. 等待有时间限制的协程">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#121-what-is-asyncio-wait_for" class="md-nav__link">
-    12.1 What is Asyncio wait_for()
+  <a href="#121-什么是-asyncio-wait_for" class="md-nav__link">
+    12.1 什么是 Asyncio wait_for()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#122-how-to-use-asyncio-wait_for" class="md-nav__link">
-    12.2 How to Use Asyncio wait_for()
+  <a href="#122-如何使用-asyncio-wait_for" class="md-nav__link">
+    12.2 如何使用 Asyncio wait_for()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#123-example-of-asyncio-wait_for-with-a-timeout" class="md-nav__link">
-    12.3 Example of Asyncio wait_for() With a Timeout
+  <a href="#123-带有超时的-asyncio-wait_for-示例" class="md-nav__link">
+    12.3 带有超时的 Asyncio wait_for() 示例
   </a>
   
 </li>
@@ -2559,30 +2747,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#13-shield-tasks-from-cancellation" class="md-nav__link">
-    13. Shield Tasks from Cancellation
+  <a href="#13-防止任务被取消" class="md-nav__link">
+    13. 防止任务被取消
   </a>
   
-    <nav class="md-nav" aria-label="13. Shield Tasks from Cancellation">
+    <nav class="md-nav" aria-label="13. 防止任务被取消">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#131-what-is-asyncio-shield" class="md-nav__link">
-    13.1 What is Asyncio shield()
+  <a href="#131-什么是-asyncio-shield" class="md-nav__link">
+    13.1 什么是 Asyncio shield()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#132-how-to-use-asyncio-shield" class="md-nav__link">
-    13.2 How to Use Asyncio shield()
+  <a href="#132-如何使用-asyncioshield" class="md-nav__link">
+    13.2 如何使用 Asyncioshield()
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#133-example-of-asyncio-shield-for-a-task" class="md-nav__link">
-    13.3 Example of Asyncio shield() for a Task
+  <a href="#133-任务的-asyncioshield-示例" class="md-nav__link">
+    13.3 任务的 Asyncioshield() 示例
   </a>
   
 </li>
@@ -2593,30 +2781,30 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#14-run-a-blocking-task-in-asyncio" class="md-nav__link">
-    14. Run a Blocking Task in Asyncio
+  <a href="#14-在-asyncio-中运行阻塞任务" class="md-nav__link">
+    14. 在 Asyncio 中运行阻塞任务
   </a>
   
-    <nav class="md-nav" aria-label="14. Run a Blocking Task in Asyncio">
+    <nav class="md-nav" aria-label="14. 在 Asyncio 中运行阻塞任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#141-need-to-run-blocking-tasks-in-asyncio" class="md-nav__link">
-    14.1 Need to Run Blocking Tasks in Asyncio
+  <a href="#141-需要在-asyncio-中运行阻塞任务" class="md-nav__link">
+    14.1 需要在 Asyncio 中运行阻塞任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#142-how-to-run-blocking-tasks" class="md-nav__link">
-    14.2 How to Run Blocking Tasks
+  <a href="#142-如何运行阻塞任务" class="md-nav__link">
+    14.2 如何运行阻塞任务
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" class="md-nav__link">
-    14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+  <a href="#143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例" class="md-nav__link">
+    14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例
   </a>
   
 </li>
@@ -2627,37 +2815,91 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#15-asynchronous-iterators" class="md-nav__link">
-    15. Asynchronous Iterators
+  <a href="#15-异步迭代器" class="md-nav__link">
+    15. 异步迭代器
   </a>
   
-    <nav class="md-nav" aria-label="15. Asynchronous Iterators">
+    <nav class="md-nav" aria-label="15. 异步迭代器">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#151-what-are-asynchronous-iterators" class="md-nav__link">
-    15.1 What Are Asynchronous Iterators
+  <a href="#151-什么是异步迭代器" class="md-nav__link">
+    15.1 什么是异步迭代器
+  </a>
+  
+    <nav class="md-nav" aria-label="15.1 什么是异步迭代器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1511-迭代器" class="md-nav__link">
+    15.1.1 迭代器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#152-what-is-the-async-for-loop" class="md-nav__link">
-    15.2 What is the “async for” loop?
+  <a href="#1512-异步迭代器" class="md-nav__link">
+    15.1.2 异步迭代器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-什么是async-for循环" class="md-nav__link">
+    15.2 什么是“async for”循环？
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#153-how-to-use-asynchronous-iterators" class="md-nav__link">
-    15.3 How to Use Asynchronous Iterators
+  <a href="#153-如何使用异步迭代器" class="md-nav__link">
+    15.3 如何使用异步迭代器
+  </a>
+  
+    <nav class="md-nav" aria-label="15.3 如何使用异步迭代器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1531-定义异步迭代器" class="md-nav__link">
+    15.3.1 定义异步迭代器
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#154-example-of-an-asynchronous-iterator" class="md-nav__link">
-    15.4 Example of an Asynchronous Iterator
+  <a href="#1532-创建异步迭代器" class="md-nav__link">
+    15.3.2 创建异步迭代器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1533-单步执行异步迭代器" class="md-nav__link">
+    15.3.3 单步执行异步迭代器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1534-遍历异步迭代器" class="md-nav__link">
+    15.3.4 遍历异步迭代器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-异步迭代器的示例" class="md-nav__link">
+    15.4 异步迭代器的示例
   </a>
   
 </li>
@@ -3299,7 +3541,8 @@
   
 
 
-<h1 id="python-asyncio-the-complete-guide">Python Asyncio: The Complete Guide<a class="headerlink" href="#python-asyncio-the-complete-guide" title="Permanent link">&para;</a></h1>
+<h1 id="python-asyncio-完整指南">Python Asyncio: 完整指南<a class="headerlink" href="#python-asyncio-完整指南" title="Permanent link">&para;</a></h1>
+<p><strong>Python Asyncio: The Complete Guide</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">English</label><label for="__tabbed_1_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
@@ -3320,477 +3563,649 @@
 </div>
 </div>
 </div>
-<h2 id="1-what-is-asynchronous-programming">1. What is Asynchronous Programming<a class="headerlink" href="#1-what-is-asynchronous-programming" title="Permanent link">&para;</a></h2>
+<h2 id="1-什么是异步编程">1. 什么是异步编程<a class="headerlink" href="#1-什么是异步编程" title="Permanent link">&para;</a></h2>
+<p><strong>1. What is Asynchronous Programming</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">English</label><label for="__tabbed_2_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="11-asynchronous-tasks">1.1 Asynchronous Tasks<a class="headerlink" href="#11-asynchronous-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="11-异步任务">1.1 异步任务<a class="headerlink" href="#11-异步任务" title="Permanent link">&para;</a></h3>
+<p><strong>1.1 Asynchronous Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">English</label><label for="__tabbed_3_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="12-asynchronous-programming">1.2 Asynchronous Programming<a class="headerlink" href="#12-asynchronous-programming" title="Permanent link">&para;</a></h3>
+<h3 id="12-异步编程">1.2 异步编程<a class="headerlink" href="#12-异步编程" title="Permanent link">&para;</a></h3>
+<p><strong>1.2 Asynchronous Programming</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">English</label><label for="__tabbed_4_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="13-asynchronous-programming-in-python">1.3 Asynchronous Programming in Python<a class="headerlink" href="#13-asynchronous-programming-in-python" title="Permanent link">&para;</a></h3>
+<h3 id="13-python-异步编程">1.3 Python 异步编程<a class="headerlink" href="#13-python-异步编程" title="Permanent link">&para;</a></h3>
+<p><strong>1.3 Asynchronous Programming in Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">English</label><label for="__tabbed_5_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="2-what-is-asyncio">2. What is Asyncio<a class="headerlink" href="#2-what-is-asyncio" title="Permanent link">&para;</a></h2>
+<h2 id="2-asyncio-是什么">2. Asyncio 是什么<a class="headerlink" href="#2-asyncio-是什么" title="Permanent link">&para;</a></h2>
+<p><strong>2. What is Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">English</label><label for="__tabbed_6_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="21-changes-to-python-to-add-support-for-coroutines">2.1 Changes to Python to add Support for Coroutines<a class="headerlink" href="#21-changes-to-python-to-add-support-for-coroutines" title="Permanent link">&para;</a></h3>
+<h3 id="21-对-python-进行更改以添加对协程的支持">2.1 对 Python 进行更改以添加对协程的支持<a class="headerlink" href="#21-对-python-进行更改以添加对协程的支持" title="Permanent link">&para;</a></h3>
+<p><strong>2.1 Changes to Python to add Support for Coroutines</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">English</label><label for="__tabbed_7_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="22-the-asyncio-module">2.2 The asyncio Module<a class="headerlink" href="#22-the-asyncio-module" title="Permanent link">&para;</a></h3>
+<h3 id="22-asyncio-模块">2.2 asyncio 模块<a class="headerlink" href="#22-asyncio-模块" title="Permanent link">&para;</a></h3>
+<p><strong>2.2 The asyncio Module</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">English</label><label for="__tabbed_8_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="3-when-to-use-asyncio">3. When to Use Asyncio<a class="headerlink" href="#3-when-to-use-asyncio" title="Permanent link">&para;</a></h2>
+<h2 id="3-asyncio-在什么时候使用">3. Asyncio 在什么时候使用<a class="headerlink" href="#3-asyncio-在什么时候使用" title="Permanent link">&para;</a></h2>
+<p><strong>3. When to Use Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">English</label><label for="__tabbed_9_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="31-reasons-to-use-asyncio-in-python">3.1 Reasons to Use Asyncio in Python<a class="headerlink" href="#31-reasons-to-use-asyncio-in-python" title="Permanent link">&para;</a></h3>
+<h3 id="31-使用python-asyncio的原因">3.1 使用Python Asyncio的原因<a class="headerlink" href="#31-使用python-asyncio的原因" title="Permanent link">&para;</a></h3>
+<p><strong>3.1 Reasons to Use Asyncio in Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">English</label><label for="__tabbed_10_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="32-other-reasons-to-use-asyncio">3.2 Other Reasons to Use Asyncio<a class="headerlink" href="#32-other-reasons-to-use-asyncio" title="Permanent link">&para;</a></h3>
+<h4 id="311-原因-1-使用协程">3.1.1 原因 1: 使用协程<a class="headerlink" href="#311-原因-1-使用协程" title="Permanent link">&para;</a></h4>
+<p><strong>3.1.1 Reason 1: To Use Coroutines</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">English</label><label for="__tabbed_11_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="33-when-to-not-use-asyncio">3.3 When to Not Use Asyncio<a class="headerlink" href="#33-when-to-not-use-asyncio" title="Permanent link">&para;</a></h3>
+<h4 id="312-原因-2-使用异步编程">3.1.2 原因 2: 使用异步编程<a class="headerlink" href="#312-原因-2-使用异步编程" title="Permanent link">&para;</a></h4>
+<p><strong>3.1.2 Reason 2: To Use Asynchronous Programming</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">English</label><label for="__tabbed_12_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="4-coroutines-in-python">4. Coroutines in Python<a class="headerlink" href="#4-coroutines-in-python" title="Permanent link">&para;</a></h2>
+<h4 id="313-原因-3-使用非阻塞io">3.1.3 原因 3: 使用非阻塞I/O<a class="headerlink" href="#313-原因-3-使用非阻塞io" title="Permanent link">&para;</a></h4>
+<p><strong>3.1.3 Reason 3: To Use Non-Blocking I/O</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">English</label><label for="__tabbed_13_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="41-what-is-a-coroutine">4.1 What is a Coroutine<a class="headerlink" href="#41-what-is-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="32-使用asyncio的其他原因">3.2 使用Asyncio的其他原因<a class="headerlink" href="#32-使用asyncio的其他原因" title="Permanent link">&para;</a></h3>
+<p><strong>3.2 Other Reasons to Use Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">English</label><label for="__tabbed_14_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="42-coroutine-vs-routine-and-subroutine">4.2 Coroutine vs Routine and Subroutine<a class="headerlink" href="#42-coroutine-vs-routine-and-subroutine" title="Permanent link">&para;</a></h3>
+<h3 id="33-asyncio在什么时候不适用">3.3 Asyncio在什么时候不适用<a class="headerlink" href="#33-asyncio在什么时候不适用" title="Permanent link">&para;</a></h3>
+<p><strong>3.3 When to Not Use Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">English</label><label for="__tabbed_15_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="43-coroutine-vs-generator">4.3 Coroutine vs Generator<a class="headerlink" href="#43-coroutine-vs-generator" title="Permanent link">&para;</a></h3>
+<h2 id="4-python-中的协程">4. Python 中的协程<a class="headerlink" href="#4-python-中的协程" title="Permanent link">&para;</a></h2>
+<p><strong>4. Coroutines in Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">English</label><label for="__tabbed_16_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="44-coroutine-vs-task">4.4 Coroutine vs Task<a class="headerlink" href="#44-coroutine-vs-task" title="Permanent link">&para;</a></h3>
+<h3 id="41-什么是协程">4.1 什么是协程<a class="headerlink" href="#41-什么是协程" title="Permanent link">&para;</a></h3>
+<p><strong>4.1 What is a Coroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">English</label><label for="__tabbed_17_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="45-coroutine-vs-thread">4.5 Coroutine vs Thread<a class="headerlink" href="#45-coroutine-vs-thread" title="Permanent link">&para;</a></h3>
+<h3 id="42-协程与例程和子例程">4.2 协程与例程和子例程<a class="headerlink" href="#42-协程与例程和子例程" title="Permanent link">&para;</a></h3>
+<p><strong>4.2 Coroutine vs Routine and Subroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">English</label><label for="__tabbed_18_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="46-coroutine-vs-process">4.6 Coroutine vs Process<a class="headerlink" href="#46-coroutine-vs-process" title="Permanent link">&para;</a></h3>
+<h3 id="43-协程与生成器">4.3 协程与生成器<a class="headerlink" href="#43-协程与生成器" title="Permanent link">&para;</a></h3>
+<p><strong>4.3 Coroutine vs Generator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">English</label><label for="__tabbed_19_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="47-when-were-coroutines-added-to-python">4.7 When Were Coroutines Added to Python<a class="headerlink" href="#47-when-were-coroutines-added-to-python" title="Permanent link">&para;</a></h3>
+<h3 id="44-协程与任务">4.4 协程与任务<a class="headerlink" href="#44-协程与任务" title="Permanent link">&para;</a></h3>
+<p><strong>4.4 Coroutine vs Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">English</label><label for="__tabbed_20_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="5-define-create-and-run-coroutines">5. Define, Create and Run Coroutines<a class="headerlink" href="#5-define-create-and-run-coroutines" title="Permanent link">&para;</a></h2>
+<h3 id="45-协程与线程">4.5 协程与线程<a class="headerlink" href="#45-协程与线程" title="Permanent link">&para;</a></h3>
+<p><strong>4.5 Coroutine vs Thread</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">English</label><label for="__tabbed_21_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="51-how-to-define-a-coroutine">5.1 How to Define a Coroutine<a class="headerlink" href="#51-how-to-define-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="46-协程与进程">4.6 协程与进程<a class="headerlink" href="#46-协程与进程" title="Permanent link">&para;</a></h3>
+<p><strong>4.6 Coroutine vs Process</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">English</label><label for="__tabbed_22_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="52-how-to-create-a-coroutine">5.2 How to Create a Coroutine<a class="headerlink" href="#52-how-to-create-a-coroutine" title="Permanent link">&para;</a></h3>
+<h3 id="47-python-何时添加了协程">4.7 Python 何时添加了协程<a class="headerlink" href="#47-python-何时添加了协程" title="Permanent link">&para;</a></h3>
+<p><strong>4.7 When Were Coroutines Added to Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">English</label><label for="__tabbed_23_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="53-how-to-run-a-coroutine-from-python">5.3 How to Run a Coroutine From Python<a class="headerlink" href="#53-how-to-run-a-coroutine-from-python" title="Permanent link">&para;</a></h3>
+<h2 id="5-定义创建和运行协程">5. 定义、创建和运行协程<a class="headerlink" href="#5-定义创建和运行协程" title="Permanent link">&para;</a></h2>
+<p><strong>5. Define, Create and Run Coroutines</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">English</label><label for="__tabbed_24_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="6-what-is-the-event-loop">6. What is the Event Loop<a class="headerlink" href="#6-what-is-the-event-loop" title="Permanent link">&para;</a></h2>
+<h3 id="51-如何定义协程">5.1 如何定义协程<a class="headerlink" href="#51-如何定义协程" title="Permanent link">&para;</a></h3>
+<p><strong>5.1 How to Define a Coroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">English</label><label for="__tabbed_25_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="61-what-is-the-asyncio-event-loop">6.1 What is the Asyncio Event Loop<a class="headerlink" href="#61-what-is-the-asyncio-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="52-如何创建协程">5.2 如何创建协程<a class="headerlink" href="#52-如何创建协程" title="Permanent link">&para;</a></h3>
+<p><strong>5.2 How to Create a Coroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">English</label><label for="__tabbed_26_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="62-how-to-start-and-get-an-event-loop">6.2 How To Start and Get An Event Loop<a class="headerlink" href="#62-how-to-start-and-get-an-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="53-python中如何运行协程">5.3 Python中如何运行协程<a class="headerlink" href="#53-python中如何运行协程" title="Permanent link">&para;</a></h3>
+<p><strong>5.3 How to Run a Coroutine From Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">English</label><label for="__tabbed_27_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="63-what-is-an-event-loop-object">6.3 What is an Event Loop Object<a class="headerlink" href="#63-what-is-an-event-loop-object" title="Permanent link">&para;</a></h3>
+<h2 id="6-事件循环是什么">6. 事件循环是什么<a class="headerlink" href="#6-事件循环是什么" title="Permanent link">&para;</a></h2>
+<p><strong>6. What is the Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="28:2"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><input id="__tabbed_28_2" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">English</label><label for="__tabbed_28_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="64-why-get-access-to-the-event-loop">6.4 Why Get Access to The Event Loop<a class="headerlink" href="#64-why-get-access-to-the-event-loop" title="Permanent link">&para;</a></h3>
+<h3 id="61-asyncio-的事件循环是什么">6.1 Asyncio 的事件循环是什么<a class="headerlink" href="#61-asyncio-的事件循环是什么" title="Permanent link">&para;</a></h3>
+<p><strong>6.1 What is the Asyncio Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="29:2"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">English</label><label for="__tabbed_29_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="7-create-and-run-asyncio-tasks">7. Create and Run Asyncio Tasks<a class="headerlink" href="#7-create-and-run-asyncio-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="62-事件循环如何获取和启动">6.2 事件循环如何获取和启动<a class="headerlink" href="#62-事件循环如何获取和启动" title="Permanent link">&para;</a></h3>
+<p><strong>6.2 How To Start and Get An Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="30:2"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><input id="__tabbed_30_2" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">English</label><label for="__tabbed_30_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="71-what-is-an-asyncio-task">7.1 What is an Asyncio Task<a class="headerlink" href="#71-what-is-an-asyncio-task" title="Permanent link">&para;</a></h3>
+<h3 id="63-事件循环对象是什么">6.3 事件循环对象是什么<a class="headerlink" href="#63-事件循环对象是什么" title="Permanent link">&para;</a></h3>
+<p><strong>6.3 What is an Event Loop Object</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="31:2"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><input id="__tabbed_31_2" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">English</label><label for="__tabbed_31_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="72-how-to-create-a-task">7.2 How to Create a Task<a class="headerlink" href="#72-how-to-create-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="64-为什么要访问事件循环">6.4 为什么要访问事件循环<a class="headerlink" href="#64-为什么要访问事件循环" title="Permanent link">&para;</a></h3>
+<p><strong>6.4 Why Get Access to The Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="32:2"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><input id="__tabbed_32_2" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">English</label><label for="__tabbed_32_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="73-when-does-a-task-run">7.3 When Does a Task Run?<a class="headerlink" href="#73-when-does-a-task-run" title="Permanent link">&para;</a></h3>
+<h2 id="7-asyncio-任务的创建和运行">7. Asyncio 任务的创建和运行<a class="headerlink" href="#7-asyncio-任务的创建和运行" title="Permanent link">&para;</a></h2>
+<p><strong>7. Create and Run Asyncio Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="33:2"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><input id="__tabbed_33_2" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">English</label><label for="__tabbed_33_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="8-work-with-and-query-tasks">8. Work With and Query Tasks<a class="headerlink" href="#8-work-with-and-query-tasks" title="Permanent link">&para;</a></h2>
+<h3 id="71-asyncio-任务是什么">7.1 Asyncio 任务是什么<a class="headerlink" href="#71-asyncio-任务是什么" title="Permanent link">&para;</a></h3>
+<p><strong>7.1 What is an Asyncio Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="34:2"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><input id="__tabbed_34_2" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">English</label><label for="__tabbed_34_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="81-task-life-cycle">8.1 Task Life-Cycle<a class="headerlink" href="#81-task-life-cycle" title="Permanent link">&para;</a></h3>
+<h3 id="72-怎么创建任务">7.2 怎么创建任务<a class="headerlink" href="#72-怎么创建任务" title="Permanent link">&para;</a></h3>
+<p><strong>7.2 How to Create a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="35:2"><input checked="checked" id="__tabbed_35_1" name="__tabbed_35" type="radio" /><input id="__tabbed_35_2" name="__tabbed_35" type="radio" /><div class="tabbed-labels"><label for="__tabbed_35_1">English</label><label for="__tabbed_35_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="82-how-to-check-task-status">8.2 How to Check Task Status<a class="headerlink" href="#82-how-to-check-task-status" title="Permanent link">&para;</a></h3>
+<h4 id="721-使用高级-api-创建任务">7.2.1 使用高级 API 创建任务<a class="headerlink" href="#721-使用高级-api-创建任务" title="Permanent link">&para;</a></h4>
+<p><strong>7.2.1 Create Task With High-Level API</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="36:2"><input checked="checked" id="__tabbed_36_1" name="__tabbed_36" type="radio" /><input id="__tabbed_36_2" name="__tabbed_36" type="radio" /><div class="tabbed-labels"><label for="__tabbed_36_1">English</label><label for="__tabbed_36_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="83-how-to-get-task-result">8.3 How to Get Task Result<a class="headerlink" href="#83-how-to-get-task-result" title="Permanent link">&para;</a></h3>
+<h3 id="722-使用低级-api-创建任务">7.2.2 使用低级 API 创建任务<a class="headerlink" href="#722-使用低级-api-创建任务" title="Permanent link">&para;</a></h3>
+<p><strong>7.2.2 Create Task With Low-Level API</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="37:2"><input checked="checked" id="__tabbed_37_1" name="__tabbed_37" type="radio" /><input id="__tabbed_37_2" name="__tabbed_37" type="radio" /><div class="tabbed-labels"><label for="__tabbed_37_1">English</label><label for="__tabbed_37_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="84-how-to-get-task-exception">8.4 How to Get Task Exception<a class="headerlink" href="#84-how-to-get-task-exception" title="Permanent link">&para;</a></h3>
+<h3 id="73-何时运行任务">7.3 何时运行任务？<a class="headerlink" href="#73-何时运行任务" title="Permanent link">&para;</a></h3>
+<p><strong>7.3 When Does a Task Run?</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="38:2"><input checked="checked" id="__tabbed_38_1" name="__tabbed_38" type="radio" /><input id="__tabbed_38_2" name="__tabbed_38" type="radio" /><div class="tabbed-labels"><label for="__tabbed_38_1">English</label><label for="__tabbed_38_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="85-how-to-cancel-a-task">8.5 How to Cancel a Task<a class="headerlink" href="#85-how-to-cancel-a-task" title="Permanent link">&para;</a></h3>
+<h2 id="8-使用和查询任务">8. 使用和查询任务<a class="headerlink" href="#8-使用和查询任务" title="Permanent link">&para;</a></h2>
+<p><strong>8. Work With and Query Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="39:2"><input checked="checked" id="__tabbed_39_1" name="__tabbed_39" type="radio" /><input id="__tabbed_39_2" name="__tabbed_39" type="radio" /><div class="tabbed-labels"><label for="__tabbed_39_1">English</label><label for="__tabbed_39_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="86-how-to-use-callback-with-a-task">8.6 How to Use Callback With a Task<a class="headerlink" href="#86-how-to-use-callback-with-a-task" title="Permanent link">&para;</a></h3>
+<h3 id="81-任务的生命周期">8.1 任务的生命周期<a class="headerlink" href="#81-任务的生命周期" title="Permanent link">&para;</a></h3>
+<p><strong>8.1 Task Life-Cycle</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="40:2"><input checked="checked" id="__tabbed_40_1" name="__tabbed_40" type="radio" /><input id="__tabbed_40_2" name="__tabbed_40" type="radio" /><div class="tabbed-labels"><label for="__tabbed_40_1">English</label><label for="__tabbed_40_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="87-how-to-set-the-task-name">8.7 How to Set the Task Name<a class="headerlink" href="#87-how-to-set-the-task-name" title="Permanent link">&para;</a></h3>
+<h3 id="82-如何检查任务的状态">8.2 如何检查任务的状态<a class="headerlink" href="#82-如何检查任务的状态" title="Permanent link">&para;</a></h3>
+<p><strong>8.2 How to Check Task Status</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="41:2"><input checked="checked" id="__tabbed_41_1" name="__tabbed_41" type="radio" /><input id="__tabbed_41_2" name="__tabbed_41" type="radio" /><div class="tabbed-labels"><label for="__tabbed_41_1">English</label><label for="__tabbed_41_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="9-current-and-running-tasks">9. Current and Running Tasks<a class="headerlink" href="#9-current-and-running-tasks" title="Permanent link">&para;</a></h2>
+<h4 id="821-检查任务是否完成">8.2.1 检查任务是否完成<a class="headerlink" href="#821-检查任务是否完成" title="Permanent link">&para;</a></h4>
+<p><strong>8.2.1 Check if a Task is Done</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="42:2"><input checked="checked" id="__tabbed_42_1" name="__tabbed_42" type="radio" /><input id="__tabbed_42_2" name="__tabbed_42" type="radio" /><div class="tabbed-labels"><label for="__tabbed_42_1">English</label><label for="__tabbed_42_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="91-how-to-get-the-current-task">9.1 How to Get the Current Task<a class="headerlink" href="#91-how-to-get-the-current-task" title="Permanent link">&para;</a></h3>
+<h4 id="822-检查任务是否被取消">8.2.2 检查任务是否被取消<a class="headerlink" href="#822-检查任务是否被取消" title="Permanent link">&para;</a></h4>
+<p><strong>8.2.2 Check if a Task is Canceled</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="43:2"><input checked="checked" id="__tabbed_43_1" name="__tabbed_43" type="radio" /><input id="__tabbed_43_2" name="__tabbed_43" type="radio" /><div class="tabbed-labels"><label for="__tabbed_43_1">English</label><label for="__tabbed_43_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="92-how-to-get-all-tasks">9.2 How to Get All Tasks<a class="headerlink" href="#92-how-to-get-all-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="83-如何获取任务结果">8.3 如何获取任务结果<a class="headerlink" href="#83-如何获取任务结果" title="Permanent link">&para;</a></h3>
+<p><strong>8.3 How to Get Task Result</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="44:2"><input checked="checked" id="__tabbed_44_1" name="__tabbed_44" type="radio" /><input id="__tabbed_44_2" name="__tabbed_44" type="radio" /><div class="tabbed-labels"><label for="__tabbed_44_1">English</label><label for="__tabbed_44_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="10-run-many-coroutines-concurrently">10. Run Many Coroutines Concurrently<a class="headerlink" href="#10-run-many-coroutines-concurrently" title="Permanent link">&para;</a></h2>
+<h3 id="84-如何获取任务异常">8.4 如何获取任务异常<a class="headerlink" href="#84-如何获取任务异常" title="Permanent link">&para;</a></h3>
+<p><strong>8.4 How to Get Task Exception</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="45:2"><input checked="checked" id="__tabbed_45_1" name="__tabbed_45" type="radio" /><input id="__tabbed_45_2" name="__tabbed_45" type="radio" /><div class="tabbed-labels"><label for="__tabbed_45_1">English</label><label for="__tabbed_45_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="101-what-is-asyncio-gather">10.1 What is Asyncio gather()<a class="headerlink" href="#101-what-is-asyncio-gather" title="Permanent link">&para;</a></h3>
+<h3 id="85-如何取消任务">8.5 如何取消任务<a class="headerlink" href="#85-如何取消任务" title="Permanent link">&para;</a></h3>
+<p><strong>8.5 How to Cancel a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="46:2"><input checked="checked" id="__tabbed_46_1" name="__tabbed_46" type="radio" /><input id="__tabbed_46_2" name="__tabbed_46" type="radio" /><div class="tabbed-labels"><label for="__tabbed_46_1">English</label><label for="__tabbed_46_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="102-how-to-use-asyncio-gather">10.2 How to use Asyncio gather()<a class="headerlink" href="#102-how-to-use-asyncio-gather" title="Permanent link">&para;</a></h3>
+<h3 id="86-如何在任务中使用回调">8.6 如何在任务中使用回调<a class="headerlink" href="#86-如何在任务中使用回调" title="Permanent link">&para;</a></h3>
+<p><strong>8.6 How to Use Callback With a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="47:2"><input checked="checked" id="__tabbed_47_1" name="__tabbed_47" type="radio" /><input id="__tabbed_47_2" name="__tabbed_47" type="radio" /><div class="tabbed-labels"><label for="__tabbed_47_1">English</label><label for="__tabbed_47_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="103-example-of-gather-for-many-coroutines-in-a-list">10.3 Example of gather() For Many Coroutines in a List<a class="headerlink" href="#103-example-of-gather-for-many-coroutines-in-a-list" title="Permanent link">&para;</a></h3>
+<h3 id="87-如何设置任务名称">8.7 如何设置任务名称<a class="headerlink" href="#87-如何设置任务名称" title="Permanent link">&para;</a></h3>
+<p><strong>8.7 How to Set the Task Name</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="48:2"><input checked="checked" id="__tabbed_48_1" name="__tabbed_48" type="radio" /><input id="__tabbed_48_2" name="__tabbed_48" type="radio" /><div class="tabbed-labels"><label for="__tabbed_48_1">English</label><label for="__tabbed_48_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="11-wait-for-a-collection-of-tasks">11. Wait for A Collection of Tasks<a class="headerlink" href="#11-wait-for-a-collection-of-tasks" title="Permanent link">&para;</a></h2>
+<h2 id="9-当前和正在运行的任务">9. 当前和正在运行的任务<a class="headerlink" href="#9-当前和正在运行的任务" title="Permanent link">&para;</a></h2>
+<p><strong>9. Current and Running Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="49:2"><input checked="checked" id="__tabbed_49_1" name="__tabbed_49" type="radio" /><input id="__tabbed_49_2" name="__tabbed_49" type="radio" /><div class="tabbed-labels"><label for="__tabbed_49_1">English</label><label for="__tabbed_49_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="111-what-is-asynciowait">11.1 What is asyncio.wait()<a class="headerlink" href="#111-what-is-asynciowait" title="Permanent link">&para;</a></h3>
+<h3 id="91-如何获取当前任务">9.1 如何获取当前任务<a class="headerlink" href="#91-如何获取当前任务" title="Permanent link">&para;</a></h3>
+<p><strong>9.1 How to Get the Current Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="50:2"><input checked="checked" id="__tabbed_50_1" name="__tabbed_50" type="radio" /><input id="__tabbed_50_2" name="__tabbed_50" type="radio" /><div class="tabbed-labels"><label for="__tabbed_50_1">English</label><label for="__tabbed_50_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="112-how-to-use-asynciowait">11.2 How to Use asyncio.wait()<a class="headerlink" href="#112-how-to-use-asynciowait" title="Permanent link">&para;</a></h3>
+<h3 id="92-如何获取所有任务">9.2 如何获取所有任务<a class="headerlink" href="#92-如何获取所有任务" title="Permanent link">&para;</a></h3>
+<p><strong>9.2 How to Get All Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="51:2"><input checked="checked" id="__tabbed_51_1" name="__tabbed_51" type="radio" /><input id="__tabbed_51_2" name="__tabbed_51" type="radio" /><div class="tabbed-labels"><label for="__tabbed_51_1">English</label><label for="__tabbed_51_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="113-example-of-waiting-for-all-tasks">11.3 Example of Waiting for All Tasks<a class="headerlink" href="#113-example-of-waiting-for-all-tasks" title="Permanent link">&para;</a></h3>
+<h2 id="10-同时运行多个协程">10. 同时运行多个协程<a class="headerlink" href="#10-同时运行多个协程" title="Permanent link">&para;</a></h2>
+<p><strong>10. Run Many Coroutines Concurrently</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="52:2"><input checked="checked" id="__tabbed_52_1" name="__tabbed_52" type="radio" /><input id="__tabbed_52_2" name="__tabbed_52" type="radio" /><div class="tabbed-labels"><label for="__tabbed_52_1">English</label><label for="__tabbed_52_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="12-wait-for-a-coroutine-with-a-time-limit">12. Wait for a Coroutine with a Time Limit<a class="headerlink" href="#12-wait-for-a-coroutine-with-a-time-limit" title="Permanent link">&para;</a></h2>
+<h3 id="101-什么是-asyncio-gather">10.1 什么是 Asyncio Gather()<a class="headerlink" href="#101-什么是-asyncio-gather" title="Permanent link">&para;</a></h3>
+<p><strong>10.1 What is Asyncio gather()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="53:2"><input checked="checked" id="__tabbed_53_1" name="__tabbed_53" type="radio" /><input id="__tabbed_53_2" name="__tabbed_53" type="radio" /><div class="tabbed-labels"><label for="__tabbed_53_1">English</label><label for="__tabbed_53_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="121-what-is-asyncio-wait_for">12.1 What is Asyncio wait_for()<a class="headerlink" href="#121-what-is-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<h3 id="102-如何使用-asyncio-gather">10.2 如何使用 Asyncio Gather()<a class="headerlink" href="#102-如何使用-asyncio-gather" title="Permanent link">&para;</a></h3>
+<p><strong>10.2 How to use Asyncio gather()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="54:2"><input checked="checked" id="__tabbed_54_1" name="__tabbed_54" type="radio" /><input id="__tabbed_54_2" name="__tabbed_54" type="radio" /><div class="tabbed-labels"><label for="__tabbed_54_1">English</label><label for="__tabbed_54_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="122-how-to-use-asyncio-wait_for">12.2 How to Use Asyncio wait_for()<a class="headerlink" href="#122-how-to-use-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<h3 id="103-对于列表中的多个协程的-gather-示例">10.3 对于列表中的多个协程的 Gather() 示例<a class="headerlink" href="#103-对于列表中的多个协程的-gather-示例" title="Permanent link">&para;</a></h3>
+<p><strong>10.3 Example of gather() For Many Coroutines in a List</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="55:2"><input checked="checked" id="__tabbed_55_1" name="__tabbed_55" type="radio" /><input id="__tabbed_55_2" name="__tabbed_55" type="radio" /><div class="tabbed-labels"><label for="__tabbed_55_1">English</label><label for="__tabbed_55_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="123-example-of-asyncio-wait_for-with-a-timeout">12.3 Example of Asyncio wait_for() With a Timeout<a class="headerlink" href="#123-example-of-asyncio-wait_for-with-a-timeout" title="Permanent link">&para;</a></h3>
+<h2 id="11-等待任务的集合">11. 等待任务的集合<a class="headerlink" href="#11-等待任务的集合" title="Permanent link">&para;</a></h2>
+<p><strong>11. Wait for A Collection of Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="56:2"><input checked="checked" id="__tabbed_56_1" name="__tabbed_56" type="radio" /><input id="__tabbed_56_2" name="__tabbed_56" type="radio" /><div class="tabbed-labels"><label for="__tabbed_56_1">English</label><label for="__tabbed_56_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="13-shield-tasks-from-cancellation">13. Shield Tasks from Cancellation<a class="headerlink" href="#13-shield-tasks-from-cancellation" title="Permanent link">&para;</a></h2>
+<h3 id="111-什么是-asynciowait">11.1 什么是 asyncio.wait()<a class="headerlink" href="#111-什么是-asynciowait" title="Permanent link">&para;</a></h3>
+<p><strong>11.1 What is asyncio.wait()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="57:2"><input checked="checked" id="__tabbed_57_1" name="__tabbed_57" type="radio" /><input id="__tabbed_57_2" name="__tabbed_57" type="radio" /><div class="tabbed-labels"><label for="__tabbed_57_1">English</label><label for="__tabbed_57_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="131-what-is-asyncio-shield">13.1 What is Asyncio shield()<a class="headerlink" href="#131-what-is-asyncio-shield" title="Permanent link">&para;</a></h3>
+<h3 id="112-如何使用-asynciowait">11.2 如何使用 asyncio.wait()<a class="headerlink" href="#112-如何使用-asynciowait" title="Permanent link">&para;</a></h3>
+<p><strong>11.2 How to Use asyncio.wait()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="58:2"><input checked="checked" id="__tabbed_58_1" name="__tabbed_58" type="radio" /><input id="__tabbed_58_2" name="__tabbed_58" type="radio" /><div class="tabbed-labels"><label for="__tabbed_58_1">English</label><label for="__tabbed_58_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="132-how-to-use-asyncio-shield">13.2 How to Use Asyncio shield()<a class="headerlink" href="#132-how-to-use-asyncio-shield" title="Permanent link">&para;</a></h3>
+<h3 id="113-等待所有任务的示例">11.3 等待所有任务的示例<a class="headerlink" href="#113-等待所有任务的示例" title="Permanent link">&para;</a></h3>
+<p><strong>11.3 Example of Waiting for All Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="59:2"><input checked="checked" id="__tabbed_59_1" name="__tabbed_59" type="radio" /><input id="__tabbed_59_2" name="__tabbed_59" type="radio" /><div class="tabbed-labels"><label for="__tabbed_59_1">English</label><label for="__tabbed_59_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="133-example-of-asyncio-shield-for-a-task">13.3 Example of Asyncio shield() for a Task<a class="headerlink" href="#133-example-of-asyncio-shield-for-a-task" title="Permanent link">&para;</a></h3>
+<h2 id="12-等待有时间限制的协程">12. 等待有时间限制的协程<a class="headerlink" href="#12-等待有时间限制的协程" title="Permanent link">&para;</a></h2>
+<p><strong>12. Wait for a Coroutine with a Time Limit</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="60:2"><input checked="checked" id="__tabbed_60_1" name="__tabbed_60" type="radio" /><input id="__tabbed_60_2" name="__tabbed_60" type="radio" /><div class="tabbed-labels"><label for="__tabbed_60_1">English</label><label for="__tabbed_60_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="14-run-a-blocking-task-in-asyncio">14. Run a Blocking Task in Asyncio<a class="headerlink" href="#14-run-a-blocking-task-in-asyncio" title="Permanent link">&para;</a></h2>
+<h3 id="121-什么是-asyncio-wait_for">12.1 什么是 Asyncio wait_for()<a class="headerlink" href="#121-什么是-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<p><strong>12.1 What is Asyncio wait_for()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="61:2"><input checked="checked" id="__tabbed_61_1" name="__tabbed_61" type="radio" /><input id="__tabbed_61_2" name="__tabbed_61" type="radio" /><div class="tabbed-labels"><label for="__tabbed_61_1">English</label><label for="__tabbed_61_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="141-need-to-run-blocking-tasks-in-asyncio">14.1 Need to Run Blocking Tasks in Asyncio<a class="headerlink" href="#141-need-to-run-blocking-tasks-in-asyncio" title="Permanent link">&para;</a></h3>
+<h3 id="122-如何使用-asyncio-wait_for">12.2 如何使用 Asyncio wait_for()<a class="headerlink" href="#122-如何使用-asyncio-wait_for" title="Permanent link">&para;</a></h3>
+<p><strong>12.2 How to Use Asyncio wait_for()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="62:2"><input checked="checked" id="__tabbed_62_1" name="__tabbed_62" type="radio" /><input id="__tabbed_62_2" name="__tabbed_62" type="radio" /><div class="tabbed-labels"><label for="__tabbed_62_1">English</label><label for="__tabbed_62_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="142-how-to-run-blocking-tasks">14.2 How to Run Blocking Tasks<a class="headerlink" href="#142-how-to-run-blocking-tasks" title="Permanent link">&para;</a></h3>
+<h3 id="123-带有超时的-asyncio-wait_for-示例">12.3 带有超时的 Asyncio wait_for() 示例<a class="headerlink" href="#123-带有超时的-asyncio-wait_for-示例" title="Permanent link">&para;</a></h3>
+<p><strong>12.3 Example of Asyncio wait_for() With a Timeout</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="63:2"><input checked="checked" id="__tabbed_63_1" name="__tabbed_63" type="radio" /><input id="__tabbed_63_2" name="__tabbed_63" type="radio" /><div class="tabbed-labels"><label for="__tabbed_63_1">English</label><label for="__tabbed_63_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="143-example-of-running-io-bound-task-in-asyncio-with-to_thread">14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()<a class="headerlink" href="#143-example-of-running-io-bound-task-in-asyncio-with-to_thread" title="Permanent link">&para;</a></h3>
+<h2 id="13-防止任务被取消">13. 防止任务被取消<a class="headerlink" href="#13-防止任务被取消" title="Permanent link">&para;</a></h2>
+<p><strong>13. Shield Tasks from Cancellation</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="64:2"><input checked="checked" id="__tabbed_64_1" name="__tabbed_64" type="radio" /><input id="__tabbed_64_2" name="__tabbed_64" type="radio" /><div class="tabbed-labels"><label for="__tabbed_64_1">English</label><label for="__tabbed_64_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h2 id="15-asynchronous-iterators">15. Asynchronous Iterators<a class="headerlink" href="#15-asynchronous-iterators" title="Permanent link">&para;</a></h2>
+<h3 id="131-什么是-asyncio-shield">13.1 什么是 Asyncio shield()<a class="headerlink" href="#131-什么是-asyncio-shield" title="Permanent link">&para;</a></h3>
+<p><strong>13.1 What is Asyncio shield()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="65:2"><input checked="checked" id="__tabbed_65_1" name="__tabbed_65" type="radio" /><input id="__tabbed_65_2" name="__tabbed_65" type="radio" /><div class="tabbed-labels"><label for="__tabbed_65_1">English</label><label for="__tabbed_65_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="151-what-are-asynchronous-iterators">15.1 What Are Asynchronous Iterators<a class="headerlink" href="#151-what-are-asynchronous-iterators" title="Permanent link">&para;</a></h3>
+<h3 id="132-如何使用-asyncioshield">13.2 如何使用 Asyncioshield()<a class="headerlink" href="#132-如何使用-asyncioshield" title="Permanent link">&para;</a></h3>
+<p><strong>13.2 How to Use Asyncio shield()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="66:2"><input checked="checked" id="__tabbed_66_1" name="__tabbed_66" type="radio" /><input id="__tabbed_66_2" name="__tabbed_66" type="radio" /><div class="tabbed-labels"><label for="__tabbed_66_1">English</label><label for="__tabbed_66_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="152-what-is-the-async-for-loop">15.2 What is the “async for” loop?<a class="headerlink" href="#152-what-is-the-async-for-loop" title="Permanent link">&para;</a></h3>
+<h3 id="133-任务的-asyncioshield-示例">13.3 任务的 Asyncioshield() 示例<a class="headerlink" href="#133-任务的-asyncioshield-示例" title="Permanent link">&para;</a></h3>
+<p><strong>13.3 Example of Asyncio shield() for a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="67:2"><input checked="checked" id="__tabbed_67_1" name="__tabbed_67" type="radio" /><input id="__tabbed_67_2" name="__tabbed_67" type="radio" /><div class="tabbed-labels"><label for="__tabbed_67_1">English</label><label for="__tabbed_67_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="153-how-to-use-asynchronous-iterators">15.3 How to Use Asynchronous Iterators<a class="headerlink" href="#153-how-to-use-asynchronous-iterators" title="Permanent link">&para;</a></h3>
+<h2 id="14-在-asyncio-中运行阻塞任务">14. 在 Asyncio 中运行阻塞任务<a class="headerlink" href="#14-在-asyncio-中运行阻塞任务" title="Permanent link">&para;</a></h2>
+<p><strong>14. Run a Blocking Task in Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="68:2"><input checked="checked" id="__tabbed_68_1" name="__tabbed_68" type="radio" /><input id="__tabbed_68_2" name="__tabbed_68" type="radio" /><div class="tabbed-labels"><label for="__tabbed_68_1">English</label><label for="__tabbed_68_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
 </div>
 </div>
-<h3 id="154-example-of-an-asynchronous-iterator">15.4 Example of an Asynchronous Iterator<a class="headerlink" href="#154-example-of-an-asynchronous-iterator" title="Permanent link">&para;</a></h3>
+<h3 id="141-需要在-asyncio-中运行阻塞任务">14.1 需要在 Asyncio 中运行阻塞任务<a class="headerlink" href="#141-需要在-asyncio-中运行阻塞任务" title="Permanent link">&para;</a></h3>
+<p><strong>14.1 Need to Run Blocking Tasks in Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="69:2"><input checked="checked" id="__tabbed_69_1" name="__tabbed_69" type="radio" /><input id="__tabbed_69_2" name="__tabbed_69" type="radio" /><div class="tabbed-labels"><label for="__tabbed_69_1">English</label><label for="__tabbed_69_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="142-如何运行阻塞任务">14.2 如何运行阻塞任务<a class="headerlink" href="#142-如何运行阻塞任务" title="Permanent link">&para;</a></h3>
+<p><strong>14.2 How to Run Blocking Tasks</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="70:2"><input checked="checked" id="__tabbed_70_1" name="__tabbed_70" type="radio" /><input id="__tabbed_70_2" name="__tabbed_70" type="radio" /><div class="tabbed-labels"><label for="__tabbed_70_1">English</label><label for="__tabbed_70_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例">14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例<a class="headerlink" href="#143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例" title="Permanent link">&para;</a></h3>
+<p>14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="71:2"><input checked="checked" id="__tabbed_71_1" name="__tabbed_71" type="radio" /><input id="__tabbed_71_2" name="__tabbed_71" type="radio" /><div class="tabbed-labels"><label for="__tabbed_71_1">English</label><label for="__tabbed_71_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h2 id="15-异步迭代器">15. 异步迭代器<a class="headerlink" href="#15-异步迭代器" title="Permanent link">&para;</a></h2>
+<p><strong>15. Asynchronous Iterators</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="72:2"><input checked="checked" id="__tabbed_72_1" name="__tabbed_72" type="radio" /><input id="__tabbed_72_2" name="__tabbed_72" type="radio" /><div class="tabbed-labels"><label for="__tabbed_72_1">English</label><label for="__tabbed_72_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="151-什么是异步迭代器">15.1 什么是异步迭代器<a class="headerlink" href="#151-什么是异步迭代器" title="Permanent link">&para;</a></h3>
+<p><strong>15.1 What Are Asynchronous Iterators</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="73:2"><input checked="checked" id="__tabbed_73_1" name="__tabbed_73" type="radio" /><input id="__tabbed_73_2" name="__tabbed_73" type="radio" /><div class="tabbed-labels"><label for="__tabbed_73_1">English</label><label for="__tabbed_73_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1511-迭代器">15.1.1 迭代器<a class="headerlink" href="#1511-迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>15.1.1 Iterators</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="74:2"><input checked="checked" id="__tabbed_74_1" name="__tabbed_74" type="radio" /><input id="__tabbed_74_2" name="__tabbed_74" type="radio" /><div class="tabbed-labels"><label for="__tabbed_74_1">English</label><label for="__tabbed_74_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1512-异步迭代器">15.1.2 异步迭代器<a class="headerlink" href="#1512-异步迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>15.1.2 Asynchronous Iterators</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="75:2"><input checked="checked" id="__tabbed_75_1" name="__tabbed_75" type="radio" /><input id="__tabbed_75_2" name="__tabbed_75" type="radio" /><div class="tabbed-labels"><label for="__tabbed_75_1">English</label><label for="__tabbed_75_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="152-什么是async-for循环">15.2 什么是“async for”循环？<a class="headerlink" href="#152-什么是async-for循环" title="Permanent link">&para;</a></h3>
+<p><strong>15.2 What is the “async for” loop?</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="76:2"><input checked="checked" id="__tabbed_76_1" name="__tabbed_76" type="radio" /><input id="__tabbed_76_2" name="__tabbed_76" type="radio" /><div class="tabbed-labels"><label for="__tabbed_76_1">English</label><label for="__tabbed_76_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="153-如何使用异步迭代器">15.3 如何使用异步迭代器<a class="headerlink" href="#153-如何使用异步迭代器" title="Permanent link">&para;</a></h3>
+<p><strong>15.3 How to Use Asynchronous Iterators</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="77:2"><input checked="checked" id="__tabbed_77_1" name="__tabbed_77" type="radio" /><input id="__tabbed_77_2" name="__tabbed_77" type="radio" /><div class="tabbed-labels"><label for="__tabbed_77_1">English</label><label for="__tabbed_77_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1531-定义异步迭代器">15.3.1 定义异步迭代器<a class="headerlink" href="#1531-定义异步迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>15.3.1 Define an Asynchronous Iterator</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="78:2"><input checked="checked" id="__tabbed_78_1" name="__tabbed_78" type="radio" /><input id="__tabbed_78_2" name="__tabbed_78" type="radio" /><div class="tabbed-labels"><label for="__tabbed_78_1">English</label><label for="__tabbed_78_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1532-创建异步迭代器">15.3.2 创建异步迭代器<a class="headerlink" href="#1532-创建异步迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>15.3.2 Create Asynchronous Iterator</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="79:2"><input checked="checked" id="__tabbed_79_1" name="__tabbed_79" type="radio" /><input id="__tabbed_79_2" name="__tabbed_79" type="radio" /><div class="tabbed-labels"><label for="__tabbed_79_1">English</label><label for="__tabbed_79_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1533-单步执行异步迭代器">15.3.3 单步执行异步迭代器<a class="headerlink" href="#1533-单步执行异步迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>Step an Asynchronous Iterator</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="80:2"><input checked="checked" id="__tabbed_80_1" name="__tabbed_80" type="radio" /><input id="__tabbed_80_2" name="__tabbed_80" type="radio" /><div class="tabbed-labels"><label for="__tabbed_80_1">English</label><label for="__tabbed_80_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h4 id="1534-遍历异步迭代器">15.3.4 遍历异步迭代器<a class="headerlink" href="#1534-遍历异步迭代器" title="Permanent link">&para;</a></h4>
+<p><strong>Traverse an Asynchronous Iterator</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="81:2"><input checked="checked" id="__tabbed_81_1" name="__tabbed_81" type="radio" /><input id="__tabbed_81_2" name="__tabbed_81" type="radio" /><div class="tabbed-labels"><label for="__tabbed_81_1">English</label><label for="__tabbed_81_2">Chinese</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<h3 id="154-异步迭代器的示例">15.4 异步迭代器的示例<a class="headerlink" href="#154-异步迭代器的示例" title="Permanent link">&para;</a></h3>
+<p><strong>15.4 Example of an Asynchronous Iterator</strong></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="82:2"><input checked="checked" id="__tabbed_82_1" name="__tabbed_82" type="radio" /><input id="__tabbed_82_2" name="__tabbed_82" type="radio" /><div class="tabbed-labels"><label for="__tabbed_82_1">English</label><label for="__tabbed_82_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block"></div>
@@ -3798,7 +4213,7 @@
 </div>
 <h2 id="16-异步生成器">16. 异步生成器<a class="headerlink" href="#16-异步生成器" title="Permanent link">&para;</a></h2>
 <p><strong>16. Asynchronous Generators</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="70:2"><input checked="checked" id="__tabbed_70_1" name="__tabbed_70" type="radio" /><input id="__tabbed_70_2" name="__tabbed_70" type="radio" /><div class="tabbed-labels"><label for="__tabbed_70_1">English</label><label for="__tabbed_70_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="83:2"><input checked="checked" id="__tabbed_83_1" name="__tabbed_83" type="radio" /><input id="__tabbed_83_2" name="__tabbed_83" type="radio" /><div class="tabbed-labels"><label for="__tabbed_83_1">English</label><label for="__tabbed_83_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Generators are a fundamental part of Python.</p>
@@ -3820,7 +4235,7 @@
 </div>
 <h3 id="161-什么是异步生成器">16.1 什么是异步生成器<a class="headerlink" href="#161-什么是异步生成器" title="Permanent link">&para;</a></h3>
 <p><strong>16.1 What Are Asynchronous Generators</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="71:2"><input checked="checked" id="__tabbed_71_1" name="__tabbed_71" type="radio" /><input id="__tabbed_71_2" name="__tabbed_71" type="radio" /><div class="tabbed-labels"><label for="__tabbed_71_1">English</label><label for="__tabbed_71_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="84:2"><input checked="checked" id="__tabbed_84_1" name="__tabbed_84" type="radio" /><input id="__tabbed_84_2" name="__tabbed_84" type="radio" /><div class="tabbed-labels"><label for="__tabbed_84_1">English</label><label for="__tabbed_84_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asynchronous generator is a coroutine that uses the yield expression.</p>
@@ -3834,7 +4249,7 @@
 </div>
 <h4 id="1611-生成器">16.1.1 生成器<a class="headerlink" href="#1611-生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.1.1 Generators</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="72:2"><input checked="checked" id="__tabbed_72_1" name="__tabbed_72" type="radio" /><input id="__tabbed_72_2" name="__tabbed_72" type="radio" /><div class="tabbed-labels"><label for="__tabbed_72_1">English</label><label for="__tabbed_72_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="85:2"><input checked="checked" id="__tabbed_85_1" name="__tabbed_85" type="radio" /><input id="__tabbed_85_2" name="__tabbed_85" type="radio" /><div class="tabbed-labels"><label for="__tabbed_85_1">English</label><label for="__tabbed_85_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A generator is a Python function that returns a value via a yield expression.</p>
@@ -3908,7 +4323,7 @@
 </div>
 <h4 id="1612-异步生成器">16.1.2 异步生成器<a class="headerlink" href="#1612-异步生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.1.2 Asynchronous Generators</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="73:2"><input checked="checked" id="__tabbed_73_1" name="__tabbed_73" type="radio" /><input id="__tabbed_73_2" name="__tabbed_73" type="radio" /><div class="tabbed-labels"><label for="__tabbed_73_1">English</label><label for="__tabbed_73_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="86:2"><input checked="checked" id="__tabbed_86_1" name="__tabbed_86" type="radio" /><input id="__tabbed_86_2" name="__tabbed_86" type="radio" /><div class="tabbed-labels"><label for="__tabbed_86_1">English</label><label for="__tabbed_86_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asynchronous generator is a coroutine that uses the yield expression.</p>
@@ -3952,7 +4367,7 @@
 </div>
 <h3 id="162-如何使用异步生成器">16.2 如何使用异步生成器<a class="headerlink" href="#162-如何使用异步生成器" title="Permanent link">&para;</a></h3>
 <p><strong>16.2 How to Use an Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="74:2"><input checked="checked" id="__tabbed_74_1" name="__tabbed_74" type="radio" /><input id="__tabbed_74_2" name="__tabbed_74" type="radio" /><div class="tabbed-labels"><label for="__tabbed_74_1">English</label><label for="__tabbed_74_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="87:2"><input checked="checked" id="__tabbed_87_1" name="__tabbed_87" type="radio" /><input id="__tabbed_87_2" name="__tabbed_87" type="radio" /><div class="tabbed-labels"><label for="__tabbed_87_1">English</label><label for="__tabbed_87_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In this section, we will take a close look at how to define, create, step, and traverse an asynchronous generator in asyncio programs.</p>
@@ -3966,7 +4381,7 @@
 </div>
 <h4 id="1621-定义异步生成器">16.2.1 定义异步生成器<a class="headerlink" href="#1621-定义异步生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.2.1 Define an Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="75:2"><input checked="checked" id="__tabbed_75_1" name="__tabbed_75" type="radio" /><input id="__tabbed_75_2" name="__tabbed_75" type="radio" /><div class="tabbed-labels"><label for="__tabbed_75_1">English</label><label for="__tabbed_75_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="88:2"><input checked="checked" id="__tabbed_88_1" name="__tabbed_88" type="radio" /><input id="__tabbed_88_2" name="__tabbed_88" type="radio" /><div class="tabbed-labels"><label for="__tabbed_88_1">English</label><label for="__tabbed_88_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can define an asynchronous generator by defining a coroutine that has at least one yield expression.</p>
@@ -4014,7 +4429,7 @@
 </div>
 <h4 id="1622-创建异步生成器">16.2.2 创建异步生成器<a class="headerlink" href="#1622-创建异步生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.2.2 Create Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="76:2"><input checked="checked" id="__tabbed_76_1" name="__tabbed_76" type="radio" /><input id="__tabbed_76_2" name="__tabbed_76" type="radio" /><div class="tabbed-labels"><label for="__tabbed_76_1">English</label><label for="__tabbed_76_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="89:2"><input checked="checked" id="__tabbed_89_1" name="__tabbed_89" type="radio" /><input id="__tabbed_89_2" name="__tabbed_89" type="radio" /><div class="tabbed-labels"><label for="__tabbed_89_1">English</label><label for="__tabbed_89_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>To use an asynchronous generator we must create the generator.</p>
@@ -4040,7 +4455,7 @@
 </div>
 <h4 id="1623-使用异步生成器">16.2.3 使用异步生成器<a class="headerlink" href="#1623-使用异步生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.2.3 Step an Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="77:2"><input checked="checked" id="__tabbed_77_1" name="__tabbed_77" type="radio" /><input id="__tabbed_77_2" name="__tabbed_77" type="radio" /><div class="tabbed-labels"><label for="__tabbed_77_1">English</label><label for="__tabbed_77_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="90:2"><input checked="checked" id="__tabbed_90_1" name="__tabbed_90" type="radio" /><input id="__tabbed_90_2" name="__tabbed_90" type="radio" /><div class="tabbed-labels"><label for="__tabbed_90_1">English</label><label for="__tabbed_90_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>One step of the generator can be traversed using the <a href="https://docs.python.org/3/library/functions.html#anext">anext()</a> built-in function, just like a classical generator using the <strong>next()</strong> function.</p>
@@ -4080,7 +4495,7 @@
 </div>
 <h4 id="1624-遍历异步生成器">16.2.4 遍历异步生成器<a class="headerlink" href="#1624-遍历异步生成器" title="Permanent link">&para;</a></h4>
 <p><strong>16.2.4 Traverse an Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="78:2"><input checked="checked" id="__tabbed_78_1" name="__tabbed_78" type="radio" /><input id="__tabbed_78_2" name="__tabbed_78" type="radio" /><div class="tabbed-labels"><label for="__tabbed_78_1">English</label><label for="__tabbed_78_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="91:2"><input checked="checked" id="__tabbed_91_1" name="__tabbed_91" type="radio" /><input id="__tabbed_91_2" name="__tabbed_91" type="radio" /><div class="tabbed-labels"><label for="__tabbed_91_1">English</label><label for="__tabbed_91_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The asynchronous generator can also be traversed in a loop using the “<strong>async for</strong>” expression that will await each iteration of the loop automatically.</p>
@@ -4118,7 +4533,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="163-异步生成器示例">16.3 异步生成器示例<a class="headerlink" href="#163-异步生成器示例" title="Permanent link">&para;</a></h3>
 <p><strong>16.3 Example of an Asynchronous Generator</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="79:2"><input checked="checked" id="__tabbed_79_1" name="__tabbed_79" type="radio" /><input id="__tabbed_79_2" name="__tabbed_79" type="radio" /><div class="tabbed-labels"><label for="__tabbed_79_1">English</label><label for="__tabbed_79_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="92:2"><input checked="checked" id="__tabbed_92_1" name="__tabbed_92" type="radio" /><input id="__tabbed_92_2" name="__tabbed_92" type="radio" /><div class="tabbed-labels"><label for="__tabbed_92_1">English</label><label for="__tabbed_92_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can explore how to traverse an asynchronous generator using the “<strong>async for</strong>” expression.</p>
@@ -4224,7 +4639,7 @@ results = [item async for item in async_generator()]
 </div>
 <h2 id="17-异步上下文管理器">17. 异步上下文管理器<a class="headerlink" href="#17-异步上下文管理器" title="Permanent link">&para;</a></h2>
 <p><strong>17. Asynchronous Context Managers</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="80:2"><input checked="checked" id="__tabbed_80_1" name="__tabbed_80" type="radio" /><input id="__tabbed_80_2" name="__tabbed_80" type="radio" /><div class="tabbed-labels"><label for="__tabbed_80_1">English</label><label for="__tabbed_80_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="93:2"><input checked="checked" id="__tabbed_93_1" name="__tabbed_93" type="radio" /><input id="__tabbed_93_2" name="__tabbed_93" type="radio" /><div class="tabbed-labels"><label for="__tabbed_93_1">English</label><label for="__tabbed_93_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A context manager is a Python construct that provides a try-finally like environment with a consistent interface and handy syntax, e.g. via the “with” expression.</p>
@@ -4244,7 +4659,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="171-什么是异步上下文管理器">17.1 什么是异步上下文管理器<a class="headerlink" href="#171-什么是异步上下文管理器" title="Permanent link">&para;</a></h3>
 <p><strong>17.1 What is an Asynchronous Context Manager</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="81:2"><input checked="checked" id="__tabbed_81_1" name="__tabbed_81" type="radio" /><input id="__tabbed_81_2" name="__tabbed_81" type="radio" /><div class="tabbed-labels"><label for="__tabbed_81_1">English</label><label for="__tabbed_81_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="94:2"><input checked="checked" id="__tabbed_94_1" name="__tabbed_94" type="radio" /><input id="__tabbed_94_2" name="__tabbed_94" type="radio" /><div class="tabbed-labels"><label for="__tabbed_94_1">English</label><label for="__tabbed_94_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asynchronous context manager is a Python object that implements the <strong>__aenter__()</strong> and <strong>__aexit_ _()</strong> methods.</p>
@@ -4258,7 +4673,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1711--上下文管理器">17.1.1  上下文管理器<a class="headerlink" href="#1711--上下文管理器" title="Permanent link">&para;</a></h4>
 <p><strong>17.1.1  Context Manager</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="82:2"><input checked="checked" id="__tabbed_82_1" name="__tabbed_82" type="radio" /><input id="__tabbed_82_2" name="__tabbed_82" type="radio" /><div class="tabbed-labels"><label for="__tabbed_82_1">English</label><label for="__tabbed_82_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="95:2"><input checked="checked" id="__tabbed_95_1" name="__tabbed_95" type="radio" /><input id="__tabbed_95_2" name="__tabbed_95" type="radio" /><div class="tabbed-labels"><label for="__tabbed_95_1">English</label><label for="__tabbed_95_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A context manager is a Python object that implements the __enter__() and __exit__() methods.</p>
@@ -4336,7 +4751,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1712-异步上下文管理器">17.1.2 异步上下文管理器<a class="headerlink" href="#1712-异步上下文管理器" title="Permanent link">&para;</a></h4>
 <p><strong>17.1.2  Asynchronous Context Manager</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="83:2"><input checked="checked" id="__tabbed_83_1" name="__tabbed_83" type="radio" /><input id="__tabbed_83_2" name="__tabbed_83" type="radio" /><div class="tabbed-labels"><label for="__tabbed_83_1">English</label><label for="__tabbed_83_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="96:2"><input checked="checked" id="__tabbed_96_1" name="__tabbed_96" type="radio" /><input id="__tabbed_96_2" name="__tabbed_96" type="radio" /><div class="tabbed-labels"><label for="__tabbed_96_1">English</label><label for="__tabbed_96_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Asynchronous context managers were introduced in “<a href="https://peps.python.org/pep-0492/">PEP 492 – Coroutines with async and await syntax</a>“.</p>
@@ -4422,7 +4837,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="172-如何使用异步上下文管理器">17.2 如何使用异步上下文管理器<a class="headerlink" href="#172-如何使用异步上下文管理器" title="Permanent link">&para;</a></h3>
 <p><strong>17.2 How to Use Asynchronous Context Managers</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="84:2"><input checked="checked" id="__tabbed_84_1" name="__tabbed_84" type="radio" /><input id="__tabbed_84_2" name="__tabbed_84" type="radio" /><div class="tabbed-labels"><label for="__tabbed_84_1">English</label><label for="__tabbed_84_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="97:2"><input checked="checked" id="__tabbed_97_1" name="__tabbed_97" type="radio" /><input id="__tabbed_97_2" name="__tabbed_97" type="radio" /><div class="tabbed-labels"><label for="__tabbed_97_1">English</label><label for="__tabbed_97_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>In this section, we will explore how we can define, create, and use asynchronous context managers in our asyncio programs.</p>
@@ -4434,7 +4849,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1721-定义异步上下文管理器">17.2.1 定义异步上下文管理器<a class="headerlink" href="#1721-定义异步上下文管理器" title="Permanent link">&para;</a></h4>
 <p><strong>17.2.1 Define an Asynchronous Context Manager</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="85:2"><input checked="checked" id="__tabbed_85_1" name="__tabbed_85" type="radio" /><input id="__tabbed_85_2" name="__tabbed_85" type="radio" /><div class="tabbed-labels"><label for="__tabbed_85_1">English</label><label for="__tabbed_85_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">English</label><label for="__tabbed_98_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can define an asynchronous context manager as a Python object that implements the <strong><strong>aenter</strong>()</strong> and <strong><strong>aexit</strong>()</strong> methods.</p>
@@ -4510,7 +4925,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1722-使用异步上下文管理器">17.2.2 使用异步上下文管理器<a class="headerlink" href="#1722-使用异步上下文管理器" title="Permanent link">&para;</a></h4>
 <p><strong>17.2.2 Use an Asynchronous Context Manager</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="86:2"><input checked="checked" id="__tabbed_86_1" name="__tabbed_86" type="radio" /><input id="__tabbed_86_2" name="__tabbed_86" type="radio" /><div class="tabbed-labels"><label for="__tabbed_86_1">English</label><label for="__tabbed_86_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="99:2"><input checked="checked" id="__tabbed_99_1" name="__tabbed_99" type="radio" /><input id="__tabbed_99_2" name="__tabbed_99" type="radio" /><div class="tabbed-labels"><label for="__tabbed_99_1">English</label><label for="__tabbed_99_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asynchronous context manager is used via the “<strong>async with</strong>” expression.</p>
@@ -4540,7 +4955,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="173-异步上下文管理器和async-with的示例">17.3 异步上下文管理器和“async with”的示例<a class="headerlink" href="#173-异步上下文管理器和async-with的示例" title="Permanent link">&para;</a></h3>
 <p><strong>17.3 Example of an Asynchronous Context Manager and “async with”</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="87:2"><input checked="checked" id="__tabbed_87_1" name="__tabbed_87" type="radio" /><input id="__tabbed_87_2" name="__tabbed_87" type="radio" /><div class="tabbed-labels"><label for="__tabbed_87_1">English</label><label for="__tabbed_87_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="100:2"><input checked="checked" id="__tabbed_100_1" name="__tabbed_100" type="radio" /><input id="__tabbed_100_2" name="__tabbed_100" type="radio" /><div class="tabbed-labels"><label for="__tabbed_100_1">English</label><label for="__tabbed_100_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can explore how to use an asynchronous context manager via the “<strong>async with</strong>” expression.</p>
@@ -4654,7 +5069,7 @@ results = [item async for item in async_generator()]
 </div>
 <h2 id="18-异步推导式">18. 异步推导式<a class="headerlink" href="#18-异步推导式" title="Permanent link">&para;</a></h2>
 <p><strong>18. Asynchronous Comprehensions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="88:2"><input checked="checked" id="__tabbed_88_1" name="__tabbed_88" type="radio" /><input id="__tabbed_88_2" name="__tabbed_88" type="radio" /><div class="tabbed-labels"><label for="__tabbed_88_1">English</label><label for="__tabbed_88_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="101:2"><input checked="checked" id="__tabbed_101_1" name="__tabbed_101" type="radio" /><input id="__tabbed_101_2" name="__tabbed_101" type="radio" /><div class="tabbed-labels"><label for="__tabbed_101_1">English</label><label for="__tabbed_101_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Comprehensions, like list and dict comprehensions are one feature of Python when we think of “pythonic“.</p>
@@ -4674,7 +5089,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="181-什么是异步推导式">18.1 什么是异步推导式<a class="headerlink" href="#181-什么是异步推导式" title="Permanent link">&para;</a></h3>
 <p><strong>18.1 What are Asynchronous Comprehensions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="89:2"><input checked="checked" id="__tabbed_89_1" name="__tabbed_89" type="radio" /><input id="__tabbed_89_2" name="__tabbed_89" type="radio" /><div class="tabbed-labels"><label for="__tabbed_89_1">English</label><label for="__tabbed_89_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="102:2"><input checked="checked" id="__tabbed_102_1" name="__tabbed_102" type="radio" /><input id="__tabbed_102_2" name="__tabbed_102" type="radio" /><div class="tabbed-labels"><label for="__tabbed_102_1">English</label><label for="__tabbed_102_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An async comprehension is an asynchronous version of a classical comprehension.</p>
@@ -4686,10 +5101,10 @@ results = [item async for item in async_generator()]
 <p>Before we look at each, let’s first recall classical comprehensions.</p>
 </div>
 <div class="tabbed-block">
-<p>异步理解是经典理解的异步版本。</p>
-<p>Asyncio 支持两种类型的异步理解，它们是“async for”推导和“await”推导。</p>
+<p>异步推导式是经典推导式的异步版本。</p>
+<p>Asyncio 支持两种类型的异步推导式，它们是“async for”推导和“await”推导。</p>
 <blockquote>
-<p>PEP 530 添加了对在 列表、集合、字典理解和生成器表达式使用异步的支持</p>
+<p>PEP 530 添加了对在 列表、集合、字典推导和生成器表达式使用异步的支持</p>
 <p>— <a href="https://docs.python.org/3/whatsnew/3.6.html#pep-530-asynchronous-comprehensions">PEP 530: ASYNCHRONOUS COMPREHENSIONS, WHAT’S NEW IN PYTHON 3.6.</a></p>
 </blockquote>
 <p>在我们讨论每一个之前，让我们首先回顾一下经典的推导式。</p>
@@ -4698,7 +5113,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="182-推导式">18.2 推导式<a class="headerlink" href="#182-推导式" title="Permanent link">&para;</a></h3>
 <p><strong>18.2 Comprehensions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="90:2"><input checked="checked" id="__tabbed_90_1" name="__tabbed_90" type="radio" /><input id="__tabbed_90_2" name="__tabbed_90" type="radio" /><div class="tabbed-labels"><label for="__tabbed_90_1">English</label><label for="__tabbed_90_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="103:2"><input checked="checked" id="__tabbed_103_1" name="__tabbed_103" type="radio" /><input id="__tabbed_103_2" name="__tabbed_103" type="radio" /><div class="tabbed-labels"><label for="__tabbed_103_1">English</label><label for="__tabbed_103_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Comprehensions allow data collections like lists, dicts, and sets to be created in a concise way.</p>
@@ -4746,7 +5161,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="183-异步推导式">18.3 异步推导式<a class="headerlink" href="#183-异步推导式" title="Permanent link">&para;</a></h3>
 <p><strong>18.3 Asynchronous Comprehensions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="91:2"><input checked="checked" id="__tabbed_91_1" name="__tabbed_91" type="radio" /><input id="__tabbed_91_2" name="__tabbed_91" type="radio" /><div class="tabbed-labels"><label for="__tabbed_91_1">English</label><label for="__tabbed_91_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="104:2"><input checked="checked" id="__tabbed_104_1" name="__tabbed_104" type="radio" /><input id="__tabbed_104_2" name="__tabbed_104" type="radio" /><div class="tabbed-labels"><label for="__tabbed_104_1">English</label><label for="__tabbed_104_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asynchronous comprehension allows a list, set, or dict to be created using the “async for” expression with an asynchronous iterable.</p>
@@ -4798,7 +5213,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="184-await-推导式">18.4 Await 推导式<a class="headerlink" href="#184-await-推导式" title="Permanent link">&para;</a></h3>
 <p><strong>18.4 Await Comprehensions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="92:2"><input checked="checked" id="__tabbed_92_1" name="__tabbed_92" type="radio" /><input id="__tabbed_92_2" name="__tabbed_92" type="radio" /><div class="tabbed-labels"><label for="__tabbed_92_1">English</label><label for="__tabbed_92_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="105:2"><input checked="checked" id="__tabbed_105_1" name="__tabbed_105" type="radio" /><input id="__tabbed_105_2" name="__tabbed_105" type="radio" /><div class="tabbed-labels"><label for="__tabbed_105_1">English</label><label for="__tabbed_105_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The <strong>“await”</strong> expression may also be used within a list, set, or dict comprehension, referred to as an await comprehension.</p>
@@ -4846,7 +5261,7 @@ results = [item async for item in async_generator()]
 </div>
 <h2 id="19-在非阻塞子进程中运行命令">19. 在非阻塞子进程中运行命令<a class="headerlink" href="#19-在非阻塞子进程中运行命令" title="Permanent link">&para;</a></h2>
 <p><strong>19. Run Commands in Non-Blocking Subprocesses</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="93:2"><input checked="checked" id="__tabbed_93_1" name="__tabbed_93" type="radio" /><input id="__tabbed_93_2" name="__tabbed_93" type="radio" /><div class="tabbed-labels"><label for="__tabbed_93_1">English</label><label for="__tabbed_93_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="106:2"><input checked="checked" id="__tabbed_106_1" name="__tabbed_106" type="radio" /><input id="__tabbed_106_2" name="__tabbed_106" type="radio" /><div class="tabbed-labels"><label for="__tabbed_106_1">English</label><label for="__tabbed_106_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can execute commands from asyncio.</p>
@@ -4862,7 +5277,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="191-什么是-asynciosubprocessprocess">19.1 什么是 asyncio.subprocess.Process<a class="headerlink" href="#191-什么是-asynciosubprocessprocess" title="Permanent link">&para;</a></h3>
 <p><strong>19.1 What is asyncio.subprocess.Process</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="94:2"><input checked="checked" id="__tabbed_94_1" name="__tabbed_94" type="radio" /><input id="__tabbed_94_2" name="__tabbed_94" type="radio" /><div class="tabbed-labels"><label for="__tabbed_94_1">English</label><label for="__tabbed_94_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="107:2"><input checked="checked" id="__tabbed_107_1" name="__tabbed_107" type="radio" /><input id="__tabbed_107_2" name="__tabbed_107" type="radio" /><div class="tabbed-labels"><label for="__tabbed_107_1">English</label><label for="__tabbed_107_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process">asyncio.subprocess.Process</a> class provides a representation of a subprocess run by asyncio.</p>
@@ -4914,7 +5329,7 @@ results = [item async for item in async_generator()]
 </div>
 <h3 id="192-如何直接运行命令">19.2 如何直接运行命令<a class="headerlink" href="#192-如何直接运行命令" title="Permanent link">&para;</a></h3>
 <p><strong>19.2 How to Run a Command Directly</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="95:2"><input checked="checked" id="__tabbed_95_1" name="__tabbed_95" type="radio" /><input id="__tabbed_95_2" name="__tabbed_95" type="radio" /><div class="tabbed-labels"><label for="__tabbed_95_1">English</label><label for="__tabbed_95_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="108:2"><input checked="checked" id="__tabbed_108_1" name="__tabbed_108" type="radio" /><input id="__tabbed_108_2" name="__tabbed_108" type="radio" /><div class="tabbed-labels"><label for="__tabbed_108_1">English</label><label for="__tabbed_108_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A <a href="https://en.wikipedia.org/wiki/Command-line_interface">command</a> is a program executed on the command line (terminal or command prompt). It is another program that is run directly.</p>
@@ -4966,7 +5381,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1921-如何使用-asyncio-的-create_subprocess_exec">19.2.1 如何使用 Asyncio 的 create_subprocess_exec()<a class="headerlink" href="#1921-如何使用-asyncio-的-create_subprocess_exec" title="Permanent link">&para;</a></h4>
 <p><strong>19.2.1 How to Use Asyncio create_subprocess_exec()</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="96:2"><input checked="checked" id="__tabbed_96_1" name="__tabbed_96" type="radio" /><input id="__tabbed_96_2" name="__tabbed_96" type="radio" /><div class="tabbed-labels"><label for="__tabbed_96_1">English</label><label for="__tabbed_96_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="109:2"><input checked="checked" id="__tabbed_109_1" name="__tabbed_109" type="radio" /><input id="__tabbed_109_2" name="__tabbed_109" type="radio" /><div class="tabbed-labels"><label for="__tabbed_109_1">English</label><label for="__tabbed_109_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_exec">asyncio.create_subprocess_exec()</a> function will execute a given string command in a subprocess.</p>
@@ -5106,7 +5521,7 @@ results = [item async for item in async_generator()]
 </div>
 <h4 id="1922-asyncio-的-create_subprocess_exec-的示例">19.2.2 Asyncio 的 create_subprocess_exec() 的示例<a class="headerlink" href="#1922-asyncio-的-create_subprocess_exec-的示例" title="Permanent link">&para;</a></h4>
 <p><strong>19.2.2 Example of Asyncio create_subprocess_exec()</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="97:2"><input checked="checked" id="__tabbed_97_1" name="__tabbed_97" type="radio" /><input id="__tabbed_97_2" name="__tabbed_97" type="radio" /><div class="tabbed-labels"><label for="__tabbed_97_1">English</label><label for="__tabbed_97_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="110:2"><input checked="checked" id="__tabbed_110_1" name="__tabbed_110" type="radio" /><input id="__tabbed_110_2" name="__tabbed_110" type="radio" /><div class="tabbed-labels"><label for="__tabbed_110_1">English</label><label for="__tabbed_110_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can explore how to run a command in a subprocess from asyncio.</p>
@@ -5172,7 +5587,7 @@ subprocess: &lt;Process 50249&gt;
 </div>
 <h3 id="193-如何跟shell一起运行一个命令">19.3 如何跟shell一起运行一个命令<a class="headerlink" href="#193-如何跟shell一起运行一个命令" title="Permanent link">&para;</a></h3>
 <p><strong>How to Run a Command Via the Shell</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">English</label><label for="__tabbed_98_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="111:2"><input checked="checked" id="__tabbed_111_1" name="__tabbed_111" type="radio" /><input id="__tabbed_111_2" name="__tabbed_111" type="radio" /><div class="tabbed-labels"><label for="__tabbed_111_1">English</label><label for="__tabbed_111_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can execute commands using the <a href="https://en.wikipedia.org/wiki/Shell_(computing)">shell</a>.</p>
@@ -5264,7 +5679,7 @@ subprocess: &lt;Process 50249&gt;
 </div>
 <h4 id="1931-如何使用-asyncio-的-create_subprocess_shell">19.3.1 如何使用 Asyncio 的 create_subprocess_shell()<a class="headerlink" href="#1931-如何使用-asyncio-的-create_subprocess_shell" title="Permanent link">&para;</a></h4>
 <p><strong>19.3.1 How to Use Asyncio create_subprocess_shell()</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="99:2"><input checked="checked" id="__tabbed_99_1" name="__tabbed_99" type="radio" /><input id="__tabbed_99_2" name="__tabbed_99" type="radio" /><div class="tabbed-labels"><label for="__tabbed_99_1">English</label><label for="__tabbed_99_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="112:2"><input checked="checked" id="__tabbed_112_1" name="__tabbed_112" type="radio" /><input id="__tabbed_112_2" name="__tabbed_112" type="radio" /><div class="tabbed-labels"><label for="__tabbed_112_1">English</label><label for="__tabbed_112_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The <a href="https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell">asyncio.create_subprocess_shell()</a> function will execute a given string command via the current shell.</p>
@@ -5376,7 +5791,7 @@ subprocess: &lt;Process 50249&gt;
 </div>
 <h4 id="1932-asyncio-的-create_subprocess_shell-的示例">19.3.2 Asyncio 的 create_subprocess_shell() 的示例<a class="headerlink" href="#1932-asyncio-的-create_subprocess_shell-的示例" title="Permanent link">&para;</a></h4>
 <p><strong>19.3.2 Example of Asyncio create_subprocess_shell()</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="100:2"><input checked="checked" id="__tabbed_100_1" name="__tabbed_100" type="radio" /><input id="__tabbed_100_2" name="__tabbed_100" type="radio" /><div class="tabbed-labels"><label for="__tabbed_100_1">English</label><label for="__tabbed_100_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="113:2"><input checked="checked" id="__tabbed_113_1" name="__tabbed_113" type="radio" /><input id="__tabbed_113_2" name="__tabbed_113" type="radio" /><div class="tabbed-labels"><label for="__tabbed_113_1">English</label><label for="__tabbed_113_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can explore how to run a command in a subprocess from asyncio using the shell.</p>
@@ -5442,7 +5857,7 @@ Hello World
 </div>
 <h2 id="20-非阻塞流">20. 非阻塞流<a class="headerlink" href="#20-非阻塞流" title="Permanent link">&para;</a></h2>
 <p><strong>20. Non-Blocking Streams</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="101:2"><input checked="checked" id="__tabbed_101_1" name="__tabbed_101" type="radio" /><input id="__tabbed_101_2" name="__tabbed_101" type="radio" /><div class="tabbed-labels"><label for="__tabbed_101_1">English</label><label for="__tabbed_101_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="114:2"><input checked="checked" id="__tabbed_114_1" name="__tabbed_114" type="radio" /><input id="__tabbed_114_2" name="__tabbed_114" type="radio" /><div class="tabbed-labels"><label for="__tabbed_114_1">English</label><label for="__tabbed_114_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A major benefit of asyncio is the ability to use non-blocking streams.</p>
@@ -5456,7 +5871,7 @@ Hello World
 </div>
 <h3 id="201-asyncio-的流">20.1 Asyncio 的流<a class="headerlink" href="#201-asyncio-的流" title="Permanent link">&para;</a></h3>
 <p><strong>20.1 Asyncio Streams</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="102:2"><input checked="checked" id="__tabbed_102_1" name="__tabbed_102" type="radio" /><input id="__tabbed_102_2" name="__tabbed_102" type="radio" /><div class="tabbed-labels"><label for="__tabbed_102_1">English</label><label for="__tabbed_102_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="115:2"><input checked="checked" id="__tabbed_115_1" name="__tabbed_115" type="radio" /><input id="__tabbed_115_2" name="__tabbed_115" type="radio" /><div class="tabbed-labels"><label for="__tabbed_115_1">English</label><label for="__tabbed_115_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Asyncio provides non-blocking I/O socket programming.</p>
@@ -5502,7 +5917,7 @@ Hello World
 </div>
 <h3 id="202-如何打开一个连接">20.2 如何打开一个连接<a class="headerlink" href="#202-如何打开一个连接" title="Permanent link">&para;</a></h3>
 <p><strong>20.2 How to Open a Connection</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="103:2"><input checked="checked" id="__tabbed_103_1" name="__tabbed_103" type="radio" /><input id="__tabbed_103_2" name="__tabbed_103" type="radio" /><div class="tabbed-labels"><label for="__tabbed_103_1">English</label><label for="__tabbed_103_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="116:2"><input checked="checked" id="__tabbed_116_1" name="__tabbed_116" type="radio" /><input id="__tabbed_116_2" name="__tabbed_116" type="radio" /><div class="tabbed-labels"><label for="__tabbed_116_1">English</label><label for="__tabbed_116_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asyncio TCP client socket connection can be opened using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> function.</p>
@@ -5570,7 +5985,7 @@ Hello World
 </div>
 <h3 id="203-如何启动一个侦听服务">20.3 如何启动一个侦听服务<a class="headerlink" href="#203-如何启动一个侦听服务" title="Permanent link">&para;</a></h3>
 <p><strong>20.3 How to Start a Server</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="104:2"><input checked="checked" id="__tabbed_104_1" name="__tabbed_104" type="radio" /><input id="__tabbed_104_2" name="__tabbed_104" type="radio" /><div class="tabbed-labels"><label for="__tabbed_104_1">English</label><label for="__tabbed_104_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="117:2"><input checked="checked" id="__tabbed_117_1" name="__tabbed_117" type="radio" /><input id="__tabbed_117_2" name="__tabbed_117" type="radio" /><div class="tabbed-labels"><label for="__tabbed_117_1">English</label><label for="__tabbed_117_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>An asyncio TCP server socket can be opened using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server">asyncio.start_server()</a> function.</p>
@@ -5636,7 +6051,7 @@ Hello World
 </div>
 <h3 id="204-如何使用-streamwriter-写入数据">20.4 如何使用 StreamWriter 写入数据<a class="headerlink" href="#204-如何使用-streamwriter-写入数据" title="Permanent link">&para;</a></h3>
 <p><strong>20.4 How to Write Data with the StreamWriter</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="105:2"><input checked="checked" id="__tabbed_105_1" name="__tabbed_105" type="radio" /><input id="__tabbed_105_2" name="__tabbed_105" type="radio" /><div class="tabbed-labels"><label for="__tabbed_105_1">English</label><label for="__tabbed_105_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="118:2"><input checked="checked" id="__tabbed_118_1" name="__tabbed_118" type="radio" /><input id="__tabbed_118_2" name="__tabbed_118" type="radio" /><div class="tabbed-labels"><label for="__tabbed_118_1">English</label><label for="__tabbed_118_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can write data to the socket using an <a href="https://docs.python.org/3/library/asyncio-stream.html#streamwriter">asyncio.StreamWriter</a>.</p>
@@ -5718,7 +6133,7 @@ Hello World
 </div>
 <h3 id="205-如何使用-streamreader-读取数据">20.5 如何使用 StreamReader 读取数据<a class="headerlink" href="#205-如何使用-streamreader-读取数据" title="Permanent link">&para;</a></h3>
 <p><strong>20.5 How to Read Data with the StreamReader</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="106:2"><input checked="checked" id="__tabbed_106_1" name="__tabbed_106" type="radio" /><input id="__tabbed_106_2" name="__tabbed_106" type="radio" /><div class="tabbed-labels"><label for="__tabbed_106_1">English</label><label for="__tabbed_106_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="119:2"><input checked="checked" id="__tabbed_119_1" name="__tabbed_119" type="radio" /><input id="__tabbed_119_2" name="__tabbed_119" type="radio" /><div class="tabbed-labels"><label for="__tabbed_119_1">English</label><label for="__tabbed_119_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can read data from the socket using an <a href="https://docs.python.org/3/library/asyncio-stream.html#streamreader">asyncio.StreamReader</a>.</p>
@@ -5798,7 +6213,7 @@ Hello World
 </div>
 <h3 id="206-如何关闭连接">20.6 如何关闭连接<a class="headerlink" href="#206-如何关闭连接" title="Permanent link">&para;</a></h3>
 <p><strong>20.6 How to Close Connection</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="107:2"><input checked="checked" id="__tabbed_107_1" name="__tabbed_107" type="radio" /><input id="__tabbed_107_2" name="__tabbed_107" type="radio" /><div class="tabbed-labels"><label for="__tabbed_107_1">English</label><label for="__tabbed_107_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="120:2"><input checked="checked" id="__tabbed_120_1" name="__tabbed_120" type="radio" /><input id="__tabbed_120_2" name="__tabbed_120" type="radio" /><div class="tabbed-labels"><label for="__tabbed_120_1">English</label><label for="__tabbed_120_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The socket can be closed via the asyncio.StreamWriter.</p>
@@ -5874,7 +6289,7 @@ Hello World
 </div>
 <h2 id="21-检查网站状态的示例">21. 检查网站状态的示例<a class="headerlink" href="#21-检查网站状态的示例" title="Permanent link">&para;</a></h2>
 <p><strong>21. Example of Checking Website Status</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="108:2"><input checked="checked" id="__tabbed_108_1" name="__tabbed_108" type="radio" /><input id="__tabbed_108_2" name="__tabbed_108" type="radio" /><div class="tabbed-labels"><label for="__tabbed_108_1">English</label><label for="__tabbed_108_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="121:2"><input checked="checked" id="__tabbed_121_1" name="__tabbed_121" type="radio" /><input id="__tabbed_121_2" name="__tabbed_121" type="radio" /><div class="tabbed-labels"><label for="__tabbed_121_1">English</label><label for="__tabbed_121_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can query the HTTP status of websites using asyncio by opening a stream and writing and reading HTTP requests and responses.</p>
@@ -5890,7 +6305,7 @@ Hello World
 </div>
 <h3 id="211-如何使用-asyncio-检查-http-状态">21.1 如何使用 Asyncio 检查 HTTP 状态<a class="headerlink" href="#211-如何使用-asyncio-检查-http-状态" title="Permanent link">&para;</a></h3>
 <p><strong>21.1 How to Check HTTP Status with Asyncio</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="109:2"><input checked="checked" id="__tabbed_109_1" name="__tabbed_109" type="radio" /><input id="__tabbed_109_2" name="__tabbed_109" type="radio" /><div class="tabbed-labels"><label for="__tabbed_109_1">English</label><label for="__tabbed_109_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="122:2"><input checked="checked" id="__tabbed_122_1" name="__tabbed_122" type="radio" /><input id="__tabbed_122_2" name="__tabbed_122" type="radio" /><div class="tabbed-labels"><label for="__tabbed_122_1">English</label><label for="__tabbed_122_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The asyncio module provides support for opening socket connections and reading and writing data via streams.</p>
@@ -5920,7 +6335,7 @@ Hello World
 </div>
 <h3 id="212-打开-http-连接">21.2 打开 HTTP 连接<a class="headerlink" href="#212-打开-http-连接" title="Permanent link">&para;</a></h3>
 <p><strong>21.2 Open HTTP Connection</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="110:2"><input checked="checked" id="__tabbed_110_1" name="__tabbed_110" type="radio" /><input id="__tabbed_110_2" name="__tabbed_110" type="radio" /><div class="tabbed-labels"><label for="__tabbed_110_1">English</label><label for="__tabbed_110_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="123:2"><input checked="checked" id="__tabbed_123_1" name="__tabbed_123" type="radio" /><input id="__tabbed_123_2" name="__tabbed_123" type="radio" /><div class="tabbed-labels"><label for="__tabbed_123_1">English</label><label for="__tabbed_123_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A connection can be opened in asyncio using the <a href="https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection">asyncio.open_connection()</a> function.</p>
@@ -5960,7 +6375,7 @@ Hello World
 </div>
 <h3 id="213-写入-http-请求">21.3 写入 HTTP 请求<a class="headerlink" href="#213-写入-http-请求" title="Permanent link">&para;</a></h3>
 <p><strong>21.3 Write HTTP Request</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="111:2"><input checked="checked" id="__tabbed_111_1" name="__tabbed_111" type="radio" /><input id="__tabbed_111_2" name="__tabbed_111" type="radio" /><div class="tabbed-labels"><label for="__tabbed_111_1">English</label><label for="__tabbed_111_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="124:2"><input checked="checked" id="__tabbed_124_1" name="__tabbed_124" type="radio" /><input id="__tabbed_124_2" name="__tabbed_124" type="radio" /><div class="tabbed-labels"><label for="__tabbed_124_1">English</label><label for="__tabbed_124_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Once open, we can write a query to the <strong>StreamWriter</strong> to make an HTTP request.</p>
@@ -6062,7 +6477,7 @@ Hello World
 </div>
 <h3 id="214-读取-http-响应">21.4 读取 HTTP 响应<a class="headerlink" href="#214-读取-http-响应" title="Permanent link">&para;</a></h3>
 <p><strong>21.4 Read HTTP Response</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="112:2"><input checked="checked" id="__tabbed_112_1" name="__tabbed_112" type="radio" /><input id="__tabbed_112_2" name="__tabbed_112" type="radio" /><div class="tabbed-labels"><label for="__tabbed_112_1">English</label><label for="__tabbed_112_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="125:2"><input checked="checked" id="__tabbed_125_1" name="__tabbed_125" type="radio" /><input id="__tabbed_125_2" name="__tabbed_125" type="radio" /><div class="tabbed-labels"><label for="__tabbed_125_1">English</label><label for="__tabbed_125_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Once the HTTP request has been made, we can read the response.</p>
@@ -6120,7 +6535,7 @@ Hello World
 </div>
 <h3 id="215-关闭-http-连接">21.5 关闭 HTTP 连接<a class="headerlink" href="#215-关闭-http-连接" title="Permanent link">&para;</a></h3>
 <p><strong>21.5 Close HTTP Connection</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="113:2"><input checked="checked" id="__tabbed_113_1" name="__tabbed_113" type="radio" /><input id="__tabbed_113_2" name="__tabbed_113" type="radio" /><div class="tabbed-labels"><label for="__tabbed_113_1">English</label><label for="__tabbed_113_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="126:2"><input checked="checked" id="__tabbed_126_1" name="__tabbed_126" type="radio" /><input id="__tabbed_126_2" name="__tabbed_126" type="radio" /><div class="tabbed-labels"><label for="__tabbed_126_1">English</label><label for="__tabbed_126_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can close the socket connection by closing the <strong>StreamWriter</strong>.</p>
@@ -6148,7 +6563,7 @@ Hello World
 </div>
 <h3 id="216-按顺序检查-http-状态的示例">21.6 按顺序检查 HTTP 状态的示例<a class="headerlink" href="#216-按顺序检查-http-状态的示例" title="Permanent link">&para;</a></h3>
 <p><strong>21.6 Example of Checking HTTP Status Sequentially</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="114:2"><input checked="checked" id="__tabbed_114_1" name="__tabbed_114" type="radio" /><input id="__tabbed_114_2" name="__tabbed_114" type="radio" /><div class="tabbed-labels"><label for="__tabbed_114_1">English</label><label for="__tabbed_114_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="127:2"><input checked="checked" id="__tabbed_127_1" name="__tabbed_127" type="radio" /><input id="__tabbed_127_2" name="__tabbed_127" type="radio" /><div class="tabbed-labels"><label for="__tabbed_127_1">English</label><label for="__tabbed_127_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can develop an example to check the HTTP status for multiple websites using asyncio.</p>
@@ -6568,7 +6983,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 <h3 id="217-并发检查网站状态的示例">21.7 并发检查网站状态的示例<a class="headerlink" href="#217-并发检查网站状态的示例" title="Permanent link">&para;</a></h3>
 <p><strong>21.7 Example of Checking Website Status Concurrently</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="115:2"><input checked="checked" id="__tabbed_115_1" name="__tabbed_115" type="radio" /><input id="__tabbed_115_2" name="__tabbed_115" type="radio" /><div class="tabbed-labels"><label for="__tabbed_115_1">English</label><label for="__tabbed_115_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="128:2"><input checked="checked" id="__tabbed_128_1" name="__tabbed_128" type="radio" /><input id="__tabbed_128_2" name="__tabbed_128" type="radio" /><div class="tabbed-labels"><label for="__tabbed_128_1">English</label><label for="__tabbed_128_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A benefit of asyncio is that we can execute many coroutines concurrently.</p>
@@ -6774,7 +7189,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 <h2 id="22-python-asyncio-常见错误">22. Python Asyncio 常见错误<a class="headerlink" href="#22-python-asyncio-常见错误" title="Permanent link">&para;</a></h2>
 <p><strong>22. Python Asyncio Common Errors</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="116:2"><input checked="checked" id="__tabbed_116_1" name="__tabbed_116" type="radio" /><input id="__tabbed_116_2" name="__tabbed_116" type="radio" /><div class="tabbed-labels"><label for="__tabbed_116_1">English</label><label for="__tabbed_116_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="129:2"><input checked="checked" id="__tabbed_129_1" name="__tabbed_129" type="radio" /><input id="__tabbed_129_2" name="__tabbed_129" type="radio" /><div class="tabbed-labels"><label for="__tabbed_129_1">English</label><label for="__tabbed_129_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section gives examples of general errors encountered by developers when using asyncio in Python.</p>
@@ -6804,7 +7219,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 <h3 id="221-错误-1-尝试通过函数调用的方式来运行协程">22.1 错误 1: 尝试通过函数调用的方式来运行协程<a class="headerlink" href="#221-错误-1-尝试通过函数调用的方式来运行协程" title="Permanent link">&para;</a></h3>
 <p><strong>22.1 Error 1: Trying to Run Coroutines by Calling Them</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="117:2"><input checked="checked" id="__tabbed_117_1" name="__tabbed_117" type="radio" /><input id="__tabbed_117_2" name="__tabbed_117" type="radio" /><div class="tabbed-labels"><label for="__tabbed_117_1">English</label><label for="__tabbed_117_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="130:2"><input checked="checked" id="__tabbed_130_1" name="__tabbed_130" type="radio" /><input id="__tabbed_130_2" name="__tabbed_130" type="radio" /><div class="tabbed-labels"><label for="__tabbed_130_1">English</label><label for="__tabbed_130_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The most common error encountered by beginners to asyncio is calling a coroutine like a function.</p>
@@ -6876,7 +7291,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 <h3 id="222-错误-2-不在事件循环中运行协程">22.2 错误 2: 不在事件循环中运行协程<a class="headerlink" href="#222-错误-2-不在事件循环中运行协程" title="Permanent link">&para;</a></h3>
 <p><strong>22.2 Error 2: Not Letting Coroutines Run in the Event Loop</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="118:2"><input checked="checked" id="__tabbed_118_1" name="__tabbed_118" type="radio" /><input id="__tabbed_118_2" name="__tabbed_118" type="radio" /><div class="tabbed-labels"><label for="__tabbed_118_1">English</label><label for="__tabbed_118_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="131:2"><input checked="checked" id="__tabbed_131_1" name="__tabbed_131" type="radio" /><input id="__tabbed_131_2" name="__tabbed_131" type="radio" /><div class="tabbed-labels"><label for="__tabbed_131_1">English</label><label for="__tabbed_131_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>If a coroutine is not run, you will get a runtime warning as follows:</p>
@@ -6996,7 +7411,7 @@ https://www.whatsapp.com/     : HTTP/1.1 302 Found
 </div>
 <h3 id="223-错误-3-使用低级的-asyncio-api">22.3 错误 3: 使用低级的 Asyncio API<a class="headerlink" href="#223-错误-3-使用低级的-asyncio-api" title="Permanent link">&para;</a></h3>
 <p><strong>22.3 Error 3: Using the Low-Level Asyncio API</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="119:2"><input checked="checked" id="__tabbed_119_1" name="__tabbed_119" type="radio" /><input id="__tabbed_119_2" name="__tabbed_119" type="radio" /><div class="tabbed-labels"><label for="__tabbed_119_1">English</label><label for="__tabbed_119_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="132:2"><input checked="checked" id="__tabbed_132_1" name="__tabbed_132" type="radio" /><input id="__tabbed_132_2" name="__tabbed_132" type="radio" /><div class="tabbed-labels"><label for="__tabbed_132_1">English</label><label for="__tabbed_132_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A big problem with beginners is that they use the wrong asyncio API.</p>
@@ -7060,7 +7475,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 <h3 id="224-错误-4-退出主协程太早">22.4 错误 4: 退出主协程太早<a class="headerlink" href="#224-错误-4-退出主协程太早" title="Permanent link">&para;</a></h3>
 <p><strong>22.4 Error 4: Exiting the Main Coroutine Too Early</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="120:2"><input checked="checked" id="__tabbed_120_1" name="__tabbed_120" type="radio" /><input id="__tabbed_120_2" name="__tabbed_120" type="radio" /><div class="tabbed-labels"><label for="__tabbed_120_1">English</label><label for="__tabbed_120_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="133:2"><input checked="checked" id="__tabbed_133_1" name="__tabbed_133" type="radio" /><input id="__tabbed_133_2" name="__tabbed_133" type="radio" /><div class="tabbed-labels"><label for="__tabbed_133_1">English</label><label for="__tabbed_133_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>A major point of confusion in asyncio programs is not giving tasks enough time to complete.</p>
@@ -7110,7 +7525,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 <h3 id="225-错误-5-假设竞争条件和死锁是不可能的">22.5 错误 5: 假设竞争条件和死锁是不可能的<a class="headerlink" href="#225-错误-5-假设竞争条件和死锁是不可能的" title="Permanent link">&para;</a></h3>
 <p><strong>22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="121:2"><input checked="checked" id="__tabbed_121_1" name="__tabbed_121" type="radio" /><input id="__tabbed_121_2" name="__tabbed_121" type="radio" /><div class="tabbed-labels"><label for="__tabbed_121_1">English</label><label for="__tabbed_121_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="134:2"><input checked="checked" id="__tabbed_134_1" name="__tabbed_134" type="radio" /><input id="__tabbed_134_2" name="__tabbed_134" type="radio" /><div class="tabbed-labels"><label for="__tabbed_134_1">English</label><label for="__tabbed_134_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Concurrent programming has the hazard of concurrency-specific failure modes.</p>
@@ -7142,7 +7557,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 <h2 id="23-python-asyncio-常见问题">23. Python Asyncio 常见问题<a class="headerlink" href="#23-python-asyncio-常见问题" title="Permanent link">&para;</a></h2>
 <p><strong>23. Python Asyncio Common Questions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="122:2"><input checked="checked" id="__tabbed_122_1" name="__tabbed_122" type="radio" /><input id="__tabbed_122_2" name="__tabbed_122" type="radio" /><div class="tabbed-labels"><label for="__tabbed_122_1">English</label><label for="__tabbed_122_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="135:2"><input checked="checked" id="__tabbed_135_1" name="__tabbed_135" type="radio" /><input id="__tabbed_135_2" name="__tabbed_135" type="radio" /><div class="tabbed-labels"><label for="__tabbed_135_1">English</label><label for="__tabbed_135_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section answers common questions asked by developers when using asyncio in Python.</p>
@@ -7158,7 +7573,7 @@ We should almost always stick to the high-level API.</p>
 </div>
 <h3 id="231-如何停止任务">23.1 如何停止任务？<a class="headerlink" href="#231-如何停止任务" title="Permanent link">&para;</a></h3>
 <p><strong>23.1 How to Stop a Task?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="123:2"><input checked="checked" id="__tabbed_123_1" name="__tabbed_123" type="radio" /><input id="__tabbed_123_2" name="__tabbed_123" type="radio" /><div class="tabbed-labels"><label for="__tabbed_123_1">English</label><label for="__tabbed_123_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="136:2"><input checked="checked" id="__tabbed_136_1" name="__tabbed_136" type="radio" /><input id="__tabbed_136_2" name="__tabbed_136" type="radio" /><div class="tabbed-labels"><label for="__tabbed_136_1">English</label><label for="__tabbed_136_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can cancel a task via the <strong>cancel()</strong> method on an <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel">asyncio.Task</a> object.</p>
@@ -7302,7 +7717,7 @@ main coroutine done
 </div>
 <h3 id="232-如何等待任务完成">23.2 如何等待任务完成？<a class="headerlink" href="#232-如何等待任务完成" title="Permanent link">&para;</a></h3>
 <p><strong>23.2 How to Wait for a Task To Finish?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="124:2"><input checked="checked" id="__tabbed_124_1" name="__tabbed_124" type="radio" /><input id="__tabbed_124_2" name="__tabbed_124" type="radio" /><div class="tabbed-labels"><label for="__tabbed_124_1">English</label><label for="__tabbed_124_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="137:2"><input checked="checked" id="__tabbed_137_1" name="__tabbed_137" type="radio" /><input id="__tabbed_137_2" name="__tabbed_137" type="radio" /><div class="tabbed-labels"><label for="__tabbed_137_1">English</label><label for="__tabbed_137_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can wait for a task to finish by awaiting the <strong>asyncio.Task</strong> object directly.</p>
@@ -7336,7 +7751,7 @@ main coroutine done
 </div>
 <h3 id="233-如何获取任务的返回值">23.3 如何获取任务的返回值？<a class="headerlink" href="#233-如何获取任务的返回值" title="Permanent link">&para;</a></h3>
 <p><strong>23.3 How to Get a Return Value from a Task?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="125:2"><input checked="checked" id="__tabbed_125_1" name="__tabbed_125" type="radio" /><input id="__tabbed_125_2" name="__tabbed_125" type="radio" /><div class="tabbed-labels"><label for="__tabbed_125_1">English</label><label for="__tabbed_125_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="138:2"><input checked="checked" id="__tabbed_138_1" name="__tabbed_138" type="radio" /><input id="__tabbed_138_2" name="__tabbed_138" type="radio" /><div class="tabbed-labels"><label for="__tabbed_138_1">English</label><label for="__tabbed_138_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We may need to return values from coroutines to the caller.</p>
@@ -7464,7 +7879,7 @@ main coroutine done
 </div>
 <h3 id="234-如何在后台运行任务">23.4 如何在后台运行任务？<a class="headerlink" href="#234-如何在后台运行任务" title="Permanent link">&para;</a></h3>
 <p><strong>23.4 How to Run a Task in the Background?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="126:2"><input checked="checked" id="__tabbed_126_1" name="__tabbed_126" type="radio" /><input id="__tabbed_126_2" name="__tabbed_126" type="radio" /><div class="tabbed-labels"><label for="__tabbed_126_1">English</label><label for="__tabbed_126_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="139:2"><input checked="checked" id="__tabbed_139_1" name="__tabbed_139" type="radio" /><input id="__tabbed_139_2" name="__tabbed_139" type="radio" /><div class="tabbed-labels"><label for="__tabbed_139_1">English</label><label for="__tabbed_139_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can run a coroutine in the background by wrapping it in an <strong>asyncio.Task</strong> object.</p>
@@ -7522,7 +7937,7 @@ main coroutine done
 </div>
 <h3 id="235-如何等待所有后台任务">23.5 如何等待所有后台任务？<a class="headerlink" href="#235-如何等待所有后台任务" title="Permanent link">&para;</a></h3>
 <p><strong>23.5 How to Wait for All Background Tasks?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="127:2"><input checked="checked" id="__tabbed_127_1" name="__tabbed_127" type="radio" /><input id="__tabbed_127_2" name="__tabbed_127" type="radio" /><div class="tabbed-labels"><label for="__tabbed_127_1">English</label><label for="__tabbed_127_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="140:2"><input checked="checked" id="__tabbed_140_1" name="__tabbed_140" type="radio" /><input id="__tabbed_140_2" name="__tabbed_140" type="radio" /><div class="tabbed-labels"><label for="__tabbed_140_1">English</label><label for="__tabbed_140_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can wait for all independent tasks in an asyncio program.</p>
@@ -7604,7 +8019,7 @@ main coroutine done
 </div>
 <h3 id="236-正在运行的任务是否会阻止事件循环退出">23.6 正在运行的任务是否会阻止事件循环退出？<a class="headerlink" href="#236-正在运行的任务是否会阻止事件循环退出" title="Permanent link">&para;</a></h3>
 <p><strong>23.6 Does a Running Task Stop the Event Loop from Exiting?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="128:2"><input checked="checked" id="__tabbed_128_1" name="__tabbed_128" type="radio" /><input id="__tabbed_128_2" name="__tabbed_128" type="radio" /><div class="tabbed-labels"><label for="__tabbed_128_1">English</label><label for="__tabbed_128_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="141:2"><input checked="checked" id="__tabbed_141_1" name="__tabbed_141" type="radio" /><input id="__tabbed_141_2" name="__tabbed_141" type="radio" /><div class="tabbed-labels"><label for="__tabbed_141_1">English</label><label for="__tabbed_141_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>No.</p>
@@ -7622,7 +8037,7 @@ main coroutine done
 </div>
 <h3 id="237-如何显示运行任务的进度">23.7 如何显示运行任务的进度？<a class="headerlink" href="#237-如何显示运行任务的进度" title="Permanent link">&para;</a></h3>
 <p><strong>23.7 How to Show Progress of Running Tasks?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="129:2"><input checked="checked" id="__tabbed_129_1" name="__tabbed_129" type="radio" /><input id="__tabbed_129_2" name="__tabbed_129" type="radio" /><div class="tabbed-labels"><label for="__tabbed_129_1">English</label><label for="__tabbed_129_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="142:2"><input checked="checked" id="__tabbed_142_1" name="__tabbed_142" type="radio" /><input id="__tabbed_142_2" name="__tabbed_142" type="radio" /><div class="tabbed-labels"><label for="__tabbed_142_1">English</label><label for="__tabbed_142_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can show progress using a done callback function on each task.</p>
@@ -7668,7 +8083,7 @@ main coroutine done
 </div>
 <h3 id="238-如何在延迟后运行任务">23.8 如何在延迟后运行任务？<a class="headerlink" href="#238-如何在延迟后运行任务" title="Permanent link">&para;</a></h3>
 <p><strong>23.8 How to Run a Task After a Delay?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="130:2"><input checked="checked" id="__tabbed_130_1" name="__tabbed_130" type="radio" /><input id="__tabbed_130_2" name="__tabbed_130" type="radio" /><div class="tabbed-labels"><label for="__tabbed_130_1">English</label><label for="__tabbed_130_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="143:2"><input checked="checked" id="__tabbed_143_1" name="__tabbed_143" type="radio" /><input id="__tabbed_143_2" name="__tabbed_143" type="radio" /><div class="tabbed-labels"><label for="__tabbed_143_1">English</label><label for="__tabbed_143_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>We can develop a custom wrapper coroutine to execute a target coroutine after a delay.</p>
@@ -7722,7 +8137,7 @@ main coroutine done
 </div>
 <h3 id="239-如何运行后续任务">23.9 如何运行后续任务？<a class="headerlink" href="#239-如何运行后续任务" title="Permanent link">&para;</a></h3>
 <p><strong>23.9 How to Run a Follow-Up Task?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="131:2"><input checked="checked" id="__tabbed_131_1" name="__tabbed_131" type="radio" /><input id="__tabbed_131_2" name="__tabbed_131" type="radio" /><div class="tabbed-labels"><label for="__tabbed_131_1">English</label><label for="__tabbed_131_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="144:2"><input checked="checked" id="__tabbed_144_1" name="__tabbed_144" type="radio" /><input id="__tabbed_144_2" name="__tabbed_144" type="radio" /><div class="tabbed-labels"><label for="__tabbed_144_1">English</label><label for="__tabbed_144_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>There are three main ways to issue follow-up tasks in asyncio.</p>
@@ -7840,7 +8255,7 @@ main coroutine done
 </div>
 <h3 id="2310-如何在-asyncio-中执行阻塞-io-或-cpu-密集型函数">23.10 如何在 Asyncio 中执行阻塞 I/O 或 CPU 密集型函数？<a class="headerlink" href="#2310-如何在-asyncio-中执行阻塞-io-或-cpu-密集型函数" title="Permanent link">&para;</a></h3>
 <p><strong>23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="132:2"><input checked="checked" id="__tabbed_132_1" name="__tabbed_132" type="radio" /><input id="__tabbed_132_2" name="__tabbed_132" type="radio" /><div class="tabbed-labels"><label for="__tabbed_132_1">English</label><label for="__tabbed_132_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="145:2"><input checked="checked" id="__tabbed_145_1" name="__tabbed_145" type="radio" /><input id="__tabbed_145_2" name="__tabbed_145" type="radio" /><div class="tabbed-labels"><label for="__tabbed_145_1">English</label><label for="__tabbed_145_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The asyncio module provides two approaches for executing blocking calls in asyncio programs.</p>
@@ -7926,7 +8341,7 @@ main coroutine done
 </div>
 <h2 id="24-使用-asyncio-的常见反对意见">24. 使用 Asyncio 的常见反对意见<a class="headerlink" href="#24-使用-asyncio-的常见反对意见" title="Permanent link">&para;</a></h2>
 <p><strong>24. Common Objections to Using Asyncio</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="133:2"><input checked="checked" id="__tabbed_133_1" name="__tabbed_133" type="radio" /><input id="__tabbed_133_2" name="__tabbed_133" type="radio" /><div class="tabbed-labels"><label for="__tabbed_133_1">English</label><label for="__tabbed_133_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="146:2"><input checked="checked" id="__tabbed_146_1" name="__tabbed_146" type="radio" /><input id="__tabbed_146_2" name="__tabbed_146" type="radio" /><div class="tabbed-labels"><label for="__tabbed_146_1">English</label><label for="__tabbed_146_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Asyncio and coroutines may not be the best solution for all concurrency problems in your program.</p>
@@ -7942,7 +8357,7 @@ main coroutine done
 </div>
 <h3 id="241-全局解释器锁-gil-怎么样">24.1 全局解释器锁 (GIL) 怎么样？<a class="headerlink" href="#241-全局解释器锁-gil-怎么样" title="Permanent link">&para;</a></h3>
 <p><strong>24.1 What About the Global Interpreter Lock (GIL)?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="134:2"><input checked="checked" id="__tabbed_134_1" name="__tabbed_134" type="radio" /><input id="__tabbed_134_2" name="__tabbed_134" type="radio" /><div class="tabbed-labels"><label for="__tabbed_134_1">English</label><label for="__tabbed_134_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="147:2"><input checked="checked" id="__tabbed_147_1" name="__tabbed_147" type="radio" /><input id="__tabbed_147_2" name="__tabbed_147" type="radio" /><div class="tabbed-labels"><label for="__tabbed_147_1">English</label><label for="__tabbed_147_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>The GIL protects the internals of the Python interpreter from concurrent access and modification from multiple threads.</p>
@@ -7960,7 +8375,7 @@ main coroutine done
 </div>
 <h3 id="242-python-协程是真实的吗">24.2 Python 协程是“真实的”吗？<a class="headerlink" href="#242-python-协程是真实的吗" title="Permanent link">&para;</a></h3>
 <p><strong>24.2 Are Python Coroutines “Real“?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="135:2"><input checked="checked" id="__tabbed_135_1" name="__tabbed_135" type="radio" /><input id="__tabbed_135_2" name="__tabbed_135" type="radio" /><div class="tabbed-labels"><label for="__tabbed_135_1">English</label><label for="__tabbed_135_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="148:2"><input checked="checked" id="__tabbed_148_1" name="__tabbed_148" type="radio" /><input id="__tabbed_148_2" name="__tabbed_148" type="radio" /><div class="tabbed-labels"><label for="__tabbed_148_1">English</label><label for="__tabbed_148_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Coroutines are managed in software.</p>
@@ -7978,7 +8393,7 @@ main coroutine done
 </div>
 <h3 id="243-python-的并发性不是有问题吗">24.3 Python 的并发性不是有问题吗？<a class="headerlink" href="#243-python-的并发性不是有问题吗" title="Permanent link">&para;</a></h3>
 <p><strong>24.3 Isn’t Python Concurrency Buggy?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="136:2"><input checked="checked" id="__tabbed_136_1" name="__tabbed_136" type="radio" /><input id="__tabbed_136_2" name="__tabbed_136" type="radio" /><div class="tabbed-labels"><label for="__tabbed_136_1">English</label><label for="__tabbed_136_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="149:2"><input checked="checked" id="__tabbed_149_1" name="__tabbed_149" type="radio" /><input id="__tabbed_149_2" name="__tabbed_149" type="radio" /><div class="tabbed-labels"><label for="__tabbed_149_1">English</label><label for="__tabbed_149_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>No.</p>
@@ -7994,7 +8409,7 @@ main coroutine done
 </div>
 <h3 id="244-对于并发来说python-不是一个糟糕的选择吗">24.4 对于并发来说，Python 不是一个糟糕的选择吗？<a class="headerlink" href="#244-对于并发来说python-不是一个糟糕的选择吗" title="Permanent link">&para;</a></h3>
 <p><strong>24.4 Isn’t Python a Bad Choice for Concurrency?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="137:2"><input checked="checked" id="__tabbed_137_1" name="__tabbed_137" type="radio" /><input id="__tabbed_137_2" name="__tabbed_137" type="radio" /><div class="tabbed-labels"><label for="__tabbed_137_1">English</label><label for="__tabbed_137_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="150:2"><input checked="checked" id="__tabbed_150_1" name="__tabbed_150" type="radio" /><input id="__tabbed_150_2" name="__tabbed_150" type="radio" /><div class="tabbed-labels"><label for="__tabbed_150_1">English</label><label for="__tabbed_150_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Developers love python for many reasons, most commonly because it is easy to use and fast for development.</p>
@@ -8012,7 +8427,7 @@ main coroutine done
 </div>
 <h3 id="255-为什么不使用线程来代替">25.5 为什么不使用线程来代替？<a class="headerlink" href="#255-为什么不使用线程来代替" title="Permanent link">&para;</a></h3>
 <p><strong>25.5 Why Not Use Threads Instead?</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="138:2"><input checked="checked" id="__tabbed_138_1" name="__tabbed_138" type="radio" /><input id="__tabbed_138_2" name="__tabbed_138" type="radio" /><div class="tabbed-labels"><label for="__tabbed_138_1">English</label><label for="__tabbed_138_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="151:2"><input checked="checked" id="__tabbed_151_1" name="__tabbed_151" type="radio" /><input id="__tabbed_151_2" name="__tabbed_151" type="radio" /><div class="tabbed-labels"><label for="__tabbed_151_1">English</label><label for="__tabbed_151_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>You can use threads instead of asyncio.</p>
@@ -8052,7 +8467,7 @@ main coroutine done
 </div>
 <h2 id="25-进一步阅读">25. 进一步阅读<a class="headerlink" href="#25-进一步阅读" title="Permanent link">&para;</a></h2>
 <p><strong>25. Further Reading</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="139:2"><input checked="checked" id="__tabbed_139_1" name="__tabbed_139" type="radio" /><input id="__tabbed_139_2" name="__tabbed_139" type="radio" /><div class="tabbed-labels"><label for="__tabbed_139_1">English</label><label for="__tabbed_139_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="152:2"><input checked="checked" id="__tabbed_152_1" name="__tabbed_152" type="radio" /><input id="__tabbed_152_2" name="__tabbed_152" type="radio" /><div class="tabbed-labels"><label for="__tabbed_152_1">English</label><label for="__tabbed_152_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section lists helpful additional resources on the topic.</p>
@@ -8064,7 +8479,7 @@ main coroutine done
 </div>
 <h3 id="251-python-异步书籍">25.1 Python 异步书籍<a class="headerlink" href="#251-python-异步书籍" title="Permanent link">&para;</a></h3>
 <p><strong>25.1 Python Asyncio Books</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="140:2"><input checked="checked" id="__tabbed_140_1" name="__tabbed_140" type="radio" /><input id="__tabbed_140_2" name="__tabbed_140" type="radio" /><div class="tabbed-labels"><label for="__tabbed_140_1">English</label><label for="__tabbed_140_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="153:2"><input checked="checked" id="__tabbed_153_1" name="__tabbed_153" type="radio" /><input id="__tabbed_153_2" name="__tabbed_153" type="radio" /><div class="tabbed-labels"><label for="__tabbed_153_1">English</label><label for="__tabbed_153_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This section lists my books on Python asyncio, designed to help you get started and get good, super fast.</p>
@@ -8095,7 +8510,7 @@ main coroutine done
 </div>
 </div>
 <h3 id="252-apis">25.2 APIs<a class="headerlink" href="#252-apis" title="Permanent link">&para;</a></h3>
-<div class="tabbed-set tabbed-alternate" data-tabs="141:2"><input checked="checked" id="__tabbed_141_1" name="__tabbed_141" type="radio" /><input id="__tabbed_141_2" name="__tabbed_141" type="radio" /><div class="tabbed-labels"><label for="__tabbed_141_1">English</label><label for="__tabbed_141_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="154:2"><input checked="checked" id="__tabbed_154_1" name="__tabbed_154" type="radio" /><input id="__tabbed_154_2" name="__tabbed_154" type="radio" /><div class="tabbed-labels"><label for="__tabbed_154_1">English</label><label for="__tabbed_154_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -8121,7 +8536,7 @@ main coroutine done
 </div>
 <h3 id="253-参考">25.3 参考<a class="headerlink" href="#253-参考" title="Permanent link">&para;</a></h3>
 <p><strong>25.3 References</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="142:2"><input checked="checked" id="__tabbed_142_1" name="__tabbed_142" type="radio" /><input id="__tabbed_142_2" name="__tabbed_142" type="radio" /><div class="tabbed-labels"><label for="__tabbed_142_1">English</label><label for="__tabbed_142_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="155:2"><input checked="checked" id="__tabbed_155_1" name="__tabbed_155" type="radio" /><input id="__tabbed_155_2" name="__tabbed_155" type="radio" /><div class="tabbed-labels"><label for="__tabbed_155_1">English</label><label for="__tabbed_155_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <ul>
@@ -8139,7 +8554,7 @@ main coroutine done
 </div>
 <h2 id="26-结论">26. 结论<a class="headerlink" href="#26-结论" title="Permanent link">&para;</a></h2>
 <p><strong>26. Conclusions</strong></p>
-<div class="tabbed-set tabbed-alternate" data-tabs="143:2"><input checked="checked" id="__tabbed_143_1" name="__tabbed_143" type="radio" /><input id="__tabbed_143_2" name="__tabbed_143" type="radio" /><div class="tabbed-labels"><label for="__tabbed_143_1">English</label><label for="__tabbed_143_2">Chinese</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="156:2"><input checked="checked" id="__tabbed_156_1" name="__tabbed_156" type="radio" /><input id="__tabbed_156_2" name="__tabbed_156" type="radio" /><div class="tabbed-labels"><label for="__tabbed_156_1">English</label><label for="__tabbed_156_2">Chinese</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>This is a large guide, and you have discovered in great detail how asyncio and coroutines work in Python and how to best use them in your project.</p>
@@ -8225,7 +8640,7 @@ main coroutine done
     <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       
