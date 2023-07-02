@@ -1,6 +1,8 @@
-# Python Asyncio: The Complete Guide
+# Python Asyncio: 完整指南
 
-=== "English"
+**Python Asyncio: The Complete Guide**
+
+=== "英文"
 
     **Asyncio** allows us to use asynchronous programming with coroutine-based concurrency in Python.
 
@@ -14,7 +16,7 @@
 
     Let’s dive in.
 
-=== "Chinese"
+=== "中文"
 
     **Asyncio** 允许我们在 Python 中使用基于协程的并发的异步编程。
 
@@ -28,419 +30,787 @@
 
     让我们深入了解一下。
 
-## 1. What is Asynchronous Programming
+## 1. 什么是异步编程
 
-=== "English"
+**1. What is Asynchronous Programming**
 
-=== "Chinese"
+=== "英文"
 
-### 1.1 Asynchronous Tasks
+    Asynchronous programming is a programming paradigm that does not block.
 
-=== "English"
+    Instead, requests and function calls are issued and executed somehow in the background at some future time. This frees the caller to perform other activities and handle the results of issued calls at a later time when results are available or when the caller is interested.
 
-=== "Chinese"
+    Let’s get a handle on asynchronous programming before we dive into asyncio.
 
-### 1.2 Asynchronous Programming
+=== "中文"
 
-=== "English"
+    异步编程是一种不会阻塞的编程范式。
 
-=== "Chinese"
+    相反，请求和函数调用会在将来的某个时间在后台以某种方式抛出和执行。 这使得调用者可以自由地执行其他活动，并在稍后当结果可用或调用者感兴趣时处理抛出的待执行任务。
 
-### 1.3 Asynchronous Programming in Python
+    在深入了解 asyncio 之前，让我们先了解一下异步编程。
 
-=== "English"
+### 1.1 异步任务
 
-=== "Chinese"
+**1.1 Asynchronous Tasks**
 
-## 2. What is Asyncio
+=== "英文"
 
-=== "English"
+    Asynchronous means not at the same time, as opposed to synchronous or at the same time.
 
-=== "Chinese"
+    > asynchronous: not simultaneous or concurrent in time
+    >
+    > — [MERRIAM-WEBSTER DICTIONARY](https://www.merriam-webster.com/dictionary/asynchronous)
+    
+    When programming, [asynchronous](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)) means that the action is requested, although not performed at the time of the request. It is performed later.
 
-### 2.1 Changes to Python to add Support for Coroutines
+    > Asynchronous: Separate execution streams that can run concurrently in any order relative to each other are asynchronous.
+    >
+    > — PAGE 265, [THE ART OF CONCURRENCY](https://amzn.to/3TkCuwX), 2009.
+    
+    For example, we can make an asynchronous function call.
 
-=== "English"
+    This will issue the request to make the function call and will not wait around for the call to complete. We can choose to check on the status or result of the function call later.
 
-=== "Chinese"
+    - **Asynchronous Function Call**: Request that a function is called at some time and in some manner, allowing the caller to resume and perform other activities.
 
-### 2.2 The asyncio Module
+    The function call will happen somehow and at some time, in the background, and the program can perform other tasks or respond to other events.
 
-=== "English"
+    This is key. We don’t have control over how or when the request is handled, only that we would like it handled while the program does other things.
 
-=== "Chinese"
+    Issuing an asynchronous function call often results in some handle on the request that the caller can use to check on the status of the call or get results. This is often called a future.
 
-## 3. When to Use Asyncio
+    - **Future**: A handle on an asynchronous function call allowing the status of the call to be checked and results to be retrieved.
 
-=== "English"
+    The combination of the asynchronous function call and future together is often referred to as an asynchronous task. This is because it is more elaborate than a function call, such as allowing the request to be canceled and more.
 
-=== "Chinese"
+    - **Asynchronous Task**: Used to refer to the aggregate of an asynchronous function call and resulting future.
 
-### 3.1 Reasons to Use Asyncio in Python
+=== "中文"
 
-=== "English"
+    异步意味着不在同一时刻, 与同步或同时相对.
 
-=== "Chinese"
+    > 异步(asynchronous): 时间上不同一时刻或同时进行。
+    >
+    > — [MERRIAM-WEBSTER DICTIONARY](https://www.merriam-webster.com/dictionary/asynchronous)
+    
+    编程时，[异步(asynchronous)](https://en.wikipedia.org/wiki/Asynchrony_(computer_programming)) 意味着请求操作，尽管在请求时并未执行。 这是稍后执行的。
 
-### 3.2 Other Reasons to Use Asyncio
+    > 异步(Asynchronous): 可以以相对于彼此的任何顺序同时运行的单独执行流是异步的。
+    >
+    > — PAGE 265, [并发的艺术](https://amzn.to/3TkCuwX), 2009.
+    
+    例如，我们可以进行异步函数调用。
 
-=== "English"
+    这将发出进行函数调用的请求，并且不会等待调用完成。 我们可以选择稍后检查函数调用的状态或结果。
 
-=== "Chinese"
+    - **异步函数调用(Asynchronous Function Call)**: 请求在某个时间以某种方式调用某个函数，从而允许调用者恢复并执行其他活动。
+    
+    函数调用将以某种方式在某个时间在后台发生，并且程序可以执行其他任务或响应其他事件。
 
-### 3.3 When to Not Use Asyncio
+    这是关键。 我们无法控制如何或何时处理请求，只是我们希望在程序执行其他操作时处理它。
 
-=== "English"
+    发出异步函数调用通常会产生请求的某些句柄，调用者可以使用该句柄检查调用的状态或获取结果。 这通常被称为未来(future)。
 
-=== "Chinese"
+    - **Future**: 异步函数调用的句柄，允许检查调用的状态并检索结果。
 
-## 4. Coroutines in Python
+    异步函数调用和 future 的组合通常称为异步任务。 这是因为它比函数调用更复杂，例如允许取消请求等等。
 
-=== "English"
+    - **异步任务(Asynchronous Task)**: 用于指异步函数调用和结果 future 的聚合。
 
-=== "Chinese"
+### 1.2 异步编程
 
-### 4.1 What is a Coroutine
+**1.2 Asynchronous Programming**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+    Issuing asynchronous tasks and making asynchronous function calls is referred to as asynchronous programming.
 
-### 4.2 Coroutine vs Routine and Subroutine
+    > So what is asynchronous programming? It means that a particular long-running task can be run in the background separate from the main application. Instead of blocking all other application code waiting for that long-running task to be completed, the system is free to do other work that is not dependent on that task. Then, once the long-running task is completed, we’ll be notified that it is done so we can process the result.
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
 
-=== "English"
+    - **Asynchronous Programming**: The use of asynchronous techniques, such as issuing asynchronous tasks or function calls.
 
-=== "Chinese"
+    Asynchronous programming is primarily used with non-blocking I/O, such as reading and writing from socket connections with other processes or other systems.
 
-### 4.3 Coroutine vs Generator
+    > In non-blocking mode, when we write bytes to a socket, we can just fire and forget the write or read, and our application can go on to perform other tasks.
+    >
+    > — PAGE 18, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
 
-=== "English"
+    Non-blocking I/O is a way of performing I/O where reads and writes are requested, although performed asynchronously. The caller does not need to wait for the operation to complete before returning.
 
-=== "Chinese"
+    The read and write operations are performed somehow (e.g. by the underlying operating system or systems built upon it), and the status of the action and/or data is retrieved by the caller later, once available, or when the caller is ready.
 
-### 4.4 Coroutine vs Task
+    - **Non-blocking I/O**: Performing I/O operations via asynchronous requests and responses, rather than waiting for operations to complete.
 
-=== "English"
+    As such, we can see how non-blocking I/O is related to asynchronous programming. In fact, we use non-blocking I/O via asynchronous programming, or non-blocking I/O is implemented via asynchronous programming.
 
-=== "Chinese"
+    The combination of non-blocking I/O with asynchronous programming is so common that it is commonly referred to by the shorthand of [asynchronous I/O](https://en.wikipedia.org/wiki/Asynchronous_I/O).
 
-### 4.5 Coroutine vs Thread
+    - **Asynchronous I/O**: A shorthand that refers to combining asynchronous programming with non-blocking I/O.
 
-=== "English"
+    Next, let’s consider asynchronous programming support in Python.
 
-=== "Chinese"
+=== "中文"
 
-### 4.6 Coroutine vs Process
+    发出异步任务和进行异步函数调用称为异步编程。
 
-=== "English"
+    > 那么什么是异步编程呢？ 这意味着特定的长时间运行的任务可以在与主应用程序分开的后台运行。 系统不会阻塞所有其他应用程序代码等待该长时间运行的任务完成，而是可以自由地执行不依赖于该任务的其他工作。 然后，一旦长时间运行的任务完成，我们就会收到通知，以便我们可以处理结果。
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
 
-=== "Chinese"
+    - **异步编程(Asynchronous Programming)**: 使用异步技术，例如发出异步任务或函数调用。
 
-### 4.7 When Were Coroutines Added to Python
+    异步编程主要用于非阻塞 I/O，例如从与其他进程或其他系统的套接字连接进行读写。
 
-=== "English"
+    > 在非阻塞模式下，当我们向套接字写入字节时，我们可以直接触发并忘记写入或读取，并且我们的应用程序可以继续执行其他任务。
+    >
+    > — PAGE 18, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
 
-=== "Chinese"
+    非阻塞 I/O 是一种执行 I/O 的方式，其中请求读取和写入，但异步执行。 调用者无需等待操作完成即可返回。
 
-## 5. Define, Create and Run Coroutines
+    读取和写入操作以某种方式执行（例如，通过底层操作系统或构建在其上的系统），并且操作和/或数据的状态稍后由调用者检索，一旦可用，或者当调用者准备好时。
 
-=== "English"
+    - **非阻塞 I/O(Non-blocking I/O)**: 通过异步请求和响应执行 I/O 操作，而不是等待操作完成。
 
-=== "Chinese"
+    因此，我们可以看到非阻塞 I/O 与异步编程的关系。 事实上，我们通过异步编程来使用非阻塞I/O，或者说非阻塞I/O是通过异步编程来实现的。
 
-### 5.1 How to Define a Coroutine
+    非阻塞 I/O 与异步编程的结合非常常见，因此通常简称为[异步 I/O](https://en.wikipedia.org/wiki/Asynchronous_I/O)。
 
-=== "English"
+    - **异步I/O(Asynchronous I/O)**: 一种简写，指将异步编程与非阻塞 I/O 相结合。
 
-=== "Chinese"
+    接下来，让我们研究一下 Python 中的异步编程支持。
 
-### 5.2 How to Create a Coroutine
+### 1.3 Python 异步编程
 
-=== "English"
+**1.3 Asynchronous Programming in Python**
 
-=== "Chinese"
+=== "英文"
 
-### 5.3 How to Run a Coroutine From Python
+=== "中文"
 
-=== "English"
+## 2. Asyncio 是什么
 
-=== "Chinese"
+**2. What is Asyncio**
 
-## 6. What is the Event Loop
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 2.1 对 Python 进行更改以添加对协程的支持
 
-### 6.1 What is the Asyncio Event Loop
+**2.1 Changes to Python to add Support for Coroutines**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 6.2 How To Start and Get An Event Loop
+### 2.2 asyncio 模块
 
-=== "English"
+**2.2 The asyncio Module**
 
-=== "Chinese"
+=== "英文"
 
-### 6.3 What is an Event Loop Object
+=== "中文"
 
-=== "English"
+## 3. Asyncio 在什么时候使用
 
-=== "Chinese"
+**3. When to Use Asyncio**
 
-### 6.4 Why Get Access to The Event Loop
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 3.1 使用Python Asyncio的原因
 
-## 7. Create and Run Asyncio Tasks
+**3.1 Reasons to Use Asyncio in Python**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 7.1 What is an Asyncio Task
+#### 3.1.1 原因 1: 使用协程
 
-=== "English"
+**3.1.1 Reason 1: To Use Coroutines**
 
-=== "Chinese"
+=== "英文"
 
-### 7.2 How to Create a Task
+=== "中文"
 
-=== "English"
+#### 3.1.2 原因 2: 使用异步编程
 
-=== "Chinese"
+**3.1.2 Reason 2: To Use Asynchronous Programming**
 
-### 7.3 When Does a Task Run?
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+#### 3.1.3 原因 3: 使用非阻塞I/O
 
-## 8. Work With and Query Tasks
+**3.1.3 Reason 3: To Use Non-Blocking I/O**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 8.1 Task Life-Cycle
+### 3.2 使用Asyncio的其他原因
 
-=== "English"
+**3.2 Other Reasons to Use Asyncio**
 
-=== "Chinese"
+=== "英文"
 
-### 8.2 How to Check Task Status
+=== "中文"
 
-=== "English"
+### 3.3 Asyncio在什么时候不适用
 
-=== "Chinese"
+**3.3 When to Not Use Asyncio**
 
-### 8.3 How to Get Task Result
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+## 4. Python 中的协程
 
-### 8.4 How to Get Task Exception
+**4. Coroutines in Python**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 8.5 How to Cancel a Task
+### 4.1 什么是协程
 
-=== "English"
+**4.1 What is a Coroutine**
 
-=== "Chinese"
+=== "英文"
 
-### 8.6 How to Use Callback With a Task
+=== "中文"
 
-=== "English"
+### 4.2 协程与例程和子例程
 
-=== "Chinese"
+**4.2 Coroutine vs Routine and Subroutine**
 
-### 8.7 How to Set the Task Name
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 4.3 协程与生成器
 
-## 9. Current and Running Tasks
+**4.3 Coroutine vs Generator**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 9.1 How to Get the Current Task
+### 4.4 协程与任务
 
-=== "English"
+**4.4 Coroutine vs Task**
 
-=== "Chinese"
+=== "英文"
 
-### 9.2 How to Get All Tasks
+=== "中文"
 
-=== "English"
+### 4.5 协程与线程
 
-=== "Chinese"
+**4.5 Coroutine vs Thread**
 
-## 10. Run Many Coroutines Concurrently
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 4.6 协程与进程
 
-### 10.1 What is Asyncio gather()
+**4.6 Coroutine vs Process**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 10.2 How to use Asyncio gather()
+### 4.7 Python 何时添加了协程
 
-=== "English"
+**4.7 When Were Coroutines Added to Python**
 
-=== "Chinese"
+=== "英文"
 
-### 10.3 Example of gather() For Many Coroutines in a List
+=== "中文"
 
-=== "English"
+## 5. 定义、创建和运行协程
 
-=== "Chinese"
+**5. Define, Create and Run Coroutines**
 
-## 11. Wait for A Collection of Tasks
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 5.1 如何定义协程
 
-### 11.1 What is asyncio.wait()
+**5.1 How to Define a Coroutine**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 11.2 How to Use asyncio.wait()
+### 5.2 如何创建协程
 
-=== "English"
+**5.2 How to Create a Coroutine**
 
-=== "Chinese"
+=== "英文"
 
-### 11.3 Example of Waiting for All Tasks
+=== "中文"
 
-=== "English"
+### 5.3 Python中如何运行协程
 
-=== "Chinese"
+**5.3 How to Run a Coroutine From Python**
 
-## 12. Wait for a Coroutine with a Time Limit
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+## 6. 事件循环是什么
 
-### 12.1 What is Asyncio wait_for()
+**6. What is the Event Loop**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 12.2 How to Use Asyncio wait_for()
+### 6.1 Asyncio 的事件循环是什么
 
-=== "English"
+**6.1 What is the Asyncio Event Loop**
 
-=== "Chinese"
+=== "英文"
 
-### 12.3 Example of Asyncio wait_for() With a Timeout
+=== "中文"
 
-=== "English"
+### 6.2 事件循环如何获取和启动
 
-=== "Chinese"
+**6.2 How To Start and Get An Event Loop**
 
-## 13. Shield Tasks from Cancellation
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 6.3 事件循环对象是什么
 
-### 13.1 What is Asyncio shield()
+**6.3 What is an Event Loop Object**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 13.2 How to Use Asyncio shield()
+### 6.4 为什么要访问事件循环
 
-=== "English"
+**6.4 Why Get Access to The Event Loop**
 
-=== "Chinese"
+=== "英文"
 
-### 13.3 Example of Asyncio shield() for a Task
+=== "中文"
 
-=== "English"
+## 7. Asyncio 任务的创建和运行
 
-=== "Chinese"
+**7. Create and Run Asyncio Tasks**
 
-## 14. Run a Blocking Task in Asyncio
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 7.1 Asyncio 任务是什么
 
-### 14.1 Need to Run Blocking Tasks in Asyncio
+**7.1 What is an Asyncio Task**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 14.2 How to Run Blocking Tasks
+### 7.2 怎么创建任务
 
-=== "English"
+**7.2 How to Create a Task**
 
-=== "Chinese"
+=== "英文"
 
-### 14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+=== "中文"
 
-=== "English"
+#### 7.2.1 使用高级 API 创建任务
 
-=== "Chinese"
+**7.2.1 Create Task With High-Level API**
 
-## 15. Asynchronous Iterators
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 7.2.2 使用低级 API 创建任务
 
-### 15.1 What Are Asynchronous Iterators
+**7.2.2 Create Task With Low-Level API**
 
-=== "English"
+=== "英文"
 
-=== "Chinese"
+=== "中文"
 
-### 15.2 What is the “async for” loop?
+### 7.3 何时运行任务？
 
-=== "English"
+**7.3 When Does a Task Run?**
 
-=== "Chinese"
+=== "英文"
 
-### 15.3 How to Use Asynchronous Iterators
+=== "中文"
 
-=== "English"
+## 8. 使用和查询任务
 
-=== "Chinese"
+**8. Work With and Query Tasks**
 
-### 15.4 Example of an Asynchronous Iterator
+=== "英文"
 
-=== "English"
+=== "中文"
 
-=== "Chinese"
+### 8.1 任务的生命周期
+
+**8.1 Task Life-Cycle**
+
+=== "英文"
+
+=== "中文"
+
+### 8.2 如何检查任务的状态
+
+**8.2 How to Check Task Status**
+
+=== "英文"
+
+=== "中文"
+
+#### 8.2.1 检查任务是否完成
+
+**8.2.1 Check if a Task is Done**
+
+=== "英文"
+
+=== "中文"
+
+#### 8.2.2 检查任务是否被取消
+
+**8.2.2 Check if a Task is Canceled**
+
+=== "英文"
+
+=== "中文"
+
+### 8.3 如何获取任务结果
+
+**8.3 How to Get Task Result**
+
+=== "英文"
+
+=== "中文"
+
+### 8.4 如何获取任务异常
+
+**8.4 How to Get Task Exception**
+
+=== "英文"
+
+=== "中文"
+
+### 8.5 如何取消任务
+
+**8.5 How to Cancel a Task**
+
+=== "英文"
+
+=== "中文"
+
+### 8.6 如何在任务中使用回调
+
+**8.6 How to Use Callback With a Task**
+
+=== "英文"
+
+=== "中文"
+
+### 8.7 如何设置任务名称
+
+**8.7 How to Set the Task Name**
+
+=== "英文"
+
+=== "中文"
+
+## 9. 当前和正在运行的任务
+
+**9. Current and Running Tasks**
+
+=== "英文"
+
+=== "中文"
+
+### 9.1 如何获取当前任务
+
+**9.1 How to Get the Current Task**
+
+=== "英文"
+
+=== "中文"
+
+### 9.2 如何获取所有任务
+
+**9.2 How to Get All Tasks**
+
+=== "英文"
+
+=== "中文"
+
+## 10. 同时运行多个协程
+
+**10. Run Many Coroutines Concurrently**
+
+=== "英文"
+
+=== "中文"
+
+### 10.1 什么是 Asyncio Gather()
+
+**10.1 What is Asyncio gather()**
+
+=== "英文"
+
+=== "中文"
+
+### 10.2 如何使用 Asyncio Gather()
+
+**10.2 How to use Asyncio gather()**
+
+=== "英文"
+
+=== "中文"
+
+### 10.3 对于列表中的多个协程的 Gather() 示例
+
+**10.3 Example of gather() For Many Coroutines in a List**
+
+=== "英文"
+
+=== "中文"
+
+## 11. 等待任务的集合
+
+**11. Wait for A Collection of Tasks**
+
+=== "英文"
+
+=== "中文"
+
+### 11.1 什么是 asyncio.wait()
+
+**11.1 What is asyncio.wait()**
+
+=== "英文"
+
+=== "中文"
+
+### 11.2 如何使用 asyncio.wait()
+
+**11.2 How to Use asyncio.wait()**
+
+=== "英文"
+
+=== "中文"
+
+### 11.3 等待所有任务的示例
+
+**11.3 Example of Waiting for All Tasks**
+
+=== "英文"
+
+=== "中文"
+
+## 12. 等待有时间限制的协程
+
+**12. Wait for a Coroutine with a Time Limit**
+
+=== "英文"
+
+=== "中文"
+
+### 12.1 什么是 Asyncio wait_for()
+
+**12.1 What is Asyncio wait_for()**
+
+=== "英文"
+
+=== "中文"
+
+### 12.2 如何使用 Asyncio wait_for()
+
+**12.2 How to Use Asyncio wait_for()**
+
+=== "英文"
+
+=== "中文"
+
+### 12.3 带有超时的 Asyncio wait_for() 示例
+
+**12.3 Example of Asyncio wait_for() With a Timeout**
+
+=== "英文"
+
+=== "中文"
+
+## 13. 防止任务被取消
+
+**13. Shield Tasks from Cancellation**
+
+=== "英文"
+
+=== "中文"
+
+### 13.1 什么是 Asyncio shield()
+
+**13.1 What is Asyncio shield()**
+
+=== "英文"
+
+=== "中文"
+
+### 13.2 如何使用 Asyncioshield()
+
+**13.2 How to Use Asyncio shield()**
+
+=== "英文"
+
+=== "中文"
+
+### 13.3 任务的 Asyncioshield() 示例
+
+**13.3 Example of Asyncio shield() for a Task**
+
+=== "英文"
+
+=== "中文"
+
+## 14. 在 Asyncio 中运行阻塞任务
+
+**14. Run a Blocking Task in Asyncio**
+
+=== "英文"
+
+=== "中文"
+
+### 14.1 需要在 Asyncio 中运行阻塞任务
+
+**14.1 Need to Run Blocking Tasks in Asyncio**
+
+=== "英文"
+
+=== "中文"
+
+### 14.2 如何运行阻塞任务
+
+**14.2 How to Run Blocking Tasks**
+
+=== "英文"
+
+=== "中文"
+
+### 14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例
+
+14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()
+
+=== "英文"
+
+=== "中文"
+
+## 15. 异步迭代器
+
+**15. Asynchronous Iterators**
+
+=== "英文"
+
+=== "中文"
+
+### 15.1 什么是异步迭代器
+
+**15.1 What Are Asynchronous Iterators**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.1.1 迭代器
+
+**15.1.1 Iterators**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.1.2 异步迭代器
+
+**15.1.2 Asynchronous Iterators**
+
+=== "英文"
+
+=== "中文"
+
+### 15.2 什么是“async for”循环？
+
+**15.2 What is the “async for” loop?**
+
+=== "英文"
+
+=== "中文"
+
+### 15.3 如何使用异步迭代器
+
+**15.3 How to Use Asynchronous Iterators**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.3.1 定义异步迭代器
+
+**15.3.1 Define an Asynchronous Iterator**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.3.2 创建异步迭代器
+
+**15.3.2 Create Asynchronous Iterator**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.3.3 单步执行异步迭代器
+
+**Step an Asynchronous Iterator**
+
+=== "英文"
+
+=== "中文"
+
+#### 15.3.4 遍历异步迭代器
+
+**Traverse an Asynchronous Iterator**
+
+=== "英文"
+
+=== "中文"
+
+### 15.4 异步迭代器的示例
+
+**15.4 Example of an Asynchronous Iterator**
+
+=== "英文"
+
+=== "中文"
 
 ## 16. 异步生成器
 
 **16. Asynchronous Generators**
 
-=== "English"
+=== "英文"
 
     Generators are a fundamental part of Python.
     
@@ -454,7 +824,7 @@
     
     Let’s take a closer look.
 
-=== "Chinese"
+=== "中文"
 
     生成器是 Python 的基本组成部分。
     
@@ -472,13 +842,13 @@
 
 **16.1 What Are Asynchronous Generators**
 
-=== "English"
+=== "英文"
 
     An asynchronous generator is a coroutine that uses the yield expression.
     
     Before we dive into the details of asynchronous generators, let’s first review classical Python generators.
 
-=== "Chinese"
+=== "中文"
 
     异步生成器是使用yield 表达式的协程。
     
@@ -488,7 +858,7 @@
 
 **16.1.1 Generators**
 
-=== "English"
+=== "英文"
 
     A generator is a Python function that returns a value via a yield expression.
     
@@ -537,7 +907,7 @@
     
     Next, let’s take a closer look at asynchronous generators.
 
-=== "Chinese"
+=== "中文"
 
     生成器是一个Python函数，它通过yield表达式返回一个值。
     
@@ -590,7 +960,7 @@
 
 **16.1.2 Asynchronous Generators**
 
-=== "English"
+=== "英文"
 
     An asynchronous generator is a coroutine that uses the yield expression.
     
@@ -614,7 +984,7 @@
     
     - [Asyncio async for loop](https://superfastpython.com/asyncio-async-for/)
 
-=== "Chinese"
+=== "中文"
 
     异步生成器是使用yield 表达式的协程。
     
@@ -642,13 +1012,13 @@
 
 **16.2 How to Use an Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     In this section, we will take a close look at how to define, create, step, and traverse an asynchronous generator in asyncio programs.
 
     Let’s start with how to define an asynchronous generator.
 
-=== "Chinese"
+=== "中文"
 
     在本节中，我们将仔细研究如何在 asyncio 程序中定义、创建、单步执行和遍历异步生成器。
     
@@ -658,7 +1028,7 @@
 
 **16.2.1 Define an Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     We can define an asynchronous generator by defining a coroutine that has at least one yield expression.
     
@@ -689,7 +1059,7 @@
     
     Next, let’s look at how we might use an asynchronous generator.
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过定义一个至少具有一个yield 表达式的协程来定义异步生成器。
     
@@ -724,7 +1094,7 @@
 
 **16.2.2 Create Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     To use an asynchronous generator we must create the generator.
     
@@ -740,7 +1110,7 @@
     
     This returns a type of asynchronous iterator called an asynchronous generator iterator.
 
-=== "Chinese"
+=== "中文"
 
     要使用异步生成器，我们必须创建生成器。
     
@@ -760,7 +1130,7 @@
 
 **16.2.3 Step an Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     One step of the generator can be traversed using the [anext()](https://docs.python.org/3/library/functions.html#anext) built-in function, just like a classical generator using the **next()** function.
     
@@ -786,7 +1156,7 @@
     result = await anext(gen)
     ```
 
-=== "Chinese"
+=== "中文"
 
     可以使用 [anext()](https://docs.python.org/3/library/functions.html#anext) 内置函数遍历生成器的一步，就像使用 **next()** 函数的经典生成器一样 。
     
@@ -816,7 +1186,7 @@
 
 **16.2.4 Traverse an Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     The asynchronous generator can also be traversed in a loop using the “**async for**” expression that will await each iteration of the loop automatically.
     
@@ -841,7 +1211,7 @@
     results = [item async for item in async_generator()]
     ```
 
-=== "Chinese"
+=== "中文"
 
     还可以使用“**async for**”表达式在循环中遍历异步生成器，该表达式将自动等待循环的每次迭代。
     
@@ -870,7 +1240,7 @@
 
 **16.3 Example of an Asynchronous Generator**
 
-=== "English"
+=== "英文"
 
     We can explore how to traverse an asynchronous generator using the “**async for**” expression.
     
@@ -935,7 +1305,7 @@
     
     Next, we will explore asynchronous context managers.
 
-=== "Chinese"
+=== "中文"
 
     我们可以探索如何使用“**async for**”表达式遍历异步生成器。
     
@@ -1004,7 +1374,7 @@
 
 **17. Asynchronous Context Managers**
 
-=== "English"
+=== "英文"
 
     A context manager is a Python construct that provides a try-finally like environment with a consistent interface and handy syntax, e.g. via the “with” expression.
     
@@ -1016,7 +1386,7 @@
     
     Let’s take a closer look.
 
-=== "Chinese"
+=== "中文"
 
     上下文管理器是一个 Python 结构，它提供了一个类似 try-finally 的环境，具有一致的接口和方便的语法，例如 通过“with”表达。
     
@@ -1032,13 +1402,13 @@
 
 **17.1 What is an Asynchronous Context Manager**
 
-=== "English"
+=== "英文"
 
     An asynchronous context manager is a Python object that implements the **\_\_aenter\_\_()** and **\_\_aexit\_\ _()** methods.
     
     Before we dive into the details of asynchronous context managers, let’s review classical context managers.
 
-=== "Chinese"
+=== "中文"
 
     异步上下文管理器是一个实现 **\_\_aenter\_\_()** 和 **\_\_aexit\_\_()** 方法的 Python 对象。
     
@@ -1048,7 +1418,7 @@
 
 **17.1.1  Context Manager**
 
-=== "English"
+=== "英文"
 
     A context manager is a Python object that implements the \_\_enter\_\_() and \_\_exit\_\_() methods.
     
@@ -1093,7 +1463,7 @@
     
     Next, let’s take a look at asynchronous context managers.
 
-=== "Chinese"
+=== "中文"
 
     上下文管理器是一个实现 \_\_enter\_\_() 和 \_\_exit\_\_() 方法的 Python 对象。
     
@@ -1142,7 +1512,7 @@
 
 **17.1.2  Asynchronous Context Manager**
 
-=== "English"
+=== "英文"
 
     Asynchronous context managers were introduced in “[PEP 492 – Coroutines with async and await syntax](https://peps.python.org/pep-0492/)“.
     
@@ -1202,7 +1572,7 @@
     
     As such an asynchronous context manager must implement the **\_\_aenter\_\_()** and **\_\_aexit\_\_()** methods that must be defined via the async def expression. This makes them coroutines themselves which may also await.
 
-=== "Chinese"
+=== "中文"
 
     异步上下文管理器在“[PEP 492 – 具有异步和等待语法的协程](https://peps.python.org/pep-0492/)”中引入。
     
@@ -1266,11 +1636,11 @@
 
 **17.2 How to Use Asynchronous Context Managers**
 
-=== "English"
+=== "英文"
 
     In this section, we will explore how we can define, create, and use asynchronous context managers in our asyncio programs.
 
-=== "Chinese"
+=== "中文"
 
     在本节中，我们将探讨如何在 asyncio 程序中定义、创建和使用异步上下文管理器。
 
@@ -1278,7 +1648,7 @@
 
 **17.2.1 Define an Asynchronous Context Manager**
 
-=== "English"
+=== "英文"
 
     We can define an asynchronous context manager as a Python object that implements the **__aenter__()** and **__aexit__()** methods.
     
@@ -1322,7 +1692,7 @@
             await asyncio.sleep(0.5)
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以将异步上下文管理器定义为实现 **__aenter__()** 和 **__aexit__()** 方法的 Python 对象。
     
@@ -1370,7 +1740,7 @@
 
 **17.2.2 Use an Asynchronous Context Manager**
 
-=== "English"
+=== "英文"
 
     An asynchronous context manager is used via the “**async with**” expression.
     
@@ -1389,7 +1759,7 @@
     
     Now that we know how to use asynchronous context managers, let’s look at a worked example.
 
-=== "Chinese"
+=== "中文"
 
     异步上下文管理器通过“**async with**”表达式使用。
     
@@ -1412,7 +1782,7 @@
 
 **17.3 Example of an Asynchronous Context Manager and “async with”**
 
-=== "English"
+=== "英文"
 
     We can explore how to use an asynchronous context manager via the “**async with**” expression.
     
@@ -1484,7 +1854,7 @@
     
     Next, we will explore asynchronous comprehensions.
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过“**async with**”表达式探索如何使用异步上下文管理器。
     
@@ -1560,7 +1930,7 @@
 
 **18. Asynchronous Comprehensions**
 
-=== "English"
+=== "英文"
 
     Comprehensions, like list and dict comprehensions are one feature of Python when we think of “pythonic“.
     
@@ -1572,7 +1942,7 @@
     
     Let’s take a closer look.
 
-=== "Chinese"
+=== "中文"
 
     当我们想到“Pythonic”时，推导式（例如列表推导式和字典推导式）是 Python 的特征之一。
     
@@ -1588,7 +1958,7 @@
 
 **18.1 What are Asynchronous Comprehensions**
 
-=== "English"
+=== "英文"
 
     An async comprehension is an asynchronous version of a classical comprehension.
     
@@ -1600,13 +1970,13 @@
     
     Before we look at each, let’s first recall classical comprehensions.
 
-=== "Chinese"
+=== "中文"
 
-    异步理解是经典理解的异步版本。
+    异步推导式是经典推导式的异步版本。
     
-    Asyncio 支持两种类型的异步理解，它们是“async for”推导和“await”推导。
+    Asyncio 支持两种类型的异步推导式，它们是“async for”推导和“await”推导。
     
-    > PEP 530 添加了对在 列表、集合、字典理解和生成器表达式使用异步的支持
+    > PEP 530 添加了对在 列表、集合、字典推导和生成器表达式使用异步的支持
     >
     > — [PEP 530: ASYNCHRONOUS COMPREHENSIONS, WHAT’S NEW IN PYTHON 3.6.](https://docs.python.org/3/whatsnew/3.6.html#pep-530-asynchronous-comprehensions)
     
@@ -1616,7 +1986,7 @@
 
 **18.2 Comprehensions**
 
-=== "English"
+=== "英文"
 
     Comprehensions allow data collections like lists, dicts, and sets to be created in a concise way.
     
@@ -1646,7 +2016,7 @@
     result = {a for a in [1, 2, 3, 2, 3, 1, 5, 4]}
     ```
 
-=== "Chinese"
+=== "中文"
 
     推导式允许以简洁的方式创建列表、字典和集合等数据集合。
     
@@ -1680,7 +2050,7 @@
 
 **18.3 Asynchronous Comprehensions**
 
-=== "English"
+=== "英文"
 
     An asynchronous comprehension allows a list, set, or dict to be created using the “async for” expression with an asynchronous iterable.
     
@@ -1716,11 +2086,11 @@
     result = [a async for a in agenerator]
     ```
 
-=== "Chinese"
+=== "中文"
 
     异步理解允许使用带有异步迭代的“**async for**”表达式来创建列表、集合或字典。
     
-    > 我们建议允许对内部列表、集合和字典理解使用异步。
+    > 我们建议允许对内部列表、集合和字典推导中使用异步。
     >
     > — PEP 530 – ASYNCHRONOUS COMPREHENSIONS
     
@@ -1756,7 +2126,7 @@
 
 **18.4 Await Comprehensions**
 
-=== "English"
+=== "英文"
 
     The **“await”** expression may also be used within a list, set, or dict comprehension, referred to as an await comprehension.
     
@@ -1786,9 +2156,9 @@
     
     Next, we will explore how to run commands using subprocesses from asyncio.
 
-=== "Chinese"
+=== "中文"
 
-    **“await”** 表达式也可以在列表、集合或字典理解中使用，称为**await 推导**。
+    **“await”** 表达式也可以在列表、集合或字典推导中使用，称为**await 推导**。
     
     > 我们建议在异步和同步中都使用**await推导**或**列表推导**
     >
@@ -1820,7 +2190,7 @@
 
 **19. Run Commands in Non-Blocking Subprocesses**
 
-=== "English"
+=== "英文"
 
     We can execute commands from asyncio.
     
@@ -1828,7 +2198,7 @@
     
     Let’s take a closer look.
 
-=== "Chinese"
+=== "中文"
 
     We can execute commands from asyncio.
     
@@ -1840,7 +2210,7 @@
 
 **19.1 What is asyncio.subprocess.Process**
 
-=== "English"
+=== "英文"
 
     The [asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) class provides a representation of a subprocess run by asyncio.
     
@@ -1871,7 +2241,7 @@
 
     Let’s look at examples of each in turn.
 
-=== "Chinese"
+=== "中文"
 
     asyncio通过[asyncio.subprocess.Process](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.subprocess.Process) 类提供了对于运行子进程的支持和表示。
     
@@ -1906,7 +2276,7 @@
 
 **19.2 How to Run a Command Directly**
 
-=== "English"
+=== "英文"
 
     A [command](https://en.wikipedia.org/wiki/Command-line_interface) is a program executed on the command line (terminal or command prompt). It is another program that is run directly.
     
@@ -1938,7 +2308,7 @@
     
     Now that we know what **asyncio.create_subprocess_exec()** does, let’s look at how to use it.
 
-=== "Chinese"
+=== "中文"
 
     [command](https://en.wikipedia.org/wiki/Command-line_interface) 是在命令行（终端或命令提示符）上执行的程序。 这是另一个直接运行的程序。
     
@@ -1974,7 +2344,7 @@
 
 **19.2.1 How to Use Asyncio create_subprocess_exec()**
 
-=== "English"
+=== "英文"
 
     The [asyncio.create_subprocess_exec()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_exec) function will execute a given string command in a subprocess.
     
@@ -2080,7 +2450,7 @@
     
     Now that we know how to use the **create_subprocess_exec()** function, let’s look at some worked examples.
 
-=== "Chinese"
+=== "中文"
 
     [asyncio.create_subprocess_exec()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_exec) 函数将在子进程中执行给定的字符串命令。
     
@@ -2190,7 +2560,7 @@
 
 **19.2.2 Example of Asyncio create_subprocess_exec()**
 
-=== "English"
+=== "英文"
 
     We can explore how to run a command in a subprocess from asyncio.
     
@@ -2235,7 +2605,7 @@
     subprocess: <Process 50249>
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以探索如何在 asyncio 的子进程中运行命令。
     
@@ -2284,7 +2654,7 @@
 
 **How to Run a Command Via the Shell**
 
-=== "English"
+=== "英文"
 
     We can execute commands using the [shell](https://en.wikipedia.org/wiki/Shell_(computing)).
 
@@ -2345,7 +2715,7 @@
 
     Now that we know what **asyncio.create_subprocess_shell()** does, let’s look at how to use it.
 
-=== "Chinese"
+=== "中文"
 
     我们可以使用[shell](https://en.wikipedia.org/wiki/Shell_(computing))执行命令。
 
@@ -2410,7 +2780,7 @@
 
 **19.3.1 How to Use Asyncio create_subprocess_shell()**
 
-=== "English"
+=== "英文"
 
     The [asyncio.create_subprocess_shell()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell) function will execute a given string command via the current shell.
 
@@ -2495,7 +2865,7 @@
 
     Now that we know how to use the **create_subprocess_shell()** function, let’s look at some worked examples.
 
-=== "Chinese"
+=== "中文"
 
     [asyncio.create_subprocess_shell()](https://docs.python.org/3/library/asyncio-subprocess.html#asyncio.create_subprocess_shell) 函数将通过当前 shell 执行给定的字符串命令。
 
@@ -2585,7 +2955,7 @@
 
 **19.3.2 Example of Asyncio create_subprocess_shell()**
 
-=== "English"
+=== "英文"
 
     We can explore how to run a command in a subprocess from asyncio using the shell.
 
@@ -2630,7 +3000,7 @@
     Hello World
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以探索如何使用 shell 从 asyncio 的子进程中运行命令。
 
@@ -2679,13 +3049,13 @@
 
 **20. Non-Blocking Streams**
 
-=== "English"
+=== "英文"
 
     A major benefit of asyncio is the ability to use non-blocking streams.
 
     Let’s take a closer look.
 
-=== "Chinese"
+=== "中文"
 
     asyncio 的一个主要好处是能够使用非阻塞流。
 
@@ -2695,7 +3065,7 @@
 
 **20.1 Asyncio Streams**
 
-=== "English"
+=== "英文"
 
     Asyncio provides non-blocking I/O socket programming.
 
@@ -2723,7 +3093,7 @@
 
     Now that we know what asyncio streams are, let’s look at how to use them.
 
-=== "Chinese"
+=== "中文"
 
     Asyncio 提供非阻塞 I/O 套接字编程。
 
@@ -2755,7 +3125,7 @@
 
 **20.2 How to Open a Connection**
 
-=== "English"
+=== "英文"
 
     An asyncio TCP client socket connection can be opened using the [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) function.
 
@@ -2805,7 +3175,7 @@
     reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
     ```
 
-=== "Chinese"
+=== "中文"
 
     可以使用 [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) 函数打开 asyncio TCP 客户端套接字连接。
 
@@ -2859,7 +3229,7 @@
 
 **20.3 How to Start a Server**
 
-=== "English"
+=== "英文"
 
     An asyncio TCP server socket can be opened using the [asyncio.start_server()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server) function.
 
@@ -2901,7 +3271,7 @@
     server = await asyncio.start_server(handler, '127.0.0.1', 80)
     ```
 
-=== "Chinese"
+=== "中文"
 
     可以使用 [asyncio.start_server()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.start_server) 函数打开 **asyncio TCP** 服务器套接字。
 
@@ -2947,7 +3317,7 @@
 
 **20.4 How to Write Data with the StreamWriter**
 
-=== "English"
+=== "英文"
 
     We can write data to the socket using an [asyncio.StreamWriter](https://docs.python.org/3/library/asyncio-stream.html#streamwriter).
 
@@ -3001,7 +3371,7 @@
     await writer.drain()
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以使用 [asyncio.StreamWriter](https://docs.python.org/3/library/asyncio-stream.html#streamwriter) 将数据写入套接字。
 
@@ -3059,7 +3429,7 @@
 
 **20.5 How to Read Data with the StreamReader**
 
-=== "English"
+=== "英文"
 
     We can read data from the socket using an [asyncio.StreamReader](https://docs.python.org/3/library/asyncio-stream.html#streamreader).
 
@@ -3113,7 +3483,7 @@
 
     Additionally, there is a readexactly() method to read an exact number of bytes otherwise raise an exception, and a readuntil() that will read bytes until a specified character in byte form is read.
 
-=== "Chinese"
+=== "中文"
 
     我们可以使用 [asyncio.StreamReader](https://docs.python.org/3/library/asyncio-stream.html#streamreader) 从套接字读取数据。
 
@@ -3171,7 +3541,7 @@
 
 **20.6 How to Close Connection**
 
-=== "English"
+=== "英文"
 
     The socket can be closed via the asyncio.StreamWriter.
 
@@ -3222,7 +3592,7 @@
         # ...
     ```
 
-=== "Chinese"
+=== "中文"
 
     可以通过 **asyncio.StreamWriter** 关闭套接字。
 
@@ -3277,7 +3647,7 @@
 
 **21. Example of Checking Website Status**
 
-=== "English"
+=== "英文"
 
     We can query the HTTP status of websites using asyncio by opening a stream and writing and reading HTTP requests and responses.
     
@@ -3285,7 +3655,7 @@
     
     Let’s get started.
 
-=== "Chinese"
+=== "中文"
 
     我们可以使用 asyncio 通过打开流并写入和读取 HTTP 请求和响应来查询网站的 HTTP 状态。
 
@@ -3297,7 +3667,7 @@
 
 **21.1 How to Check HTTP Status with Asyncio**
 
-=== "English"
+=== "英文"
 
     The asyncio module provides support for opening socket connections and reading and writing data via streams.
     
@@ -3312,7 +3682,7 @@
     
     Let’s take a closer look at each part in turn.
 
-=== "Chinese"
+=== "中文"
 
     asyncio 模块提供对打开套接字连接以及通过流读写数据的支持。
     
@@ -3331,7 +3701,7 @@
 
 **21.2 Open HTTP Connection**
 
-=== "English"
+=== "英文"
 
     A connection can be opened in asyncio using the [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) function.
     
@@ -3359,7 +3729,7 @@
     reader, writer = await asyncio.open_connection('www.google.com', 443, ssl=True)
     ```
 
-=== "Chinese"
+=== "中文"
 
     可以使用 [asyncio.open_connection()](https://docs.python.org/3/library/asyncio-stream.html#asyncio.open_connection) 函数在 asyncio 中打开连接。
     
@@ -3391,7 +3761,7 @@
 
 **21.3 Write HTTP Request**
 
-=== "English"
+=== "英文"
 
     Once open, we can write a query to the **StreamWriter** to make an HTTP request.
     
@@ -3472,7 +3842,7 @@
     await writer.drain()
     ```
 
-=== "Chinese"
+=== "中文"
 
     打开后，我们可以向 **StreamWriter** 写入查询以发出 HTTP 请求。
     
@@ -3543,7 +3913,7 @@
 
 **21.4 Read HTTP Response**
 
-=== "English"
+=== "英文"
 
     Once the HTTP request has been made, we can read the response.
     
@@ -3585,7 +3955,7 @@
     line_data = line_bytes.decode()
     ```
 
-=== "Chinese"
+=== "中文"
 
     一旦发出 HTTP 请求，我们就可以读取响应。
     
@@ -3631,7 +4001,7 @@
 
 **21.5 Close HTTP Connection**
 
-=== "English"
+=== "英文"
 
     We can close the socket connection by closing the **StreamWriter**.
     
@@ -3649,7 +4019,7 @@
     
     Now that we know how to make HTTP requests and read responses using **asyncio**, let’s look at some worked examples of checking web page statuses.
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过关闭 **StreamWriter** 来关闭套接字连接。
     
@@ -3671,7 +4041,7 @@
 
 **21.6 Example of Checking HTTP Status Sequentially**
 
-=== "English"
+=== "英文"
 
     We can develop an example to check the HTTP status for multiple websites using asyncio.
     
@@ -3939,7 +4309,7 @@
     
     Next, let’s look at how we might update the example to execute the coroutines concurrently.
 
-=== "Chinese"
+=== "中文"
 
     我们可以开发一个示例来使用 asyncio 检查多个网站的 HTTP 状态。
     
@@ -4211,7 +4581,7 @@
 
 **21.7 Example of Checking Website Status Concurrently**
 
-=== "English"
+=== "英文"
 
     A benefit of asyncio is that we can execute many coroutines concurrently.
 
@@ -4339,7 +4709,7 @@
 
     Next, let’s explore common errors when getting started with asyncio.
 
-=== "Chinese"
+=== "中文"
 
     asyncio 的一个好处是我们可以同时执行许多协程。
 
@@ -4471,7 +4841,7 @@
 
 **22. Python Asyncio Common Errors**
 
-=== "English"
+=== "英文"
 
     This section gives examples of general errors encountered by developers when using asyncio in Python.
 
@@ -4485,7 +4855,7 @@
     
     Let’s take a closer look at each in turn.
 
-=== "Chinese"
+=== "中文"
 
     本节提供了开发人员在 Python 中使用 asyncio 时遇到的常见错误的示例。
 
@@ -4503,7 +4873,7 @@
 
 **22.1 Error 1: Trying to Run Coroutines by Calling Them**
 
-=== "English"
+=== "英文"
 
     The most common error encountered by beginners to asyncio is calling a coroutine like a function.
 
@@ -4555,7 +4925,7 @@
     
     - [How to Run an Asyncio Coroutine in Python](https://superfastpython.com/asyncio-run-coroutine)
 
-=== "Chinese"
+=== "中文"
 
     asyncio 初学者遇到的最常见错误是像函数一样调用协程。
 
@@ -4611,7 +4981,7 @@
 
 **22.2 Error 2: Not Letting Coroutines Run in the Event Loop**
 
-=== "English"
+=== "英文"
 
     If a coroutine is not run, you will get a runtime warning as follows:
 
@@ -4697,7 +5067,7 @@
 
     - How to Create an Asyncio Task in Python
 
-=== "Chinese"
+=== "中文"
 
     如果协程未运行，您将收到如下运行时警告：
 
@@ -4787,7 +5157,7 @@
 
 **22.3 Error 3: Using the Low-Level Asyncio API**
 
-=== "English"
+=== "英文"
 
     A big problem with beginners is that they use the wrong asyncio API.
 
@@ -4827,7 +5197,7 @@
 
     Then later, dip in and have a look around.
 
-=== "Chinese"
+=== "中文"
 
     初学者的一个大问题是他们使用了错误的 asyncio API。
 
@@ -4872,7 +5242,7 @@
 
 **22.4 Error 4: Exiting the Main Coroutine Too Early**
 
-=== "English"
+=== "英文"
 
     A major point of confusion in asyncio programs is not giving tasks enough time to complete.
 
@@ -4906,7 +5276,7 @@
     await asyncio.wait(all_tasks)
     ```
 
-=== "Chinese"
+=== "中文"
 
     异步程序中的一个主要混乱点是没有给任务足够的时间来完成。
 
@@ -4944,7 +5314,7 @@
 
 **22.5 Error 5: Assuming Race Conditions and Deadlocks are Impossible**
 
-=== "English"
+=== "英文"
 
     Concurrent programming has the hazard of concurrency-specific failure modes.
 
@@ -4968,7 +5338,7 @@
 
     As such, it is important that asyncio programs are created ensuring coroutine-safety, a concept similar to thread-safety and process-safety, applied to coroutines.
 
-=== "Chinese"
+=== "中文"
 
     并发编程存在并发特定故障模式的危险。
 
@@ -4996,7 +5366,7 @@
 
 **23. Python Asyncio Common Questions**
 
-=== "English"
+=== "英文"
 
     This section answers common questions asked by developers when using asyncio in Python.
 
@@ -5004,7 +5374,7 @@
 
     Ask your question in the comments below and I will do my best to answer it and perhaps add it to this list of questions.
 
-=== "Chinese"
+=== "中文"
 
     本节回答开发人员在 Python 中使用 **asyncio** 时提出的常见问题。
 
@@ -5016,7 +5386,7 @@
 
 **23.1 How to Stop a Task?**
 
-=== "English"
+=== "英文"
 
     We can cancel a task via the **cancel()** method on an [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) object.
 
@@ -5115,7 +5485,7 @@
     main coroutine done
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过 [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) 对象上的 **cancel()** 方法取消任务。
 
@@ -5218,7 +5588,7 @@
 
 **23.2 How to Wait for a Task To Finish?**
 
-=== "English"
+=== "英文"
 
     We can wait for a task to finish by awaiting the **asyncio.Task** object directly.
 
@@ -5240,7 +5610,7 @@
     await asyncio.create_task(custom_coro())
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过直接等待 **asyncio.Task** 对象来等待任务完成。
 
@@ -5266,7 +5636,7 @@
 
 **23.3 How to Get a Return Value from a Task?**
 
-=== "English"
+=== "英文"
 
     We may need to return values from coroutines to the caller.
     
@@ -5359,7 +5729,7 @@
     
     - [How to Get Asyncio Task Results](https://superfastpython.com/asyncio-task-result)
 
-=== "Chinese"
+=== "中文"
 
     我们可能需要将值从协程返回给调用者。
     
@@ -5456,7 +5826,7 @@
 
 **23.4 How to Run a Task in the Background?**
 
-=== "English"
+=== "英文"
 
     We can run a coroutine in the background by wrapping it in an **asyncio.Task** object.
     
@@ -5500,7 +5870,7 @@
     await task
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以通过将协程包装在 **asyncio.Task** 对象中来在后台运行协程。
     
@@ -5548,7 +5918,7 @@
 
 **23.5 How to Wait for All Background Tasks?**
 
-=== "English"
+=== "英文"
 
     We can wait for all independent tasks in an asyncio program.
     
@@ -5606,7 +5976,7 @@
     await asyncio.wait(all_tasks)
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以等待 asyncio 程序中的所有独立任务。
     
@@ -5668,7 +6038,7 @@
 
 **23.6 Does a Running Task Stop the Event Loop from Exiting?**
 
-=== "English"
+=== "英文"
 
     No.
     
@@ -5678,7 +6048,7 @@
     
     The previous question/answer shows exactly how to do this.
 
-=== "Chinese"
+=== "中文"
 
     不。
     
@@ -5692,7 +6062,7 @@
 
 **23.7 How to Show Progress of Running Tasks?**
 
-=== "English"
+=== "英文"
 
     We can show progress using a done callback function on each task.
     
@@ -5725,7 +6095,7 @@
     task.add_done_callback(progress)
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以使用每个任务的回调函数来显示进度。
 
@@ -5762,7 +6132,7 @@
 
 **23.8 How to Run a Task After a Delay?**
 
-=== "English"
+=== "英文"
 
     We can develop a custom wrapper coroutine to execute a target coroutine after a delay.
     
@@ -5799,7 +6169,7 @@
     _ = asyncio.create_task(delay(coro, 10))
     ```
 
-=== "Chinese"
+=== "中文"
 
     我们可以开发一个自定义包装协程来在延迟后执行目标协程。
     
@@ -5840,7 +6210,7 @@
 
 **23.9 How to Run a Follow-Up Task?**
 
-=== "English"
+=== "英文"
 
     There are three main ways to issue follow-up tasks in asyncio.
 
@@ -5927,7 +6297,7 @@
     task.add_done_callback(callback)
     ```
 
-=== "Chinese"
+=== "中文"
 
     **asyncio** 中发出**后续任务**(follow-up tasks)的方式主要有三种。
 
@@ -6018,7 +6388,7 @@
 
 **23.10 How to Execute a Blocking I/O or CPU-bound Function in Asyncio?**
 
-=== "English"
+=== "英文"
 
     The asyncio module provides two approaches for executing blocking calls in asyncio programs.
     
@@ -6083,7 +6453,7 @@
 
     These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.
 
-=== "Chinese"
+=== "中文"
 
     asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。
     
@@ -6152,7 +6522,7 @@
 
 **24. Common Objections to Using Asyncio**
 
-=== "English"
+=== "英文"
 
     Asyncio and coroutines may not be the best solution for all concurrency problems in your program.
     
@@ -6160,7 +6530,7 @@
     
     In this section, we review some of the common objections seen by developers when considering using the asyncio.
 
-=== "Chinese"
+=== "中文"
 
     异步和协程可能不是解决程序中所有并发问题的最佳解决方案。
 
@@ -6172,7 +6542,7 @@
 
 **24.1 What About the Global Interpreter Lock (GIL)?**
 
-=== "English"
+=== "英文"
 
     The GIL protects the internals of the Python interpreter from concurrent access and modification from multiple threads.
     
@@ -6182,7 +6552,7 @@
     
     As such the GIL is not an issue when using asyncio and coroutine.
 
-=== "Chinese"
+=== "中文"
 
     GIL 保护 Python 解释器的内部免受多个线程的并发访问和修改。
 
@@ -6196,7 +6566,7 @@
 
 **24.2 Are Python Coroutines “Real“?**
 
-=== "English"
+=== "英文"
 
     Coroutines are managed in software.
     
@@ -6206,7 +6576,7 @@
     
     In this sense, Python does not have support for “native coroutines”, but I’m not sure such things exist in modern operating systems.
 
-=== "Chinese"
+=== "中文"
 
     协程由软件管理。
     
@@ -6220,7 +6590,7 @@
 
 **24.3 Isn’t Python Concurrency Buggy?**
 
-=== "English"
+=== "英文"
 
     No.
     
@@ -6228,7 +6598,7 @@
     
     It has for a long time now and it is widely used in open source and commercial projects.
 
-=== "Chinese"
+=== "中文"
 
     不🙅🏻‍♀️。
     
@@ -6240,7 +6610,7 @@
 
 **24.4 Isn’t Python a Bad Choice for Concurrency?**
 
-=== "English"
+=== "英文"
 
     Developers love python for many reasons, most commonly because it is easy to use and fast for development.
     
@@ -6250,7 +6620,7 @@
     
     If you need concurrency and you have not chosen a language, perhaps another language would be more appropriate, or perhaps not. Consider the full scope of functional and non-functional requirements (or user needs, wants, and desires) for your project and the capabilities of different development platforms.
 
-=== "Chinese"
+=== "中文"
 
     开发人员喜爱 Python 的原因有很多，最常见的是因为它易于使用且开发速度快。
     
@@ -6264,7 +6634,7 @@
 
 **25.5 Why Not Use Threads Instead?**
 
-=== "English"
+=== "英文"
 
     You can use threads instead of asyncio.
     
@@ -6280,7 +6650,7 @@
     
     Some use cases in the areas of network programming and executing system commands may be simpler(最简单) (less code) when using asyncio, and significantly more scalable than using threads.
 
-=== "Chinese"
+=== "中文"
 
     - 您可以使用线程而不是异步。
     
@@ -6300,11 +6670,11 @@
 
 **25. Further Reading**
 
-=== "English"
+=== "英文"
 
     This section lists helpful additional resources on the topic.
 
-=== "Chinese"
+=== "中文"
 
     本节列出了有关该主题的有用的其他资源。
 
@@ -6312,7 +6682,7 @@
 
 **25.1 Python Asyncio Books**
 
-=== "English"
+=== "英文"
 
     This section lists my books on Python asyncio, designed to help you get started and get good, super fast.
     
@@ -6325,7 +6695,7 @@
     - [Python Concurrency with asyncio](https://amzn.to/3LZvxNn), Matthew Fowler, 2022.
     - [Using Asyncio in Python](https://amzn.to/3lNp2ml), Caleb Hattingh, 2020.
 
-=== "Chinese"
+=== "中文"
 
     本节列出了我有关 Python asyncio 的书籍，旨在帮助您快速入门并获得良好的效果。
     
@@ -6340,7 +6710,7 @@
 
 ### 25.2 APIs
 
-=== "English"
+=== "英文"
 
     - [asyncio — Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)
     - [Asyncio Coroutines and Tasks](https://docs.python.org/3/library/asyncio-task.html)
@@ -6349,7 +6719,7 @@
     - [Asyncio Queues](https://docs.python.org/3/library/asyncio-queue.html)
     - [Asyncio Synchronization Primitives](https://docs.python.org/3/library/asyncio-sync.html)
 
-=== "Chinese"
+=== "中文"
 
     - [asyncio — Asynchronous I/O](https://docs.python.org/3/library/asyncio.html)
     - [Asyncio Coroutines and Tasks](https://docs.python.org/3/library/asyncio-task.html)
@@ -6362,12 +6732,12 @@
 
 **25.3 References**
 
-=== "English"
+=== "英文"
 
     - [Asynchronous I/O, Wikipedia.](https://en.wikipedia.org/wiki/Asynchronous_I/O)
     - [Coroutine, Wikipedia.](https://en.wikipedia.org/wiki/Coroutine)
 
-=== "Chinese"
+=== "中文"
 
     - [Asynchronous I/O, Wikipedia.](https://en.wikipedia.org/wiki/Asynchronous_I/O)
     - [Coroutine, Wikipedia.](https://en.wikipedia.org/wiki/Coroutine)
@@ -6376,7 +6746,7 @@
 
 **26. Conclusions**
 
-=== "English"
+=== "英文"
 
     This is a large guide, and you have discovered in great detail how asyncio and coroutines work in Python and how to best use them in your project.
     
@@ -6394,7 +6764,7 @@
     
     Join the discussion on [reddit](https://www.reddit.com/r/Python/comments/yqrr94/python_asyncio_the_complete_guide/) and [hackernews](https://news.ycombinator.com/item?id=33547323).
 
-=== "Chinese"
+=== "中文"
 
     这是一本很大的指南，您已经详细了解了 asyncio 和协程如何在 Python 中工作以及如何在您的项目中最好地使用它们。
     
