@@ -411,6 +411,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -874,11 +876,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-当前和正在运行的任务" class="md-nav__link">
-    9. 当前和正在运行的任务
+  <a href="#9-当前正在运行的任务" class="md-nav__link">
+    9. 当前正在运行的任务
   </a>
   
-    <nav class="md-nav" aria-label="9. 当前和正在运行的任务">
+    <nav class="md-nav" aria-label="9. 当前正在运行的任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1795,7 +1797,21 @@
   
     <li class="md-nav__item">
       <a href="../cheat_sheet/" class="md-nav__link">
-        异步备忘录
+        语法备忘录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_mind_map/" class="md-nav__link">
+        API思维导图
       </a>
     </li>
   
@@ -2634,11 +2650,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-当前和正在运行的任务" class="md-nav__link">
-    9. 当前和正在运行的任务
+  <a href="#9-当前正在运行的任务" class="md-nav__link">
+    9. 当前正在运行的任务
   </a>
   
-    <nav class="md-nav" aria-label="9. 当前和正在运行的任务">
+    <nav class="md-nav" aria-label="9. 当前正在运行的任务">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -4630,296 +4646,2395 @@ he asyncio module in Python was added specifically to add support for non-blocki
 <p><strong>4.7 When Were Coroutines Added to Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">英文</label><label for="__tabbed_23_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Coroutines extend generators in Python.</p>
+<p>Generators have slowly been migrating towards becoming first-class coroutines for a long time.</p>
+<p>We can explore some of the major changes to Python to add coroutines, which we might consider a subset of the probability addition of asyncio.</p>
+<p>New methods like <strong>send()</strong> and <strong>close()</strong> were added to generator objects to allow them to act more like coroutines.</p>
+<p>These were added in Python 2.5 and described in <a href="https://peps.python.org/pep-0342/">PEP 342</a>.</p>
+<blockquote>
+<p>This PEP proposes some enhancements to the API and syntax of generators, to make them usable as simple coroutines.</p>
+<p>— <a href="https://peps.python.org/pep-0342/">PEP 342 – COROUTINES VIA ENHANCED GENERATORS</a></p>
+</blockquote>
+<p>Later, allowing generators to emit a suspension exception as well as a stop exception described in <a href="https://peps.python.org/pep-0334/">PEP 334</a>.</p>
+<blockquote>
+<p>This PEP proposes a limited approach to coroutines based on an extension to the iterator protocol. Currently, an iterator may raise a StopIteration exception to indicate that it is done producing values. This proposal adds another exception to this protocol, SuspendIteration, which indicates that the given iterator may have more values to produce, but is unable to do so at this time.</p>
+<p>— <a href="https://peps.python.org/pep-0334/">PEP 334 – SIMPLE COROUTINES VIA SUSPENDITERATION</a></p>
+</blockquote>
+<p>The vast majority of the capabilities for working with modern coroutines in Python via the asyncio module were described in <a href="https://peps.python.org/pep-3156/">PEP 3156</a>, added in Python 3.3.</p>
+<blockquote>
+<p>This is a proposal for asynchronous I/O in Python 3, starting at Python 3.3. Consider this the concrete proposal that is missing from PEP 3153. The proposal includes a pluggable event loop, transport and protocol abstractions similar to those in Twisted, and a higher-level scheduler based on yield from (PEP 380). The proposed package name is asyncio.</p>
+<p>— <a href="https://peps.python.org/pep-3156/">PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE</a></p>
+</blockquote>
+<p>A second approach to coroutines, based on generators, was added to <a href="https://docs.python.org/3.4/library/asyncio-task.html">Python 3.4</a> as an extension to Python generators.</p>
+<p>A coroutine was defined as a function that used the <strong>@asyncio.coroutine</strong> decorator.</p>
+<p>Coroutines were executed using an asyncio event loop, via the asyncio module.</p>
+<p>A coroutine could suspend and execute another coroutine via the <strong>“yield from”</strong> expression</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># define a custom coroutine in Python 3.4</span>
+<span class="nd">@asyncio</span><span class="o">.</span><span class="n">coroutine</span>
+<span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># suspend and execute another coroutine</span>
+    <span class="k">yield from</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>The <strong>“yield from”</strong> expression was defined in <a href="https://peps.python.org/pep-0380/"><strong>PEP 380</strong></a>.</p>
+<blockquote>
+<p>A syntax is proposed for a generator to delegate part of its operations to another generator. This allows a section of code containing ‘yield’ to be factored out and placed in another generator.</p>
+<p>— <a href="https://peps.python.org/pep-0380/">PEP 380 – SYNTAX FOR DELEGATING TO A SUBGENERATOR</a></p>
+</blockquote>
+<p>The <strong>“yield from”</strong> expression is still available for use in generators, although is a deprecated approach to suspending execution in coroutines, in favor of the <a href="https://docs.python.org/3/reference/expressions.html#yield-expressions"><strong>“await”</strong> expression.</a></p>
+<blockquote>
+<p>Note: Support for generator-based coroutines is deprecated and is removed in Python 3.11. Generator-based coroutines predate async/await syntax. They are Python generators that use yield from expressions to await on Futures and other coroutines.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">ASYNCIO COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>We might say that coroutines were added as first-class objects to Python in version 3.5.</p>
+<p>This included changes to the Python language, such as the <strong>“async def“</strong>, <strong>“await“</strong>, <strong>“async with“</strong>, and <strong>“async for”</strong> expressions, as well as a coroutine type.</p>
+<p>These changes were described in <a href="https://peps.python.org/pep-0492/">PEP 492</a>.</p>
+<blockquote>
+<p>It is proposed to make coroutines a proper standalone concept in Python, and introduce new supporting syntax. The ultimate goal is to help establish a common, easily approachable, mental model of asynchronous programming in Python and make it as close to synchronous programming as possible.</p>
+<p>— <a href="https://peps.python.org/pep-0492/">PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX</a></p>
+</blockquote>
+<p>Now that we know what a coroutine is, let’s take a closer look at how to use them in Python.</p>
+<p><strong>Overwheled by the python concurrency APIs?</strong></p>
+<p>Find relief, download my FREE <a href="https://marvelous-writer-6152.ck.page/8f23adb076">Python Concurrency Mind Maps</a></p>
+</div>
+<div class="tabbed-block">
+<p>协程扩展了 Python 中的生成器。</p>
+<p>长期以来，生成器一直在慢慢地朝着成为一流协程的方向发展。</p>
+<p>我们可以探索 Python 的一些主要变化来添加协程，我们可以将其视为 asyncio 概率添加的子集。</p>
+<p>像 <strong>send()</strong> 和 <strong>close()</strong> 这样的新方法被添加到生成器对象中，以允许它们更像协程。</p>
+<p>这些是在 Python 2.5 中添加的，并在 <a href="https://peps.python.org/pep-0342/">PEP 342</a> 中进行了描述.</p>
+<blockquote>
+<p>此 PEP 对生成器的 API 和语法提出了一些增强，使它们可以用作简单的协程。</p>
+<p>— <a href="https://peps.python.org/pep-0342/">PEP 342 – COROUTINES VIA ENHANCED GENERATORS</a></p>
+</blockquote>
+<p>随后，允许生成器发出<a href="https://peps.python.org/pep-0334/">PEP 334</a>中描述的暂停异常和停止异常.</p>
+<blockquote>
+<p>该 PEP 提出了一种基于迭代器协议扩展的有限协程方法。 目前，迭代器可能会引发 StopIteration 异常来指示它已完成生成值。 该提案为此协议添加了另一个例外，SuspendIteration，它表明给定的迭代器可能有更多的值要生成，但目前无法这样做。</p>
+<p>— <a href="https://peps.python.org/pep-0334/">PEP 334 – SIMPLE COROUTINES VIA SUSPENDITERATION</a></p>
+</blockquote>
+<p>通过 asyncio 模块在 Python 中使用现代协程的绝大多数功能在 <a href="https://peps.python.org/pep-3156/">PEP 3156</a> 中进行了描述，并在 Python 3.3 中添加。</p>
+<blockquote>
+<p>这是从 Python 3.3 开始的 Python 3 中异步 I/O 的提案。 考虑一下 PEP 3153 中缺少的具体提案。该提案包括可插入事件循环、类似于 Twisted 中的传输和协议抽象，以及基于 (PEP 380) 产量的更高级别调度程序。 建议的包名称是 asyncio。</p>
+<p>— <a href="https://peps.python.org/pep-3156/">PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE</a></p>
+</blockquote>
+<p>基于生成器的第二种协程方法已添加到 <a href="https://docs.python.org/3.4/library/asyncio-task.html">Python 3.4</a> 作为 Python 生成器的扩展。</p>
+<p>协程被定义为使用 <strong>@asyncio.coroutine</strong> 装饰器的函数。</p>
+<p>协程是通过 asyncio 模块使用 asyncio 事件循环执行的。</p>
+<p>协程可以通过 <strong>“yield from”</strong> 表达式挂起并执行另一个协程</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 在 Python 3.4 中定义自定义协程</span>
+<span class="nd">@asyncio</span><span class="o">.</span><span class="n">coroutine</span>
+<span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># 挂起并执行另一个协程</span>
+    <span class="k">yield from</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>“yield from”</strong> 表达式在 <a href="https://peps.python.org/pep-0380/"><strong>PEP 380</strong></a> 中定义。</p>
+<blockquote>
+<p>为生成器提出了一种语法，将其部分操作委托给另一个生成器。 这允许将包含“yield”的代码部分分解出来并放置在另一个生成器中。</p>
+<p>— <a href="https://peps.python.org/pep-0380/">PEP 380 – SYNTAX FOR DELEGATING TO A SUBGENERATOR</a></p>
+</blockquote>
+<p><strong>“yield from”</strong> 表达式仍然可在生成器中使用，尽管它是一种已弃用的在协程中暂停执行的方法，有利于 <a href="https://docs .python.org/3/reference/expressions.html#yield-expressions"><strong>“await”</strong> 表达式。</a></p>
+<blockquote>
+<p>注意：对基于生成器的协程的支持已被弃用并在 Python 3.11 中删除。 基于生成器的协程早于 async/await 语法。 它们是Python生成器，使用yield from表达式来等待Futures和其他协程。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">ASYNCIO COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>我们可以说协程是在 3.5 版本中作为一流对象添加到 Python 中的。</p>
+<p>这包括对 Python 语言的更改，例如 <strong>“async def”</strong>、<strong>“await”</strong>、<strong>“async with”</strong> 和 <strong>“async for”</strong> 表达式 作为协程类型。</p>
+<p>这些更改在 <a href="https://peps.python.org/pep-0492/">PEP 492</a> 中进行了描述。</p>
+<blockquote>
+<p>建议使协程成为Python中一个适当的独立概念，并引入新的支持语法。 最终目标是帮助在 Python 中建立一个通用的、易于理解的异步编程思维模型，并使其尽可能接近同步编程。</p>
+<p>— <a href="https://peps.python.org/pep-0492/">PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX</a></p>
+</blockquote>
+<p>现在我们知道了什么是协程，让我们仔细看看如何在 Python 中使用它们。</p>
+<p><strong>被 python 并发 API 淹没了吗？</strong></p>
+<p>寻求解脱，下载我的免费 <a href="https://marvelous-writer-6152.ck.page/8f23adb076">Python 并发思维导图</a></p>
+</div>
 </div>
 </div>
 <h2 id="5-定义创建和运行协程">5. 定义、创建和运行协程<a class="headerlink" href="#5-定义创建和运行协程" title="Permanent link">&para;</a></h2>
 <p><strong>5. Define, Create and Run Coroutines</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">英文</label><label for="__tabbed_24_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can define coroutines in our Python programs, just like defining new subroutines (functions).</p>
+<p>Once defined, a coroutine function can be used to create a coroutine object.</p>
+<p>The <strong>“asyncio”</strong> module provides tools to run our coroutine objects in an event loop, which is a runtime for coroutines.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以在 Python 程序中定义协程，就像定义新的子例程（函数）一样。</p>
+<p>一旦定义，协程函数就可以用来创建协程对象。</p>
+<p><strong>“asyncio”</strong>模块提供了在事件循环中运行协程对象的工具，事件循环是协程的运行时。</p>
+</div>
 </div>
 </div>
 <h3 id="51-如何定义协程">5.1 如何定义协程<a class="headerlink" href="#51-如何定义协程" title="Permanent link">&para;</a></h3>
 <p><strong>5.1 How to Define a Coroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">英文</label><label for="__tabbed_25_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A coroutine can be defined via the <strong>“async def”</strong> expression.</p>
+<p>This is an extension of the <strong>“def”</strong> expression for defining subroutines.</p>
+<p>It defines a coroutine that can be created and returns a coroutine object.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># define a coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>A coroutine defined with the <strong>“async def”</strong> expression is referred to as a “coroutine function“.</p>
+<blockquote>
+<p>coroutine function: A function which returns a coroutine object. A coroutine function may be defined with the async def statement, and may contain await, async for, and async with keywords.</p>
+<p>— PYTHON GLOSSARY</p>
+</blockquote>
+<p>A coroutine can then use coroutine-specific expressions within it, such as <strong>await</strong>, <strong>async for</strong>, and <strong>async with</strong>.</p>
+<blockquote>
+<p>Execution of Python coroutines can be suspended and resumed at many points (see coroutine). await expressions, async for and async with can only be used in the body of a coroutine function.</p>
+<p>— COROUTINE FUNCTION DEFINITION</p>
+</blockquote>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># define a coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># await another coroutine</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>协程可以通过 <strong>“async def”</strong> 表达式来定义。</p>
+<p>这是用于定义子例程的 <strong>“def”</strong> 表达式的扩展。</p>
+<p>它定义了一个可以创建的协程并返回一个协程对象。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义一个协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>使用 <strong>“async def”</strong> 表达式定义的协程被称为“协程函数”。</p>
+<blockquote>
+<p>协程函数：返回协程对象的函数。 协程函数可以使用 async def 语句来定义，并且可以包含await、async for 和async with 关键字。</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</blockquote>
+<p>然后，协程可以在其中使用协程特定的表达式，例如 <strong>await</strong>、<strong>async for</strong> 和 <strong>async with</strong>。</p>
+<blockquote>
+<p>Python 协程的执行可以在许多点暂停和恢复（请参阅协程）。 wait 表达式、async for 和 async with 只能在协程函数体中使用。</p>
+<p>— <a href="https://docs.python.org/3/reference/compound_stmts.html#async-def">COROUTINE FUNCTION DEFINITION</a></p>
+</blockquote>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义一个协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># 等待另一个协程</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="52-如何创建协程">5.2 如何创建协程<a class="headerlink" href="#52-如何创建协程" title="Permanent link">&para;</a></h3>
 <p><strong>5.2 How to Create a Coroutine</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">英文</label><label for="__tabbed_26_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Once a coroutine is defined, it can be created.</p>
+<p>This looks like calling a subroutine.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a coroutine</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">custom_coro</span><span class="p">()</span>
+</code></pre></div>
+<p>This does not execute the coroutine.</p>
+<p>It returns a <a href="https://docs.python.org/3/reference/datamodel.html#coroutines">“coroutine” object</a>.</p>
+<blockquote>
+<p>You can think of a coroutine function as a factory for coroutine objects; more directly, remember that calling a coroutine function does not cause any user-written code to execute, but rather just builds and returns a coroutine object.</p>
+<p>— PAGE 516, <a href="https://amzn.to/3TazSBW">PYTHON IN A NUTSHELL</a>, 2017.</p>
+</blockquote>
+<p>A <strong>“coroutine”</strong> Python object has methods, such as <strong>send()</strong> and <strong>close()</strong>. It is a type.</p>
+<p>We can demonstrate this by creating an instance of a coroutine and calling the <strong>type()</strong> built-in function in order to report its type.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># check the type of a coroutine</span>
+
+<span class="c1"># define a coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># await another coroutine</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># create the coroutine</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">custom_coro</span><span class="p">()</span>
+<span class="c1"># check the type of the coroutine</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">coro</span><span class="p">))</span>
+</code></pre></div>
+<p>Running the example reports that the created coroutine is a “coroutine” class.</p>
+<p>We also get a RuntimeError because the coroutine was created but never executed, we will explore that in the next section.</p>
+<div class="highlight"><pre><span></span><code>&lt;class &#39;coroutine&#39;&gt;
+sys:1: RuntimeWarning: coroutine &#39;custom_coro&#39; was never awaited
+</code></pre></div>
+<p>A coroutine object is an awaitable.</p>
+<p>This means it is a Python type that implements the <strong>__await__()</strong> method.</p>
+<blockquote>
+<p>An awaitable object generally implements an <strong>__await__()</strong> method. Coroutine objects returned from async def functions are awaitable.</p>
+<p>— <a href="https://docs.python.org/3/reference/datamodel.html#coroutines">AWAITABLE OBJECTS</a></p>
+</blockquote>
+<p>You can learn more about awaitables in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-awaitable">What is an Asyncio Awaitable in Python</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>一旦定义了协程，就可以创建它。</p>
+<p>这看起来就像调用一个子例程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建一个协程</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">custom_coro</span><span class="p">()</span>
+</code></pre></div>
+<p>这不会执行协程。</p>
+<p>它返回一个<a href="https://docs.python.org/3/reference/datamodel.html#coroutines">“coroutine”对象</a>。</p>
+<blockquote>
+<p>您可以将协程函数视为协程对象的工厂； 更直接地，请记住调用协程函数不会导致任何用户编写的代码执行，而只是构建并返回一个协程对象。</p>
+<p>— PAGE 516, <a href="https://amzn.to/3TazSBW">PYTHON IN A NUTSHELL</a>, 2017.</p>
+</blockquote>
+<p><strong>“协程”</strong> Python 对象具有方法，例如 <strong>send()</strong> 和 <strong>close()</strong>。 它是一种类型。</p>
+<p>我们可以通过创建协程实例并调用 <strong>type()</strong> 内置函数来报告其类型来演示这一点。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 检查协程的类型</span>
+
+<span class="c1"># 定义协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># 等待另一个协程</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 创建协程</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">custom_coro</span><span class="p">()</span>
+<span class="c1"># 检查协程的类型</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">coro</span><span class="p">))</span>
+</code></pre></div>
+<p>运行示例报告创建的协程是一个“协程”类。</p>
+<p>我们还会得到一个运行时错误，因为协程已创建但从未执行，我们将在下一节中探讨这一点。</p>
+<div class="highlight"><pre><span></span><code>&lt;class &#39;coroutine&#39;&gt;
+sys:1: RuntimeWarning: coroutine &#39;custom_coro&#39; was never awaited
+</code></pre></div>
+<p>协程对象是一个等待对象。</p>
+<p>这意味着它是实现 <strong>__await__()</strong> 方法的 Python 类型。</p>
+<blockquote>
+<p>可等待对象通常实现 <strong>__await__()</strong> 方法。 从 async def 函数返回的协程对象是可等待的。</p>
+<p>— <a href="https://docs.python.org/3/reference/datamodel.html#coroutines">AWAITABLE OBJECTS</a></p>
+</blockquote>
+<p>您可以在教程中了解有关可等待的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-awaitable">Python 中的 Asyncio Awaitable 是什么</a></li>
+</ul>
+</div>
 </div>
 </div>
 <h3 id="53-python中如何运行协程">5.3 Python中如何运行协程<a class="headerlink" href="#53-python中如何运行协程" title="Permanent link">&para;</a></h3>
 <p><strong>5.3 How to Run a Coroutine From Python</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">英文</label><label for="__tabbed_27_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Coroutines can be defined and created, but they can only be executed within an event loop.</p>
+<blockquote>
+<p>The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>The event loop that executes coroutines, manages the cooperative multitasking between coroutines.</p>
+<blockquote>
+<p>Coroutine objects can only run when the event loop is running.</p>
+<p>— PAGE 517, <a href="https://amzn.to/3TazSBW">PYTHON IN A NUTSHELL</a>, 2017.</p>
+</blockquote>
+<p>The typical way to start a coroutine event loop is via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.run">asyncio.run()</a> function.</p>
+<p>This function takes one coroutine and returns the value of the coroutine. The provided coroutine can be used as the entry point into the coroutine-based program.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of running a coroutine</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="c1"># define a coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># await another coroutine</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># execute my custom coroutine</span>
+    <span class="k">await</span> <span class="n">custom_coro</span><span class="p">()</span>
+
+<span class="c1"># start the coroutine program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>```</p>
+<p>Now that we know how to define, create, and run a coroutine, let’s take a moment to understand the event loop.</p>
+</div>
+<div class="tabbed-block">
+<p>可以定义和创建协程，但它们只能在事件循环内执行。</p>
+<blockquote>
+<p>事件循环是每个异步应用程序的核心。 事件循环运行异步任务和回调、执行网络 IO 操作并运行子进程。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>执行协程的事件循环管理协程之间的协作多任务处理。</p>
+<blockquote>
+<p>协程对象只能在事件循环运行时运行。</p>
+<p>— PAGE 517, <a href="https://amzn.to/3TazSBW">PYTHON IN A NUTSHELL</a>, 2017.</p>
+</blockquote>
+<p>启动协程事件循环的典型方法是通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.run">asyncio.run()</a> 函数。</p>
+<p>该函数采用一个协程并返回该协程的值。 提供的协程可以用作基于协程的程序的入口点。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 运行协程的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="c1"># 定义一个协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">custom_coro</span><span class="p">():</span>
+    <span class="c1"># 等待另一个协程</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 执行我的自定义协程</span>
+    <span class="k">await</span> <span class="n">custom_coro</span><span class="p">()</span>
+
+<span class="c1"># 启动协程程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>现在我们知道如何定义、创建和运行协程，让我们花点时间来了解事件循环。</p>
+</div>
 </div>
 </div>
 <h2 id="6-事件循环是什么">6. 事件循环是什么<a class="headerlink" href="#6-事件循环是什么" title="Permanent link">&para;</a></h2>
 <p><strong>6. What is the Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="28:2"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><input id="__tabbed_28_2" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">英文</label><label for="__tabbed_28_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The heart of asyncio programs is the event loop.</p>
+<p>In this section, we will take a moment to look at the asyncio event loop.</p>
+</div>
+<div class="tabbed-block">
+<p>异步程序的核心是事件循环。</p>
+<p>在本节中，我们将花一些时间来了解异步事件循环。</p>
+</div>
 </div>
 </div>
 <h3 id="61-asyncio-的事件循环是什么">6.1 Asyncio 的事件循环是什么<a class="headerlink" href="#61-asyncio-的事件循环是什么" title="Permanent link">&para;</a></h3>
 <p><strong>6.1 What is the Asyncio Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="29:2"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">英文</label><label for="__tabbed_29_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The event loop is an environment for executing coroutines in a single thread.</p>
+<blockquote>
+<p>asyncio is a library to execute these coroutines in an asynchronous fashion using a concurrency model known as a single-threaded event loop.</p>
+<p>— PAGE 3, <a href="https://amzn.to/3VVaq59">PYTHON CONCURRENCY WITH ASYNCIO</a>, 2022.</p>
+</blockquote>
+<p>The event loop is the core of an asyncio program.</p>
+<p>It does many things, such as:</p>
+<ol>
+<li>Execute coroutines.</li>
+<li>Execute callbacks.</li>
+<li>Perform network input/output.</li>
+<li>Run subprocesses.</li>
+</ol>
+<blockquote>
+<p>The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>Event loops are a common design pattern and became very popular in recent times given their use in JavaScript.</p>
+<blockquote>
+<p>JavaScript has a runtime model based on an event loop, which is responsible for executing the code, collecting and processing events, and executing queued sub-tasks. This model is quite different from models in other languages like C and Java.</p>
+<p>— <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop">THE EVENT LOOP, MOZILLA.</a></p>
+</blockquote>
+<p>The event loop, as its name suggests, is a loop. It manages a list of tasks (coroutines) and attempts to progress each in sequence in each iteration of the loop, as well as perform other tasks like executing callbacks and handling I/O.</p>
+<p>The <strong>“asyncio”</strong> module provides functions for accessing and interacting with the event loop.</p>
+<p>This is not required for typical application development.</p>
+<p>Instead, access to the event loop is provided for framework developers, those that want to build on top of the asyncio module or enable asyncio for their library.</p>
+<blockquote>
+<p>Application developers should typically use the high-level asyncio functions, such as asyncio.run(), and should rarely need to reference the loop object or call its methods.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>The asyncio module provides a low-level API for getting access to the current event loop object, as well as a suite of methods that can be used to interact with the event loop.</p>
+<p>The low-level API is intended for framework developers that will extend, complement and integrate asyncio into third-party libraries.</p>
+<p>We rarely need to interact with the event loop in asyncio programs, in favor of using the high-level API instead.</p>
+<p>Nevertheless, we can briefly explore how to get the event loop.</p>
+</div>
+<div class="tabbed-block">
+<p>事件循环是在单线程中执行协程的环境。</p>
+<blockquote>
+<p>asyncio 是一个使用称为单线程事件循环的并发模型以异步方式执行这些协程的库。</p>
+<p>— PAGE 3, <a href="https://amzn.to/3VVaq59">PYTHON CONCURRENCY WITH ASYNCIO</a>, 2022.</p>
+</blockquote>
+<p>事件循环是 asyncio 程序的核心。</p>
+<p>它可以做很多事情，例如：</p>
+<ol>
+<li>执行协程。</li>
+<li>执行回调。</li>
+<li>执行网络输入/输出。</li>
+<li>运行子进程。</li>
+</ol>
+<blockquote>
+<p>事件循环是每个异步应用程序的核心。 事件循环运行异步任务和回调、执行网络 IO 操作并运行子进程。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>事件循环是一种常见的设计模式，并且由于它们在 JavaScript 中的使用，近年来变得非常流行。</p>
+<blockquote>
+<p>JavaScript 有一个基于事件循环的运行时模型，它负责执行代码、收集和处理事件以及执行排队的子任务。 该模型与 C 和 Java 等其他语言中的模型有很大不同。</p>
+<p>— <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop">THE EVENT LOOP, MOZILLA.</a></p>
+</blockquote>
+<p>事件循环，顾名思义，就是一个循环。 它管理任务（协程）列表，并尝试在循环的每次迭代中按顺序执行每个任务，以及执行其他任务，例如执行回调和处理 I/O。</p>
+<p><strong>“asyncio”</strong>模块提供了访问事件循环并与之交互的功能。</p>
+<p>这对于典型的应用程序开发来说不是必需的。</p>
+<p>相反，为框架开发人员提供对事件循环的访问，这些开发人员希望在 asyncio 模块之上构建或为其库启用 asyncio。</p>
+<blockquote>
+<p>应用程序开发人员通常应使用高级 asyncio 函数，例如 asyncio.run()，并且很少需要引用循环对象或调用其方法。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>asyncio 模块提供了一个低级 API，用于访问当前事件循环对象，以及一套可用于与事件循环交互的方法。</p>
+<p>低级 API 旨在供框架开发人员扩展、补充 asyncio 并将其集成到第三方库中。</p>
+<p>我们很少需要与 asyncio 程序中的事件循环进行交互，而是使用高级 API。</p>
+<p>尽管如此，我们还是可以简单探讨一下如何获取事件循环。</p>
+</div>
 </div>
 </div>
 <h3 id="62-事件循环如何获取和启动">6.2 事件循环如何获取和启动<a class="headerlink" href="#62-事件循环如何获取和启动" title="Permanent link">&para;</a></h3>
 <p><strong>6.2 How To Start and Get An Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="30:2"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><input id="__tabbed_30_2" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">英文</label><label for="__tabbed_30_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The typical way we create an event loop in asyncio applications is via the <strong>asyncio.run()</strong> function.</p>
+<blockquote>
+<p>This function always creates a new event loop and closes it at the end. It should be used as a main entry point for asyncio programs, and should ideally only be called once.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">ASYNCIO COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>The function takes a coroutine and will execute it to completion.</p>
+<p>We typically pass it to our main coroutine and run our program from there.</p>
+<p>There are low-level functions for creating and accessing the event loop.</p>
+<p>The <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.new_event_loop">asyncio.new_event_loop()</a> function will create a new event loop and return access to it.</p>
+<blockquote>
+<p>Create and return a new event loop object.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create and access a new asyncio event loop</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+</code></pre></div>
+<p>We can demonstrate this with a worked example.</p>
+<p>In the example below we will create a new event loop and then report its details.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of creating an event loop</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># create and access a new asyncio event loop</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+<span class="c1"># report defaults of the loop</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+</code></pre></div>
+<p>Running the example creates the event loop, then reports the details of the object.</p>
+<p>We can see that in this case the event loop has the type <strong>_UnixSelectorEventLoop</strong> and is not running, but is also not closed.</p>
+<div class="highlight"><pre><span></span><code>&lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+</code></pre></div>
+<p>If an asyncio event loop is already running, we can get access to it via the asyncio.get_running_loop() function.</p>
+<blockquote>
+<p>Return the running event loop in the current OS thread. If there is no running event loop a RuntimeError is raised. This function can only be called from a coroutine or a callback.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># access he running event loop</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+</code></pre></div>
+<p>There is also a function for getting or starting the event loop called <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop">asyncio.get_event_loop()</a>, but it was deprecated in Python 3.10 and should not be used.</p>
+</div>
+<div class="tabbed-block">
+<p>我们在异步应用程序中创建事件循环的典型方法是通过 <strong>asyncio.run()</strong> 函数。</p>
+<blockquote>
+<p>该函数总是创建一个新的事件循环并在最后关闭它。 它应该用作 asyncio 程序的主要入口点，并且最好只调用一次。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">ASYNCIO COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>该函数采用一个协程并将其执行直至完成。</p>
+<p>我们通常将其传递给我们的主协程并从那里运行我们的程序。</p>
+<p>有一些低级函数用于创建和访问事件循环。</p>
+<p><a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.new_event_loop">asyncio.new_event_loop()</a> 函数将创建一个新的事件循环并返回对其的访问权限。</p>
+<blockquote>
+<p>创建并返回一个新的事件循环对象。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建并访问新的异步事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+</code></pre></div>
+<p>我们可以用一个有效的例子来证明这一点。</p>
+<p>在下面的示例中，我们将创建一个新的事件循环，然后报告其详细信息。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 创建事件循环的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 创建并访问新的异步事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+<span class="c1"># 报告循环的默认值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+</code></pre></div>
+<p>运行该示例将创建事件循环，然后报告对象的详细信息。</p>
+<p>我们可以看到，在这种情况下，事件循环的类型为 <strong>_UnixSelectorEventLoop</strong> 并且没有运行，但也没有关闭。</p>
+<div class="highlight"><pre><span></span><code>&lt;_UnixSelectorEventLoop running=False closed=False debug=False&gt;
+</code></pre></div>
+<p>如果 asyncio 事件循环已经在运行，我们可以通过 <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop">asyncio.get_running_loop()</a> 函数访问它。</p>
+<blockquote>
+<p>返回当前操作系统线程中正在运行的事件循环。 如果没有正在运行的事件循环，则会引发 RuntimeError。 该函数只能从协程或回调中调用。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-eventloop.html">ASYNCIO EVENT LOOP</a></p>
+</blockquote>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 访问正在运行的事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+</code></pre></div>
+<p>还有一个用于获取或启动事件循环的函数，称为 <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop">asyncio.get_event_loop()</a>，但已弃用 在 Python 3.10 中，不应使用。</p>
+</div>
 </div>
 </div>
 <h3 id="63-事件循环对象是什么">6.3 事件循环对象是什么<a class="headerlink" href="#63-事件循环对象是什么" title="Permanent link">&para;</a></h3>
 <p><strong>6.3 What is an Event Loop Object</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="31:2"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><input id="__tabbed_31_2" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">英文</label><label for="__tabbed_31_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An event loop is implemented as a Python object.</p>
+<p>The event loop object defines how the event loop is implemented and provides a common API for interacting with the loop, defined on the <a href="https://github.com/python/cpython/blob/3.10/Lib/asyncio/events.py#L204">AbstractEventLoop</a> class.</p>
+<p>There are <a href="https://docs.python.org/3/library/asyncio-eventloop.html#event-loop-implementations">different implementations</a> of the event loop for different platforms.</p>
+<p>For example, Windows and Unix-based operations systems will implement the event loop in different ways, given the different underlying ways that non-blocking I/O is implemented on these platforms.</p>
+<p>The <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.SelectorEventLoop">SelectorEventLoop</a> type event loop is the default on Unix-based operating systems like Linux and macOS.</p>
+<p>The <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.ProactorEventLoop">ProactorEventLoop</a> type event loop is the default on Windows.</p>
+<p>Third-party libraries may implement their own event loops to optimize for specific features.</p>
+</div>
+<div class="tabbed-block">
+<p>事件循环作为 Python 对象实现。</p>
+<p>事件循环对象定义了事件循环的实现方式，并提供了与循环交互的通用 API，定义在 <a href="https://github.com/python/cpython/blob/3.10/Lib/asyncio/events.py#L204">AbstractEventLoop</a> 类。</p>
+<p>不同平台的事件循环有<a href="https://docs.python.org/3/library/asyncio-eventloop.html#event-loop-implementations">不同的实现</a>。</p>
+<p>例如，基于 Windows 和 Unix 的操作系统将以不同的方式实现事件循环，因为这些平台上实现非阻塞 I/O 的底层方式不同。</p>
+<p><a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.SelectorEventLoop">SelectorEventLoop</a> 类型事件循环是基于 Unix 的操作系统（如 Linux 和 macOS）上的默认设置。</p>
+<p><a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.ProactorEventLoop">ProactorEventLoop</a> 类型事件循环是 Windows 上的默认设置。</p>
+<p>第三方库可以实现自己的事件循环来优化特定功能。</p>
+</div>
 </div>
 </div>
 <h3 id="64-为什么要访问事件循环">6.4 为什么要访问事件循环<a class="headerlink" href="#64-为什么要访问事件循环" title="Permanent link">&para;</a></h3>
 <p><strong>6.4 Why Get Access to The Event Loop</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="32:2"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><input id="__tabbed_32_2" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">英文</label><label for="__tabbed_32_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Why would we want access to an event loop outside of an asyncio program?</p>
+<p>There are many reasons why we may want access to the event loop from outside of a running asyncio program.</p>
+<p>For example:</p>
+<ol>
+<li>To monitor the progress of tasks.</li>
+<li>To issue and get results from tasks.</li>
+<li>To fire and forget one-off tasks.</li>
+</ol>
+<p>An asyncio event loop can be used in a program as an alternative to a thread pool for coroutine-based tasks.</p>
+<p>An event loop may also be embedded within a normal asyncio program and accessed as needed.</p>
+<p>Now that we know a little about the event loop, let’s look at asyncio tasks.</p>
+</div>
+<div class="tabbed-block">
+<p>为什么我们想要访问 asyncio 程序之外的事件循环？</p>
+<p>我们可能希望从正在运行的 asyncio 程序外部访问事件循环的原因有很多。</p>
+<p>例如：</p>
+<ol>
+<li>监控任务的进展情况。</li>
+<li>发出任务并获取结果。</li>
+<li>解雇并忘记一次性任务。</li>
+</ol>
+<p>异步事件循环可以在程序中用作基于协程的任务的线程池的替代方案。</p>
+<p>事件循环也可以嵌入到普通的异步程序中并根据需要进行访问。</p>
+<p>现在我们对事件循环有了一些了解，让我们看看异步任务。</p>
+</div>
 </div>
 </div>
 <h2 id="7-asyncio-任务的创建和运行">7. Asyncio 任务的创建和运行<a class="headerlink" href="#7-asyncio-任务的创建和运行" title="Permanent link">&para;</a></h2>
 <p><strong>7. Create and Run Asyncio Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="33:2"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><input id="__tabbed_33_2" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">英文</label><label for="__tabbed_33_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>You can create Task objects from coroutines in asyncio programs.</p>
+<p>Tasks provide a handle on independently scheduled and running coroutines and allow the task to be queried, canceled, and results and exceptions to be retrieved later.</p>
+<p>The asyncio event loop manages tasks. As such, all coroutines become and are managed as tasks within the event loop.</p>
+<p>Let’s take a closer look at asyncio tasks.</p>
+</div>
+<div class="tabbed-block">
+<p>您可以从 asyncio 程序中的协程创建任务对象。</p>
+<p>任务提供独立调度和运行的协程的句柄，并允许查询、取消任务以及稍后检索结果和异常。</p>
+<p>asyncio 事件循环管理任务。 因此，所有协程都成为事件循环中的任务并作为任务进行管理。</p>
+<p>让我们仔细看看异步任务。</p>
+</div>
 </div>
 </div>
 <h3 id="71-asyncio-任务是什么">7.1 Asyncio 任务是什么<a class="headerlink" href="#71-asyncio-任务是什么" title="Permanent link">&para;</a></h3>
 <p><strong>7.1 What is an Asyncio Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="34:2"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><input id="__tabbed_34_2" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">英文</label><label for="__tabbed_34_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A Task is an object that schedules and independently runs an asyncio coroutine.</p>
+<p>It provides a handle on a scheduled coroutine that an asyncio program can query and use to interact with the coroutine.</p>
+<blockquote>
+<p>A Task is an object that manages an independently running coroutine.</p>
+<p>— <a href="https://peps.python.org/pep-3156/">PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE</a></p>
+</blockquote>
+<p>A task is created from a coroutine. It requires a coroutine object, wraps the coroutine, schedules it for execution, and provides ways to interact with it.</p>
+<p>A task is executed independently. This means it is scheduled in the asyncio event loop and will execute regardless of what else happens in the coroutine that created it. This is different from executing a coroutine directly, where the caller must wait for it to complete.</p>
+<blockquote>
+<p>Tasks are used to schedule coroutines concurrently. When a coroutine is wrapped into a Task with functions like asyncio.create_task() the coroutine is automatically scheduled to run soon</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>The <a href="https://docs.python.org/3/library/asyncio-task.html#task-object">asyncio.Task</a> class extends the <a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.Future">asyncio.Future</a> class and an instance are awaitable.</p>
+<p>A Future is a lower-level class that represents a result that will eventually arrive.</p>
+<blockquote>
+<p>A Future is a special low-level awaitable object that represents an eventual result of an asynchronous operation.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>Classes that extend the Future class are often referred to as Future-like.</p>
+<blockquote>
+<p>A Future-like object that runs a Python coroutine.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>Because a Task is awaitable it means that a coroutine can wait for a task to be done using the await expression.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for a task to be done</span>
+<span class="k">await</span> <span class="n">task</span>
+</code></pre></div>
+<p>Now that we know what an asyncio task is, let’s look at how we might create one.</p>
+</div>
+<div class="tabbed-block">
+<p>任务是一个调度并独立运行异步协程的对象。</p>
+<p>它提供了预定协程的句柄，asyncio 程序可以查询该句柄并使用该句柄与协程进行交互。</p>
+<blockquote>
+<p>任务是管理独立运行的协程的对象。</p>
+<p>— <a href="https://peps.python.org/pep-3156/">PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE</a></p>
+</blockquote>
+<p>任务是从协程创建的。 它需要一个协程对象，包装协程，安排其执行，并提供与其交互的方法。</p>
+<p>任务是独立执行的。 这意味着它被调度在 asyncio 事件循环中，并且无论创建它的协程中发生了什么，它都会执行。 这与直接执行协程不同，调用者必须等待它完成。</p>
+<blockquote>
+<p>任务用于同时调度协程。 当协程被包装到具有 asyncio.create_task() 等函数的任务中时，协程会自动安排很快运行</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p><a href="https://docs.python.org/3/library/asyncio-task.html#task-object">asyncio.Task</a> 类扩展了 <a href="https://docs.python.org/ 3/library/asyncio-future.html#asyncio.Future">asyncio.Future</a> 类和实例是可等待的。</p>
+<p>Future 是一个较低级别的类，代表最终将到达的结果。</p>
+<blockquote>
+<p>Future 是一种特殊的低级可等待对象，它表示异步操作的最终结果。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>扩展 Future 类的类通常被称为类 Future 类。</p>
+<blockquote>
+<p>运行 Python 协程的类似 Future 的对象。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>因为任务是可等待的，这意味着协程可以使用等待表达式等待任务完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待任务完成</span>
+<span class="k">await</span> <span class="n">task</span>
+</code></pre></div>
+<p>现在我们知道什么是异步任务，让我们看看如何创建一个异步任务。</p>
+</div>
 </div>
 </div>
 <h3 id="72-怎么创建任务">7.2 怎么创建任务<a class="headerlink" href="#72-怎么创建任务" title="Permanent link">&para;</a></h3>
 <p><strong>7.2 How to Create a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="35:2"><input checked="checked" id="__tabbed_35_1" name="__tabbed_35" type="radio" /><input id="__tabbed_35_2" name="__tabbed_35" type="radio" /><div class="tabbed-labels"><label for="__tabbed_35_1">英文</label><label for="__tabbed_35_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A task is created using a provided coroutine instance.</p>
+<p>Recall that a coroutine is defined using the async def expression and looks like a function.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># define a coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coroutine</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>A task can only be created and scheduled within a coroutine.</p>
+<p>There are two main ways to create and schedule a task, they are:</p>
+<ol>
+<li>Create Task With High-Level API (preferred)</li>
+<li>Create Task With Low-Level API</li>
+</ol>
+<p>Let’s take a closer look at each in turn.</p>
+</div>
+<div class="tabbed-block">
+<p>使用提供的协程实例创建任务。</p>
+<p>回想一下，协程是使用 async def 表达式定义的，看起来像一个函数。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coroutine</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>任务只能在协程内创建和调度。</p>
+<p>创建和计划任务有两种主要方法，它们是：</p>
+<ol>
+<li>使用高级 API 创建任务（首选）</li>
+<li>使用低级 API 创建任务</li>
+</ol>
+<p>让我们依次仔细看看每一个。</p>
+</div>
 </div>
 </div>
 <h4 id="721-使用高级-api-创建任务">7.2.1 使用高级 API 创建任务<a class="headerlink" href="#721-使用高级-api-创建任务" title="Permanent link">&para;</a></h4>
 <p><strong>7.2.1 Create Task With High-Level API</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="36:2"><input checked="checked" id="__tabbed_36_1" name="__tabbed_36" type="radio" /><input id="__tabbed_36_2" name="__tabbed_36" type="radio" /><div class="tabbed-labels"><label for="__tabbed_36_1">英文</label><label for="__tabbed_36_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A task can be created using the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task">asyncio.create_task()</a> function.</p>
+<p>The <strong>asyncio.create_task()</strong> function takes a coroutine instance and an optional name for the task and returns an <strong>asyncio.Task</strong> instance.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a coroutine</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">task_coroutine</span><span class="p">()</span>
+<span class="c1"># create a task from a coroutine</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+</code></pre></div>
+<p>This can be achieved with a compound statement on a single line.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a task from a coroutine</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+<p>This will do a few things:</p>
+<ol>
+<li>Wrap the coroutine in a Task instance.</li>
+<li>Schedule the task for execution in the current event loop.</li>
+<li>Return a Task instance</li>
+</ol>
+<p>The task instance can be discarded, interacted with via methods, and awaited by a coroutine.</p>
+<p>This is the preferred way to create a Task from a coroutine in an asyncio program.</p>
+</div>
+<div class="tabbed-block">
+<p>可以使用 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task">asyncio.create_task()</a> 函数创建任务。</p>
+<p><strong>asyncio.create_task()</strong> 函数采用协程实例和任务的可选名称，并返回 <strong>asyncio.Task</strong> 实例。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建一个协程</span>
+<span class="n">coro</span> <span class="o">=</span> <span class="n">task_coroutine</span><span class="p">()</span>
+<span class="c1"># 从协程创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+</code></pre></div>
+<p>这可以通过单行上的复合语句来实现。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从协程创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+<p>这将做一些事情：</p>
+<ol>
+<li>将协程包装在 Task 实例中。</li>
+<li>安排任务在当前事件循环中执行。</li>
+<li>返回一个任务实例</li>
+</ol>
+<p>任务实例可以被丢弃，通过方法进行交互，并由协程等待。</p>
+<p>这是从 asyncio 程序中的协程创建任务的首选方法。</p>
+</div>
 </div>
 </div>
 <h3 id="722-使用低级-api-创建任务">7.2.2 使用低级 API 创建任务<a class="headerlink" href="#722-使用低级-api-创建任务" title="Permanent link">&para;</a></h3>
 <p><strong>7.2.2 Create Task With Low-Level API</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="37:2"><input checked="checked" id="__tabbed_37_1" name="__tabbed_37" type="radio" /><input id="__tabbed_37_2" name="__tabbed_37" type="radio" /><div class="tabbed-labels"><label for="__tabbed_37_1">英文</label><label for="__tabbed_37_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A task can also be created from a coroutine using the lower-level asyncio API.</p>
+<p>The first way is to use the <a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.ensure_future">asyncio.ensure_future()</a> function.</p>
+<p>This function takes a <strong>Task</strong>, <strong>Future</strong>, or <strong>Future-like</strong> object, such as a coroutine, and optionally the loop in which to schedule it.</p>
+<p>If a loop is not provided, it will be scheduled in the current event loop.</p>
+<p>If a coroutine is provided to this function, it is wrapped in a Task instance for us, which is returned.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create and schedule the task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+<p>Another low-level function that we can use to create and schedule a Task is the <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task">loop.create_task()</a> method.</p>
+<p>This function requires access to a specific event loop in which to execute the coroutine as a task.</p>
+<p>We can acquire an instance to the current event loop within an asyncio program via the <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop">asyncio.get_event_loop()</a> function.</p>
+<p>This can then be used to call the <strong>create_task()</strong> method to create a <strong>Task</strong> instance and schedule it for execution.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the current event loop</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="c1"># create and schedule the task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>还可以使用较低级别的 asyncio API 从协程创建任务。</p>
+<p>第一种方法是使用 <a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.ensure_future">asyncio.ensure_future()</a> 函数。</p>
+<p>此函数采用 <strong>Task</strong>、<strong>Future</strong> 或 <strong>Future-like</strong> 对象，例如协程，以及（可选）用于调度它的循环。</p>
+<p>如果没有提供循环，它将被安排在当前的事件循环中。</p>
+<p>如果为该函数提供了一个协程，它将被包装在一个 Task 实例中并返回。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建并安排任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">ensure_future</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+<p>我们可以用来创建和调度任务的另一个低级函数是 [loop.create_task()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task方法。</p>
+<p>此函数需要访问特定的事件循环，在其中将协程作为任务执行。</p>
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop">asyncio.get_event_loop()</a> 函数获取 asyncio 程序中当前事件循环的实例。</p>
+<p>然后可以使用它来调用 <strong>create_task()</strong> 方法来创建 <strong>Task</strong> 实例并安排其执行。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取当前事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>
+<span class="c1"># 创建并安排任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="73-何时运行任务">7.3 何时运行任务？<a class="headerlink" href="#73-何时运行任务" title="Permanent link">&para;</a></h3>
 <p><strong>7.3 When Does a Task Run?</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="38:2"><input checked="checked" id="__tabbed_38_1" name="__tabbed_38" type="radio" /><input id="__tabbed_38_2" name="__tabbed_38" type="radio" /><div class="tabbed-labels"><label for="__tabbed_38_1">英文</label><label for="__tabbed_38_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A common question after creating a task is when does it run?</p>
+<p>This is a good question.</p>
+<p>Although we can schedule a coroutine to run independently as a task with the <strong>create_task()</strong> function, it may not run immediately.</p>
+<p>In fact, the task will not execute until the event loop has an opportunity to run.</p>
+<p>This will not happen until all other coroutines are not running and it is the task’s turn to run.</p>
+<p>For example, if we had an asyncio program with one coroutine that created and scheduled a task, the scheduled task will not run until the calling coroutine that created the task is suspended.</p>
+<p>This may happen if the calling coroutine chooses to sleep, chooses to await another coroutine or task, or chooses to await the new task that was scheduled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a task from a coroutine</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+<span class="c1"># await the task, allowing it to run</span>
+<span class="k">await</span> <span class="n">task</span>
+</code></pre></div>
+<p>You can learn more about how to create asyncio tasks in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-create-task/">How to Create Asyncio Tasks in Python</a></li>
+</ul>
+<p>Now that we know what a task is and how to schedule them, next, let’s look at how we may use them in our programs.</p>
+</div>
+<div class="tabbed-block">
+<p>创建任务后的一个常见问题是它何时运行？</p>
+<p>这是一个很好的问题。</p>
+<p>虽然我们可以使用 <strong>create_task()</strong> 函数安排协程作为任务独立运行，但它可能不会立即运行。</p>
+<p>事实上，直到事件循环有机会运行时，任务才会执行。</p>
+<p>直到所有其他协程都没有运行并且轮到任务运行时，才会发生这种情况。</p>
+<p>例如，如果我们有一个 asyncio 程序，其中一个协程创建并计划了一项任务，则计划的任务将不会运行，直到创建该任务的调用协程被挂起。</p>
+<p>如果调用协程选择休眠、选择等待另一个协程或任务、或者选择等待已安排的新任务，则可能会发生这种情况。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从协程创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">())</span>
+<span class="c1"># 等待任务，允许其运行</span>
+<span class="k">await</span> <span class="n">task</span>
+</code></pre></div>
+<p>您可以在教程中了解有关如何创建异步任务的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-create-task/">如何在 Python 中创建异步任务</a></li>
+</ul>
+<p>现在我们知道什么是任务以及如何安排它们，接下来，让我们看看如何在程序中使用它们。</p>
+</div>
 </div>
 </div>
 <h2 id="8-使用和查询任务">8. 使用和查询任务<a class="headerlink" href="#8-使用和查询任务" title="Permanent link">&para;</a></h2>
 <p><strong>8. Work With and Query Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="39:2"><input checked="checked" id="__tabbed_39_1" name="__tabbed_39" type="radio" /><input id="__tabbed_39_2" name="__tabbed_39" type="radio" /><div class="tabbed-labels"><label for="__tabbed_39_1">英文</label><label for="__tabbed_39_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Tasks are the currency of asyncio programs.</p>
+<p>In this section, we will take a closer look at how to interact with them in our programs.</p>
+</div>
+<div class="tabbed-block">
+<p>任务是 asyncio 程序的货币。</p>
+<p>在本节中，我们将仔细研究如何在程序中与它们交互。</p>
+</div>
 </div>
 </div>
 <h3 id="81-任务的生命周期">8.1 任务的生命周期<a class="headerlink" href="#81-任务的生命周期" title="Permanent link">&para;</a></h3>
 <p><strong>8.1 Task Life-Cycle</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="40:2"><input checked="checked" id="__tabbed_40_1" name="__tabbed_40" type="radio" /><input id="__tabbed_40_2" name="__tabbed_40" type="radio" /><div class="tabbed-labels"><label for="__tabbed_40_1">英文</label><label for="__tabbed_40_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An asyncio Task has a life cycle.</p>
+<p>Firstly, a task is created from a coroutine.</p>
+<p>It is then scheduled for independent execution within the event loop.</p>
+<p>At some point, it will run.</p>
+<p>While running it may be suspended, such as awaiting another coroutine or task. It may finish normally and return a result or fail with an exception.</p>
+<p>Another coroutine may intervene and cancel the task.</p>
+<p>Eventually, it will be done and cannot be executed again.</p>
+<p>We can summarize this life-cycle as follows:</p>
+<ol>
+<li>Created</li>
+<li>Scheduled<ol>
+<li>Canceled</li>
+</ol>
+</li>
+<li>Running<ol>
+<li>Suspended</li>
+<li>Result</li>
+<li>Exception</li>
+<li>Canceled</li>
+</ol>
+</li>
+<li>Done</li>
+</ol>
+<p>Note that Suspended, Result, Exception, and Canceled are not states per se, they are important points of transition for a running task.</p>
+<p>The diagram below summarizes this life cycle showing the transitions between each phase.</p>
+<p><a class="glightbox" href="../../images/Asyncio-Task-Life-Cycle.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/Asyncio-Task-Life-Cycle.png" /></a></p>
+<p>You can learn more about the asyncio task life-cycle in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task-life-cycle/">Asyncio Task Life-Cycle</a></li>
+</ul>
+<p>Now that we are familiar with the life cycle of a task from a high level, let’s take a closer look at each phase.</p>
+</div>
+<div class="tabbed-block">
+<p>异步任务有生命周期。</p>
+<p>首先，从协程创建任务。</p>
+<p>然后它被安排在事件循环内独立执行。</p>
+<p>在某个时刻，它会运行。</p>
+<p>运行时它可能会被挂起，例如等待另一个协程或任务。 它可能正常完成并返回结果，也可能因异常而失败。</p>
+<p>另一个协程可能会干预并取消任务。</p>
+<p>最终，它会完成，并且无法再次执行。</p>
+<p>我们可以将这个生命周期总结如下：</p>
+<ol>
+<li>被创建</li>
+<li>被调度<ol>
+<li>被取消</li>
+</ol>
+</li>
+<li>执行<ol>
+<li>挂起</li>
+<li>执行结果</li>
+<li>发生异常</li>
+<li>被取消</li>
+</ol>
+</li>
+<li>执行完毕</li>
+</ol>
+<p>请注意，暂停、结果、异常和取消本身并不是状态，它们是正在运行的任务的重要转换点。</p>
+<p>下图总结了这个生命周期，显示了每个阶段之间的转换。</p>
+<p><a class="glightbox" href="../../images/Asyncio-Task-Life-Cycle.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="123" src="../../images/Asyncio-Task-Life-Cycle.png" /></a></p>
+<p>您可以在教程中了解有关 asyncio 任务生命周期的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task-life-cycle/">Asyncio 任务生命周期</a></li>
+</ul>
+<p>现在我们已经从高层次上熟悉了任务的生命周期，让我们仔细看看每个阶段。</p>
+</div>
 </div>
 </div>
 <h3 id="82-如何检查任务的状态">8.2 如何检查任务的状态<a class="headerlink" href="#82-如何检查任务的状态" title="Permanent link">&para;</a></h3>
 <p><strong>8.2 How to Check Task Status</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="41:2"><input checked="checked" id="__tabbed_41_1" name="__tabbed_41" type="radio" /><input id="__tabbed_41_2" name="__tabbed_41" type="radio" /><div class="tabbed-labels"><label for="__tabbed_41_1">英文</label><label for="__tabbed_41_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>After a Task is created, we can check the status of the task.</p>
+<p>There are two statuses we might want to check, they are:</p>
+<ul>
+<li>Whether the task is done.</li>
+<li>Whether the task was canceled.</li>
+</ul>
+<p>Let’s take a closer look at each in turn.</p>
+</div>
+<div class="tabbed-block">
+<p>创建任务后，我们可以查看任务的状态。</p>
+<p>我们可能想要检查两种状态，它们是：</p>
+<ul>
+<li>任务是否完成。</li>
+<li>任务是否被取消。</li>
+</ul>
+<p>让我们依次仔细看看每一个。</p>
+</div>
 </div>
 </div>
 <h4 id="821-检查任务是否完成">8.2.1 检查任务是否完成<a class="headerlink" href="#821-检查任务是否完成" title="Permanent link">&para;</a></h4>
 <p><strong>8.2.1 Check if a Task is Done</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="42:2"><input checked="checked" id="__tabbed_42_1" name="__tabbed_42" type="radio" /><input id="__tabbed_42_2" name="__tabbed_42" type="radio" /><div class="tabbed-labels"><label for="__tabbed_42_1">英文</label><label for="__tabbed_42_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can check if a task is done via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.done">done()</a> method.</p>
+<p>The method returns <strong>True</strong> if the task is done, or <strong>False</strong> otherwise.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if a task is done</span>
+<span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>A task is done if it has had the opportunity to run and is now no longer running.</p>
+<p>A task that has been scheduled is not done.</p>
+<p>Similarly, a task that is running is not done.</p>
+<p>A task is done if:</p>
+<ul>
+<li>The coroutine finishes normally.</li>
+<li>The coroutine returns explicitly.</li>
+<li>An unexpected error or exception is raised in the coroutine</li>
+<li>The task is canceled.</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.done">done()</a> 方法检查任务是否完成。</p>
+<p>如果任务完成，该方法返回 <strong>True</strong>，否则返回 <strong>False</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否完成</span>
+<span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>如果任务曾经有机会运行但现在不再运行，则该任务已完成。</p>
+<p>已安排的任务未完成。</p>
+<p>同样，正在运行的任务也没有完成。</p>
+<p>如果满足以下条件，则任务已完成：</p>
+<ul>
+<li>协程正常结束。</li>
+<li>协程显式返回。</li>
+<li>协程中出现意外错误或异常</li>
+<li>任务被取消。</li>
+</ul>
+</div>
 </div>
 </div>
 <h4 id="822-检查任务是否被取消">8.2.2 检查任务是否被取消<a class="headerlink" href="#822-检查任务是否被取消" title="Permanent link">&para;</a></h4>
 <p><strong>8.2.2 Check if a Task is Canceled</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="43:2"><input checked="checked" id="__tabbed_43_1" name="__tabbed_43" type="radio" /><input id="__tabbed_43_2" name="__tabbed_43" type="radio" /><div class="tabbed-labels"><label for="__tabbed_43_1">英文</label><label for="__tabbed_43_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can check if a task is canceled via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancelled">cancelled()</a> method.</p>
+<p>The method returns <strong>True</strong> if the task was canceled, or <strong>False</strong> otherwise.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if a task was canceled</span>
+<span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>A task is canceled if the <strong>cancel()</strong> method was called on the task and completed successfully, e..g <strong>cancel()</strong> returned <strong>True</strong>.</p>
+<p>A task is not canceled if the <strong>cancel()</strong> method was not called, or if the <strong>cancel()</strong> method was called but failed to cancel the task.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancelled">cancelled()</a> 方法检查任务是否被取消。</p>
+<p>如果任务被取消，该方法返回 <strong>True</strong>，否则返回 <strong>False</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否被取消</span>
+<span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>如果对任务调用 <strong>cancel()</strong> 方法并成功完成，则任务将被取消，例如 <strong>cancel()</strong> 返回 <strong>True</strong>。</p>
+<p>如果未调用 <strong>cancel()</strong> 方法，或者调用 <strong>cancel()</strong> 方法但取消任务失败，则不会取消任务。</p>
+</div>
 </div>
 </div>
 <h3 id="83-如何获取任务结果">8.3 如何获取任务结果<a class="headerlink" href="#83-如何获取任务结果" title="Permanent link">&para;</a></h3>
 <p><strong>8.3 How to Get Task Result</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="44:2"><input checked="checked" id="__tabbed_44_1" name="__tabbed_44" type="radio" /><input id="__tabbed_44_2" name="__tabbed_44" type="radio" /><div class="tabbed-labels"><label for="__tabbed_44_1">英文</label><label for="__tabbed_44_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can get the result of a task via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result">result()</a> method.</p>
+<p>This returns the return value of the coroutine wrapped by the <strong>Task</strong> or <strong>None</strong> if the wrapped coroutine does not explicitly return a value.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the return value from the wrapped coroutine</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</code></pre></div>
+<p>If the coroutine raises an unhandled error or exception, it is re-raised when calling the <strong>result()</strong> method and may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># get the return value from the wrapped coroutine</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># task failed and there is no result</span>
+</code></pre></div>
+<p>If the task was canceled, then a <strong>CancelledError</strong> exception is raised when calling the <strong>result()</strong> method and may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># get the return value from the wrapped coroutine</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># task was canceled</span>
+</code></pre></div>
+<p>As such, it is a good idea to check if the task was canceled first.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if the task was not canceled</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># get the return value from the wrapped coroutine</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># task was canceled</span>
+</code></pre></div>
+<p>If the task is not yet done, then an <strong>InvalidStateError</strong> exception is raised when calling the <strong>result()</strong> method and may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># get the return value from the wrapped coroutine</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">InvalidStateError</span><span class="p">:</span>
+    <span class="c1"># task is not yet done</span>
+</code></pre></div>
+<p>As such, it is a good idea to check if the task is done first.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if the task is not done</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">task</span>
+<span class="c1"># get the return value from the wrapped coroutine</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result">result()</a> 方法获取任务的结果。</p>
+<p>这将返回由 <strong>Task</strong> 包装的协程的返回值，如果包装的协程未显式返回值，则返回 <strong>None</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从包装的协程中获取返回值</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</code></pre></div>
+<p>如果协程引发未处理的错误或异常，则在调用 <strong>result()</strong> 方法时会重新引发，并且可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 从包装的协程中获取返回值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># 任务失败，没有结果</span>
+</code></pre></div>
+<p>如果任务被取消，则在调用 <strong>result()</strong> 方法时会引发 <strong>CancelledError</strong> 异常，并且可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 从包装的协程中获取返回值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># 任务被取消</span>
+</code></pre></div>
+<p>因此，最好先检查任务是否被取消。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否未被取消</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># 从包装的协程中获取返回值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 任务被取消</span>
+</code></pre></div>
+<p>如果任务尚未完成，则在调用 <strong>result()</strong> 方法时会引发 <strong>InvalidStateError</strong> 异常，并且可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 从包装的协程中获取返回值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">InvalidStateError</span><span class="p">:</span>
+    <span class="c1"># 任务尚未完成</span>
+</code></pre></div>
+<p>因此，最好先检查任务是否已完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否未完成</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">task</span>
+<span class="c1"># 从包装的协程中获取返回值</span>
+<span class="n">value</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="84-如何获取任务异常">8.4 如何获取任务异常<a class="headerlink" href="#84-如何获取任务异常" title="Permanent link">&para;</a></h3>
 <p><strong>8.4 How to Get Task Exception</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="45:2"><input checked="checked" id="__tabbed_45_1" name="__tabbed_45" type="radio" /><input id="__tabbed_45_2" name="__tabbed_45" type="radio" /><div class="tabbed-labels"><label for="__tabbed_45_1">英文</label><label for="__tabbed_45_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A coroutine wrapped by a task may raise an exception that is not handled.</p>
+<p>This will cancel the task, in effect.</p>
+<p>We can retrieve an unhandled exception in the coroutine wrapped by a task via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.exception">exception()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the exception raised by a task</span>
+<span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+</code></pre></div>
+<p>If an unhandled exception was not raised in the wrapped coroutine, then a value of None is returned.</p>
+<p>If the task was canceled, then a CancelledError exception is raised when calling the exception() method and may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># get the exception raised by a task</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># task was canceled</span>
+</code></pre></div>
+<p>As such, it is a good idea to check if the task was canceled first.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if the task was not canceled</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># get the exception raised by a task</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># task was canceled</span>
+</code></pre></div>
+<p>If the task is not yet done, then an InvalidStateError exception is raised when calling the exception() method and may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># get the exception raised by a task</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">InvalidStateError</span><span class="p">:</span>
+    <span class="c1"># task is not yet done</span>
+</code></pre></div>
+<p>As such, it is a good idea to check if the task is done first.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># check if the task is not done</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">task</span>
+<span class="c1"># get the exception raised by a task</span>
+<span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>由任务包装的协程可能会引发未处理的异常。</p>
+<p>实际上，这将取消任务。</p>
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.exception">Exception()</a>方法在任务包装的协程中检索未处理的异常。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取任务引发的异常</span>
+<span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+</code></pre></div>
+<p>如果包装的协程中未引发未处理的异常，则返回 <strong>None</strong> 值。</p>
+<p>如果任务被取消，则调用 <strong>Exception()</strong> 方法时会引发 <strong>CancelledError</strong> 异常，并且可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 获取任务引发的异常</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># 任务被取消</span>
+</code></pre></div>
+<p>因此，最好先检查任务是否被取消。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否未被取消</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">cancelled</span><span class="p">():</span>
+    <span class="c1"># 获取任务引发的异常</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># 任务被取消</span>
+</code></pre></div>
+<p>如果任务尚未完成，则在调用 <strong>exception()</strong> 方法时会引发 <strong>InvalidStateError</strong> 异常，并且可能需要进行处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 获取任务引发的异常</span>
+    <span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">InvalidStateError</span><span class="p">:</span>
+    <span class="c1"># 任务尚未完成</span>
+</code></pre></div>
+<p>因此，最好先检查任务是否已完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 检查任务是否未完成</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">task</span>
+<span class="c1"># 获取任务引发的异常</span>
+<span class="n">exception</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="85-如何取消任务">8.5 如何取消任务<a class="headerlink" href="#85-如何取消任务" title="Permanent link">&para;</a></h3>
 <p><strong>8.5 How to Cancel a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="46:2"><input checked="checked" id="__tabbed_46_1" name="__tabbed_46" type="radio" /><input id="__tabbed_46_2" name="__tabbed_46" type="radio" /><div class="tabbed-labels"><label for="__tabbed_46_1">英文</label><label for="__tabbed_46_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can cancel a scheduled task via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel">cancel()</a> method.</p>
+<p>The cancel method returns <strong>True</strong> if the task was canceled, or <strong>False</strong> otherwise.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># cancel the task</span>
+<span class="n">was_cancelled</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>If the task is already done, it cannot be canceled and the <strong>cancel()</strong> method will return <strong>False</strong> and the task will not have the status of canceled.</p>
+<p>The next time the task is given an opportunity to run, it will raise a <strong>CancelledError</strong> exception.</p>
+<p>If the <strong>CancelledError</strong> exception is not handled within the wrapped coroutine, the task will be canceled.</p>
+<p>Otherwise, if the <strong>CancelledError</strong> exception is handled within the wrapped coroutine, the task will not be canceled.</p>
+<p>The <strong>cancel()</strong> method can also take a message argument which will be used in the content of the <strong>CancelledError</strong>.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel">cancel()</a> 方法取消计划任务。</p>
+<p>如果任务被取消，则取消方法返回 <strong>True</strong>，否则返回 <strong>False</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 取消任务</span>
+<span class="n">was_cancelled</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>如果任务已经完成，则无法取消，<strong>cancel()</strong>方法将返回<strong>False</strong>，并且任务不会处于已取消状态。</p>
+<p>下次任务有机会运行时，它将引发 <strong>CancelledError</strong> 异常。</p>
+<p>如果在包装的协程中未处理 <strong>CancelledError</strong> 异常，则任务将被取消。</p>
+<p>否则，如果在包装的协程中处理 <strong>CancelledError</strong> 异常，则任务将不会被取消。</p>
+<p><strong>cancel()</strong> 方法还可以采用消息参数，该参数将在 <strong>CancelledError</strong> 的内容中使用。</p>
+</div>
 </div>
 </div>
 <h3 id="86-如何在任务中使用回调">8.6 如何在任务中使用回调<a class="headerlink" href="#86-如何在任务中使用回调" title="Permanent link">&para;</a></h3>
 <p><strong>8.6 How to Use Callback With a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="47:2"><input checked="checked" id="__tabbed_47_1" name="__tabbed_47" type="radio" /><input id="__tabbed_47_2" name="__tabbed_47" type="radio" /><div class="tabbed-labels"><label for="__tabbed_47_1">英文</label><label for="__tabbed_47_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can add a done callback function to a task via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback">add_done_callback()</a> method.</p>
+<p>This method takes the name of a function to call when the task is done.</p>
+<p>The callback function must take the <strong>Task</strong> instance as an argument.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># done callback function</span>
+<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="o">...</span>
+<span class="c1"># register a done callback function</span>
+<span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</code></pre></div>
+<p>Recall that a task may be done when the wrapped coroutine finishes normally when it returns, when an unhandled exception is raised or when the task is canceled.</p>
+<p>The <strong>add_done_callback()</strong> method can be used to add or register as many done callback functions as we like.</p>
+<p>We can also remove or de-register a callback function via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.remove_done_callback"><strong>remove_done_callback()</strong></a> function.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># remove a done callback function</span>
+<span class="n">task</span><span class="o">.</span><span class="n">remove_done_callback</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback">add_done_callback()</a> 方法向任务添加完成回调函数。</p>
+<p>此方法采用任务完成时要调用的函数的名称。</p>
+<p>回调函数必须将 <strong>Task</strong> 实例作为参数。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 完成回调函数</span>
+<span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="o">...</span>
+<span class="c1"># 注册完成回调函数</span>
+<span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</code></pre></div>
+<p>回想一下，当包装的协程正常完成、返回、引发未处理的异常或取消任务时，任务就可以完成。</p>
+<p><strong>add_done_callback()</strong> 方法可用于<strong>添加或注册任意数量的完成回调函数</strong>。</p>
+<p>我们还可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.remove_done_callback"><strong>remove_done_callback()</strong></a> 函数<strong>删除或取消注册回调函数</strong> 。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 删除已完成的回调函数</span>
+<span class="n">task</span><span class="o">.</span><span class="n">remove_done_callback</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="87-如何设置任务名称">8.7 如何设置任务名称<a class="headerlink" href="#87-如何设置任务名称" title="Permanent link">&para;</a></h3>
 <p><strong>8.7 How to Set the Task Name</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="48:2"><input checked="checked" id="__tabbed_48_1" name="__tabbed_48" type="radio" /><input id="__tabbed_48_2" name="__tabbed_48" type="radio" /><div class="tabbed-labels"><label for="__tabbed_48_1">英文</label><label for="__tabbed_48_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A task may have a name.</p>
+<p>This name can be helpful if multiple tasks are created from the same coroutine and we need some way to tell them apart programmatically.</p>
+<p>The name can be set when the task is created from a coroutine via the <strong>“name”</strong> argument.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a task from a coroutine</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MyTask&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>The name for the task can also be set via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.set_name">set_name()</a> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># set the name of the task</span>
+<span class="n">task</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s1">&#39;MyTask&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>We can retrieve the name of a task via the <strong>get_name()</strong> method.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the name of a task</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+</code></pre></div>
+<p>You can learn more about checking the status of tasks in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task-status/">How to Check Asyncio Task Status</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>任务可能有一个名称。</p>
+<p>如果从同一个协程创建多个任务并且我们需要某种方法以编程方式区分它们，那么这个名称会很有帮助。</p>
+<p>当从协程创建任务时，可以通过 <strong>“name”</strong> 参数设置名称。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 从协程创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MyTask&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>任务的名称也可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.set_name">set_name()</a> 方法设置。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 设置任务名称</span>
+<span class="n">task</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s1">&#39;MyTask&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>我们可以通过 <strong>get_name()</strong> 方法检索任务的名称。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取任务的名称</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+</code></pre></div>
+<p>您可以在教程中了解有关检查任务状态的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task-status/">如何检查 Asyncio 任务状态</a></li>
+</ul>
 </div>
 </div>
-<h2 id="9-当前和正在运行的任务">9. 当前和正在运行的任务<a class="headerlink" href="#9-当前和正在运行的任务" title="Permanent link">&para;</a></h2>
+</div>
+<h2 id="9-当前正在运行的任务">9. 当前正在运行的任务<a class="headerlink" href="#9-当前正在运行的任务" title="Permanent link">&para;</a></h2>
 <p><strong>9. Current and Running Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="49:2"><input checked="checked" id="__tabbed_49_1" name="__tabbed_49" type="radio" /><input id="__tabbed_49_2" name="__tabbed_49" type="radio" /><div class="tabbed-labels"><label for="__tabbed_49_1">英文</label><label for="__tabbed_49_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can introspect tasks running in the asyncio event loop.</p>
+<p>This can be achieved by getting an <strong>asyncio.Task</strong> object for the currently running task and for all tasks that are running.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以内省在 asyncio 事件循环中运行的任务。</p>
+<p>这可以通过获取当前正在运行的任务和所有正在运行的任务的 <strong>asyncio.Task</strong> 对象来实现。</p>
+</div>
 </div>
 </div>
 <h3 id="91-如何获取当前任务">9.1 如何获取当前任务<a class="headerlink" href="#91-如何获取当前任务" title="Permanent link">&para;</a></h3>
 <p><strong>9.1 How to Get the Current Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="50:2"><input checked="checked" id="__tabbed_50_1" name="__tabbed_50" type="radio" /><input id="__tabbed_50_2" name="__tabbed_50" type="radio" /><div class="tabbed-labels"><label for="__tabbed_50_1">英文</label><label for="__tabbed_50_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can get the current task via the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.current_task">asyncio.current_task()</a> function.</p>
+<p>This function will return a <strong>Task</strong> object for the task that is currently running.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the current task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span>
+</code></pre></div>
+<p>This will return a <strong>Task</strong> object for the currently running task.</p>
+<p>This may be:</p>
+<ul>
+<li>The main coroutine passed to <strong>asyncio.run()</strong>.</li>
+<li>A task created and scheduled within the asyncio program via <strong>asyncio.create_task()</strong>.</li>
+</ul>
+<p>A task may create and run another coroutine (e.g. not wrapped in a task). Getting the current task from within a coroutine will return a <strong>Task</strong> object for the running task, but not the coroutine that is currently running.</p>
+<p>Getting the current task can be helpful if a coroutine or task requires details about itself, such as the task name for logging.</p>
+<p>We can explore how to get a <strong>Task</strong> instance for the main coroutine used to start an asyncio program.</p>
+<p>The example below defines a coroutine used as the entry point into the program. It reports a message, then gets the current task and reports its details.</p>
+<p>This is an important first example, as it highlights that all coroutines can be accessed as tasks within the asyncio event loop.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of getting the current task from the main coroutine</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># define a main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main coroutine started&#39;</span><span class="p">)</span>
+    <span class="c1"># get the current task</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span>
+    <span class="c1"># report its details</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="c1"># start the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the main coroutine and uses it to start the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine runs and first reports a message.</p>
+<p>It then retrieves the current task, which is a <strong>Task</strong> object that represents itself, the currently running coroutine.</p>
+<p>It then reports the details of the currently running task.</p>
+<p>We can see that the task has the default name for the first task, ‘Task-1‘ and is executing the <strong>main()</strong> coroutine, the currently running coroutine.</p>
+<p>This highlights that we can use the <strong>asyncio.current_task()</strong> function to access a <strong>Task</strong> object for the currently running coroutine, that is automatically wrapped in a <strong>Task</strong> object.</p>
+<div class="highlight"><pre><span></span><code>main coroutine started
+&lt;Task pending name=&#39;Task-1&#39; coro=&lt;main() running at ...&gt; cb=[_run_until_complete_cb() at ...]&gt;
+</code></pre></div>
+<p>You can learn more about getting the current task in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-current-task/">How to Get the Current Asyncio Task in Python</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.current_task">asyncio.current_task()</a> 函数获取当前任务。</p>
+<p>此函数将为当前正在运行的任务返回一个 <strong>Task</strong> 对象。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取当前任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span>
+</code></pre></div>
+<p>这将为当前正在运行的任务返回一个 <strong>Task</strong> 对象。</p>
+<p>这可能是：</p>
+<ul>
+<li>主协程传递给 <strong>asyncio.run()</strong>。</li>
+<li>通过 <strong>asyncio.create_task()</strong> 在 asyncio 程序中创建和调度的任务。</li>
+</ul>
+<p>任务可以创建并运行另一个协程（例如，不包含在任务中）。 从协程中获取当前任务将返回正在运行的任务的 <strong>Task</strong> 对象，但不是当前正在运行的协程。</p>
+<p>如果协程或任务需要有关其自身的详细信息（例如用于记录的任务名称），则获取当前任务会很有帮助。</p>
+<p>我们可以探索如何为用于启动 asyncio 程序的主协程获取 <strong>Task</strong> 实例。</p>
+<p>下面的示例定义了一个用作程序入口点的协程。 它报告一条消息，然后获取当前任务并报告其详细信息。</p>
+<p>这是一个重要的第一个示例，因为它强调了所有协程都可以作为异步事件循环中的任务进行访问。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 从主协程获取当前任务的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 定义一个主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main coroutine started&#39;</span><span class="p">)</span>
+    <span class="c1"># 获取当前任务</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">current_task</span><span class="p">()</span>
+    <span class="c1"># 报告其详细信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+
+<span class="c1"># 启动异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建主协程并使用它来启动 asyncio 程序。</p>
+<p><strong>main()</strong> 协程运行并首先报告一条消息。</p>
+<p>然后它检索当前任务，这是一个代表其自身（当前正在运行的协程）的 <strong>Task</strong> 对象。</p>
+<p>然后它报告当前正在运行的任务的详细信息。</p>
+<p>我们可以看到该任务具有第一个任务的默认名称“Task-1”，并且正在执行 <strong>main()</strong> 协程，即当前正在运行的协程。</p>
+<p>这强调了我们可以使用 <strong>asyncio.current_task()</strong> 函数来访问当前运行的协程的 <strong>Task</strong> 对象，该对象自动包装在 <strong>Task</strong> 对象中。</p>
+<div class="highlight"><pre><span></span><code>main coroutine started
+&lt;Task pending name=&#39;Task-1&#39; coro=&lt;main() running at ...&gt; cb=[_run_until_complete_cb() at ...]&gt;
+</code></pre></div>
+<p>您可以在教程中了解有关获取当前任务的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-current-task/">如何在 Python 中获取当前的 Asyncio 任务</a></li>
+</ul>
+</div>
 </div>
 </div>
 <h3 id="92-如何获取所有任务">9.2 如何获取所有任务<a class="headerlink" href="#92-如何获取所有任务" title="Permanent link">&para;</a></h3>
 <p><strong>9.2 How to Get All Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="51:2"><input checked="checked" id="__tabbed_51_1" name="__tabbed_51" type="radio" /><input id="__tabbed_51_2" name="__tabbed_51" type="radio" /><div class="tabbed-labels"><label for="__tabbed_51_1">英文</label><label for="__tabbed_51_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We may need to get access to all tasks in an asyncio program.</p>
+<p>This may be for many reasons, such as:</p>
+<ul>
+<li>To introspect the current status or complexity of the program.</li>
+<li>To log the details of all running tasks.</li>
+<li>To find a task that can be queried or canceled.</li>
+</ul>
+<p>We can get a set of all scheduled and running (not yet done) tasks in an asyncio program via the <strong>asyncio.all_tasks()</strong> function.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get all tasks</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">all_tasks</span><span class="p">()</span>
+</code></pre></div>
+<p>This will return a set of all tasks in the asyncio program.</p>
+<p>It is a set so that each task is only represented once.</p>
+<p>A task will be included if:</p>
+<ul>
+<li>The task has been scheduled but is not yet running.</li>
+<li>The task is currently running (e.g. but is currently suspended)</li>
+</ul>
+<p>The set will also include a task for the currently running task, e.g. the task that is executing the coroutine that calls the <strong>asyncio.all_tasks()</strong> function.</p>
+<p>Also, recall that the <strong>asyncio.run()</strong> method that is used to start an asyncio program will wrap the provided coroutine in a task. This means that the set of all tasks will include the task for the entry point of the program.</p>
+<p>We can explore the case where we have many tasks within an asyncio program and then get a set of all tasks.</p>
+<p>In this example, we first create 10 tasks, each wrapping and running the same coroutine.</p>
+<p>The main coroutine then gets a set of all tasks scheduled or running in the program and reports their details.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of starting many tasks and getting access to all tasks</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine for a task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coroutine</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;task </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> is running&#39;</span><span class="p">)</span>
+    <span class="c1"># block for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># define a main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main coroutine started&#39;</span><span class="p">)</span>
+    <span class="c1"># start many tasks</span>
+    <span class="n">started_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># allow some of the tasks time to start</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># get all tasks</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">all_tasks</span><span class="p">()</span>
+    <span class="c1"># report all tasks</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt; </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">get_coro</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># wait for all tasks to complete</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">started_tasks</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">task</span>
+
+<span class="c1"># start the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the main coroutine and uses it to start the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine runs and first reports a message.</p>
+<p>It then creates and schedules 10 tasks that wrap the custom coroutine,</p>
+<p>The <strong>main()</strong> coroutine then blocks for a moment to allow the tasks to begin running.</p>
+<p>The tasks start running and each reports a message and then sleeps.</p>
+<p>The <strong>main()</strong> coroutine resumes and gets a list of all tasks in the program.</p>
+<p>It then reports the name and coroutine of each.</p>
+<p>Finally, it enumerates the list of tasks that were created and awaits each, allowing them to be completed.</p>
+<p>This highlights that we can get a set of all tasks in an asyncio program that includes both the tasks that were created as well as the task that represents the entry point into the program.</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span> <span class="n">coroutine</span> <span class="n">started</span>
+<span class="n">task</span> <span class="mi">0</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">1</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">2</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">3</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">4</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">5</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">6</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">7</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">8</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">9</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186e30</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e184e40</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186f10</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186d50</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e185700</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ea0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186dc0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ab0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">main</span> <span class="n">at</span> <span class="mh">0x10e1847b0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e184f90</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ce0</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>You can learn more about getting all tasks. in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-all-tasks/">How to Get All Asyncio Tasks in Python</a></li>
+</ul>
+<p>Next, we will explore how to run many coroutines concurrently.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可能需要访问 asyncio 程序中的所有任务。</p>
+<p>这可能有多种原因，例如：</p>
+<ul>
+<li>反思程序的当前状态或复杂性。</li>
+<li>记录所有正在运行的任务的详细信息。</li>
+<li>查找可查询或取消的任务。</li>
+</ul>
+<p>我们可以通过 <strong>asyncio.all_tasks()</strong> 函数获取 asyncio 程序中所有已计划和正在运行（尚未完成）的任务。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取所有任务</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">all_tasks</span><span class="p">()</span>
+</code></pre></div>
+<p>这将返回 asyncio 程序中所有任务的集合。</p>
+<p>它是一个集合，因此每个任务仅代表一次。</p>
+<p>如果满足以下条件，则将包含任务：</p>
+<ul>
+<li>任务已安排但尚未运行。</li>
+<li>任务当前正在运行（例如，但当前已暂停）</li>
+</ul>
+<p>该集合还将包括当前正在运行的任务的任务，例如 正在执行调用 <strong>asyncio.all_tasks()</strong> 函数的协程的任务。</p>
+<p>另外，请记住，用于启动 asyncio 程序的 <strong>asyncio.run()</strong> 方法会将提供的协程包装在任务中。 这意味着所有任务的集合将包括程序入口点的任务。</p>
+<p>我们可以探索异步程序中有许多任务的情况，然后获取所有任务的集合。</p>
+<p>在此示例中，我们首先创建 10 个任务，每个任务都包装并运行相同的协程。</p>
+<p>然后，主协程获取程序中计划或运行的所有任务的集合并报告其详细信息。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 启动多个任务并访问所有任务的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 任务的协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coroutine</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;task </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> is running&#39;</span><span class="p">)</span>
+    <span class="c1"># 暂时阻塞</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 定义一个主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main coroutine started&#39;</span><span class="p">)</span>
+    <span class="c1"># 启动许多任务</span>
+    <span class="n">started_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coroutine</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># 允许某些任务有时间开始</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="c1"># 获取所有任务</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">all_tasks</span><span class="p">()</span>
+    <span class="c1"># 报告所有任务</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt; </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">get_coro</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># 等待所有任务完成</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">started_tasks</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">task</span>
+
+<span class="c1"># 启动异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建主协程并使用它来启动 asyncio 程序。</p>
+<p><strong>main()</strong> 协程运行并首先报告一条消息。</p>
+<p>然后它创建并安排 10 个包装自定义协程的任务，</p>
+<p>然后，<strong>main()</strong> 协程会阻塞一段时间，以允许任务开始运行。</p>
+<p>任务开始运行，每个任务报告一条消息，然后休眠。</p>
+<p><strong>main()</strong> 协程恢复并获取程序中所有任务的列表。</p>
+<p>然后它报告每个协程的名称和协程。</p>
+<p>最后，它枚举已创建的任务列表并等待每个任务，以允许它们完成。</p>
+<p>这强调了我们可以获取 asyncio 程序中所有任务的集合，其中包括创建的任务以及代表程序入口点的任务。</p>
+<div class="highlight"><pre><span></span><code><span class="n">main</span> <span class="n">coroutine</span> <span class="n">started</span>
+<span class="n">task</span> <span class="mi">0</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">1</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">2</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">3</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">4</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">5</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">6</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">7</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">8</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="n">task</span> <span class="mi">9</span> <span class="ow">is</span> <span class="n">running</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186e30</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e184e40</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">11</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186f10</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186d50</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e185700</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ea0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186dc0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ab0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">main</span> <span class="n">at</span> <span class="mh">0x10e1847b0</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e184f90</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="n">Task</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">coroutine</span> <span class="nb">object</span> <span class="n">task_coroutine</span> <span class="n">at</span> <span class="mh">0x10e186ce0</span><span class="o">&gt;</span>
+</code></pre></div>
+<p>您可以了解有关获取所有任务的更多信息。 在教程中：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-all-tasks/">如何在 Python 中获取所有 Asyncio 任务</a></li>
+</ul>
+<p>接下来，我们将探讨如何同时运行多个协程。</p>
+</div>
 </div>
 </div>
 <h2 id="10-同时运行多个协程">10. 同时运行多个协程<a class="headerlink" href="#10-同时运行多个协程" title="Permanent link">&para;</a></h2>
 <p><strong>10. Run Many Coroutines Concurrently</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="52:2"><input checked="checked" id="__tabbed_52_1" name="__tabbed_52" type="radio" /><input id="__tabbed_52_2" name="__tabbed_52" type="radio" /><div class="tabbed-labels"><label for="__tabbed_52_1">英文</label><label for="__tabbed_52_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A benefit of asyncio is that we can run many coroutines concurrently.</p>
+<p>These coroutines can be created in a group and stored, then executed all together at the same time.</p>
+<p>This can be achieved using the <strong>asyncio.gather()</strong> function.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio 的一个好处是我们可以同时运行许多协程。</p>
+<p>这些协程可以在一个组中创建并存储，然后同时一起执行。</p>
+<p>这可以使用 <strong>asyncio.gather()</strong> 函数来实现。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="101-什么是-asyncio-gather">10.1 什么是 Asyncio Gather()<a class="headerlink" href="#101-什么是-asyncio-gather" title="Permanent link">&para;</a></h3>
 <p><strong>10.1 What is Asyncio gather()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="53:2"><input checked="checked" id="__tabbed_53_1" name="__tabbed_53" type="radio" /><input id="__tabbed_53_2" name="__tabbed_53" type="radio" /><div class="tabbed-labels"><label for="__tabbed_53_1">英文</label><label for="__tabbed_53_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.gather">asyncio.gather()</a> module function allows the caller to group multiple awaitables together.</p>
+<p>Once grouped, the awaitables can be executed concurrently, awaited, and canceled.</p>
+<blockquote>
+<p>Run awaitable objects in the aws sequence concurrently.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>It is a helpful utility function for both grouping and executing multiple coroutines or multiple tasks.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run a collection of awaitables</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro2</span><span class="p">()))</span>
+</code></pre></div>
+<p>We may use the <strong>asyncio.gather()</strong> function in situations where we may create many tasks or coroutines up-front and then wish to execute them all at once and wait for them all to complete before continuing on.</p>
+<p>This is a likely situation where the result is required from many like-tasks, e.g. same task or coroutine with different data.</p>
+<p>The awaitables can be executed concurrently, results returned, and the main program can resume by making use of the results on which it is dependent.</p>
+<p>The <strong>gather()</strong> function is more powerful than simply waiting for tasks to complete.</p>
+<p>It allows a group of awaitables to be treated as a single awaitable.</p>
+<p>This allows:</p>
+<ul>
+<li>Executing and waiting for all awaitables in the group to be done via an await expression.</li>
+<li>Getting results from all grouped awaitables to be retrieved later via the result() method.</li>
+<li>The group of awaitables to be canceled via the cancel() method.</li>
+<li>Checking if all awaitables in the group are done via the done() method.</li>
+<li>Executing callback functions only when all tasks in the group are done.</li>
+</ul>
+<p>And more.</p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.gather">asyncio.gather()</a> 模块函数允许调用者将多个可等待项组合在一起。</p>
+<p>一旦分组，可等待项就可以并发执行、等待和取消。</p>
+<blockquote>
+<p>同时运行 aws 序列中的可等待对象。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>对于分组和执行多个协程或多个任务来说，它是一个有用的实用函数。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行可等待对象集合</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro2</span><span class="p">()))</span>
+</code></pre></div>
+<p>在我们可能预先创建许多任务或协程，然后希望一次执行所有任务或协程并等待它们全部完成然后再继续的情况下，我们可以使用 <strong>asyncio.gather()</strong> 函数。</p>
+<p>这是一种可能的情况，其中需要许多类似任务的结果，例如 具有不同数据的相同任务或协程。</p>
+<p>可等待对象可以并发执行，返回结果，并且主程序可以通过使用它所依赖的结果来恢复。</p>
+<p><strong>gather()</strong> 函数比简单地等待任务完成更强大。</p>
+<p>它允许将一组可等待对象视为单个可等待对象。</p>
+<p>这允许：</p>
+<ul>
+<li>通过 <strong>await</strong> 表达式执行并等待组中的所有可等待任务完成。</li>
+<li>从所有分组的可等待项中获取结果，以便稍后通过 <strong>result()</strong> 方法检索。</li>
+<li>通过 <strong>cancel()</strong> 方法取消的可等待组。</li>
+<li>检查组中的所有可等待项是否已通过 <strong>done()</strong> 方法完成。</li>
+<li>仅当组中的所有任务完成时才执行回调函数。</li>
+</ul>
+<p>和更多。</p>
+</div>
 </div>
 </div>
 <h3 id="102-如何使用-asyncio-gather">10.2 如何使用 Asyncio Gather()<a class="headerlink" href="#102-如何使用-asyncio-gather" title="Permanent link">&para;</a></h3>
 <p><strong>10.2 How to use Asyncio gather()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="54:2"><input checked="checked" id="__tabbed_54_1" name="__tabbed_54" type="radio" /><input id="__tabbed_54_2" name="__tabbed_54" type="radio" /><div class="tabbed-labels"><label for="__tabbed_54_1">英文</label><label for="__tabbed_54_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>In this section, we will take a closer look at how we might use the <strong>asyncio.gather()</strong> function.</p>
+<p>The <strong>asyncio.gather()</strong> function takes one or more awaitables as arguments.</p>
+<p>Recall an awaitable may be a coroutine, a <strong>Future</strong> or a <strong>Task</strong>.</p>
+<p>Therefore, we can call the <strong>gather()</strong> function with:</p>
+<ul>
+<li>Multiple tasks</li>
+<li>Multiple coroutines</li>
+<li>Mixture of tasks and coroutines</li>
+</ul>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># execute multiple coroutines</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>If <strong>Task</strong> objects are provided to <strong>gather()</strong>, they will already be running because <strong>Tasks</strong> are scheduled as part of being created.</p>
+<p>The <strong>asyncio.gather()</strong> function takes awaitables as position arguments.</p>
+<p>We cannot create a list or collection of awaitables and provide it to gather, as this will result in an error.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># cannot provide a list of awaitables directly</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">([</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">()])</span>
+</code></pre></div>
+<p>A list of awaitables can be provided if it is first unpacked into separate expressions using the star operator (*).</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># gather with an unpacked list of awaitables</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">()])</span>
+</code></pre></div>
+<p>If coroutines are provided to <strong>gather()</strong>, they are wrapped in <strong>Task</strong> objects automatically.</p>
+<p>The <strong>gather()</strong> function does not block.</p>
+<p>Instead, it returns an <a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.Future"><strong>asyncio.Future</strong></a> object that represents the group of awaitables.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get a future that represents multiple awaitables</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>Once the <strong>Future</strong> object is created it is scheduled automatically within the event loop.</p>
+<p>The awaitable represents the group, and all awaitables in the group will execute as soon as they are able.</p>
+<p>This means that if the caller did nothing else, the scheduled group of awaitables will run (assuming the caller suspends).</p>
+<p>It also means that you do not have to await the <strong>Future</strong> that is returned from <strong>gather()</strong>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get a future that represents multiple awaitables</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+<span class="c1"># suspend and wait a while, the group may be executing..</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>The returned Future object can be awaited which will wait for all awaitables in the group to be done.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run the group of awaitables</span>
+<span class="k">await</span> <span class="n">group</span>
+</code></pre></div>
+<p>Awaiting the Future returned from <strong>gather()</strong> will return a list of return values from the awaitables.</p>
+<p>If the awaitables do not return a value, then this list will contain the default <strong>“None”</strong> return value.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run the group of awaitables and get return values</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">group</span>
+</code></pre></div>
+<p>This is more commonly performed in one line.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run tasks and get results on one line</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>在本节中，我们将仔细研究如何使用 <strong>asyncio.gather()</strong> 函数。</p>
+<p><strong>asyncio.gather()</strong> 函数采用一个或多个可等待项作为参数。</p>
+<p>回想一下，可等待的可能是协程、<strong>Future</strong> 或 <strong>Task</strong>。</p>
+<p>因此，我们可以调用 <strong>gather()</strong> 函数：</p>
+<ul>
+<li>多项任务</li>
+<li>多个协程</li>
+<li>任务和协程的混合</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 执行多个协程</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>如果将 <strong>Task</strong> 对象提供给 <strong>gather()</strong>，它们将已经在运行，因为 <strong>Task</strong> 是作为创建的一部分进行调度的。</p>
+<p><strong>asyncio.gather()</strong> 函数将可等待对象作为位置参数。</p>
+<p>我们无法创建可等待项的列表或集合并将其提供给收集，因为这会导致错误。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 无法直接提供可等待列表</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">([</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">()])</span>
+</code></pre></div>
+<p>如果首先使用星号运算符 (*) 将其解包到单独的表达式中，则可以提供可等待列表。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 收集一份已解压的等待列表</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">()])</span>
+</code></pre></div>
+<p>如果向 <strong>gather()</strong> 提供协程，它们会自动包装在 <strong>Task</strong> 对象中。</p>
+<p><strong>gather()</strong> 函数不会阻塞。</p>
+<p>相反，它返回一个代表可等待组的 <a href="https://docs.python.org/3/library/asyncio-future.html#asyncio.Future"><strong>asyncio.Future</strong></a> 对象。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 得到一个代表多个可等待对象的Future对象</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>一旦创建了 <strong>Future</strong> 对象，它就会在事件循环中自动调度。</p>
+<p>可等待代表组，组中的所有可等待将尽快执行。</p>
+<p>这意味着如果调用者没有执行任何其他操作，则预定的等待组将运行（假设调用者挂起）。</p>
+<p>这也意味着您不必等待从 <strong>gather()</strong> 返回的 <strong>Future</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 得到一个代表多个可等待对象的Future对象</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+<span class="c1"># 挂起并等待一段时间，该组可能正在执行..</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>可以等待返回的 Future 对象，它将等待组中的所有可等待任务完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行可等待对象组</span>
+<span class="k">await</span> <span class="n">group</span>
+</code></pre></div>
+<p>等待从 <strong>gather()</strong> 返回的 Future 将返回可等待项的返回值列表。</p>
+<p>如果可等待项不返回值，则此列表将包含默认的 <strong>“None”</strong> 返回值。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行可等待组并获取返回值</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">group</span>
+</code></pre></div>
+<p>这通常在一行中执行。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 在一行中运行任务并获取结果</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="103-对于列表中的多个协程的-gather-示例">10.3 对于列表中的多个协程的 Gather() 示例<a class="headerlink" href="#103-对于列表中的多个协程的-gather-示例" title="Permanent link">&para;</a></h3>
 <p><strong>10.3 Example of gather() For Many Coroutines in a List</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="55:2"><input checked="checked" id="__tabbed_55_1" name="__tabbed_55" type="radio" /><input id="__tabbed_55_2" name="__tabbed_55" type="radio" /><div class="tabbed-labels"><label for="__tabbed_55_1">英文</label><label for="__tabbed_55_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>It is common to create multiple coroutines beforehand and then gather them later.</p>
+<p>This allows a program to prepare the tasks that are to be executed concurrently and then trigger their concurrent execution all at once and wait for them to complete.</p>
+<p>We can collect many coroutines together into a list either manually or using a list comprehension.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create many coroutines</span>
+<span class="n">coros</span> <span class="o">=</span> <span class="p">[</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+<p>We can then call <strong>gather()</strong> with all coroutines in the list.</p>
+<p>The list of coroutines cannot be provided directly to the <strong>gather()</strong> function as this will result in an error.</p>
+<p>Instead, the <strong>gather()</strong> function requires each awaitable to be provided as a separate positional argument.</p>
+<p>This can be achieved by unwrapping the list into separate expressions and passing them to the <strong>gather()</strong> function. The star operator (*) will perform this operation for us.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run the tasks</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">coros</span><span class="p">)</span>
+<span class="n">Tying</span> <span class="n">this</span> <span class="n">together</span><span class="p">,</span> <span class="n">the</span> <span class="n">complete</span> <span class="n">example</span> <span class="n">of</span> <span class="n">running</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">pre</span><span class="o">-</span><span class="n">prepared</span> <span class="n">coroutines</span> <span class="k">with</span> <span class="n">gather</span><span class="p">()</span> <span class="ow">is</span> <span class="n">listed</span> <span class="n">below</span><span class="o">.</span>
+
+<span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of gather for many coroutines in a list</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine used for a task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> executing&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine used for the entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main starting&#39;</span><span class="p">)</span>
+    <span class="c1"># create many coroutines</span>
+    <span class="n">coros</span> <span class="o">=</span> <span class="p">[</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># run the tasks</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">coros</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main done&#39;</span><span class="p">)</span>
+
+<span class="c1"># start the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example executes the <strong>main()</strong> coroutine as the entry point to the program.</p>
+<p>The <strong>main()</strong> coroutine then creates a list of 10 coroutine objects using a list comprehension.</p>
+<p>This list is then provided to the <strong>gather()</strong> function and unpacked into 10 separate expressions using the star operator.</p>
+<p>The <strong>main()</strong> coroutine then awaits the Future object returned from the call to gather(), suspending and waiting for all scheduled coroutines to complete their execution.</p>
+<p>The coroutines run as soon as they are able, reporting their unique messages and sleeping before terminating.</p>
+<p>Only after all coroutines in the group are complete does the <strong>main()</strong> coroutine resume and report its final message.</p>
+<p>This highlights how we might prepare a collection of coroutines and provide them as separate expressions to the <strong>gather()</strong> function.</p>
+<div class="highlight"><pre><span></span><code>main starting
+&gt;task 0 executing
+&gt;task 1 executing
+&gt;task 2 executing
+&gt;task 3 executing
+&gt;task 4 executing
+&gt;task 5 executing
+&gt;task 6 executing
+&gt;task 7 executing
+&gt;task 8 executing
+&gt;task 9 executing
+main done
+</code></pre></div>
+<p>You can learn more about how to use the gather() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather/">How to Use asyncio.gather() in Python</a></li>
+</ul>
+<p>Next, we will explore how to wait on a group of asyncio tasks.</p>
+</div>
+<div class="tabbed-block">
+<p>预先创建多个协程然后稍后收集它们是很常见的。</p>
+<p>这允许程序准备要并发执行的任务，然后立即触发它们的并发执行并等待它们完成。</p>
+<p>我们可以手动或使用列表理解将许多协程收集到一个列表中。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建许多协程</span>
+<span class="n">coros</span> <span class="o">=</span> <span class="p">[</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+<p>然后我们可以对列表中的所有协程调用<strong>gather()</strong>。</p>
+<p>协程列表不能直接提供给 <strong>gather()</strong> 函数，因为这会导致错误。</p>
+<p>相反， <strong>gather()</strong> 函数要求将每个可等待项作为单独的位置参数提供。</p>
+<p>这可以通过将列表展开为单独的表达式并将它们传递给 <strong>gather()</strong> 函数来实现。 星号运算符（*）将为我们执行此操作。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行任务</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">coros</span><span class="p">)</span>
+</code></pre></div>
+<p>将它们结合在一起，下面列出了使用 Gather() 运行预先准备的协程列表的完整示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 收集列表中许多协程的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 用于任务的协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1"> executing&#39;</span><span class="p">)</span>
+    <span class="c1"># 睡一会儿</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine used for the entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main starting&#39;</span><span class="p">)</span>
+    <span class="c1"># 创建许多协程</span>
+    <span class="n">coros</span> <span class="o">=</span> <span class="p">[</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># 运行任务</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">coros</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;main done&#39;</span><span class="p">)</span>
+
+<span class="c1"># 启动异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例将执行 <strong>main()</strong> 协程作为程序的入口点。</p>
+<p>然后，<strong>main()</strong> 协程使用列表理解创建一个包含 10 个协程对象的列表。</p>
+<p>然后将该列表提供给 <strong>gather()</strong> 函数，并使用星号运算符将其解包为 10 个单独的表达式。</p>
+<p>然后，<strong>main()</strong> 协程等待从调用 Gather() 返回的 Future 对象，挂起并等待所有已调度的协程完成其执行。</p>
+<p>协程会尽快运行，报告其独特的消息并在终止前休眠。</p>
+<p>仅当组中的所有协程完成后， <strong>main()</strong> 协程才会恢复并报告其最终消息。</p>
+<p>这强调了我们如何准备协程集合并将它们作为单独的表达式提供给 <strong>gather()</strong> 函数。</p>
+<div class="highlight"><pre><span></span><code>main starting
+&gt;task 0 executing
+&gt;task 1 executing
+&gt;task 2 executing
+&gt;task 3 executing
+&gt;task 4 executing
+&gt;task 5 executing
+&gt;task 6 executing
+&gt;task 7 executing
+&gt;task 8 executing
+&gt;task 9 executing
+main done
+</code></pre></div>
+<p>您可以在教程中了解有关如何使用 Gather() 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather/">如何在 Python 中使用 asyncio.gather()</a></li>
+</ul>
+<p>接下来，我们将探讨如何等待一组异步任务。</p>
+</div>
 </div>
 </div>
 <h2 id="11-等待任务的集合">11. 等待任务的集合<a class="headerlink" href="#11-等待任务的集合" title="Permanent link">&para;</a></h2>
 <p><strong>11. Wait for A Collection of Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="56:2"><input checked="checked" id="__tabbed_56_1" name="__tabbed_56" type="radio" /><input id="__tabbed_56_2" name="__tabbed_56" type="radio" /><div class="tabbed-labels"><label for="__tabbed_56_1">英文</label><label for="__tabbed_56_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can wait for asyncio tasks to complete via the <strong>asyncio.wait()</strong> function.</p>
+<p>Different conditions can be waited for, such as all tasks to complete, the first task to complete, and the first task to fail with an exception.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过 <strong>asyncio.wait()</strong> 函数等待 asyncio 任务完成。</p>
+<p>可以等待不同的条件，例如所有任务完成、第一个任务完成、第一个任务因异常而失败。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="111-什么是-asynciowait">11.1 什么是 asyncio.wait()<a class="headerlink" href="#111-什么是-asynciowait" title="Permanent link">&para;</a></h3>
 <p><strong>11.1 What is asyncio.wait()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="57:2"><input checked="checked" id="__tabbed_57_1" name="__tabbed_57" type="radio" /><input id="__tabbed_57_2" name="__tabbed_57" type="radio" /><div class="tabbed-labels"><label for="__tabbed_57_1">英文</label><label for="__tabbed_57_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <strong>asyncio.wait()</strong> function can be used to wait for a collection of asyncio tasks to complete.</p>
+<p>Recall that an asyncio task is an instance of the <strong>asyncio.Task</strong> class that wraps a coroutine. It allows a coroutine to be scheduled and executed independently, and the <strong>Task</strong> instance provides a handle on the task for querying status and getting results.</p>
+<p>You can learn more about asyncio tasks in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task">What is an Asyncio Task</a></li>
+</ul>
+<p>The wait() function allows us to wait for a collection of tasks to be done.</p>
+<p>The call to wait can be configured to wait for different conditions, such as all tasks being completed, the first task completed and the first task failing with an error.</p>
+<p>Next, let’s look at how we might use the wait() function.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>asyncio.wait()</strong> 函数可用于等待异步任务集合完成。</p>
+<p>回想一下，asyncio 任务是包装协程的 <strong>asyncio.Task</strong> 类的实例。 它允许协程独立地调度和执行，并且 <strong>Task</strong> 实例提供任务的句柄用于查询状态和获取结果。</p>
+<p>您可以在教程中了解有关异步任务的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-task">什么是异步任务</a></li>
+</ul>
+<p>wait() 函数允许我们等待一组任务完成。</p>
+<p>对 wait 的调用可以配置为等待不同的条件，例如所有任务都已完成、第一个任务已完成以及第一个任务因错误而失败。</p>
+<p>接下来，让我们看看如何使用 wait() 函数。</p>
+</div>
 </div>
 </div>
 <h3 id="112-如何使用-asynciowait">11.2 如何使用 asyncio.wait()<a class="headerlink" href="#112-如何使用-asynciowait" title="Permanent link">&para;</a></h3>
 <p><strong>11.2 How to Use asyncio.wait()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="58:2"><input checked="checked" id="__tabbed_58_1" name="__tabbed_58" type="radio" /><input id="__tabbed_58_2" name="__tabbed_58" type="radio" /><div class="tabbed-labels"><label for="__tabbed_58_1">英文</label><label for="__tabbed_58_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <strong>asyncio.wait()</strong> function takes a collection of awaitables, typically <strong>Task</strong> objects.</p>
+<p>This could be a <strong>list</strong>, <strong>dict</strong>, or <strong>set</strong> of task objects that we have created, such as via calls to the <strong>asyncio.create_task()</strong> function in a list comprehension.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create many tasks</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+<p>The <strong>asyncio.wait()</strong> will not return until some condition on the collection of tasks is met.</p>
+<p>By default, the condition is that all tasks are completed.</p>
+<p>The <strong>wait()</strong> function returns a tuple of two sets. The first set contains all task objects that meet the condition, and the second contains all other task objects that do not yet meet the condition.</p>
+<p>These sets are referred to as the <strong>“done”</strong> set and the <strong>“pending”</strong> set.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for all tasks to complete</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+</code></pre></div>
+<p>Technically, the <strong>asyncio.wait()</strong> is a coroutine function that returns a coroutine.</p>
+<p>We can then await this coroutine which will return the tuple of sets.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create the wait coroutine</span>
+<span class="n">wait_coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+<span class="c1"># await the wait coroutine</span>
+<span class="nb">tuple</span> <span class="o">=</span> <span class="k">await</span> <span class="n">wait_coro</span>
+</code></pre></div>
+<p>The condition waited for can be specified by the <strong>“return_when”</strong> argument which is set to <strong>asyncio.ALL_COMPLETED</strong> by default.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for all tasks to complete</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">ALL_COMPLETED</span><span class="p">)</span>
+</code></pre></div>
+<p>We can wait for the first task to be completed by setting <strong>return_when</strong> to <strong>FIRST_COMPLETED</strong>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for the first task to be completed</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">)</span>
+</code></pre></div>
+<p>When the first task is complete and returned in the done set, the remaining tasks are not canceled and continue to execute concurrently.</p>
+<p>We can wait for the first task to fail with an exception by setting <strong>return_when</strong> to <strong>FIRST_EXCEPTION</strong>.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for the first task to fail</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_EXCEPTION</span><span class="p">)</span>
+</code></pre></div>
+<p>In this case, the done set will contain the first task that failed with an exception. If no task fails with an exception, the done set will contain all tasks and <strong>wait()</strong> will return only after all tasks are completed.</p>
+<p>We can specify how long we are willing to wait for the given condition via a “timeout” argument in seconds.</p>
+<p>If the timeout expires before the condition is met, the tuple of tasks is returned with whatever subset of tasks do meet the condition at that time, e.g. the subset of tasks that are completed if waiting for all tasks to complete.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for all tasks to complete with a timeout</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p>If the timeout is reached before the condition is met, an exception is not raised and the remaining tasks are not canceled.</p>
+<p>Now that we know how to use the <strong>asyncio.wait()</strong> function, let’s look at some worked examples.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>asyncio.wait()</strong> 函数采用可等待对象的集合，通常是 <strong>Task</strong> 对象。</p>
+<p>这可以是我们创建的任务对象的<strong>list</strong>、<strong>dict</strong>或<strong>set</strong>，例如通过调用列表推导式中的 <strong>asyncio.create_task()</strong> 函数 。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建许多任务</span>
+<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+</code></pre></div>
+<p>在满足任务集合的某些条件之前， <strong>asyncio.wait()</strong> 将不会返回。</p>
+<p>默认情况下，条件是所有任务均已完成。</p>
+<p><strong>wait()</strong> 函数返回两个集合的元组。 第一个集合包含满足条件的所有任务对象，第二个集合包含尚未满足条件的所有其他任务对象。</p>
+<p>这些集称为 <strong>“done”</strong> 集和 <strong>“pending”</strong> 集。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待所有任务完成</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+</code></pre></div>
+<p>从技术上讲， <strong>asyncio.wait()</strong> 是一个返回协程的协程函数。</p>
+<p>然后我们可以等待这个协程，它将返回集合的元组。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建等待协程</span>
+<span class="n">wait_coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+<span class="c1"># 等待协程</span>
+<span class="nb">tuple</span> <span class="o">=</span> <span class="k">await</span> <span class="n">wait_coro</span>
+</code></pre></div>
+<p>等待的条件可以通过 <strong>“return_when”</strong> 参数指定，默认设置为 <strong>asyncio.ALL_COMPLETED</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待所有任务完成</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">ALL_COMPLETED</span><span class="p">)</span>
+</code></pre></div>
+<p>我们可以通过将 <strong>return_when</strong> 设置为 <strong>FIRST_COMPLETED</strong> 来等待第一个任务完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待第一个任务完成</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_COMPLETED</span><span class="p">)</span>
+</code></pre></div>
+<p>当第一个任务完成并返回完成集中时，其余任务不会取消并继续并发执行。</p>
+<p>我们可以通过将 <strong>return_when</strong> 设置为 <strong>FIRST_EXCEPTION</strong> 来等待第一个任务因异常而失败。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待第一个任务失败</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_when</span><span class="o">=</span><span class="n">asyncio</span><span class="o">.</span><span class="n">FIRST_EXCEPTION</span><span class="p">)</span>
+</code></pre></div>
+<p>在这种情况下，完成集将包含第一个因异常而失败的任务。 如果没有任务因异常而失败，则完成集将包含所有任务，并且 <strong>wait()</strong> 仅在所有任务完成后才返回。</p>
+<p>我们可以通过 <strong>“timeout”</strong> 参数指定我们愿意等待给定条件的时间（以秒为单位）。</p>
+<p>如果在满足条件之前超时到期，则返回任务元组以及当时满足条件的任何任务子集，例如 如果等待所有任务完成，则为完成的任务子集。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待所有任务完成并使用超时</span>
+<span class="n">done</span><span class="p">,</span> <span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p>如果在满足条件之前达到超时，则不会引发异常，并且不会取消剩余的任务。</p>
+<p>现在我们知道如何使用 <strong>asyncio.wait()</strong> 函数，让我们看一些有效的示例。</p>
+</div>
 </div>
 </div>
 <h3 id="113-等待所有任务的示例">11.3 等待所有任务的示例<a class="headerlink" href="#113-等待所有任务的示例" title="Permanent link">&para;</a></h3>
 <p><strong>11.3 Example of Waiting for All Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="59:2"><input checked="checked" id="__tabbed_59_1" name="__tabbed_59" type="radio" /><input id="__tabbed_59_2" name="__tabbed_59" type="radio" /><div class="tabbed-labels"><label for="__tabbed_59_1">英文</label><label for="__tabbed_59_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can explore how to wait for all tasks using <strong>asyncio.wait()</strong>.</p>
+<p>In this example, we will define a simple task coroutine that generates a random value, sleeps for a fraction of a second, then reports a message with the generated value.</p>
+<p>The main coroutine will then create many tasks in a list comprehension with the coroutine and then wait for all tasks to be completed.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of waiting for all tasks to complete</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine to execute in a new task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="c1"># generate a random value between 0 and 1</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">random</span><span class="p">()</span>
+    <span class="c1"># block for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1"># report the value</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task </span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s1"> done with </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create many tasks</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># wait for all tasks to complete</span>
+    <span class="n">done</span><span class="p">,</span><span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="c1"># report results</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All done&#39;</span><span class="p">)</span>
+
+<span class="c1"># start the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the <strong>main()</strong> coroutine and uses it as the entry point into the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine then creates a list of ten tasks in a list comprehension, each providing a unique integer argument from 0 to 9.</p>
+<p>The <strong>main()</strong> coroutine is then suspended and waits for all tasks to complete.</p>
+<p>The tasks execute. Each generates a random value, sleeps for a moment, then reports its generated value.</p>
+<p>After all tasks have been completed, the main() coroutine resumes and reports a final message.</p>
+<p>This example highlights how we can use the <strong>wait()</strong> function to wait for a collection of tasks to be completed.</p>
+<p>This is perhaps the most common usage of the function.</p>
+<p>Note, that the results will differ each time the program is run given the use of random numbers.</p>
+<div class="highlight"><pre><span></span><code>&gt;task 5 done with 0.0591009105682192
+&gt;task 8 done with 0.10453715687017351
+&gt;task 0 done with 0.15462838864295925
+&gt;task 6 done with 0.4103492027393125
+&gt;task 9 done with 0.45567100006991623
+&gt;task 2 done with 0.6984682905809402
+&gt;task 7 done with 0.7785363531316224
+&gt;task 3 done with 0.827386088873161
+&gt;task 4 done with 0.9481344994700972
+&gt;task 1 done with 0.9577302665040541
+All done
+</code></pre></div>
+<p>You can learn more about the wait() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait/">How to Use Asyncio wait() in Python</a></li>
+</ul>
+<p>Next, we will explore how to wait for a single coroutine with a time limit.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何使用 <strong>asyncio.wait()</strong> 等待所有任务。</p>
+<p>在此示例中，我们将定义一个简单的任务协程，它生成一个随机值，休眠一小会儿，然后报告包含生成值的消息。</p>
+<p>然后，主协程将使用协程在列表推导中创建许多任务，然后等待所有任务完成。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 等待所有任务完成的示例</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 在新任务中执行的协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="c1"># 生成 0 到 1 之间的随机值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">random</span><span class="p">()</span>
+    <span class="c1"># 暂时阻塞</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1"># 报告值</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task </span><span class="si">{</span><span class="n">arg</span><span class="si">}</span><span class="s1"> done with </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建许多任务</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task_coro</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># 等待所有任务完成</span>
+    <span class="n">done</span><span class="p">,</span><span class="n">pending</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
+    <span class="c1"># 报告结果</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;All done&#39;</span><span class="p">)</span>
+
+<span class="c1"># 启动异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程，并将其用作 asyncio 程序的入口点。</p>
+<p>然后，<strong>main()</strong> 协程在列表理解中创建一个包含十个任务的列表，每个任务提供一个从 0 到 9 的唯一整数参数。</p>
+<p>然后 <strong>main()</strong> 协程被挂起并等待所有任务完成。</p>
+<p>任务执行。 每个生成一个随机值，休眠一会儿，然后报告其生成的值。</p>
+<p>所有任务完成后，main() 协程恢复并报告最终消息。</p>
+<p>此示例重点介绍了如何使用 <strong>wait()</strong> 函数来等待任务集合完成。</p>
+<p>这可能是该函数最常见的用法。</p>
+<p>请注意，由于使用随机数，每次运行程序时结果都会有所不同。</p>
+<div class="highlight"><pre><span></span><code>&gt;task 5 done with 0.0591009105682192
+&gt;task 8 done with 0.10453715687017351
+&gt;task 0 done with 0.15462838864295925
+&gt;task 6 done with 0.4103492027393125
+&gt;task 9 done with 0.45567100006991623
+&gt;task 2 done with 0.6984682905809402
+&gt;task 7 done with 0.7785363531316224
+&gt;task 3 done with 0.827386088873161
+&gt;task 4 done with 0.9481344994700972
+&gt;task 1 done with 0.9577302665040541
+All done
+</code></pre></div>
+<p>您可以在教程中了解有关 <strong>wait()</strong> 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait/">如何在 Python 中使用 Asyncio wait()</a></li>
+</ul>
+<p>接下来，我们将探讨如何在有时间限制的情况下等待单个协程。</p>
+</div>
 </div>
 </div>
 <h2 id="12-等待有时间限制的协程">12. 等待有时间限制的协程<a class="headerlink" href="#12-等待有时间限制的协程" title="Permanent link">&para;</a></h2>
@@ -9483,7 +11598,7 @@ main coroutine done
       
         <br>
         创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月3日</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月27日</span>
       
     
   </small>
