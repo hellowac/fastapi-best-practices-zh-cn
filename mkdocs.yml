@@ -77,25 +77,27 @@ extra_javascript:
 nav:
   - 最佳实践: index.md
   - 英文原版: raw_en.md
-  - Asyncio: 
-    - 中文简单指南: asyncio.md
-    - 英文完整指南: asyncio_en.md
+  - Asyncio:
+      - 中文简单指南: asyncio/asyncio.md
+      - 英文完整指南: asyncio/asyncio_en.md
+      - 语法备忘录: asyncio/cheat_sheet.md
+      - API思维导图: asyncio/api_mind_map.md
   - 互联网协议:
-    - network/internet_protocol_suite_part_i.md
-    - network/internet_protocol_suite_part_ii.md
-  - HTTP: 
-    - http/index.md
-    - http/http-referer.md
-    - http/https.md
+      - network/internet_protocol_suite_part_i.md
+      - network/internet_protocol_suite_part_ii.md
+  - HTTP:
+      - http/index.md
+      - http/http-referer.md
+      - http/https.md
   - REST ful:
-    - rest-ful/restapi.md
-    - rest-ful/restapibsetp.md
+      - rest-ful/restapi.md
+      - rest-ful/restapibsetp.md
   - Git:
-    - git/git-branch-manage.md
-    - git/git-remote.md
-    - git/git-use-process.md
-    - git/git-cheat-sheet.md
-    - git/git-work-flow.md
+      - git/git-branch-manage.md
+      - git/git-remote.md
+      - git/git-use-process.md
+      - git/git-cheat-sheet.md
+      - git/git-work-flow.md
   - 系统设计:
-    - system-design/perm_design.md
+      - system-design/perm_design.md
   - 关于: about.md

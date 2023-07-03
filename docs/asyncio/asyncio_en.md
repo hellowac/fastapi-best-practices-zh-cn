@@ -188,7 +188,107 @@
 
 === "英文"
 
+    Broadly, asynchronous programming in Python refers to making requests and not blocking to wait for them to complete.
+    
+    We can implement asynchronous programming in Python in various ways, although a few are most relevant for Python concurrency.
+    
+    The first and obvious example is the [asyncio](https://docs.python.org/3/library/asyncio.html) module. This module directly offers an asynchronous programming environment using the async/await syntax and non-blocking I/O with sockets and subprocesses.
+    
+    > asyncio is short for asynchronous I/O. It is a Python library that allows us to run code using an asynchronous programming model. This lets us handle multiple I/O operations at once, while still allowing our application to remain responsive.
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
+    
+    It is implemented using coroutines that run in an event loop that itself runs in a single thread.
+    
+    - **Asyncio**: An asynchronous programming environment provided in Python via the asyncio module.
+    
+    More broadly, Python offers threads and processes that can execute tasks asynchronously.
+    
+    For example, one thread can start a second thread to execute a function call and resume other activities. The operating system will schedule and execute the second thread at some time and the first thread may or may not check on the status of the task, manually.
+    
+    > Threads are asynchronous, meaning that they may run at different speeds, and any thread can halt for an unpredictable duration at any time.
+    >
+    > — PAGE 76, [THE ART OF MULTIPROCESSOR PROGRAMMING](https://amzn.to/3CC82J2), 2020.
+    
+    More concretely, Python provides executor-based thread pools and process pools in the [**ThreadPoolExecutor**](https://superfastpython.com/threadpoolexecutor-in-python/) and [**ProcessPoolExeuctor**](https://superfastpython.com/processpoolexecutor-in-python/) classes.
+    
+    These classes use the same interface and support asynchronous tasks via the **submit()** method that returns a **Future** object.
+    
+    > The concurrent.futures module provides a high-level interface for asynchronously executing callables. The asynchronous execution can be performed with threads, using ThreadPoolExecutor, or separate processes, using ProcessPoolExecutor.
+    >
+    > — [CONCURRENT.FUTURES — LAUNCHING PARALLEL TASKS](https://docs.python.org/3/library/concurrent.futures.html)
+    
+    The [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) module also provides pools of workers using processes and threads in the [Pool](https://superfastpython.com/multiprocessing-pool-python/) and [ThreadPool](https://superfastpython.com/threadpool-python/) classes, forerunners to the **ThreadPoolExecutor** and **ProcessPoolExeuctor** classes.
+    
+    The capabilities of these classes are described in terms of worker execution tasks asynchronously. They explicitly provide synchronous (blocking) and asynchronous (non-blocking) versions of each method for executing tasks.
+    
+    For example, one may issue a one-off function call synchronously via the **apply()** method or asynchronously via the **apply_async()** method.
+    
+    > A process pool object which controls a pool of worker processes to which jobs can be submitted. It supports asynchronous results with timeouts and callbacks and has a parallel map implementation.
+    >
+    > — [MULTIPROCESSING — PROCESS-BASED PARALLELISM](https://docs.python.org/3/library/multiprocessing.html)
+    
+    There are other aspects of asynchronous programming in Python that are less strictly related to Python concurrency.
+    
+    For example, Python processes receive or handle signals asynchronously. Signals are fundamentally asynchronous events sent from other processes.
+    
+    This is primarily supported by the [**signal**](https://docs.python.org/3/library/signal.html) module.
+    
+    Now that we know about asynchronous programming, let’s take a closer look at asyncio.
+    
+    Run your loops using all CPUs, [download my FREE book](https://superfastpython.com/plip-incontent) to learn how.
+
 === "中文"
+
+    从广义上讲，Python 中的异步编程是指发出请求而不是阻塞等待请求完成。
+    
+    我们可以通过多种方式在 Python 中实现异步编程，尽管其中一些与 Python 并发性最相关。
+    
+    第一个明显的例子是 [asyncio](https://docs.python.org/3/library/asyncio.html) 模块。 该模块使用 async/await 语法以及带有套接字和子进程的非阻塞 I/O 直接提供异步编程环境。
+    
+    > asyncio 是异步 I/O 的缩写。 它是一个 Python 库，允许我们使用异步编程模型运行代码。 这让我们可以同时处理多个 I/O 操作，同时仍然允许我们的应用程序保持响应能力。
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
+    
+    它是使用在事件循环中运行的协程实现的，事件循环本身在单个线程中运行。
+    
+    - **Asyncio**: Python 通过 asyncio 模块提供的异步编程环境。
+    
+    更广泛地说，Python 提供了可以异步执行任务的线程和进程。
+    
+    例如，一个线程可以启动第二个线程来执行函数调用并恢复其他活动。 操作系统将在某个时间调度并执行第二个线程，第一个线程可能会也可能不会手动检查任务的状态。
+    
+    > 线程是异步的，这意味着它们可能以不同的速度运行，并且任何线程都可能随时停止不可预测的持续时间。
+    >
+    > — PAGE 76, [THE ART OF MULTIPROCESSOR PROGRAMMING](https://amzn.to/3CC82J2), 2020.
+
+    更具体地说，Python 在 [**ThreadPoolExecutor**](https://superfastpython.com/threadpoolexecutor-in-python/) 和 [**ProcessPoolExeuctor**](https://superfastpython.com/processpoolexecutor-in-python/) 类中提供了基于执行器的线程池和进程池。
+    
+    这些类使用相同的接口，并通过返回 **Future** 对象的 **submit()** 方法支持异步任务。
+    
+    > Concurrent.futures 模块为异步执行可调用对象提供了一个高级接口。 异步执行可以使用 ThreadPoolExecutor 通过线程执行，也可以使用 ProcessPoolExecutor 通过单独的进程执行。
+    >
+    > — [CONCURRENT.FUTURES — LAUNCHING PARALLEL TASKS](https://docs.python.org/3/library/concurrent.futures.html)
+    
+    [multiprocessing](https://docs.python.org/3/library/multiprocessing.html) 模块还提供使用 [Pool](https://superfastpython.com/multiprocessing-pool-python/) 和 [ThreadPool](https://superfastpython.com/threadpool-python/) 类中的进程和线程的工作线程池，这些类是 **ThreadPoolExecutor** 和 **ProcessPoolExeuctor** 类的前置运行器。
+
+    这些类的功能是根据异步执行任务来描述的。 它们明确提供用于执行任务的每个方法的同步（阻塞）和异步（非阻塞）版本。
+    
+    例如，可以通过 **apply()** 方法同步发出一次性函数调用，或通过 **apply_async()** 方法异步发出一次性函数调用。
+    
+    > 一个进程池对象，它控制可以向其提交作业的工作进程池。 它支持带有超时和回调的异步结果，并具有并行映射实现。
+    >
+    > — [MULTIPROCESSING — PROCESS-BASED PARALLELISM](https://docs.python.org/3/library/multiprocessing.html)
+    
+    Python 中的异步编程还有其他方面与 Python 并发性的关系不太严格。
+    
+    例如，Python 进程异步接收或处理信号。 信号本质上是从其他进程发送的异步事件。
+    
+    这主要由 [**signal**](https://docs.python.org/3/library/signal.html) 模块支持。
+    
+    现在我们了解了异步编程，让我们仔细看看 asyncio。
+    
+    要使用所有 CPU 运行事件循环，可以[下载我的免费书](https://superfastpython.com/plip-incontent) 以了解如何操作。
 
 ## 2. Asyncio 是什么
 
@@ -196,7 +296,37 @@
 
 === "英文"
 
+    Broadly, asyncio refers to the ability to implement asynchronous programming in Python using coroutines.
+    
+    Specifically, it refers to two elements:
+    
+    1. The addition of the **“asyncio”** module to the Python standard library in Python 3.4.
+    2. The addition of **async/await** expressions to the Python language in Python 3.5.
+
+    Together, the module and changes to the language facilitate the development of Python programs that support coroutine-based concurrency, non-blocking I/O, and asynchronous programming.
+    
+    > Python 3.4 introduced the asyncio library, and Python 3.5 produced the async and await keywords to use it palatably. These new additions allow so-called asynchronous programming.
+    > 
+    > — PAGE VII, [USING ASYNCIO IN PYTHON](https://amzn.to/3MQC92E), 2020.
+
+    Let’s take a closer look at these two aspects of asyncio, starting with the changes to the language.
+
 === "中文"
+
+    广义上，asyncio 是指在 Python 中使用协程实现异步编程的能力。
+    
+    具体来说，它指的是两个要素：
+    
+    1. Python 3.4 中向 Python 标准库添加了 **“asyncio”** 模块。
+    2. Python 3.5 中向 Python 语言添加了 **async/await** 表达式。
+
+    该模块的增加以及对语言的更改共同促进了支持基于协程的并发、非阻塞 I/O 和异步编程的 Python 程序的开发。
+    
+    > Python 3.4 引入了 asyncio 库，Python 3.5 生成了 async 和await 关键字以方便地使用它。 这些新增功能允许所谓的异步编程。
+    >
+    > — PAGE VII, [USING ASYNCIO IN PYTHON](https://amzn.to/3MQC92E), 2020.
+
+    让我们从语言的变化开始，仔细看看 asyncio 的这两个方面。
 
 ### 2.1 对 Python 进行更改以添加对协程的支持
 
@@ -204,7 +334,149 @@
 
 === "英文"
 
+    The Python language was changed to accommodate asyncio with the addition of expressions and types.
+    
+    More specifically, it was changed to support coroutines as first-class concepts. In turn, coroutines are the unit of concurrency used in asyncio programs.
+    
+    A coroutine is a function that can be suspended and resumed.
+    
+    > coroutine: Coroutines are a more generalized form of subroutines. Subroutines are entered at one point and exited at another point. Coroutines can be entered, exited, and resumed at many different points.
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html#term-coroutine)
+
+    A coroutine can be defined via the [**“async def”**](https://superfastpython.com/asyncio-async-def/) expression. It can take arguments and return a value, just like a function.
+    
+    For example:
+    
+    ```python
+    # define a coroutine
+    async def custom_coro():
+        # ...
+    ```
+
+    Calling a coroutine function will create a coroutine object, this is a new class. It does not execute the coroutine function.
+    
+    ```python
+    ...
+    # create a coroutine object
+    coro = custom_coro()
+    ```
+
+    A coroutine can execute another coroutine via the await expression.
+    
+    This suspends the caller and schedules the target for execution.
+    
+    ```python
+    ...
+    # suspend and schedule the target
+    await custom_coro()
+    ```
+
+    An asynchronous iterator is an iterator that yields awaitables.
+    
+    > asynchronous iterator: An object that implements the __aiter__() and __anext__() methods. __anext__ must return an awaitable object. async for resolves the awaitables returned by an asynchronous iterator’s __anext__() method until it raises a StopAsyncIteration exception.
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    An asynchronous iterator can be traversed using the [**“async for”**](https://superfastpython.com/asyncio-async-for/) expression.
+    
+    ```python
+    ...
+    # traverse an asynchronous iterator
+    async for item in async_iterator:
+        print(item)
+    ```
+    
+    This does not execute the for-loop in parallel.
+    
+    Instead, the calling coroutine that executes the for loop will suspend and internally await each awaitable yielded from the iterator.
+    
+    An asynchronous context manager is a context manager that can await the enter and exit methods.
+    
+    > An asynchronous context manager is a context manager that is able to suspend execution in its enter and exit methods.
+    >
+    > — [ASYNCHRONOUS CONTEXT MANAGERS AND “ASYNC WITH”](https://peps.python.org/pep-0492/#asynchronous-context-managers-and-async-with)
+
+    The [**“async with”**](https://superfastpython.com/asyncio-async-with/) expression is for creating and using asynchronous context managers.
+    
+    The calling coroutine will suspend and await the context manager before entering the block for the context manager, and similarly when leaving the context manager block.
+    
+    These are the sum of the major changes to Python language to support coroutines.
+    
+    Next, let’s look at the asyncio module.
+
 === "中文"
+
+    Python 语言已进行更改，以通过添加表达式和类型来适应 asyncio。
+    
+    更具体地说，它被更改为支持协程作为一流概念。 反过来，协程是异步程序中使用的并发单位。
+    
+    协程是一个可以暂停和恢复的函数。
+    
+    > **协程**(coroutine): 协程是更通用的子例程形式。 子程序在某一点进入并在另一点退出。 协程可以在许多不同的点进入、退出和恢复。
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html#term-coroutine)
+
+    协程可以通过 [**“async def”**](https://superfastpython.com/asyncio-async-def/) 表达式来定义。 它可以接受参数并返回一个值，就像函数一样。
+    
+    例如:
+    
+    ```python
+    # 定义一个协程
+    async def custom_coro():
+        # ...
+    ```
+
+    调用协程函数会创建一个协程对象，这是一个新类。 它不执行协程函数。
+    
+    ```python
+    ...
+    # 创建一个协程对象
+    coro = custom_coro()
+    ```
+
+    一个协程可以通过 await 表达式执行另一个协程。
+    
+    这会挂起调用者并安排目标执行。
+    
+    ```python
+    ...
+    # 暂停并安排目标
+    await custom_coro()
+    ```
+
+    异步迭代器是产生可等待对象的迭代器。
+    
+    > **异步迭代器**（asynchronous iterator）: 实现 \_\_aiter\_\_() 和 \_\_anext\_\_() 方法的对象。 \_\_anext\_\_ 必须返回一个可等待的对象。 async for 解析异步迭代器的 \_\_anext\_\_() 方法返回的等待对象，直到引发 StopAsyncIteration 异常。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    可以使用 [**“async for”**](https://superfastpython.com/asyncio-async-for/) 表达式遍历异步迭代器。
+    
+    ```python
+    ...
+    # 遍历异步迭代器
+    async for item in async_iterator:
+        print(item)
+    ```
+    
+    这不会并行执行 for 循环。
+    
+    相反，执行 for 循环的调用协程**将挂起并在内部等待迭代器生成的每个可等待项**。
+    
+    异步上下文管理器是可以等待进入和退出方法的上下文管理器。
+    
+    > 异步上下文管理器是能够在其进入和退出方法中暂停执行的上下文管理器。
+    >
+    > — [ASYNCHRONOUS CONTEXT MANAGERS AND “ASYNC WITH”](https://peps.python.org/pep-0492/#asynchronous-context-managers-and-async-with)
+
+    [**“async with”**](https://superfastpython.com/asyncio-async-with/) 表达式用于创建和使用异步上下文管理器。
+    
+    在进入上下文管理器块之前，调用协程将挂起并等待上下文管理器，在离开上下文管理器块时也是如此。
+    
+    这些是 Python 语言为支持协程而进行的主要更改的总和。
+    
+    接下来，让我们看看 asyncio 模块。
 
 ### 2.2 asyncio 模块
 
@@ -212,7 +484,79 @@
 
 === "英文"
 
+    The **“asyncio”** module provides functions and objects for developing coroutine-based programs using the asynchronous programming paradigm.
+    
+    Specifically, it supports non-blocking I/O with subprocesses (for executing commands) and with streams (for TCP socket programming).
+    
+    > asyncio is a library to write concurrent code using the async/await syntax.
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    
+    Central to the asyncio module is the event loop.
+    
+    This is the mechanism that runs a coroutine-based program and implements cooperative multitasking between coroutines.
+    
+    > The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    The module provides both a high-level and low-level API.
+    
+    The high-level API is for us Python application developers. The low-level API is for framework developers, not us, in most cases.
+    
+    Most use cases are satisfied using the high-level API that provides utilities for working with coroutines, streams, synchronization primitives, subprocesses, and queues for sharing data between coroutines.
+    
+    The lower-level API provides the foundation for the high-level API and includes the internals of the event loop, transport protocols, policies, and more.
+    
+    > … there are low-level APIs for library and framework developers
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    
+    Now that we know what asyncio is, broadly, and that it is for Asynchronous programming.
+    
+    Next, let’s explore when we should consider using asyncio in our Python programs.
+    
+    **Confused by the asyncio module API?**
+    
+    Download my FREE [PDF cheat sheet](https://marvelous-writer-6152.ck.page/d29b7d8dfb)
+
 === "中文"
+
+    **“asyncio”**模块提供了使用异步编程范例开发基于协程的程序的函数和对象。
+    
+    具体来说，它支持带有子进程（用于执行命令）和流（用于 TCP 套接字编程）的非阻塞 I/O。
+    
+    > asyncio 是一个使用 async/await 语法编写并发代码的库。
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    
+    asyncio 模块的核心是**事件循环**。
+    
+    这是运行基于协程的程序并实现协程之间协作多任务的机制。
+    
+    > **事件循环**是每个异步应用程序的核心。 事件循环运行异步任务和回调、执行网络 IO 操作并运行子进程。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    该模块提供高级和低级 API。
+    
+    高级 API 适合我们 Python 应用程序开发人员。 在大多数情况下，低级 API 是为框架开发人员提供的，而不是我们。
+    
+    大多数用例都可以使用高级 API 来满足，该 API 提供了用于处理协程、流、同步基元、子进程和队列以在协程之间共享数据的实用程序。
+    
+    较低级别的 API 为高级 API 提供基础，包括事件循环、传输协议、策略等的内部结构。
+    
+    > … 有供库和框架开发人员使用的低级 API
+    >
+    > — [ASYNCIO — ASYNCHRONOUS I/O](https://docs.python.org/3/library/asyncio.html)
+    
+    现在我们大致了解了 asyncio 是什么，并且它用于异步编程。
+    
+    接下来，让我们探讨一下何时应该考虑在 Python 程序中使用 asyncio。
+    
+    **对 asyncio 模块 API 感到困惑吗？**
+    
+    下载我的免费 [PDF 备忘单](https://marvelous-writer-6152.ck.page/d29b7d8dfb)
 
 ## 3. Asyncio 在什么时候使用
 
@@ -220,7 +564,19 @@
 
 === "英文"
 
+    Asyncio, broadly, is new, popular, much discussed, and exciting.
+    
+    Nevertheless, there is a lot of confusion over when it should be adopted in a project.
+    
+    When should we use asyncio in Python?
+
 === "中文"
+
+    从广义上讲，Asyncio 是新的、流行的、讨论较多且令人兴奋的。
+    
+    然而，对于何时应该在项目中采用它存在很多困惑。
+    
+    我们什么时候应该在Python中使用asyncio？
 
 ### 3.1 使用Python Asyncio的原因
 
@@ -228,7 +584,23 @@
 
 === "英文"
 
+    There are perhaps 3 top-level reasons to use asyncio in a Python project.
+    
+    They are:
+    
+    Use asyncio in order to adopt coroutines in your program.
+    Use asyncio in order to use the asynchronous programming paradigm.
+    Use asyncio in order to use non-blocking I/O.
+
 === "中文"
+
+    在 Python 项目中使用 asyncio 可能有 3 个最重要的原因。
+    
+    他们是:
+    
+    1. 使用 asyncio 以便在程序中采用协程。
+    2. 使用 asyncio 以便使用异步编程范例。
+    3. 使用 asyncio 以便使用非阻塞I/O。
 
 #### 3.1.1 原因 1: 使用协程
 
@@ -236,7 +608,75 @@
 
 === "英文"
 
+    We may choose to use asyncio because we want to use coroutines.
+    
+    We may want to use coroutines because we can have many more concurrent coroutines in our program than concurrent threads.
+    
+    Coroutines are another unit of concurrency, like threads and processes.
+    
+    Thread-based concurrency is provided by the threading module and is supported by the underlying operating system. It is suited to blocking I/O tasks such reading and writing from files, sockets, and devices.
+    
+    Process-based concurrency is provided by the multiprocessing module and is also supported by the underlying operating system, like threads. It is suited to CPU-bound tasks that do not require much inter-process communication, such as compute tasks.
+    
+    Coroutines are an alternative that is provided by the Python language and runtime (standard interpreter) and further supported by the asyncio module. They are suited to non-blocking I/O with subprocesses and sockets, however, blocking I/O and CPU-bound tasks can be used in a simulated non-blocking manner using threads and processes under the covers.
+    
+    This last point is subtle and key. Although we can choose to use coroutines for the capability for which they were introduced into Python, non-blocking, we may in fact use them with any tasks. Any program written with threads or processes can be rewritten or instead written using coroutines if we so desire.
+    
+    Threads and processes achieve multitasking via the operating system that chooses which threads and processes should run, when, and for how long. The operating switches between threads and processes rapidly, suspending those that are not running and resuming those granted time to run. This is called preemptive multitasking.
+    
+    Coroutines in Python provide an alternative type of multitasking called cooperating multitasking.
+    
+    A coroutine is a subroutine (function) that can be suspended and resumed. It is suspended by the await expression and resumed once the await expression is resolved.
+    
+    This allows coroutines to cooperate by design, choosing how and when to suspend their execution.
+    
+    It is an alternate, interesting, and powerful approach to concurrency, different from thread-based and process-based concurrency.
+    
+    This alone may make it a reason to adopt it for a project.
+    
+    Another key aspect of coroutines is that they are lightweight.
+    
+    They are more lightweight than threads. This means they are faster to start and use less memory. Essentially a coroutine is a special type of function, whereas a thread is represented by a Python object and is associated with a thread in the operating system with which the object must interact.
+    
+    As such, we may have thousands of threads in a Python program, but we could easily have tens or hundreds of thousands of coroutines all in one thread.
+    
+    We may choose coroutines for their scalability.
+
 === "中文"
+
+    我们可能会选择使用 asyncio，因为我们想使用协程。
+    
+    我们可能想要使用协程，因为我们的程序中可以有比并发线程更多的并发协程。
+    
+    协程是另一个并发单元，就像线程和进程一样。
+    
+    基于线程的并发由线程模块提供，并由底层操作系统支持。 它适合阻塞 I/O 任务，例如从文件、套接字和设备读取和写入。
+    
+    基于进程的并发性由多处理模块提供，并且也受到底层操作系统（如线程）的支持。 它适用于不需要太多进程间通信的 CPU 密集型任务，例如计算任务。
+    
+    协程是由 Python 语言和运行时（标准解释器）提供的替代方案，并由 asyncio 模块进一步支持。 它们适用于带有子进程和套接字的非阻塞 I/O，但是，阻塞 I/O 和 CPU 密集型任务可以在幕后使用线程和进程以模拟非阻塞方式使用。
+    
+    最后一点是微妙而关键的。 尽管我们可以选择使用协程来实现 Python 中引入的非阻塞功能，但实际上我们可以将它们用于任何任务。 如果我们愿意，任何使用线程或进程编写的程序都可以重写或使用协程编写。
+    
+    线程和进程通过操作系统选择哪些线程和进程应该运行、何时运行以及运行多长时间来实现多任务处理。 操作在线程和进程之间快速切换，暂停那些未运行的线程和进程，并恢复那些授予时间运行的线程和进程。 这称为抢占式多任务处理。
+    
+    Python 中的协程提供了另一种多任务处理类型，称为**协作多任务处理**(cooperating multitasking)。
+    
+    协程是可以暂停和恢复的子例程（函数）。 它由 await 表达式挂起，并在 await 表达式解析后恢复。
+    
+    这允许协程通过设计进行合作，选择如何以及何时暂停执行。
+    
+    它是一种替代的、有趣的、强大的并发方法，不同于基于线程和基于进程的并发。
+    
+    仅此一点就可以成为在项目中采用它的理由。
+    
+    协程的另一个关键方面是它们是轻量级的。
+    
+    它们比线程更轻量。 这意味着它们的启动速度更快并且使用的内存更少。 本质上，协程是一种特殊类型的函数，而线程则由 Python 对象表示，并与操作系统中必须与该对象交互的线程相关联。
+    
+    因此，**Python 程序中可能有数千个线程，但我们可以轻松地将数万或数十万个协程集中在一个线程中。**
+    
+    我们可能会因为协程的可扩展性而选择它们。
 
 #### 3.1.2 原因 2: 使用异步编程
 
@@ -244,7 +684,51 @@
 
 === "英文"
 
+    We may choose to use asyncio because we want to use asynchronous programming in our program.
+    
+    That is, we want to develop a Python program that uses the asynchronous programming paradigm.
+    
+    Asynchronous means not at the same time, as opposed to synchronous or at the same time.
+    
+    When programming, asynchronous means that the action is requested, although not performed at the time of the request. It is performed later.
+    
+    Asynchronous programming often means going all in and designing the program around the concept of asynchronous function calls and tasks.
+    
+    Although there are other ways to achieve elements of asynchronous programming, full asynchronous programming in Python requires the use of coroutines and the asyncio module.
+    
+    > It is a Python library that allows us to run code using an asynchronous programming model.
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
+    
+    We may choose to use asyncio because we want to use the asynchronous programming module in our program, and that is a defensible reason.
+    
+    To be crystal clear, this reason is independent of using non-blocking I/O. Asynchronous programming can be used independently of non-blocking I/O.
+    
+    As we saw previously, coroutines can execute non-blocking I/O asynchronously, but the asyncio module also provides the facility for executing blocking I/O and CPU-bound tasks in an asynchronous manner, simulating non-blocking under the covers via threads and processes.
+
 === "中文"
+
+    我们可能会选择使用asyncio，因为我们想在我们的程序中使用异步编程。
+    
+    也就是说，我们要开发一个使用异步编程范式的Python程序。
+    
+    异步意味着不同时，与同步或同时相对。
+    
+    编程时，异步意味着请求操作，但未在请求时执行。 这是稍后执行的。
+    
+    异步编程通常意味着围绕异步函数调用和任务的概念全力以赴并设计程序。
+    
+    尽管还有其他方法可以实现异步编程的元素，但 Python 中的完全异步编程需要使用协程和 asyncio 模块。
+    
+    > 它是一个 Python 库，允许我们使用异步编程模型运行代码。
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3Cz7Zh6), 2022.
+    
+    我们可能会选择使用asyncio，因为我们想在我们的程序中使用异步编程模块，这是一个有道理的理由。
+    
+    明确地说，这个原因与使用非阻塞 I/O 无关。 异步编程可以独立于非阻塞 I/O 使用。
+    
+    正如我们之前所看到的，协程可以异步执行非阻塞 I/O，但 asyncio 模块还提供了以异步方式执行阻塞 I/O 和 CPU 密集型任务的工具，通过线程和 流程。
 
 #### 3.1.3 原因 3: 使用非阻塞I/O
 
@@ -252,7 +736,107 @@
 
 === "英文"
 
+    We may choose to use asyncio because we want or require non-blocking I/O in our program.
+    
+    Input/Output or I/O for short means reading or writing from a resource.
+    
+    Common examples include:
+    
+    - Hard disk drives: Reading, writing, appending, renaming, deleting, etc. files.
+    - Peripherals: mouse, keyboard, screen, printer, serial, camera, etc.
+    - Internet: Downloading and uploading files, getting a webpage, querying RSS, etc.
+    - Database: Select, update, delete, etc. SQL queries.
+    - Email: Send mail, receive mail, query inbox, etc.
+    
+    These operations are slow, compared to calculating things with the CPU.
+    
+    The common way these operations are implemented in programs is to make the read or write request and then wait for the data to be sent or received.
+    
+    As such, these operations are commonly referred to as blocking I/O tasks.
+    
+    The operating system can see that the calling thread is blocked and will context switch to another thread that will make use of the CPU.
+    
+    This means that the blocking call does not slow down the entire system. But it does halt or block the thread or program making the blocking call.
+    
+    You can learn more about blocking calls in the tutorial:
+    
+    - [Thread Blocking Call in Python](https://superfastpython.com/thread-blocking-call-in-python/)
+    
+    Non-blocking I/O is an alternative to blocking I/O.
+    
+    It requires support in the underlying operating system, just like blocking I/O, and all modern operating systems provide support for some form of non-blocking I/O.
+    
+    Non-blocking I/O allows read and write calls to be made as asynchronous requests.
+    
+    The operating system will handle the request and notify the calling program when the results are available.
+    
+    - **Non-blocking I/O**: Performing I/O operations via asynchronous requests and responses, rather than waiting for operations to complete.
+    
+    As such, we can see how non-blocking I/O is related to asynchronous programming. In fact, we use non-blocking I/O via asynchronous programming, or non-blocking I/O is implemented via asynchronous programming.
+    
+    The combination of non-blocking I/O with asynchronous programming is so common that it is commonly referred to by the shorthand of asynchronous I/O.
+    
+    - **Asynchronous I/O**: A shorthand that refers to combining asynchronous programming with non-blocking I/O.
+    T
+    he asyncio module in Python was added specifically to add support for non-blocking I/O with subprocesses (e.g. executing commands on the operating system) and with streams (e.g. TCP socket programming) to the Python standard library.
+    
+    We could simulate non-blocking I/O using threads and the asynchronous programming capability provided by Python thread pools or thread pool executors.
+    
+    The asyncio module provides first-class asynchronous programming for non-blocking I/O via coroutines, event loops, and objects to represent non-blocking subprocesses and streams.
+    
+    We may choose to use asyncio because we want to use asynchronous I/O in our program, and that is a defensible reason.
+
 === "中文"
+
+    我们可能会选择使用 asyncio，因为我们希望或需要在程序中使用非阻塞 I/O。
+    
+    输入/输出或简称 I/O 表示从资源中读取或写入。
+    
+    常见的例子包括：
+    
+    - 硬盘驱动器：读取、写入、追加、重命名、删除等文件。
+    - 外设：鼠标、键盘、屏幕、打印机、串口、摄像头等。
+    - 互联网：下载和上传文件、获取网页、查询RSS等。
+    - 数据库：查询、更新、删除等SQL查询。
+    - 电子邮件：发送邮件、接收邮件、查询收件箱等。
+    
+    与使用 CPU 进行计算相比，这些操作速度很慢。
+    
+    在程序中实现这些操作的常见方式是发出读或写请求，然后等待数据发送或接收。
+    
+    因此，这些操作通常称为阻塞 I/O 任务。
+    
+    操作系统可以看到调用线程被阻塞，并将上下文切换到另一个将使用 CPU 的线程。
+    
+    这意味着阻塞调用不会减慢整个系统的速度。 但它确实会停止或阻止进行阻塞调用的线程或程序。
+    
+    这意味着阻塞调用不会减慢整个系统的速度。 但它确实会停止或阻止进行阻塞调用的线程或程序。
+    
+    - [Python 中的线程阻塞调用](https://superfastpython.com/thread-blocking-call-in-python/)
+    
+    非阻塞 I/O 是阻塞 I/O 的替代方案。
+    
+    它需要底层操作系统的支持，就像阻塞 I/O 一样，所有现代操作系统都提供对某种形式的非阻塞 I/O 的支持。
+    
+    非阻塞 I/O 允许将读取和写入调用作为异步请求进行。
+    
+    操作系统将处理请求并在结果可用时通知调用程序。
+    
+    - **非阻塞 I/O**：通过异步请求和响应执行 I/O 操作，而不是等待操作完成。
+    
+    因此，我们可以看到非阻塞 I/O 与异步编程的关系。 事实上，我们通过异步编程来使用非阻塞I/O，或者说非阻塞I/O是通过异步编程来实现的。
+    
+    非阻塞 I/O 与异步编程的结合非常常见，因此通常简称为异步 I/O。
+    
+    - **异步 I/O**：一种简写，指的是异步编程与非阻塞 I/O 的结合。
+    
+    Python 中的 asyncio 模块是专门为 Python 标准库添加对带有子进程（例如在操作系统上执行命令）和流（例如 TCP 套接字编程）的非阻塞 I/O 的支持而添加的。
+    
+    我们可以使用线程以及Python线程池或线程池执行器提供的异步编程功能来模拟非阻塞I/O。
+    
+    asyncio 模块通过协程、事件循环和对象来表示非阻塞子进程和流，为非阻塞 I/O 提供一流的异步编程。
+    
+    我们可能会选择使用 asyncio，因为我们想在程序中使用异步 I/O，这是一个合理的理由。
 
 ### 3.2 使用Asyncio的其他原因
 
@@ -260,7 +844,79 @@
 
 === "英文"
 
+    Ideally, we would choose a reason that is defended in the context of the requirements of the project.
+    
+    Sometimes we have control over the function and non-functional requirements and other times not. In the cases we do, we may choose to use asyncio for one of the reasons listed above. In the cases we don’t, we may be led to choose asyncio in order to deliver a program that solves a specific problem.
+    
+    Some other reasons we may use asyncio include:
+    
+    1. Use asyncio because someone else made the decision for you.
+    2. Use asyncio because the project you have joined is already using it.
+    3. Use asyncio because you want to learn more about it.
+    
+    We don’t always have full control over the projects we work on.
+    
+    It is common to start a new job, new role, or new project and be told by the line manager or lead architect of specific design and technology decisions.
+    
+    Using asyncio may be one of these decisions.
+    
+    We may use asyncio on a project because the project is already using it. You must use asyncio, rather than you choose to use asyncio.
+    
+    A related example might be the case of a solution to a problem that uses asyncio that you wish to adopt.
+    
+    For example:
+    
+    - Perhaps you need to use a third-party API and the code examples use asyncio.
+    - Perhaps you need to integrate an existing open-source solution that uses asyncio.
+    - Perhaps you stumble across some code snippets that do what you need, yet they use asyncio.
+    
+    For lack of alternate solutions, asyncio may be thrust upon you by your choice of solution.
+    
+    Finally, we may choose asyncio for our Python project to learn more about.
+    
+    You may scoff, “what about the requirements?”
+    
+    You may choose to adopt asyncio just because you want to try it out and it can be a defensible reason.
+    
+    Using asyncio in a project will make its workings concrete for you.
+
 === "中文"
+
+    理想情况下，我们会选择一个在项目要求的背景下得到辩护的理由。
+    
+    有时我们可以控制函数和非函数需求，有时则不能。 在这种情况下，出于上述原因之一，我们可能会选择使用 asyncio。 在我们不这样做的情况下，我们可能会选择 asyncio 来交付解决特定问题的程序。
+    
+    我们可能使用 asyncio 的其他一些原因包括：
+    
+    1. 使用 asyncio 因为其他人已经为你做出了决定。
+    2. 使用 asyncio，因为您加入的项目已经在使用它。
+    3. 使用 asyncio 因为您想了解更多有关它的信息。
+    
+    我们并不总是能够完全控制我们所从事的项目。
+    
+    开始一项新工作、新角色或新项目并由直线经理或首席架构师告知具体设计和技术决策是很常见的。
+    
+    使用 asyncio 可能是这些决定之一。
+    
+    我们可能在项目上使用 asyncio，因为该项目已经在使用它。 你必须使用asyncio，而不是你选择使用asyncio。
+    
+    一个相关的示例可能是使用您希望采用的 asyncio 解决问题的情况。
+    
+    例如：
+    
+    - 也许您需要使用第三方 API，并且代码示例使用 asyncio。
+    - 也许您需要集成使用 asyncio 的现有开源解决方案。
+    - 也许您偶然发现一些代码片段可以满足您的需要，但它们使用 asyncio。
+    
+    由于缺乏替代解决方案，asyncio 可能会因您选择的解决方案而强加给您。
+    
+    最后，我们可以为我们的Python项目选择asyncio来了解更多。
+
+    你可能会嘲笑，“那要求呢？”
+
+    您可能选择采用 asyncio 只是因为您想尝试一下，并且这是一个合理的理由。
+
+    在项目中使用 asyncio 将使您的工作更加具体。
 
 ### 3.3 Asyncio在什么时候不适用
 
@@ -268,7 +924,89 @@
 
 === "英文"
 
+    We have spent a lot of time on reasons why we should use asyncio.
+    
+    It is probably a good idea to spend at least a moment on why we should not use it.
+    
+    One reason to not use asyncio is that you cannot defend its use using one of the reasons above.
+    
+    This is not foolproof. There may be other reasons to use it, not listed above.
+    
+    But, if you pick a reason to use asyncio and the reason feels thin or full of holes for your specific case. Perhaps asyncio is not the right solution.
+    
+    I think the major reason to not use asyncio is that it does not deliver the benefit that you think it does.
+    
+    There are many misconceptions about Python concurrency, especially around asyncio.
+    
+    For example:
+    
+    - Asyncio will work around the global interpreter lock.
+    - Asyncio is faster than threads.
+    - Asyncio avoids the need for mutex locks and other synchronization primitives.
+    - Asyncio is easier to use than threads.
+    
+    These are all false.
+    
+    Only a single coroutine can run at a time by design, they cooperate to execute. This is just like threads under the GIL. In fact, the GIL is an orthogonal concern and probably irrelevant in most cases when using asyncio.
+    
+    Any program you can write with asyncio, you can write with threads and it will probably be as fast or faster. It will also probably be simpler and easier to read and interpret by fellow developers.
+    
+    Any concurrency failure mode you might expect with threads, you can encounter with coroutines. You must make coroutines safe from deadlocks and race conditions, just like threads.
+    
+    Another reason to not use asyncio is that you don’t like asynchronous programming.
+    
+    Asynchronous programming has been popular for some time now in a number of different programming communities, most notably the JavaScript community.
+    
+    It is different from procedural, object-oriented, and functional programming, and some developers just don’t like it.
+    
+    No problem. If you don’t like it, don’t use it. It’s a fair reason.
+    
+    You can achieve the same effect in many ways, notably by sprinkling a few asynchronous calls in via thread or process executors as needed.
+    
+    Now that we are familiar with when to use asyncio, let’s look at coroutines in more detail.
+
 === "中文"
+
+    我们花了很多时间来解释为什么应该使用 asyncio。
+    
+    至少花一点时间来解释为什么我们不应该使用它可能是个好主意。
+
+    不使用 asyncio 的原因之一是您无法使用上述原因之一来捍卫它的使用。
+
+    这并不是万无一失的。 可能还有其他未在上面列出的原因使用它。
+
+    但是，如果您选择使用 asyncio 的原因，并且对于您的具体情况来说，这个原因感觉很薄弱或充满漏洞。 也许 asyncio 不是正确的解决方案。
+
+    我认为不使用 asyncio 的主要原因是它没有提供您认为的好处。
+
+    关于 Python 并发，尤其是 asyncio，存在许多误解。
+    
+    例如:
+    
+    - Asyncio 将解决全局解释器锁问题。
+    - 异步比线程更快。
+    - Asyncio 避免了对互斥锁和其他同步原语的需要。
+    - Asyncio 比线程更容易使用。
+    
+    这些都是假的。
+    
+    按照设计，一次只能运行一个协程，它们协作执行。 这就像 GIL 下的线程一样。 事实上，GIL 是一个正交问题，在大多数情况下使用 asyncio 时可能是不相关的。
+    
+    任何可以使用 asyncio 编写的程序，都可以使用线程编写，并且速度可能会一样快，甚至更快。 它也可能会更简单、更容易被其他开发人员阅读和解释。
+
+    您可能会在线程中遇到任何并发故障模式，您可能会在协程中遇到这种情况。 您必须使协程免受死锁和竞争条件的影响，就像线程一样。
+
+    不使用 asyncio 的另一个原因是您不喜欢异步编程。
+    
+    异步编程在许多不同的编程社区（尤其是 JavaScript 社区）中已经流行了一段时间。
+    
+    它不同于过程式、面向对象和函数式编程，有些开发人员就是不喜欢它。
+
+    没问题。 如果您不喜欢它，请不要使用它。 这是一个合理的理由。
+
+    您可以通过多种方式实现相同的效果，特别是根据需要通过线程或进程执行器进行一些异步调用。
+
+    现在我们已经熟悉了何时使用 asyncio，让我们更详细地了解一下协程。
 
 ## 4. Python 中的协程
 
@@ -276,7 +1014,19 @@
 
 === "英文"
 
+    Python provides first-class coroutines with a **“coroutine”** type and new expressions like **“async def”** and **“await“**.
+    
+    It provides the **“asyncio”** module for running coroutines and developing asynchronous programs.
+    
+    In this section, we will take a much closer look at coroutines.
+
 === "中文"
+
+    Python 提供了一流的协程，具有 **“coroutine”** 类型和新表达式，例如 **“async def”** 和 **“await”**。
+    
+    它提供了**“asyncio”**模块来运行协程和开发异步程序。
+
+    在本节中，我们将更仔细地了解协程。
 
 ### 4.1 什么是协程
 
@@ -284,7 +1034,75 @@
 
 === "英文"
 
+    A [coroutine is a function](https://en.wikipedia.org/wiki/Coroutine) that can be suspended and resumed.
+    
+    It is often defined as a generalized subroutine.
+    
+    A subroutine can be executed, starting at one point and finishing at another point. Whereas, a coroutine can be executed then suspended, and resumed many times before finally terminating.
+    
+    Specifically, coroutines have control over when exactly they suspend their execution.
+    
+    This may involve the use of a specific expression, such as an “await” expression in Python, like a yield expression in a Python generator.
+    
+    > A coroutine is a method that can be paused when we have a potentially long-running task and then resumed when that task is finished. In Python version 3.5, the language implemented first-class support for coroutines and asynchronous programming when the keywords async and await were explicitly added to the language.
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3ENILNs), 2022.
+    
+    A coroutine may suspend for many reasons, such as executing another coroutine, e.g. awaiting another task, or waiting for some external resources, such as a socket connection or process to return data.
+    
+    Coroutines are used for concurrency.
+    
+    > Coroutines let you have a very large number of seemingly simultaneous functions in your Python programs.
+    >
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    Many coroutines can be created and executed at the same time. They have control over when they will suspend and resume, allowing them to cooperate as to when concurrent tasks are executed.
+    
+    This is called [cooperative multitasking](https://en.wikipedia.org/wiki/Cooperative_multitasking) and is different from the multitasking typically used with threads called preemptive multitasking tasking.
+    
+    > … in order to run multiple applications concurrently, processes voluntarily yield control periodically or when idle or logically blocked. This type of multitasking is called cooperative because all programs must cooperate for the scheduling scheme to work.
+    >
+    > — [COOPERATIVE MULTITASKING, WIKIPEDIA](https://en.wikipedia.org/wiki/Cooperative_multitasking)
+    
+    Preemptive multitasking involves the operating system choosing what threads to suspend and resume and when to do so, as opposed to the tasks themselves deciding in the case of cooperative multitasking.
+    
+    Now that we have some idea of what a coroutine is, let’s deepen this understanding by comparing them to other familiar programming constructs.
+
 === "中文"
+
+    协程是一个可以[暂停和恢复的函数](https://en.wikipedia.org/wiki/Coroutine)。
+    
+    它通常被定义为广义子例程。
+    
+    可以执行子例程，从一点开始并在另一点结束。 然而，协程可以执行然后挂起，并在最终终止之前恢复多次。
+
+    具体来说，协程可以控制何时暂停执行。
+
+    这可能涉及特定表达式的使用，例如Python中的“await”表达式，就像Python生成器中的yield表达式一样。
+    
+    > 协程是一种可以在我们有可能长时间运行的任务时暂停并在该任务完成时恢复的方法。 在Python 3.5版本中，当关键字async和await被显式添加到语言中时，该语言实现了对协程和异步编程的一流支持。
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3ENILNs), 2022.
+    
+    协程可能会因多种原因而挂起，例如执行另一个协程，例如 等待另一个任务，或者等待一些外部资源，例如套接字连接或进程返回数据。
+    
+    协程用于并发。
+    
+    > 协程让您可以在 Python 程序中拥有大量看似同时存在的函数。
+    >
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    可以同时创建和执行许多协程。 它们可以控制何时挂起和恢复，从而允许它们在执行并发任务时进行合作。
+    
+    这称为“协作多任务处理”(https://en.wikipedia.org/wiki/Cooperative_multitasking)，与通常与线程一起使用的多任务处理（称为抢占式多任务处理）不同。
+    
+    > … 为了同时运行多个应用程序，进程会定期或在空闲或逻辑阻塞时自愿放弃控制权。 这种类型的多任务处理称为协作，因为所有程序都必须协作才能使调度方案发挥作用。
+    >
+    > — [COOPERATIVE MULTITASKING, WIKIPEDIA](https://en.wikipedia.org/wiki/Cooperative_multitasking)
+    
+    抢占式多任务处理涉及操作系统选择要挂起和恢复的线程以及何时执行，而不是在协作多任务处理的情况下由任务本身决定。
+    
+    现在我们已经了解了什么是协程，让我们通过将它们与其他熟悉的编程结构进行比较来加深理解。
 
 ### 4.2 协程与例程和子例程
 
@@ -292,7 +1110,67 @@
 
 === "英文"
 
+    A “routine” and “subroutine” often refer to the same thing in modern programming.
+    
+    Perhaps more correctly, a routine is a program, whereas a [subroutine is a function](https://en.wikipedia.org/wiki/Function_(computer_programming)) in the program.
+    
+    A routine has subroutines.
+    
+    It is a discrete module of expressions that is assigned a name, may take arguments and may return a value.
+    
+    - **Subroutine**: A module of instructions that can be executed on demand, typically named, and may take arguments and return a value. also called a function
+    
+    A subroutine is executed, runs through the expressions, and returns somehow. Typically, a subroutine is called by another subroutine.
+    
+    A coroutine is an extension of a subroutine. This means that a subroutine is a special type of a coroutine.
+    
+    A coroutine is like a subroutine in many ways, such as:
+    
+    - They both are discrete named modules of expressions.
+    - They both can take arguments, or not.
+    - They both can return a value, or not.
+    
+    The main difference is that it chooses to suspend and resume its execution many times before returning and exiting.
+    
+    Both coroutines and subroutines can call other examples of themselves. A subroutine can call other subroutines. A coroutine executes other coroutines. However, a coroutine can also execute other subroutines.
+    
+    When a coroutine executes another coroutine, it must suspend its execution and allow the other coroutine to resume once the other coroutine has completed.
+    
+    This is like a subroutine calling another subroutine. The difference is the suspension of the coroutine may allow any number of other coroutines to run as well.
+    
+    This makes a coroutine calling another coroutine more powerful than a subroutine calling another subroutine. It is central to the cooperating multitasking facilitated by coroutines.
+
 === "中文"
+
+    在现代编程中，“例程”和“子例程”通常指同一事物。
+    
+    也许更正确的是，例程是一个程序，而子例程是程序中的一个函数。
+
+    例程有子例程。
+
+    它是一个离散的表达式模块，被分配了一个名称，可以接受参数并且可以返回一个值。
+    
+    - **子例程(Subroutine)**: A module of instructions that can be executed on demand, typically named, and may take arguments and return a value. also called a function
+    
+    执行子例程，运行表达式，然后以某种方式返回。 通常，一个子例程被另一个子例程调用。
+    
+    协程是子程序的扩展。 这意味着子例程是一种特殊类型的协程。
+
+    协程在很多方面都类似于子例程，例如：
+    
+    - 它们都是离散的命名表达式模块。
+    - 他们都可以接受争论，也可以不接受争论。
+    - 它们都可以返回值，也可以不返回值。
+    
+    主要区别在于，它在返回和退出之前多次选择暂停和恢复执行。
+    
+    协程和子例程都可以调用它们自己的其他示例。 一个子程序可以调用其他子程序。 协程执行其他协程。 然而，协程也可以执行其他子例程。
+
+    当一个协程执行另一个协程时，它必须暂停执行，并在另一个协程完成后允许另一个协程恢复。
+
+    这就像一个子例程调用另一个子例程。 不同之处在于协程的挂起可能允许任意数量的其他协程运行。
+
+    这使得调用另一个协程的协程比调用另一个子例程的子例程更强大。 它是协程促进的协作多任务处理的核心。
 
 ### 4.3 协程与生成器
 
@@ -300,7 +1178,83 @@
 
 === "英文"
 
+    A generator is a special function that can suspend its execution.
+    
+    > generator: A function which returns a generator iterator. It looks like a normal function except that it contains yield expressions for producing a series of values usable in a for-loop or that can be retrieved one at a time with the next() function.
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    A generator function can be defined like a normal function although it uses a yield expression at the point it will suspend its execution and return a value.
+    
+    A generator function will return a generator iterator object that can be traversed, such as via a for-loop. Each time the generator is executed, it runs from the last point it was suspended to the next yield statement.
+    
+    > generator iterator: An object created by a generator function. Each yield temporarily suspends processing, remembering the location execution state (including local variables and pending try-statements). When the generator iterator resumes, it picks up where it left off (in contrast to functions which start fresh on every invocation).
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    A coroutine can suspend or yield to another coroutine using an “await” expression. It will then resume from this point once the awaited coroutine has been completed.
+    
+    > Using this paradigm, an await statement is similar in function to a yield statement; the execution of the current function gets paused while other code is run. Once the await or yield resolves with data, the function is resumed.
+    > 
+    > — PAGE 218, [HIGH PERFORMANCE PYTHON](https://amzn.to/3rY7cQE), 2020.
+    
+    We might think of a generator as a special type of coroutine and cooperative multitasking used in loops.
+    
+    > Generators, also known as semicoroutines, are a subset of coroutines.
+    > 
+    > — [COROUTINE, WIKIPEDIA](https://en.wikipedia.org/wiki/Coroutine).
+    
+    Before coroutines were developed, generators were extended so that they might be used like coroutines in Python programs.
+    
+    This required a lot of technical knowledge of generators and the development of custom task schedulers.
+    
+    > To implement your own concurrency using generators, you first need a fundamental insight concerning generator functions and the yield statement. Specifically, the fundamental behavior of yield is that it causes a generator to suspend its execution. By suspending execution, it is possible to write a scheduler that treats generators as a kind of “task” and alternates their execution using a kind of cooperative task switching.
+    >
+    > — PAGE 524, **PYTHON COOKBOOK**, 2013.
+    
+    This was made possible via changes to the generators and the introduction of the **“yield from”** expression.
+    
+    These were later deprecated in favor of the modern async/await expressions.
+
 === "中文"
+
+    生成器是一个可以暂停其执行的特殊函数。
+    
+    > generator: 返回生成器迭代器的函数。 它看起来像一个普通函数，只不过它包含用于生成一系列可在 for 循环中使用的值的yield 表达式，或者可以使用 next() 函数一次检索一个值。
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    生成器函数可以像普通函数一样定义，尽管它在暂停执行并返回值时使用了yield 表达式。
+    
+    生成器函数将返回一个可以遍历的生成器迭代器对象，例如通过 for 循环。 每次执行生成器时，它都会从最后一个暂停点运行到下一个yield 语句。
+    
+    > generator iterator: 由生成器函数创建的对象。 每个yield都会暂时挂起处理，记住位置执行状态（包括局部变量和挂起的try语句）。 当生成器迭代器恢复时，它会从上次停止的地方继续（与每次调用时重新开始的函数相反）。
+    > 
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    协程可以使用 **“await”** 表达式挂起或屈服于另一个协程。 一旦等待的协程完成，它将从此时开始恢复。
+    
+    > 使用这种范例，await 语句在功能上类似于yield 语句； 当其他代码运行时，当前函数的执行会暂停。 一旦 await 或 yield 解析出数据，该函数就会恢复。
+    > 
+    > — PAGE 218, [HIGH PERFORMANCE PYTHON](https://amzn.to/3rY7cQE), 2020.
+    
+    我们可以将生成器视为循环中使用的特殊类型的协程和协作多任务处理。
+    
+    > 生成器，也称为半协程，是协程的子集。
+    > 
+    > — [COROUTINE, WIKIPEDIA](https://en.wikipedia.org/wiki/Coroutine).
+    
+    在开发协程之前，生成器已被扩展，以便它们可以像 Python 程序中的协程一样使用。
+    
+    这需要大量的生成器技术知识和自定义任务调度程序的开发。
+    
+    > 要使用生成器实现您自己的并发，您首先需要对生成器函数和yield 语句有基本的了解。 具体来说，yield 的基本行为是它导致生成器暂停其执行。 通过暂停执行，可以编写一个调度程序，将生成器视为一种“任务”，并使用一种协作任务切换来交替执行它们。
+    >
+    > — PAGE 524, [**PYTHON COOKBOOK**](https://amzn.to/3D002li), 2013.
+    
+    这是通过对生成器的更改和引入 **“yield from”** 表达式实现的。
+    
+    这些后来被弃用，取而代之的是现代的 **async/await** 表达式。
 
 ### 4.4 协程与任务
 
@@ -308,7 +1262,47 @@
 
 === "英文"
 
+    A subroutine and a coroutine may represent a “task” in a program.
+    
+    However, in Python, there is a specific object called an [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task) object.
+    
+    > A Future-like object that runs a Python coroutine. […] Tasks are used to run coroutines in event loops.
+    >
+    > — ASYNCIO TASK OBJECT
+    
+    A coroutine can be wrapped in an **asyncio.Task** object and executed independently, as opposed to being executed directly within a coroutine. The **Task** object provides a handle on the asynchronously execute coroutine.
+    
+    - **Task**: A wrapped coroutine that can be executed independently.
+    
+    This allows the wrapped coroutine to execute in the background. The calling coroutine can continue executing instructions rather than awaiting another coroutine.
+    
+    A **Task** cannot exist on its own, it must wrap a coroutine.
+    
+    Therefore a **Task** is a coroutine, but a coroutine is not a task.
+    
+    You can learn more about **asyncio.Task** objects in the tutorial:
+
 === "中文"
+
+    子例程和协程可以代表程序中的“任务”。
+    
+    但是，在 Python 中，有一个称为 [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task) 对象的特定对象。
+    
+    > 运行 Python 协程的类似 Future 的对象。 [...] 任务用于在事件循环中运行协程。
+    >
+    > — ASYNCIO TASK OBJECT
+    
+    协程可以包装在 **asyncio.Task** 对象中并独立执行，而不是直接在协程内执行。 **Task** 对象提供异步执行协程的句柄。
+    
+    - **Task**: 可以独立执行的包装协程。
+    
+    这允许包装的协程在后台执行。 调用协程可以继续执行指令，而不是等待另一个协程。
+    
+    **任务**不能单独存在，它必须包装一个协程。
+
+    因此，**任务**是协程，但协程不是任务。
+
+    您可以在教程中了解有关 **asyncio.Task** 对象的更多信息：
 
 ### 4.5 协程与线程
 
@@ -316,7 +1310,61 @@
 
 === "英文"
 
+    A coroutine is more lightweight than a thread.
+    
+    - Thread: heavyweight compared to a coroutine
+    - Coroutine: lightweight compared to a thread.
+    
+    A coroutine is defined as a function.
+    
+    A thread is an object created and managed by the underlying operating system and represented in Python as a **threading.Thread** object.
+    
+    - **Thread**: Managed by the operating system, represented by a Python object.
+    
+    This means that coroutines are typically faster to create and start executing and take up less memory. Conversely, threads are slower than coroutines to create and start and take up more memory.
+    
+    > The cost of starting a coroutine is a function call. Once a coroutine is active, it uses less than 1 KB of memory until it’s exhausted.
+    > 
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    Coroutines execute within one thread, therefore a single thread may execute many coroutines.
+    
+    > Many separate async functions advanced in lockstep all seem to run simultaneously, mimicking the concurrent behavior of Python threads. However, coroutines do this without the memory overhead, startup and context switching costs, or complex locking and synchronization code that’s required for threads.
+    >
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    You can learn more about threads in the guide:
+    
+    - [Python Threading: The Complete Guide](https://superfastpython.com/threading-in-python/)
+
 === "中文"
+
+    协程比线程更轻量。
+    
+    - Thread: 与协程相比重量级
+    - Coroutine: 与线程相比轻量级。
+    
+    协程被定义为一个函数。
+    
+    线程是由底层操作系统创建和管理的对象，在 Python 中表示为 **threading.Thread** 对象。
+    
+    - **Thread**: 由操作系统管理，由Python对象表示。
+    
+    这意味着协程的创建和开始执行速度通常更快，并且占用的内存更少。 相反，线程的创建和启动速度比协程慢，并且占用更多内存。
+    
+    > 启动协程的成本是函数调用。 一旦协程处于活动状态，它就会使用不到 1 KB 的内存，直到耗尽为止。
+    > 
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    协程在一个线程内执行，因此单个线程可以执行多个协程。
+    
+    > 许多单独的异步函数似乎都是同时运行的，模仿了 Python 线程的并发行为。 然而，协程可以做到这一点，无需内存开销、启动和上下文切换成本，也无需线程所需的复杂锁定和同步代码。
+    >
+    > — PAGE 267, [EFFECTIVE PYTHON](https://amzn.to/3eClkfe), 2019.
+    
+    您可以在指南中了解有关线程的更多信息：
+    
+    - [Python Threading: 完整指南](https://superfastpython.com/threading-in-python/)
 
 ### 4.6 协程与进程
 
@@ -324,7 +1372,47 @@
 
 === "英文"
 
+    A coroutine is more lightweight than a process.
+    
+    In fact, a thread is more lightweight than a process.
+    
+    A process is a computer program. It may have one or many threads.
+    
+    A Python process is in fact a separate instance of the Python interpreter.
+    
+    Processes, like threads, are created and managed by the underlying operating system and are represented by a **multiprocessing.Process** object.
+    
+    - **Process**: Managed by the operating system, represented by a Python object.
+    
+    This means that coroutines are significantly faster than a process to create and start and take up much less memory.
+    
+    A coroutine is just a special function, whereas a Process is an instance of the interpreter that has at least one thread.
+    
+    You can learn more about Python processes in the guide:
+    
+    - [Python Multiprocessing: The Complete Guide](https://superfastpython.com/multiprocessing-in-python/)
+
 === "中文"
+
+    协程比进程更轻量。
+    
+    事实上，线程比进程更轻量。
+    
+    进程是一个计算机程序。 它可能有一个或多个线程。
+    
+    Python 进程实际上是 Python 解释器的一个单独实例。
+
+    进程与线程一样，由底层操作系统创建和管理，并由 **multiprocessing.Process** 对象表示。
+    
+    - **Process**: 由操作系统管理，由Python对象表示。
+    
+    这意味着协程的创建和启动速度明显快于进程，并且占用的内存也少得多。
+    
+    协程只是一种特殊函数，而进程是至少具有一个线程的解释器的实例。
+
+    您可以在指南中了解有关 Python 进程的更多信息：
+    
+    - [Python Multiprocessing: 完整指南](https://superfastpython.com/multiprocessing-in-python/)
 
 ### 4.7 Python 何时添加了协程
 
@@ -332,7 +1420,151 @@
 
 === "英文"
 
+    Coroutines extend generators in Python.
+    
+    Generators have slowly been migrating towards becoming first-class coroutines for a long time.
+    
+    We can explore some of the major changes to Python to add coroutines, which we might consider a subset of the probability addition of asyncio.
+    
+    New methods like **send()** and **close()** were added to generator objects to allow them to act more like coroutines.
+    
+    These were added in Python 2.5 and described in [PEP 342](https://peps.python.org/pep-0342/).
+    
+    > This PEP proposes some enhancements to the API and syntax of generators, to make them usable as simple coroutines.
+    >
+    > — [PEP 342 – COROUTINES VIA ENHANCED GENERATORS](https://peps.python.org/pep-0342/)
+    
+    Later, allowing generators to emit a suspension exception as well as a stop exception described in [PEP 334](https://peps.python.org/pep-0334/).
+    
+    > This PEP proposes a limited approach to coroutines based on an extension to the iterator protocol. Currently, an iterator may raise a StopIteration exception to indicate that it is done producing values. This proposal adds another exception to this protocol, SuspendIteration, which indicates that the given iterator may have more values to produce, but is unable to do so at this time.
+    > 
+    > — [PEP 334 – SIMPLE COROUTINES VIA SUSPENDITERATION](https://peps.python.org/pep-0334/)
+    
+    The vast majority of the capabilities for working with modern coroutines in Python via the asyncio module were described in [PEP 3156](https://peps.python.org/pep-3156/), added in Python 3.3.
+    
+    > This is a proposal for asynchronous I/O in Python 3, starting at Python 3.3. Consider this the concrete proposal that is missing from PEP 3153. The proposal includes a pluggable event loop, transport and protocol abstractions similar to those in Twisted, and a higher-level scheduler based on yield from (PEP 380). The proposed package name is asyncio.
+    >
+    > — [PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE](https://peps.python.org/pep-3156/)
+    
+    A second approach to coroutines, based on generators, was added to [Python 3.4](https://docs.python.org/3.4/library/asyncio-task.html) as an extension to Python generators.
+    
+    A coroutine was defined as a function that used the **@asyncio.coroutine** decorator.
+    
+    Coroutines were executed using an asyncio event loop, via the asyncio module.
+    
+    A coroutine could suspend and execute another coroutine via the **“yield from”** expression
+    
+    For example:
+    
+    ```python
+    # define a custom coroutine in Python 3.4
+    @asyncio.coroutine
+    def custom_coro():
+        # suspend and execute another coroutine
+        yield from asyncio.sleep(1)
+    ```
+    
+    The **“yield from”** expression was defined in [**PEP 380**](https://peps.python.org/pep-0380/).
+    
+    > A syntax is proposed for a generator to delegate part of its operations to another generator. This allows a section of code containing ‘yield’ to be factored out and placed in another generator.
+    >
+    > — [PEP 380 – SYNTAX FOR DELEGATING TO A SUBGENERATOR](https://peps.python.org/pep-0380/)
+    
+    The **“yield from”** expression is still available for use in generators, although is a deprecated approach to suspending execution in coroutines, in favor of the [**“await”** expression.](https://docs.python.org/3/reference/expressions.html#yield-expressions)
+    
+    > Note: Support for generator-based coroutines is deprecated and is removed in Python 3.11. Generator-based coroutines predate async/await syntax. They are Python generators that use yield from expressions to await on Futures and other coroutines.
+    >
+    > — [ASYNCIO COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    We might say that coroutines were added as first-class objects to Python in version 3.5.
+    
+    This included changes to the Python language, such as the **“async def“**, **“await“**, **“async with“**, and **“async for”** expressions, as well as a coroutine type.
+    
+    These changes were described in [PEP 492](https://peps.python.org/pep-0492/).
+    
+    > It is proposed to make coroutines a proper standalone concept in Python, and introduce new supporting syntax. The ultimate goal is to help establish a common, easily approachable, mental model of asynchronous programming in Python and make it as close to synchronous programming as possible.
+    >
+    > — [PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX](https://peps.python.org/pep-0492/)
+    
+    Now that we know what a coroutine is, let’s take a closer look at how to use them in Python.
+    
+    **Overwheled by the python concurrency APIs?**
+    
+    Find relief, download my FREE [Python Concurrency Mind Maps](https://marvelous-writer-6152.ck.page/8f23adb076)
+
 === "中文"
+
+    协程扩展了 Python 中的生成器。
+    
+    长期以来，生成器一直在慢慢地朝着成为一流协程的方向发展。
+
+    我们可以探索 Python 的一些主要变化来添加协程，我们可以将其视为 asyncio 概率添加的子集。
+
+    像 **send()** 和 **close()** 这样的新方法被添加到生成器对象中，以允许它们更像协程。
+
+    这些是在 Python 2.5 中添加的，并在 [PEP 342](https://peps.python.org/pep-0342/) 中进行了描述.
+    
+    > 此 PEP 对生成器的 API 和语法提出了一些增强，使它们可以用作简单的协程。
+    >
+    > — [PEP 342 – COROUTINES VIA ENHANCED GENERATORS](https://peps.python.org/pep-0342/)
+    
+    随后，允许生成器发出[PEP 334](https://peps.python.org/pep-0334/)中描述的暂停异常和停止异常.
+    
+    > 该 PEP 提出了一种基于迭代器协议扩展的有限协程方法。 目前，迭代器可能会引发 StopIteration 异常来指示它已完成生成值。 该提案为此协议添加了另一个例外，SuspendIteration，它表明给定的迭代器可能有更多的值要生成，但目前无法这样做。
+    > 
+    > — [PEP 334 – SIMPLE COROUTINES VIA SUSPENDITERATION](https://peps.python.org/pep-0334/)
+    
+    通过 asyncio 模块在 Python 中使用现代协程的绝大多数功能在 [PEP 3156](https://peps.python.org/pep-3156/) 中进行了描述，并在 Python 3.3 中添加。
+    
+    > 这是从 Python 3.3 开始的 Python 3 中异步 I/O 的提案。 考虑一下 PEP 3153 中缺少的具体提案。该提案包括可插入事件循环、类似于 Twisted 中的传输和协议抽象，以及基于 (PEP 380) 产量的更高级别调度程序。 建议的包名称是 asyncio。
+    >
+    > — [PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE](https://peps.python.org/pep-3156/)
+    
+    基于生成器的第二种协程方法已添加到 [Python 3.4](https://docs.python.org/3.4/library/asyncio-task.html) 作为 Python 生成器的扩展。
+    
+    协程被定义为使用 **@asyncio.coroutine** 装饰器的函数。
+
+    协程是通过 asyncio 模块使用 asyncio 事件循环执行的。
+
+    协程可以通过 **“yield from”** 表达式挂起并执行另一个协程
+
+    例如：
+    
+    ```python
+    # 在 Python 3.4 中定义自定义协程
+    @asyncio.coroutine
+    def custom_coro():
+        # 挂起并执行另一个协程
+        yield from asyncio.sleep(1)
+    ```
+    
+    **“yield from”** 表达式在 [**PEP 380**](https://peps.python.org/pep-0380/) 中定义。
+    
+    > 为生成器提出了一种语法，将其部分操作委托给另一个生成器。 这允许将包含“yield”的代码部分分解出来并放置在另一个生成器中。
+    >
+    > — [PEP 380 – SYNTAX FOR DELEGATING TO A SUBGENERATOR](https://peps.python.org/pep-0380/)
+    
+    **“yield from”** 表达式仍然可在生成器中使用，尽管它是一种已弃用的在协程中暂停执行的方法，有利于 [**“await”** 表达式。](https://docs .python.org/3/reference/expressions.html#yield-expressions)
+    
+    > 注意：对基于生成器的协程的支持已被弃用并在 Python 3.11 中删除。 基于生成器的协程早于 async/await 语法。 它们是Python生成器，使用yield from表达式来等待Futures和其他协程。
+    >
+    > — [ASYNCIO COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    我们可以说协程是在 3.5 版本中作为一流对象添加到 Python 中的。
+    
+    这包括对 Python 语言的更改，例如 **“async def”**、**“await”**、**“async with”** 和 **“async for”** 表达式 作为协程类型。
+    
+    这些更改在 [PEP 492](https://peps.python.org/pep-0492/) 中进行了描述。
+    
+    > 建议使协程成为Python中一个适当的独立概念，并引入新的支持语法。 最终目标是帮助在 Python 中建立一个通用的、易于理解的异步编程思维模型，并使其尽可能接近同步编程。
+    >
+    > — [PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX](https://peps.python.org/pep-0492/)
+    
+    现在我们知道了什么是协程，让我们仔细看看如何在 Python 中使用它们。
+    
+    **被 python 并发 API 淹没了吗？**
+    
+    寻求解脱，下载我的免费 [Python 并发思维导图](https://marvelous-writer-6152.ck.page/8f23adb076)
 
 ## 5. 定义、创建和运行协程
 
@@ -340,7 +1572,19 @@
 
 === "英文"
 
+    We can define coroutines in our Python programs, just like defining new subroutines (functions).
+    
+    Once defined, a coroutine function can be used to create a coroutine object.
+    
+    The **“asyncio”** module provides tools to run our coroutine objects in an event loop, which is a runtime for coroutines.
+
 === "中文"
+
+    我们可以在 Python 程序中定义协程，就像定义新的子例程（函数）一样。
+    
+    一旦定义，协程函数就可以用来创建协程对象。
+
+    **“asyncio”**模块提供了在事件循环中运行协程对象的工具，事件循环是协程的运行时。
 
 ### 5.1 如何定义协程
 
@@ -348,7 +1592,77 @@
 
 === "英文"
 
+    A coroutine can be defined via the **“async def”** expression.
+    
+    This is an extension of the **“def”** expression for defining subroutines.
+    
+    It defines a coroutine that can be created and returns a coroutine object.
+    
+    For example:
+    
+    ```python
+    # define a coroutine
+    async def custom_coro():
+        # ...
+    ```
+    
+    A coroutine defined with the **“async def”** expression is referred to as a “coroutine function“.
+    
+    > coroutine function: A function which returns a coroutine object. A coroutine function may be defined with the async def statement, and may contain await, async for, and async with keywords.
+    >
+    > — PYTHON GLOSSARY
+    
+    A coroutine can then use coroutine-specific expressions within it, such as **await**, **async for**, and **async with**.
+    
+    > Execution of Python coroutines can be suspended and resumed at many points (see coroutine). await expressions, async for and async with can only be used in the body of a coroutine function.
+    >
+    > — COROUTINE FUNCTION DEFINITION
+    
+    For example:
+    
+    ```python
+    # define a coroutine
+    async def custom_coro():
+        # await another coroutine
+        await asyncio.sleep(1)
+    ```
+
 === "中文"
+
+    协程可以通过 **“async def”** 表达式来定义。
+    
+    这是用于定义子例程的 **“def”** 表达式的扩展。
+
+    它定义了一个可以创建的协程并返回一个协程对象。
+
+    例如：
+    
+    ```python
+    # 定义一个协程
+    async def custom_coro():
+        # ...
+    ```
+    
+    使用 **“async def”** 表达式定义的协程被称为“协程函数”。
+    
+    > 协程函数：返回协程对象的函数。 协程函数可以使用 async def 语句来定义，并且可以包含await、async for 和async with 关键字。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+    
+    然后，协程可以在其中使用协程特定的表达式，例如 **await**、**async for** 和 **async with**。
+    
+    > Python 协程的执行可以在许多点暂停和恢复（请参阅协程）。 wait 表达式、async for 和 async with 只能在协程函数体中使用。
+    >
+    > — [COROUTINE FUNCTION DEFINITION](https://docs.python.org/3/reference/compound_stmts.html#async-def)
+    
+    例如：
+    
+    ```python
+    # 定义一个协程
+    async def custom_coro():
+        # 等待另一个协程
+        await asyncio.sleep(1)
+    ```
 
 ### 5.2 如何创建协程
 
@@ -356,7 +1670,131 @@
 
 === "英文"
 
+    Once a coroutine is defined, it can be created.
+    
+    This looks like calling a subroutine.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a coroutine
+    coro = custom_coro()
+    ```
+    
+    This does not execute the coroutine.
+    
+    It returns a [“coroutine” object](https://docs.python.org/3/reference/datamodel.html#coroutines).
+    
+    > You can think of a coroutine function as a factory for coroutine objects; more directly, remember that calling a coroutine function does not cause any user-written code to execute, but rather just builds and returns a coroutine object.
+    >
+    > — PAGE 516, [PYTHON IN A NUTSHELL](https://amzn.to/3TazSBW), 2017.
+    
+    A **“coroutine”** Python object has methods, such as **send()** and **close()**. It is a type.
+    
+    We can demonstrate this by creating an instance of a coroutine and calling the **type()** built-in function in order to report its type.
+    
+    For example:
+    
+    ```python
+    # SuperFastPython.com
+    # check the type of a coroutine
+     
+    # define a coroutine
+    async def custom_coro():
+        # await another coroutine
+        await asyncio.sleep(1)
+     
+    # create the coroutine
+    coro = custom_coro()
+    # check the type of the coroutine
+    print(type(coro))
+    ```
+    
+    Running the example reports that the created coroutine is a “coroutine” class.
+    
+    We also get a RuntimeError because the coroutine was created but never executed, we will explore that in the next section.
+    
+    ```text
+    <class 'coroutine'>
+    sys:1: RuntimeWarning: coroutine 'custom_coro' was never awaited
+    ```
+    
+    A coroutine object is an awaitable.
+    
+    This means it is a Python type that implements the **\_\_await\_\_()** method.
+    
+    > An awaitable object generally implements an **\_\_await\_\_()** method. Coroutine objects returned from async def functions are awaitable.
+    >
+    > — [AWAITABLE OBJECTS](https://docs.python.org/3/reference/datamodel.html#coroutines)
+    
+    You can learn more about awaitables in the tutorial:
+    
+    - [What is an Asyncio Awaitable in Python](https://superfastpython.com/asyncio-awaitable)
+
 === "中文"
+
+    一旦定义了协程，就可以创建它。
+    
+    这看起来就像调用一个子例程。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建一个协程
+    coro = custom_coro()
+    ```
+    
+    这不会执行协程。
+    
+    它返回一个[“coroutine”对象](https://docs.python.org/3/reference/datamodel.html#coroutines)。
+    
+    > 您可以将协程函数视为协程对象的工厂； 更直接地，请记住调用协程函数不会导致任何用户编写的代码执行，而只是构建并返回一个协程对象。
+    >
+    > — PAGE 516, [PYTHON IN A NUTSHELL](https://amzn.to/3TazSBW), 2017.
+    
+    **“协程”** Python 对象具有方法，例如 **send()** 和 **close()**。 它是一种类型。
+    
+    我们可以通过创建协程实例并调用 **type()** 内置函数来报告其类型来演示这一点。
+
+    例如：
+    
+    ```python
+    # SuperFastPython.com
+    # 检查协程的类型
+     
+    # 定义协程
+    async def custom_coro():
+        # 等待另一个协程
+        await asyncio.sleep(1)
+     
+    # 创建协程
+    coro = custom_coro()
+    # 检查协程的类型
+    print(type(coro))
+    ```
+    
+    运行示例报告创建的协程是一个“协程”类。
+    
+    我们还会得到一个运行时错误，因为协程已创建但从未执行，我们将在下一节中探讨这一点。
+    
+    ```text
+    <class 'coroutine'>
+    sys:1: RuntimeWarning: coroutine 'custom_coro' was never awaited
+    ```
+    
+    协程对象是一个等待对象。
+    
+    这意味着它是实现 **\_\_await\_\_()** 方法的 Python 类型。
+    
+    > 可等待对象通常实现 **\_\_await\_\_()** 方法。 从 async def 函数返回的协程对象是可等待的。
+    >
+    > — [AWAITABLE OBJECTS](https://docs.python.org/3/reference/datamodel.html#coroutines)
+    
+    您可以在教程中了解有关可等待的更多信息：
+    
+    - [Python 中的 Asyncio Awaitable 是什么](https://superfastpython.com/asyncio-awaitable)
 
 ### 5.3 Python中如何运行协程
 
@@ -364,7 +1802,85 @@
 
 === "英文"
 
+    Coroutines can be defined and created, but they can only be executed within an event loop.
+    
+    > The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    The event loop that executes coroutines, manages the cooperative multitasking between coroutines.
+    
+    > Coroutine objects can only run when the event loop is running.
+    >
+    > — PAGE 517, [PYTHON IN A NUTSHELL](https://amzn.to/3TazSBW), 2017.
+    
+    The typical way to start a coroutine event loop is via the [asyncio.run()](https://docs.python.org/3/library/asyncio-task.html#asyncio.run) function.
+    
+    This function takes one coroutine and returns the value of the coroutine. The provided coroutine can be used as the entry point into the coroutine-based program.
+    
+    For example:
+    
+    ```python
+    # SuperFastPython.com
+    # example of running a coroutine
+    import asyncio
+    # define a coroutine
+    async def custom_coro():
+        # await another coroutine
+        await asyncio.sleep(1)
+     
+    # main coroutine
+    async def main():
+        # execute my custom coroutine
+        await custom_coro()
+     
+    # start the coroutine program
+    asyncio.run(main())
+    ```
+    
+    ```
+
+    Now that we know how to define, create, and run a coroutine, let’s take a moment to understand the event loop.
+
 === "中文"
+
+    可以定义和创建协程，但它们只能在事件循环内执行。
+    
+    > 事件循环是每个异步应用程序的核心。 事件循环运行异步任务和回调、执行网络 IO 操作并运行子进程。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    执行协程的事件循环管理协程之间的协作多任务处理。
+    
+    > 协程对象只能在事件循环运行时运行。
+    >
+    > — PAGE 517, [PYTHON IN A NUTSHELL](https://amzn.to/3TazSBW), 2017.
+    
+    启动协程事件循环的典型方法是通过 [asyncio.run()](https://docs.python.org/3/library/asyncio-task.html#asyncio.run) 函数。
+    
+    该函数采用一个协程并返回该协程的值。 提供的协程可以用作基于协程的程序的入口点。
+    
+    例如：
+    
+    ```python
+    # SuperFastPython.com
+    # 运行协程的示例
+    import asyncio
+    # 定义一个协程
+    async def custom_coro():
+        # 等待另一个协程
+        await asyncio.sleep(1)
+     
+    # 主协程
+    async def main():
+        # 执行我的自定义协程
+        await custom_coro()
+     
+    # 启动协程程序
+    asyncio.run(main())
+    ```
+
+    现在我们知道如何定义、创建和运行协程，让我们花点时间来了解事件循环。
 
 ## 6. 事件循环是什么
 
@@ -372,7 +1888,15 @@
 
 === "英文"
 
+    The heart of asyncio programs is the event loop.
+    
+    In this section, we will take a moment to look at the asyncio event loop.
+
 === "中文"
+
+    异步程序的核心是事件循环。
+    
+    在本节中，我们将花一些时间来了解异步事件循环。
 
 ### 6.1 Asyncio 的事件循环是什么
 
@@ -380,7 +1904,97 @@
 
 === "英文"
 
+    The event loop is an environment for executing coroutines in a single thread.
+    
+    > asyncio is a library to execute these coroutines in an asynchronous fashion using a concurrency model known as a single-threaded event loop.
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3VVaq59), 2022.
+    
+    The event loop is the core of an asyncio program.
+    
+    It does many things, such as:
+    
+    1. Execute coroutines.
+    2. Execute callbacks.
+    3. Perform network input/output.
+    4. Run subprocesses.
+    
+    > The event loop is the core of every asyncio application. Event loops run asynchronous tasks and callbacks, perform network IO operations, and run subprocesses.
+    > 
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    Event loops are a common design pattern and became very popular in recent times given their use in JavaScript.
+    
+    > JavaScript has a runtime model based on an event loop, which is responsible for executing the code, collecting and processing events, and executing queued sub-tasks. This model is quite different from models in other languages like C and Java.
+    >
+    > — [THE EVENT LOOP, MOZILLA.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+    
+    The event loop, as its name suggests, is a loop. It manages a list of tasks (coroutines) and attempts to progress each in sequence in each iteration of the loop, as well as perform other tasks like executing callbacks and handling I/O.
+    
+    The **“asyncio”** module provides functions for accessing and interacting with the event loop.
+    
+    This is not required for typical application development.
+    
+    Instead, access to the event loop is provided for framework developers, those that want to build on top of the asyncio module or enable asyncio for their library.
+    
+    > Application developers should typically use the high-level asyncio functions, such as asyncio.run(), and should rarely need to reference the loop object or call its methods.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    The asyncio module provides a low-level API for getting access to the current event loop object, as well as a suite of methods that can be used to interact with the event loop.
+    
+    The low-level API is intended for framework developers that will extend, complement and integrate asyncio into third-party libraries.
+    
+    We rarely need to interact with the event loop in asyncio programs, in favor of using the high-level API instead.
+    
+    Nevertheless, we can briefly explore how to get the event loop.
+
 === "中文"
+
+    事件循环是在单线程中执行协程的环境。
+    
+    > asyncio 是一个使用称为单线程事件循环的并发模型以异步方式执行这些协程的库。
+    >
+    > — PAGE 3, [PYTHON CONCURRENCY WITH ASYNCIO](https://amzn.to/3VVaq59), 2022.
+    
+    事件循环是 asyncio 程序的核心。
+    
+    它可以做很多事情，例如：
+    
+    1. 执行协程。
+    2. 执行回调。
+    3. 执行网络输入/输出。
+    4. 运行子进程。
+    
+    > 事件循环是每个异步应用程序的核心。 事件循环运行异步任务和回调、执行网络 IO 操作并运行子进程。
+    > 
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    事件循环是一种常见的设计模式，并且由于它们在 JavaScript 中的使用，近年来变得非常流行。
+    
+    > JavaScript 有一个基于事件循环的运行时模型，它负责执行代码、收集和处理事件以及执行排队的子任务。 该模型与 C 和 Java 等其他语言中的模型有很大不同。
+    >
+    > — [THE EVENT LOOP, MOZILLA.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+    
+    事件循环，顾名思义，就是一个循环。 它管理任务（协程）列表，并尝试在循环的每次迭代中按顺序执行每个任务，以及执行其他任务，例如执行回调和处理 I/O。
+    
+    **“asyncio”**模块提供了访问事件循环并与之交互的功能。
+    
+    这对于典型的应用程序开发来说不是必需的。
+
+    相反，为框架开发人员提供对事件循环的访问，这些开发人员希望在 asyncio 模块之上构建或为其库启用 asyncio。
+    
+    > 应用程序开发人员通常应使用高级 asyncio 函数，例如 asyncio.run()，并且很少需要引用循环对象或调用其方法。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    asyncio 模块提供了一个低级 API，用于访问当前事件循环对象，以及一套可用于与事件循环交互的方法。
+    
+    低级 API 旨在供框架开发人员扩展、补充 asyncio 并将其集成到第三方库中。
+
+    我们很少需要与 asyncio 程序中的事件循环进行交互，而是使用高级 API。
+
+    尽管如此，我们还是可以简单探讨一下如何获取事件循环。
 
 ### 6.2 事件循环如何获取和启动
 
@@ -388,7 +2002,137 @@
 
 === "英文"
 
+    The typical way we create an event loop in asyncio applications is via the **asyncio.run()** function.
+    
+    > This function always creates a new event loop and closes it at the end. It should be used as a main entry point for asyncio programs, and should ideally only be called once.
+    >
+    > — [ASYNCIO COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    The function takes a coroutine and will execute it to completion.
+    
+    We typically pass it to our main coroutine and run our program from there.
+    
+    There are low-level functions for creating and accessing the event loop.
+    
+    The [asyncio.new_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.new_event_loop) function will create a new event loop and return access to it.
+    
+    > Create and return a new event loop object.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    For example:
+    
+    ```python
+    ...
+    # create and access a new asyncio event loop
+    loop = asyncio.new_event_loop()
+    ```
+    
+    We can demonstrate this with a worked example.
+    
+    In the example below we will create a new event loop and then report its details.
+    
+    ```python
+    # SuperFastPython.com
+    # example of creating an event loop
+    import asyncio
+     
+    # create and access a new asyncio event loop
+    loop = asyncio.new_event_loop()
+    # report defaults of the loop
+    print(loop)
+    ```
+    
+    Running the example creates the event loop, then reports the details of the object.
+    
+    We can see that in this case the event loop has the type **_UnixSelectorEventLoop** and is not running, but is also not closed.
+    
+    ```text
+    <_UnixSelectorEventLoop running=False closed=False debug=False>
+    ```
+    
+    If an asyncio event loop is already running, we can get access to it via the asyncio.get_running_loop() function.
+    
+    > Return the running event loop in the current OS thread. If there is no running event loop a RuntimeError is raised. This function can only be called from a coroutine or a callback.
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    For example:
+    
+    ```python
+    ...
+    # access he running event loop
+    loop = asyncio.get_running_loop()
+    ```
+    
+    There is also a function for getting or starting the event loop called [asyncio.get_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop), but it was deprecated in Python 3.10 and should not be used.
+
 === "中文"
+
+    我们在异步应用程序中创建事件循环的典型方法是通过 **asyncio.run()** 函数。
+    
+    > 该函数总是创建一个新的事件循环并在最后关闭它。 它应该用作 asyncio 程序的主要入口点，并且最好只调用一次。
+    >
+    > — [ASYNCIO COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    该函数采用一个协程并将其执行直至完成。
+    
+    我们通常将其传递给我们的主协程并从那里运行我们的程序。
+    
+    有一些低级函数用于创建和访问事件循环。
+    
+    [asyncio.new_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.new_event_loop) 函数将创建一个新的事件循环并返回对其的访问权限。
+    
+    > 创建并返回一个新的事件循环对象。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    例如：
+    
+    ```python
+    ...
+    # 创建并访问新的异步事件循环
+    loop = asyncio.new_event_loop()
+    ```
+    
+    我们可以用一个有效的例子来证明这一点。
+    
+    在下面的示例中，我们将创建一个新的事件循环，然后报告其详细信息。
+    
+    ```python
+    # SuperFastPython.com
+    # 创建事件循环的示例
+    import asyncio
+     
+    # 创建并访问新的异步事件循环
+    loop = asyncio.new_event_loop()
+    # 报告循环的默认值
+    print(loop)
+    ```
+    
+    运行该示例将创建事件循环，然后报告对象的详细信息。
+    
+    我们可以看到，在这种情况下，事件循环的类型为 **_UnixSelectorEventLoop** 并且没有运行，但也没有关闭。
+    
+    ```text
+    <_UnixSelectorEventLoop running=False closed=False debug=False>
+    ```
+    
+    如果 asyncio 事件循环已经在运行，我们可以通过 [asyncio.get_running_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_running_loop) 函数访问它。
+    
+    > 返回当前操作系统线程中正在运行的事件循环。 如果没有正在运行的事件循环，则会引发 RuntimeError。 该函数只能从协程或回调中调用。
+    >
+    > — [ASYNCIO EVENT LOOP](https://docs.python.org/3/library/asyncio-eventloop.html)
+    
+    例如：
+    
+    ```python
+    ...
+    # 访问正在运行的事件循环
+    loop = asyncio.get_running_loop()
+    ```
+    
+    还有一个用于获取或启动事件循环的函数，称为 [asyncio.get_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop)，但已弃用 在 Python 3.10 中，不应使用。
 
 ### 6.3 事件循环对象是什么
 
@@ -396,7 +2140,35 @@
 
 === "英文"
 
+    An event loop is implemented as a Python object.
+    
+    The event loop object defines how the event loop is implemented and provides a common API for interacting with the loop, defined on the [AbstractEventLoop](https://github.com/python/cpython/blob/3.10/Lib/asyncio/events.py#L204) class.
+    
+    There are [different implementations](https://docs.python.org/3/library/asyncio-eventloop.html#event-loop-implementations) of the event loop for different platforms.
+    
+    For example, Windows and Unix-based operations systems will implement the event loop in different ways, given the different underlying ways that non-blocking I/O is implemented on these platforms.
+    
+    The [SelectorEventLoop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.SelectorEventLoop) type event loop is the default on Unix-based operating systems like Linux and macOS.
+    
+    The [ProactorEventLoop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.ProactorEventLoop) type event loop is the default on Windows.
+    
+    Third-party libraries may implement their own event loops to optimize for specific features.
+
 === "中文"
+
+    事件循环作为 Python 对象实现。
+    
+    事件循环对象定义了事件循环的实现方式，并提供了与循环交互的通用 API，定义在 [AbstractEventLoop](https://github.com/python/cpython/blob/3.10/Lib/asyncio/events.py#L204) 类。
+
+    不同平台的事件循环有[不同的实现](https://docs.python.org/3/library/asyncio-eventloop.html#event-loop-implementations)。
+
+    例如，基于 Windows 和 Unix 的操作系统将以不同的方式实现事件循环，因为这些平台上实现非阻塞 I/O 的底层方式不同。
+
+    [SelectorEventLoop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.SelectorEventLoop) 类型事件循环是基于 Unix 的操作系统（如 Linux 和 macOS）上的默认设置。
+
+    [ProactorEventLoop](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.ProactorEventLoop) 类型事件循环是 Windows 上的默认设置。
+
+    第三方库可以实现自己的事件循环来优化特定功能。
 
 ### 6.4 为什么要访问事件循环
 
@@ -404,7 +2176,39 @@
 
 === "英文"
 
+    Why would we want access to an event loop outside of an asyncio program?
+    
+    There are many reasons why we may want access to the event loop from outside of a running asyncio program.
+    
+    For example:
+    
+    1. To monitor the progress of tasks.
+    2. To issue and get results from tasks.
+    3. To fire and forget one-off tasks.
+    
+    An asyncio event loop can be used in a program as an alternative to a thread pool for coroutine-based tasks.
+    
+    An event loop may also be embedded within a normal asyncio program and accessed as needed.
+    
+    Now that we know a little about the event loop, let’s look at asyncio tasks.
+
 === "中文"
+
+    为什么我们想要访问 asyncio 程序之外的事件循环？
+    
+    我们可能希望从正在运行的 asyncio 程序外部访问事件循环的原因有很多。
+
+    例如：
+    
+    1. 监控任务的进展情况。
+    2. 发出任务并获取结果。
+    3. 解雇并忘记一次性任务。
+    
+    异步事件循环可以在程序中用作基于协程的任务的线程池的替代方案。
+    
+    事件循环也可以嵌入到普通的异步程序中并根据需要进行访问。
+
+    现在我们对事件循环有了一些了解，让我们看看异步任务。
 
 ## 7. Asyncio 任务的创建和运行
 
@@ -412,7 +2216,23 @@
 
 === "英文"
 
+    You can create Task objects from coroutines in asyncio programs.
+    
+    Tasks provide a handle on independently scheduled and running coroutines and allow the task to be queried, canceled, and results and exceptions to be retrieved later.
+    
+    The asyncio event loop manages tasks. As such, all coroutines become and are managed as tasks within the event loop.
+    
+    Let’s take a closer look at asyncio tasks.
+
 === "中文"
+
+    您可以从 asyncio 程序中的协程创建任务对象。
+    
+    任务提供独立调度和运行的协程的句柄，并允许查询、取消任务以及稍后检索结果和异常。
+
+    asyncio 事件循环管理任务。 因此，所有协程都成为事件循环中的任务并作为任务进行管理。
+
+    让我们仔细看看异步任务。
 
 ### 7.1 Asyncio 任务是什么
 
@@ -420,7 +2240,91 @@
 
 === "英文"
 
+    A Task is an object that schedules and independently runs an asyncio coroutine.
+    
+    It provides a handle on a scheduled coroutine that an asyncio program can query and use to interact with the coroutine.
+    
+    > A Task is an object that manages an independently running coroutine.
+    >
+    > — [PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE](https://peps.python.org/pep-3156/)
+    
+    A task is created from a coroutine. It requires a coroutine object, wraps the coroutine, schedules it for execution, and provides ways to interact with it.
+    
+    A task is executed independently. This means it is scheduled in the asyncio event loop and will execute regardless of what else happens in the coroutine that created it. This is different from executing a coroutine directly, where the caller must wait for it to complete.
+    
+    > Tasks are used to schedule coroutines concurrently. When a coroutine is wrapped into a Task with functions like asyncio.create_task() the coroutine is automatically scheduled to run soon
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    The [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#task-object) class extends the [asyncio.Future](https://docs.python.org/3/library/asyncio-future.html#asyncio.Future) class and an instance are awaitable.
+    
+    A Future is a lower-level class that represents a result that will eventually arrive.
+    
+    > A Future is a special low-level awaitable object that represents an eventual result of an asynchronous operation.
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    Classes that extend the Future class are often referred to as Future-like.
+    
+    > A Future-like object that runs a Python coroutine.
+    > 
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    Because a Task is awaitable it means that a coroutine can wait for a task to be done using the await expression.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for a task to be done
+    await task
+    ```
+    
+    Now that we know what an asyncio task is, let’s look at how we might create one.
+
 === "中文"
+
+    任务是一个调度并独立运行异步协程的对象。
+    
+    它提供了预定协程的句柄，asyncio 程序可以查询该句柄并使用该句柄与协程进行交互。
+    
+    > 任务是管理独立运行的协程的对象。
+    >
+    > — [PEP 3156 – ASYNCHRONOUS IO SUPPORT REBOOTED: THE “ASYNCIO” MODULE](https://peps.python.org/pep-3156/)
+    
+    任务是从协程创建的。 它需要一个协程对象，包装协程，安排其执行，并提供与其交互的方法。
+    
+    任务是独立执行的。 这意味着它被调度在 asyncio 事件循环中，并且无论创建它的协程中发生了什么，它都会执行。 这与直接执行协程不同，调用者必须等待它完成。
+    
+    > 任务用于同时调度协程。 当协程被包装到具有 asyncio.create_task() 等函数的任务中时，协程会自动安排很快运行
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    [asyncio.Task](https://docs.python.org/3/library/asyncio-task.html#task-object) 类扩展了 [asyncio.Future](https://docs.python.org/ 3/library/asyncio-future.html#asyncio.Future) 类和实例是可等待的。
+    
+    Future 是一个较低级别的类，代表最终将到达的结果。
+
+    > Future 是一种特殊的低级可等待对象，它表示异步操作的最终结果。
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    扩展 Future 类的类通常被称为类 Future 类。
+    
+    > 运行 Python 协程的类似 Future 的对象。
+    > 
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    因为任务是可等待的，这意味着协程可以使用等待表达式等待任务完成。
+    
+    例如：
+    
+    ```python
+    ...
+    # 等待任务完成
+    await task
+    ```
+    
+    现在我们知道什么是异步任务，让我们看看如何创建一个异步任务。
 
 ### 7.2 怎么创建任务
 
@@ -428,7 +2332,49 @@
 
 === "英文"
 
+    A task is created using a provided coroutine instance.
+    
+    Recall that a coroutine is defined using the async def expression and looks like a function.
+    
+    For example:
+    
+    ```python
+    # define a coroutine
+    async def task_coroutine():
+        # ...
+    ```
+    
+    A task can only be created and scheduled within a coroutine.
+    
+    There are two main ways to create and schedule a task, they are:
+    
+    1. Create Task With High-Level API (preferred)
+    2. Create Task With Low-Level API
+    
+    Let’s take a closer look at each in turn.
+
 === "中文"
+
+    使用提供的协程实例创建任务。
+    
+    回想一下，协程是使用 async def 表达式定义的，看起来像一个函数。
+
+    例如：
+    
+    ```python
+    # 定义协程
+    async def task_coroutine():
+        # ...
+    ```
+    
+    任务只能在协程内创建和调度。
+    
+    创建和计划任务有两种主要方法，它们是：
+    
+    1. 使用高级 API 创建任务（首选）
+    2. 使用低级 API 创建任务
+    
+    让我们依次仔细看看每一个。
 
 #### 7.2.1 使用高级 API 创建任务
 
@@ -436,7 +2382,75 @@
 
 === "英文"
 
+    A task can be created using the [asyncio.create_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task) function.
+    
+    The **asyncio.create_task()** function takes a coroutine instance and an optional name for the task and returns an **asyncio.Task** instance.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a coroutine
+    coro = task_coroutine()
+    # create a task from a coroutine
+    task = asyncio.create_task(coro)
+    ```
+    
+    This can be achieved with a compound statement on a single line.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a task from a coroutine
+    task = asyncio.create_task(task_coroutine())
+    ```
+    
+    This will do a few things:
+    
+    1. Wrap the coroutine in a Task instance.
+    2. Schedule the task for execution in the current event loop.
+    3. Return a Task instance
+    
+    The task instance can be discarded, interacted with via methods, and awaited by a coroutine.
+    
+    This is the preferred way to create a Task from a coroutine in an asyncio program.
+
 === "中文"
+
+    可以使用 [asyncio.create_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task) 函数创建任务。
+    
+    **asyncio.create_task()** 函数采用协程实例和任务的可选名称，并返回 **asyncio.Task** 实例。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建一个协程
+    coro = task_coroutine()
+    # 从协程创建任务
+    task = asyncio.create_task(coro)
+    ```
+    
+    这可以通过单行上的复合语句来实现。
+    
+    例如：
+    
+    ```python
+    ...
+    # 从协程创建任务
+    task = asyncio.create_task(task_coroutine())
+    ```
+    
+    这将做一些事情：
+    
+    1. 将协程包装在 Task 实例中。
+    2. 安排任务在当前事件循环中执行。
+    3. 返回一个任务实例
+    
+    任务实例可以被丢弃，通过方法进行交互，并由协程等待。
+    
+    这是从 asyncio 程序中的协程创建任务的首选方法。
 
 ### 7.2.2 使用低级 API 创建任务
 
@@ -444,7 +2458,79 @@
 
 === "英文"
 
+    A task can also be created from a coroutine using the lower-level asyncio API.
+    
+    The first way is to use the [asyncio.ensure_future()](https://docs.python.org/3/library/asyncio-future.html#asyncio.ensure_future) function.
+    
+    This function takes a **Task**, **Future**, or **Future-like** object, such as a coroutine, and optionally the loop in which to schedule it.
+    
+    If a loop is not provided, it will be scheduled in the current event loop.
+    
+    If a coroutine is provided to this function, it is wrapped in a Task instance for us, which is returned.
+    
+    For example:
+    
+    ```python
+    ...
+    # create and schedule the task
+    task = asyncio.ensure_future(task_coroutine())
+    ```
+    
+    Another low-level function that we can use to create and schedule a Task is the [loop.create_task()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task) method.
+    
+    This function requires access to a specific event loop in which to execute the coroutine as a task.
+    
+    We can acquire an instance to the current event loop within an asyncio program via the [asyncio.get_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) function.
+    
+    This can then be used to call the **create_task()** method to create a **Task** instance and schedule it for execution.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the current event loop
+    loop = asyncio.get_event_loop()
+    # create and schedule the task
+    task = loop.create_task(task_coroutine())
+    ```
+
 === "中文"
+
+    还可以使用较低级别的 asyncio API 从协程创建任务。
+    
+    第一种方法是使用 [asyncio.ensure_future()](https://docs.python.org/3/library/asyncio-future.html#asyncio.ensure_future) 函数。
+
+    此函数采用 **Task**、**Future** 或 **Future-like** 对象，例如协程，以及（可选）用于调度它的循环。
+
+    如果没有提供循环，它将被安排在当前的事件循环中。
+
+    如果为该函数提供了一个协程，它将被包装在一个 Task 实例中并返回。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建并安排任务
+    task = asyncio.ensure_future(task_coroutine())
+    ```
+    
+    我们可以用来创建和调度任务的另一个低级函数是 [loop.create_task()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task方法。
+    
+    此函数需要访问特定的事件循环，在其中将协程作为任务执行。
+
+    我们可以通过 [asyncio.get_event_loop()](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) 函数获取 asyncio 程序中当前事件循环的实例。
+
+    然后可以使用它来调用 **create_task()** 方法来创建 **Task** 实例并安排其执行。
+
+    例如：
+    
+    ```python
+    ...
+    # 获取当前事件循环
+    loop = asyncio.get_event_loop()
+    # 创建并安排任务
+    task = loop.create_task(task_coroutine())
+    ```
 
 ### 7.3 何时运行任务？
 
@@ -452,7 +2538,67 @@
 
 === "英文"
 
+    A common question after creating a task is when does it run?
+    
+    This is a good question.
+    
+    Although we can schedule a coroutine to run independently as a task with the **create_task()** function, it may not run immediately.
+    
+    In fact, the task will not execute until the event loop has an opportunity to run.
+    
+    This will not happen until all other coroutines are not running and it is the task’s turn to run.
+    
+    For example, if we had an asyncio program with one coroutine that created and scheduled a task, the scheduled task will not run until the calling coroutine that created the task is suspended.
+    
+    This may happen if the calling coroutine chooses to sleep, chooses to await another coroutine or task, or chooses to await the new task that was scheduled.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a task from a coroutine
+    task = asyncio.create_task(task_coroutine())
+    # await the task, allowing it to run
+    await task
+    ```
+    
+    You can learn more about how to create asyncio tasks in the tutorial:
+    
+    - [How to Create Asyncio Tasks in Python](https://superfastpython.com/asyncio-create-task/)
+    
+    Now that we know what a task is and how to schedule them, next, let’s look at how we may use them in our programs.
+
 === "中文"
+
+    创建任务后的一个常见问题是它何时运行？
+    
+    这是一个很好的问题。
+
+    虽然我们可以使用 **create_task()** 函数安排协程作为任务独立运行，但它可能不会立即运行。
+
+    事实上，直到事件循环有机会运行时，任务才会执行。
+
+    直到所有其他协程都没有运行并且轮到任务运行时，才会发生这种情况。
+
+    例如，如果我们有一个 asyncio 程序，其中一个协程创建并计划了一项任务，则计划的任务将不会运行，直到创建该任务的调用协程被挂起。
+
+    如果调用协程选择休眠、选择等待另一个协程或任务、或者选择等待已安排的新任务，则可能会发生这种情况。
+
+    例如：
+    
+    ```python
+    ...
+    # 从协程创建任务
+    task = asyncio.create_task(task_coroutine())
+    # 等待任务，允许其运行
+    await task
+    ```
+    
+    您可以在教程中了解有关如何创建异步任务的更多信息：
+    
+    - [如何在 Python 中创建异步任务](https://superfastpython.com/asyncio-create-task/)
+    
+    现在我们知道什么是任务以及如何安排它们，接下来，让我们看看如何在程序中使用它们。
 
 ## 8. 使用和查询任务
 
@@ -460,7 +2606,15 @@
 
 === "英文"
 
+    Tasks are the currency of asyncio programs.
+    
+    In this section, we will take a closer look at how to interact with them in our programs.
+
 === "中文"
+
+    任务是 asyncio 程序的货币。
+    
+    在本节中，我们将仔细研究如何在程序中与它们交互。
 
 ### 8.1 任务的生命周期
 
@@ -468,7 +2622,83 @@
 
 === "英文"
 
+    An asyncio Task has a life cycle.
+    
+    Firstly, a task is created from a coroutine.
+    
+    It is then scheduled for independent execution within the event loop.
+    
+    At some point, it will run.
+    
+    While running it may be suspended, such as awaiting another coroutine or task. It may finish normally and return a result or fail with an exception.
+    
+    Another coroutine may intervene and cancel the task.
+    
+    Eventually, it will be done and cannot be executed again.
+    
+    We can summarize this life-cycle as follows:
+    
+    1. Created
+    2. Scheduled
+        1. Canceled
+    3. Running
+        1. Suspended
+        2. Result
+        3. Exception
+        4. Canceled
+    4. Done
+    
+    Note that Suspended, Result, Exception, and Canceled are not states per se, they are important points of transition for a running task.
+    
+    The diagram below summarizes this life cycle showing the transitions between each phase.
+    
+    ![123](../images/Asyncio-Task-Life-Cycle.png)
+    
+    You can learn more about the asyncio task life-cycle in the tutorial:
+    
+    - [Asyncio Task Life-Cycle](https://superfastpython.com/asyncio-task-life-cycle/)
+    
+    Now that we are familiar with the life cycle of a task from a high level, let’s take a closer look at each phase.
+
 === "中文"
+
+    异步任务有生命周期。
+    
+    首先，从协程创建任务。
+
+    然后它被安排在事件循环内独立执行。
+
+    在某个时刻，它会运行。
+
+    运行时它可能会被挂起，例如等待另一个协程或任务。 它可能正常完成并返回结果，也可能因异常而失败。
+
+    另一个协程可能会干预并取消任务。
+
+    最终，它会完成，并且无法再次执行。
+
+    我们可以将这个生命周期总结如下：
+    
+    1. 被创建
+    2. 被调度
+        1. 被取消
+    3. 执行
+        1. 挂起
+        2. 执行结果
+        3. 发生异常
+        4. 被取消
+    4. 执行完毕
+    
+    请注意，暂停、结果、异常和取消本身并不是状态，它们是正在运行的任务的重要转换点。
+    
+    下图总结了这个生命周期，显示了每个阶段之间的转换。
+    
+    ![123](../images/Asyncio-Task-Life-Cycle.png)
+    
+    您可以在教程中了解有关 asyncio 任务生命周期的更多信息：
+    
+    - [Asyncio 任务生命周期](https://superfastpython.com/asyncio-task-life-cycle/)
+    
+    现在我们已经从高层次上熟悉了任务的生命周期，让我们仔细看看每个阶段。
 
 ### 8.2 如何检查任务的状态
 
@@ -476,7 +2706,25 @@
 
 === "英文"
 
+    After a Task is created, we can check the status of the task.
+    
+    There are two statuses we might want to check, they are:
+    
+    - Whether the task is done.
+    - Whether the task was canceled.
+    
+    Let’s take a closer look at each in turn.
+
 === "中文"
+
+    创建任务后，我们可以查看任务的状态。
+    
+    我们可能想要检查两种状态，它们是：
+    
+    - 任务是否完成。
+    - 任务是否被取消。
+    
+    让我们依次仔细看看每一个。
 
 #### 8.2.1 检查任务是否完成
 
@@ -484,7 +2732,59 @@
 
 === "英文"
 
+    We can check if a task is done via the [done()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.done) method.
+    
+    The method returns **True** if the task is done, or **False** otherwise.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if a task is done
+    if task.done():
+        # ...
+    ```
+    
+    A task is done if it has had the opportunity to run and is now no longer running.
+    
+    A task that has been scheduled is not done.
+    
+    Similarly, a task that is running is not done.
+    
+    A task is done if:
+    
+    - The coroutine finishes normally.
+    - The coroutine returns explicitly.
+    - An unexpected error or exception is raised in the coroutine
+    - The task is canceled.
+
 === "中文"
+
+    我们可以通过 [done()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.done) 方法检查任务是否完成。
+    
+    如果任务完成，该方法返回 **True**，否则返回 **False**。
+
+    例如：
+    
+    ```python
+    ...
+    # 检查任务是否完成
+    if task.done():
+        # ...
+    ```
+    
+    如果任务曾经有机会运行但现在不再运行，则该任务已完成。
+    
+    已安排的任务未完成。
+
+    同样，正在运行的任务也没有完成。
+
+    如果满足以下条件，则任务已完成：
+    
+    - 协程正常结束。
+    - 协程显式返回。
+    - 协程中出现意外错误或异常
+    - 任务被取消。
 
 #### 8.2.2 检查任务是否被取消
 
@@ -492,7 +2792,41 @@
 
 === "英文"
 
+    We can check if a task is canceled via the [cancelled()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancelled) method.
+    
+    The method returns **True** if the task was canceled, or **False** otherwise.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if a task was canceled
+    if task.cancelled():
+        # ...
+    ```
+    
+    A task is canceled if the **cancel()** method was called on the task and completed successfully, e..g **cancel()** returned **True**.
+    
+    A task is not canceled if the **cancel()** method was not called, or if the **cancel()** method was called but failed to cancel the task.
+
 === "中文"
+
+    我们可以通过 [cancelled()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancelled) 方法检查任务是否被取消。
+    
+    如果任务被取消，该方法返回 **True**，否则返回 **False**。
+
+    例如：
+    
+    ```python
+    ...
+    # 检查任务是否被取消
+    if task.cancelled():
+        # ...
+    ```
+    
+    如果对任务调用 **cancel()** 方法并成功完成，则任务将被取消，例如 **cancel()** 返回 **True**。
+    
+    如果未调用 **cancel()** 方法，或者调用 **cancel()** 方法但取消任务失败，则不会取消任务。
 
 ### 8.3 如何获取任务结果
 
@@ -500,7 +2834,163 @@
 
 === "英文"
 
+    We can get the result of a task via the [result()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result) method.
+    
+    This returns the return value of the coroutine wrapped by the **Task** or **None** if the wrapped coroutine does not explicitly return a value.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the return value from the wrapped coroutine
+    value = task.result()
+    ```
+    
+    If the coroutine raises an unhandled error or exception, it is re-raised when calling the **result()** method and may need to be handled.
+    
+    For example:
+    
+    ```python
+    ...
+    try:
+        # get the return value from the wrapped coroutine
+        value = task.result()
+    except Exception:
+        # task failed and there is no result
+    ```
+    
+    If the task was canceled, then a **CancelledError** exception is raised when calling the **result()** method and may need to be handled.
+    
+    For example:
+    
+    ```python
+    ...
+    try:
+        # get the return value from the wrapped coroutine
+        value = task.result()
+    except asyncio.CancelledError:
+        # task was canceled
+    ```
+    
+    As such, it is a good idea to check if the task was canceled first.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if the task was not canceled
+    if not task.cancelled():
+        # get the return value from the wrapped coroutine
+        value = task.result()
+    else:
+        # task was canceled
+    ```
+    
+    If the task is not yet done, then an **InvalidStateError** exception is raised when calling the **result()** method and may need to be handled.
+    
+    For example:
+    
+    ```python
+    ...
+    try:
+        # get the return value from the wrapped coroutine
+        value = task.result()
+    except asyncio.InvalidStateError:
+        # task is not yet done
+    ```
+    
+    As such, it is a good idea to check if the task is done first.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if the task is not done
+    if not task.done():
+        await task
+    # get the return value from the wrapped coroutine
+    value = task.result()
+    ```
+
 === "中文"
+
+    我们可以通过 [result()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.result) 方法获取任务的结果。
+
+    这将返回由 **Task** 包装的协程的返回值，如果包装的协程未显式返回值，则返回 **None**。
+
+    例如：
+
+    ```python
+    ...
+    # 从包装的协程中获取返回值
+    value = task.result()
+    ```
+    
+    如果协程引发未处理的错误或异常，则在调用 **result()** 方法时会重新引发，并且可能需要处理。
+    
+    例如：
+
+    ```python
+    ...
+    try:
+        # 从包装的协程中获取返回值
+        value = task.result()
+    except Exception:
+        # 任务失败，没有结果
+    ```
+    
+    如果任务被取消，则在调用 **result()** 方法时会引发 **CancelledError** 异常，并且可能需要处理。
+    
+    例如：
+
+    ```python
+    ...
+    try:
+        # 从包装的协程中获取返回值
+        value = task.result()
+    except asyncio.CancelledError:
+        # 任务被取消
+    ```
+    
+    因此，最好先检查任务是否被取消。
+    
+    例如：
+
+    ```python
+    ...
+    # 检查任务是否未被取消
+    if not task.cancelled():
+        # 从包装的协程中获取返回值
+        value = task.result()
+    else:
+        # 任务被取消
+    ```
+    
+    如果任务尚未完成，则在调用 **result()** 方法时会引发 **InvalidStateError** 异常，并且可能需要处理。
+    
+    例如：
+
+    ```python
+    ...
+    try:
+        # 从包装的协程中获取返回值
+        value = task.result()
+    except asyncio.InvalidStateError:
+        # 任务尚未完成
+    ```
+    
+    因此，最好先检查任务是否已完成。
+    
+    例如：
+
+    ```python
+    ...
+    # 检查任务是否未完成
+    if not task.done():
+        await task
+    # 从包装的协程中获取返回值
+    value = task.result()
+    ```
 
 ### 8.4 如何获取任务异常
 
@@ -508,7 +2998,145 @@
 
 === "英文"
 
+    A coroutine wrapped by a task may raise an exception that is not handled.
+    
+    This will cancel the task, in effect.
+    
+    We can retrieve an unhandled exception in the coroutine wrapped by a task via the [exception()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.exception) method.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the exception raised by a task
+    exception = task.exception()
+    ```
+    
+    If an unhandled exception was not raised in the wrapped coroutine, then a value of None is returned.
+    
+    If the task was canceled, then a CancelledError exception is raised when calling the exception() method and may need to be handled.
+    
+    For example:
+    
+    ```python
+    ...
+    try:
+        # get the exception raised by a task
+        exception = task.exception()
+    except asyncio.CancelledError:
+        # task was canceled
+    ```
+    
+    As such, it is a good idea to check if the task was canceled first.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if the task was not canceled
+    if not task.cancelled():
+        # get the exception raised by a task
+        exception = task.exception()
+    else:
+        # task was canceled
+    ```
+    
+    If the task is not yet done, then an InvalidStateError exception is raised when calling the exception() method and may need to be handled.
+    
+    For example:
+    
+    ```python
+    ...
+    try:
+        # get the exception raised by a task
+        exception = task.exception()
+    except asyncio.InvalidStateError:
+        # task is not yet done
+    ```
+    
+    As such, it is a good idea to check if the task is done first.
+    
+    For example:
+    
+    ```python
+    ...
+    # check if the task is not done
+    if not task.done():
+        await task
+    # get the exception raised by a task
+    exception = task.exception()
+    ```
+
 === "中文"
+
+    由任务包装的协程可能会引发未处理的异常。
+    
+    实际上，这将取消任务。
+
+    我们可以通过 [Exception()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.exception)方法在任务包装的协程中检索未处理的异常。
+
+    例如：
+
+    ```python
+    ...
+    # 获取任务引发的异常
+    exception = task.exception()
+    ```
+    
+    如果包装的协程中未引发未处理的异常，则返回 **None** 值。
+    
+    如果任务被取消，则调用 **Exception()** 方法时会引发 **CancelledError** 异常，并且可能需要处理。
+
+    例如：
+
+    ```python
+    ...
+    try:
+        # 获取任务引发的异常
+        exception = task.exception()
+    except asyncio.CancelledError:
+        # 任务被取消
+    ```
+    
+    因此，最好先检查任务是否被取消。
+    
+    例如：
+
+    ```python
+    ...
+    # 检查任务是否未被取消
+    if not task.cancelled():
+        # 获取任务引发的异常
+        exception = task.exception()
+    else:
+        # 任务被取消
+    ```
+    
+    如果任务尚未完成，则在调用 **exception()** 方法时会引发 **InvalidStateError** 异常，并且可能需要进行处理。
+    
+    例如：
+
+    ```python
+    ...
+    try:
+        # 获取任务引发的异常
+        exception = task.exception()
+    except asyncio.InvalidStateError:
+        # 任务尚未完成
+    ```
+
+    因此，最好先检查任务是否已完成。
+    
+    例如：
+
+    ```python
+    ...
+    # 检查任务是否未完成
+    if not task.done():
+        await task
+    # 获取任务引发的异常
+    exception = task.exception()
+    ```
 
 ### 8.5 如何取消任务
 
@@ -516,7 +3144,51 @@
 
 === "英文"
 
+    We can cancel a scheduled task via the [cancel()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) method.
+    
+    The cancel method returns **True** if the task was canceled, or **False** otherwise.
+    
+    For example:
+    
+    ```python
+    ...
+    # cancel the task
+    was_cancelled = task.cancel()
+    ```
+    
+    If the task is already done, it cannot be canceled and the **cancel()** method will return **False** and the task will not have the status of canceled.
+    
+    The next time the task is given an opportunity to run, it will raise a **CancelledError** exception.
+    
+    If the **CancelledError** exception is not handled within the wrapped coroutine, the task will be canceled.
+    
+    Otherwise, if the **CancelledError** exception is handled within the wrapped coroutine, the task will not be canceled.
+    
+    The **cancel()** method can also take a message argument which will be used in the content of the **CancelledError**.
+
 === "中文"
+
+    我们可以通过 [cancel()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.cancel) 方法取消计划任务。
+    
+    如果任务被取消，则取消方法返回 **True**，否则返回 **False**。
+
+    例如：
+    
+    ```python
+    ...
+    # 取消任务
+    was_cancelled = task.cancel()
+    ```
+    
+    如果任务已经完成，则无法取消，**cancel()**方法将返回**False**，并且任务不会处于已取消状态。
+    
+    下次任务有机会运行时，它将引发 **CancelledError** 异常。
+
+    如果在包装的协程中未处理 **CancelledError** 异常，则任务将被取消。
+
+    否则，如果在包装的协程中处理 **CancelledError** 异常，则任务将不会被取消。
+
+    **cancel()** 方法还可以采用消息参数，该参数将在 **CancelledError** 的内容中使用。
 
 ### 8.6 如何在任务中使用回调
 
@@ -524,7 +3196,71 @@
 
 === "英文"
 
+    We can add a done callback function to a task via the [add_done_callback()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback) method.
+    
+    This method takes the name of a function to call when the task is done.
+    
+    The callback function must take the **Task** instance as an argument.
+    
+    For example:
+    
+    ```python
+    # done callback function
+    def handle(task):
+        print(task)
+     
+    ...
+    # register a done callback function
+    task.add_done_callback(handle)
+    ```
+    
+    Recall that a task may be done when the wrapped coroutine finishes normally when it returns, when an unhandled exception is raised or when the task is canceled.
+    
+    The **add_done_callback()** method can be used to add or register as many done callback functions as we like.
+    
+    We can also remove or de-register a callback function via the [**remove_done_callback()**](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.remove_done_callback) function.
+    
+    For example:
+    
+    ```python
+    ...
+    # remove a done callback function
+    task.remove_done_callback(handle)
+    ```
+
 === "中文"
+
+    我们可以通过 [add_done_callback()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.add_done_callback) 方法向任务添加完成回调函数。
+    
+    此方法采用任务完成时要调用的函数的名称。
+
+    回调函数必须将 **Task** 实例作为参数。
+
+    例如：
+    
+    ```python
+    # 完成回调函数
+    def handle(task):
+        print(task)
+     
+    ...
+    # 注册完成回调函数
+    task.add_done_callback(handle)
+    ```
+    
+    回想一下，当包装的协程正常完成、返回、引发未处理的异常或取消任务时，任务就可以完成。
+    
+    **add_done_callback()** 方法可用于**添加或注册任意数量的完成回调函数**。
+
+    我们还可以通过 [**remove_done_callback()**](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.remove_done_callback) 函数**删除或取消注册回调函数** 。
+
+    例如：
+    
+    ```python
+    ...
+    # 删除已完成的回调函数
+    task.remove_done_callback(handle)
+    ```
 
 ### 8.7 如何设置任务名称
 
@@ -532,15 +3268,99 @@
 
 === "英文"
 
+    A task may have a name.
+    
+    This name can be helpful if multiple tasks are created from the same coroutine and we need some way to tell them apart programmatically.
+    
+    The name can be set when the task is created from a coroutine via the **“name”** argument.
+    
+    For example:
+    
+    ```python
+    ...
+    # create a task from a coroutine
+    task = asyncio.create_task(task_coroutine(), name='MyTask')
+    ```
+    
+    The name for the task can also be set via the [set_name()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.set_name) method.
+    
+    For example:
+    
+    ```python
+    ...
+    # set the name of the task
+    task.set_name('MyTask')
+    ```
+    
+    We can retrieve the name of a task via the **get_name()** method.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the name of a task
+    name = task.get_name()
+    ```
+    
+    You can learn more about checking the status of tasks in the tutorial:
+    
+    - [How to Check Asyncio Task Status](https://superfastpython.com/asyncio-task-status/)
+
 === "中文"
 
-## 9. 当前和正在运行的任务
+    任务可能有一个名称。
+    
+    如果从同一个协程创建多个任务并且我们需要某种方法以编程方式区分它们，那么这个名称会很有帮助。
+
+    当从协程创建任务时，可以通过 **“name”** 参数设置名称。
+
+    例如：
+    
+    ```python
+    ...
+    # 从协程创建任务
+    task = asyncio.create_task(task_coroutine(), name='MyTask')
+    ```
+    
+    任务的名称也可以通过 [set_name()](https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.set_name) 方法设置。
+    
+    例如：
+    
+    ```python
+    ...
+    # 设置任务名称
+    task.set_name('MyTask')
+    ```
+    
+    我们可以通过 **get_name()** 方法检索任务的名称。
+    
+    例如：
+    
+    ```python
+    ...
+    # 获取任务的名称
+    name = task.get_name()
+    ```
+    
+    您可以在教程中了解有关检查任务状态的更多信息：
+    
+    - [如何检查 Asyncio 任务状态](https://superfastpython.com/asyncio-task-status/)
+
+## 9. 当前正在运行的任务
 
 **9. Current and Running Tasks**
 
 === "英文"
 
+    We can introspect tasks running in the asyncio event loop.
+    
+    This can be achieved by getting an **asyncio.Task** object for the currently running task and for all tasks that are running.
+
 === "中文"
+
+    我们可以内省在 asyncio 事件循环中运行的任务。
+    
+    这可以通过获取当前正在运行的任务和所有正在运行的任务的 **asyncio.Task** 对象来实现。
 
 ### 9.1 如何获取当前任务
 
@@ -548,7 +3368,147 @@
 
 === "英文"
 
+    We can get the current task via the [asyncio.current_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.current_task) function.
+    
+    This function will return a **Task** object for the task that is currently running.
+    
+    For example:
+    
+    ```python
+    ...
+    # get the current task
+    task = asyncio.current_task()
+    ```
+    
+    This will return a **Task** object for the currently running task.
+    
+    This may be:
+    
+    - The main coroutine passed to **asyncio.run()**.
+    - A task created and scheduled within the asyncio program via **asyncio.create_task()**.
+    
+    A task may create and run another coroutine (e.g. not wrapped in a task). Getting the current task from within a coroutine will return a **Task** object for the running task, but not the coroutine that is currently running.
+    
+    Getting the current task can be helpful if a coroutine or task requires details about itself, such as the task name for logging.
+    
+    We can explore how to get a **Task** instance for the main coroutine used to start an asyncio program.
+    
+    The example below defines a coroutine used as the entry point into the program. It reports a message, then gets the current task and reports its details.
+    
+    This is an important first example, as it highlights that all coroutines can be accessed as tasks within the asyncio event loop.
+    
+    The complete example is listed below.
+    
+    ```python
+    # SuperFastPython.com
+    # example of getting the current task from the main coroutine
+    import asyncio
+     
+    # define a main coroutine
+    async def main():
+        # report a message
+        print('main coroutine started')
+        # get the current task
+        task = asyncio.current_task()
+        # report its details
+        print(task)
+     
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+    
+    Running the example first creates the main coroutine and uses it to start the asyncio program.
+    
+    The **main()** coroutine runs and first reports a message.
+    
+    It then retrieves the current task, which is a **Task** object that represents itself, the currently running coroutine.
+    
+    It then reports the details of the currently running task.
+    
+    We can see that the task has the default name for the first task, ‘Task-1‘ and is executing the **main()** coroutine, the currently running coroutine.
+    
+    This highlights that we can use the **asyncio.current_task()** function to access a **Task** object for the currently running coroutine, that is automatically wrapped in a **Task** object.
+    
+    ```text
+    main coroutine started
+    <Task pending name='Task-1' coro=<main() running at ...> cb=[_run_until_complete_cb() at ...]>
+    ```
+    
+    You can learn more about getting the current task in the tutorial:
+    
+    - [How to Get the Current Asyncio Task in Python](https://superfastpython.com/asyncio-current-task/)
+
 === "中文"
+
+    我们可以通过 [asyncio.current_task()](https://docs.python.org/3/library/asyncio-task.html#asyncio.current_task) 函数获取当前任务。
+    
+    此函数将为当前正在运行的任务返回一个 **Task** 对象。
+
+    例如：
+    
+    ```python
+    ...
+    # 获取当前任务
+    task = asyncio.current_task()
+    ```
+    
+    这将为当前正在运行的任务返回一个 **Task** 对象。
+    
+    这可能是：
+    
+    - 主协程传递给 **asyncio.run()**。
+    - 通过 **asyncio.create_task()** 在 asyncio 程序中创建和调度的任务。
+    
+    任务可以创建并运行另一个协程（例如，不包含在任务中）。 从协程中获取当前任务将返回正在运行的任务的 **Task** 对象，但不是当前正在运行的协程。
+    
+    如果协程或任务需要有关其自身的详细信息（例如用于记录的任务名称），则获取当前任务会很有帮助。
+    
+    我们可以探索如何为用于启动 asyncio 程序的主协程获取 **Task** 实例。
+
+    下面的示例定义了一个用作程序入口点的协程。 它报告一条消息，然后获取当前任务并报告其详细信息。
+
+    这是一个重要的第一个示例，因为它强调了所有协程都可以作为异步事件循环中的任务进行访问。
+
+    下面列出了完整的示例。
+    
+    ```python
+    # SuperFastPython.com
+    # 从主协程获取当前任务的示例
+    import asyncio
+     
+    # 定义一个主协程
+    async def main():
+        # 报告消息
+        print('main coroutine started')
+        # 获取当前任务
+        task = asyncio.current_task()
+        # 报告其详细信息
+        print(task)
+     
+    # 启动异步程序
+    asyncio.run(main())
+    ```
+    
+    运行该示例首先创建主协程并使用它来启动 asyncio 程序。
+    
+    **main()** 协程运行并首先报告一条消息。
+
+    然后它检索当前任务，这是一个代表其自身（当前正在运行的协程）的 **Task** 对象。
+
+    然后它报告当前正在运行的任务的详细信息。
+
+    我们可以看到该任务具有第一个任务的默认名称“Task-1”，并且正在执行 **main()** 协程，即当前正在运行的协程。
+
+    这强调了我们可以使用 **asyncio.current_task()** 函数来访问当前运行的协程的 **Task** 对象，该对象自动包装在 **Task** 对象中。
+    
+    ```text
+    main coroutine started
+    <Task pending name='Task-1' coro=<main() running at ...> cb=[_run_until_complete_cb() at ...]>
+    ```
+    
+    您可以在教程中了解有关获取当前任务的更多信息：
+    
+    - [如何在 Python 中获取当前的 Asyncio 任务](https://superfastpython.com/asyncio-current-task/)
 
 ### 9.2 如何获取所有任务
 
@@ -556,7 +3516,249 @@
 
 === "英文"
 
+    We may need to get access to all tasks in an asyncio program.
+    
+    This may be for many reasons, such as:
+    
+    - To introspect the current status or complexity of the program.
+    - To log the details of all running tasks.
+    - To find a task that can be queried or canceled.
+    
+    We can get a set of all scheduled and running (not yet done) tasks in an asyncio program via the **asyncio.all_tasks()** function.
+    
+    For example:
+    
+    ```python
+    ...
+    # get all tasks
+    tasks = asyncio.all_tasks()
+    ```
+    
+    This will return a set of all tasks in the asyncio program.
+    
+    It is a set so that each task is only represented once.
+    
+    A task will be included if:
+    
+    - The task has been scheduled but is not yet running.
+    - The task is currently running (e.g. but is currently suspended)
+    
+    The set will also include a task for the currently running task, e.g. the task that is executing the coroutine that calls the **asyncio.all_tasks()** function.
+    
+    Also, recall that the **asyncio.run()** method that is used to start an asyncio program will wrap the provided coroutine in a task. This means that the set of all tasks will include the task for the entry point of the program.
+    
+    We can explore the case where we have many tasks within an asyncio program and then get a set of all tasks.
+    
+    In this example, we first create 10 tasks, each wrapping and running the same coroutine.
+    
+    The main coroutine then gets a set of all tasks scheduled or running in the program and reports their details.
+    
+    The complete example is listed below.
+    
+    ```python
+    # SuperFastPython.com
+    # example of starting many tasks and getting access to all tasks
+    import asyncio
+     
+    # coroutine for a task
+    async def task_coroutine(value):
+        # report a message
+        print(f'task {value} is running')
+        # block for a moment
+        await asyncio.sleep(1)
+     
+    # define a main coroutine
+    async def main():
+        # report a message
+        print('main coroutine started')
+        # start many tasks
+        started_tasks = [asyncio.create_task(task_coroutine(i)) for i in range(10)]
+        # allow some of the tasks time to start
+        await asyncio.sleep(0.1)
+        # get all tasks
+        tasks = asyncio.all_tasks()
+        # report all tasks
+        for task in tasks:
+            print(f'> {task.get_name()}, {task.get_coro()}')
+        # wait for all tasks to complete
+        for task in started_tasks:
+            await task
+     
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+    
+    Running the example first creates the main coroutine and uses it to start the asyncio program.
+    
+    The **main()** coroutine runs and first reports a message.
+    
+    It then creates and schedules 10 tasks that wrap the custom coroutine,
+    
+    The **main()** coroutine then blocks for a moment to allow the tasks to begin running.
+    
+    The tasks start running and each reports a message and then sleeps.
+    
+    The **main()** coroutine resumes and gets a list of all tasks in the program.
+    
+    It then reports the name and coroutine of each.
+    
+    Finally, it enumerates the list of tasks that were created and awaits each, allowing them to be completed.
+    
+    This highlights that we can get a set of all tasks in an asyncio program that includes both the tasks that were created as well as the task that represents the entry point into the program.
+    
+    ```python
+    main coroutine started
+    task 0 is running
+    task 1 is running
+    task 2 is running
+    task 3 is running
+    task 4 is running
+    task 5 is running
+    task 6 is running
+    task 7 is running
+    task 8 is running
+    task 9 is running
+    > Task-9, <coroutine object task_coroutine at 0x10e186e30>
+    > Task-2, <coroutine object task_coroutine at 0x10e184e40>
+    > Task-11, <coroutine object task_coroutine at 0x10e186f10>
+    > Task-7, <coroutine object task_coroutine at 0x10e186d50>
+    > Task-4, <coroutine object task_coroutine at 0x10e185700>
+    > Task-10, <coroutine object task_coroutine at 0x10e186ea0>
+    > Task-8, <coroutine object task_coroutine at 0x10e186dc0>
+    > Task-5, <coroutine object task_coroutine at 0x10e186ab0>
+    > Task-1, <coroutine object main at 0x10e1847b0>
+    > Task-3, <coroutine object task_coroutine at 0x10e184f90>
+    > Task-6, <coroutine object task_coroutine at 0x10e186ce0>
+    ```
+    
+    You can learn more about getting all tasks. in the tutorial:
+    
+    - [How to Get All Asyncio Tasks in Python](https://superfastpython.com/asyncio-all-tasks/)
+    
+    Next, we will explore how to run many coroutines concurrently.
+
 === "中文"
+
+    我们可能需要访问 asyncio 程序中的所有任务。
+    
+    这可能有多种原因，例如：
+
+    - 反思程序的当前状态或复杂性。
+    - 记录所有正在运行的任务的详细信息。
+    - 查找可查询或取消的任务。
+
+    我们可以通过 **asyncio.all_tasks()** 函数获取 asyncio 程序中所有已计划和正在运行（尚未完成）的任务。
+
+    例如：
+    
+    ```python
+    ...
+    # 获取所有任务
+    tasks = asyncio.all_tasks()
+    ```
+    
+    这将返回 asyncio 程序中所有任务的集合。
+    
+    它是一个集合，因此每个任务仅代表一次。
+
+    如果满足以下条件，则将包含任务：
+    
+    - 任务已安排但尚未运行。
+    - 任务当前正在运行（例如，但当前已暂停）
+    
+    该集合还将包括当前正在运行的任务的任务，例如 正在执行调用 **asyncio.all_tasks()** 函数的协程的任务。
+    
+    另外，请记住，用于启动 asyncio 程序的 **asyncio.run()** 方法会将提供的协程包装在任务中。 这意味着所有任务的集合将包括程序入口点的任务。
+    
+    我们可以探索异步程序中有许多任务的情况，然后获取所有任务的集合。
+
+    在此示例中，我们首先创建 10 个任务，每个任务都包装并运行相同的协程。
+
+    然后，主协程获取程序中计划或运行的所有任务的集合并报告其详细信息。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 启动多个任务并访问所有任务的示例
+    import asyncio
+     
+    # 任务的协程
+    async def task_coroutine(value):
+        # 报告消息
+        print(f'task {value} is running')
+        # 暂时阻塞
+        await asyncio.sleep(1)
+     
+    # 定义一个主协程
+    async def main():
+        # 报告消息
+        print('main coroutine started')
+        # 启动许多任务
+        started_tasks = [asyncio.create_task(task_coroutine(i)) for i in range(10)]
+        # 允许某些任务有时间开始
+        await asyncio.sleep(0.1)
+        # 获取所有任务
+        tasks = asyncio.all_tasks()
+        # 报告所有任务
+        for task in tasks:
+            print(f'> {task.get_name()}, {task.get_coro()}')
+        # 等待所有任务完成
+        for task in started_tasks:
+            await task
+     
+    # 启动异步程序
+    asyncio.run(main())
+    ```
+    
+    运行该示例首先创建主协程并使用它来启动 asyncio 程序。
+    
+    **main()** 协程运行并首先报告一条消息。
+
+    然后它创建并安排 10 个包装自定义协程的任务，
+
+    然后，**main()** 协程会阻塞一段时间，以允许任务开始运行。
+
+    任务开始运行，每个任务报告一条消息，然后休眠。
+
+    **main()** 协程恢复并获取程序中所有任务的列表。
+
+    然后它报告每个协程的名称和协程。
+
+    最后，它枚举已创建的任务列表并等待每个任务，以允许它们完成。
+
+    这强调了我们可以获取 asyncio 程序中所有任务的集合，其中包括创建的任务以及代表程序入口点的任务。
+    
+    ```python
+    main coroutine started
+    task 0 is running
+    task 1 is running
+    task 2 is running
+    task 3 is running
+    task 4 is running
+    task 5 is running
+    task 6 is running
+    task 7 is running
+    task 8 is running
+    task 9 is running
+    > Task-9, <coroutine object task_coroutine at 0x10e186e30>
+    > Task-2, <coroutine object task_coroutine at 0x10e184e40>
+    > Task-11, <coroutine object task_coroutine at 0x10e186f10>
+    > Task-7, <coroutine object task_coroutine at 0x10e186d50>
+    > Task-4, <coroutine object task_coroutine at 0x10e185700>
+    > Task-10, <coroutine object task_coroutine at 0x10e186ea0>
+    > Task-8, <coroutine object task_coroutine at 0x10e186dc0>
+    > Task-5, <coroutine object task_coroutine at 0x10e186ab0>
+    > Task-1, <coroutine object main at 0x10e1847b0>
+    > Task-3, <coroutine object task_coroutine at 0x10e184f90>
+    > Task-6, <coroutine object task_coroutine at 0x10e186ce0>
+    ```
+    
+    您可以了解有关获取所有任务的更多信息。 在教程中：
+    
+    - [如何在 Python 中获取所有 Asyncio 任务](https://superfastpython.com/asyncio-all-tasks/)
+    
+    接下来，我们将探讨如何同时运行多个协程。
 
 ## 10. 同时运行多个协程
 
@@ -564,7 +3766,23 @@
 
 === "英文"
 
+    A benefit of asyncio is that we can run many coroutines concurrently.
+    
+    These coroutines can be created in a group and stored, then executed all together at the same time.
+    
+    This can be achieved using the **asyncio.gather()** function.
+    
+    Let’s take a closer look.
+
 === "中文"
+
+    asyncio 的一个好处是我们可以同时运行许多协程。
+    
+    这些协程可以在一个组中创建并存储，然后同时一起执行。
+
+    这可以使用 **asyncio.gather()** 函数来实现。
+
+    让我们仔细看看。
 
 ### 10.1 什么是 Asyncio Gather()
 
@@ -572,7 +3790,83 @@
 
 === "英文"
 
+    The [asyncio.gather()](https://docs.python.org/3/library/asyncio-task.html#asyncio.gather) module function allows the caller to group multiple awaitables together.
+    
+    Once grouped, the awaitables can be executed concurrently, awaited, and canceled.
+    
+    > Run awaitable objects in the aws sequence concurrently.
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    It is a helpful utility function for both grouping and executing multiple coroutines or multiple tasks.
+    
+    For example:
+    
+    ```python
+    ...
+    # run a collection of awaitables
+    results = await asyncio.gather(coro1(), asyncio.create_task(coro2()))
+    ```
+    
+    We may use the **asyncio.gather()** function in situations where we may create many tasks or coroutines up-front and then wish to execute them all at once and wait for them all to complete before continuing on.
+    
+    This is a likely situation where the result is required from many like-tasks, e.g. same task or coroutine with different data.
+    
+    The awaitables can be executed concurrently, results returned, and the main program can resume by making use of the results on which it is dependent.
+    
+    The **gather()** function is more powerful than simply waiting for tasks to complete.
+    
+    It allows a group of awaitables to be treated as a single awaitable.
+    
+    This allows:
+    
+    - Executing and waiting for all awaitables in the group to be done via an await expression.
+    - Getting results from all grouped awaitables to be retrieved later via the result() method.
+    - The group of awaitables to be canceled via the cancel() method.
+    - Checking if all awaitables in the group are done via the done() method.
+    - Executing callback functions only when all tasks in the group are done.
+    
+    And more.
+
 === "中文"
+
+    [asyncio.gather()](https://docs.python.org/3/library/asyncio-task.html#asyncio.gather) 模块函数允许调用者将多个可等待项组合在一起。
+    
+    一旦分组，可等待项就可以并发执行、等待和取消。
+    
+    > 同时运行 aws 序列中的可等待对象。
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+    
+    对于分组和执行多个协程或多个任务来说，它是一个有用的实用函数。
+    
+    例如：
+    
+    ```python
+    ...
+    # 运行可等待对象集合
+    results = await asyncio.gather(coro1(), asyncio.create_task(coro2()))
+    ```
+    
+    在我们可能预先创建许多任务或协程，然后希望一次执行所有任务或协程并等待它们全部完成然后再继续的情况下，我们可以使用 **asyncio.gather()** 函数。
+    
+    这是一种可能的情况，其中需要许多类似任务的结果，例如 具有不同数据的相同任务或协程。
+
+    可等待对象可以并发执行，返回结果，并且主程序可以通过使用它所依赖的结果来恢复。
+
+    **gather()** 函数比简单地等待任务完成更强大。
+
+    它允许将一组可等待对象视为单个可等待对象。
+
+    这允许：
+    
+    - 通过 **await** 表达式执行并等待组中的所有可等待任务完成。
+    - 从所有分组的可等待项中获取结果，以便稍后通过 **result()** 方法检索。
+    - 通过 **cancel()** 方法取消的可等待组。
+    - 检查组中的所有可等待项是否已通过 **done()** 方法完成。
+    - 仅当组中的所有任务完成时才执行回调函数。
+    
+    和更多。
 
 ### 10.2 如何使用 Asyncio Gather()
 
@@ -580,7 +3874,223 @@
 
 === "英文"
 
+    In this section, we will take a closer look at how we might use the **asyncio.gather()** function.
+    
+    The **asyncio.gather()** function takes one or more awaitables as arguments.
+    
+    Recall an awaitable may be a coroutine, a **Future** or a **Task**.
+    
+    Therefore, we can call the **gather()** function with:
+    
+    - Multiple tasks
+    - Multiple coroutines
+    - Mixture of tasks and coroutines
+    
+    For example:
+    
+    ```python
+    ...
+    # execute multiple coroutines
+    asyncio.gather(coro1(), coro2())
+    ```
+    
+    If **Task** objects are provided to **gather()**, they will already be running because **Tasks** are scheduled as part of being created.
+    
+    The **asyncio.gather()** function takes awaitables as position arguments.
+    
+    We cannot create a list or collection of awaitables and provide it to gather, as this will result in an error.
+    
+    For example:
+    
+    ```python
+    ...
+    # cannot provide a list of awaitables directly
+    asyncio.gather([coro1(), coro2()])
+    ```
+    
+    A list of awaitables can be provided if it is first unpacked into separate expressions using the star operator (*).
+    
+    For example:
+    
+    ```python
+    ...
+    # gather with an unpacked list of awaitables
+    asyncio.gather(*[coro1(), coro2()])
+    ```
+    
+    If coroutines are provided to **gather()**, they are wrapped in **Task** objects automatically.
+    
+    The **gather()** function does not block.
+    
+    Instead, it returns an [**asyncio.Future**](https://docs.python.org/3/library/asyncio-future.html#asyncio.Future) object that represents the group of awaitables.
+    
+    For example:
+    
+    ```python
+    ...
+    # get a future that represents multiple awaitables
+    group = asyncio.gather(coro1(), coro2())
+    ```
+    
+    Once the **Future** object is created it is scheduled automatically within the event loop.
+    
+    The awaitable represents the group, and all awaitables in the group will execute as soon as they are able.
+    
+    This means that if the caller did nothing else, the scheduled group of awaitables will run (assuming the caller suspends).
+    
+    It also means that you do not have to await the **Future** that is returned from **gather()**.
+    
+    For example:
+    
+    ```python
+    ...
+    # get a future that represents multiple awaitables
+    group = asyncio.gather(coro1(), coro2())
+    # suspend and wait a while, the group may be executing..
+    await asyncio.sleep(10)
+    ```
+    
+    The returned Future object can be awaited which will wait for all awaitables in the group to be done.
+    
+    For example:
+    
+    ```python
+    ...
+    # run the group of awaitables
+    await group
+    ```
+    
+    Awaiting the Future returned from **gather()** will return a list of return values from the awaitables.
+    
+    If the awaitables do not return a value, then this list will contain the default **“None”** return value.
+    
+    For example:
+    
+    ```python
+    ...
+    # run the group of awaitables and get return values
+    results = await group
+    ```
+    
+    This is more commonly performed in one line.
+    
+    For example:
+    
+    ```python
+    ...
+    # run tasks and get results on one line
+    results = await asyncio.gather(coro1(), coro2())
+    ```
+
 === "中文"
+
+    在本节中，我们将仔细研究如何使用 **asyncio.gather()** 函数。
+    
+    **asyncio.gather()** 函数采用一个或多个可等待项作为参数。
+
+    回想一下，可等待的可能是协程、**Future** 或 **Task**。
+
+    因此，我们可以调用 **gather()** 函数：
+    
+    - 多项任务
+    - 多个协程
+    - 任务和协程的混合
+    
+    例如：
+    
+    ```python
+    ...
+    # 执行多个协程
+    asyncio.gather(coro1(), coro2())
+    ```
+    
+    如果将 **Task** 对象提供给 **gather()**，它们将已经在运行，因为 **Task** 是作为创建的一部分进行调度的。
+    
+    **asyncio.gather()** 函数将可等待对象作为位置参数。
+
+    我们无法创建可等待项的列表或集合并将其提供给收集，因为这会导致错误。
+
+    例如：
+    
+    ```python
+    ...
+    # 无法直接提供可等待列表
+    asyncio.gather([coro1(), coro2()])
+    ```
+    
+    如果首先使用星号运算符 (*) 将其解包到单独的表达式中，则可以提供可等待列表。
+    
+    例如：
+    
+    ```python
+    ...
+    # 收集一份已解压的等待列表
+    asyncio.gather(*[coro1(), coro2()])
+    ```
+    
+    如果向 **gather()** 提供协程，它们会自动包装在 **Task** 对象中。
+    
+    **gather()** 函数不会阻塞。
+    
+    相反，它返回一个代表可等待组的 [**asyncio.Future**](https://docs.python.org/3/library/asyncio-future.html#asyncio.Future) 对象。
+    
+    例如：
+    
+    ```python
+    ...
+    # 得到一个代表多个可等待对象的Future对象
+    group = asyncio.gather(coro1(), coro2())
+    ```
+    
+    一旦创建了 **Future** 对象，它就会在事件循环中自动调度。
+    
+    可等待代表组，组中的所有可等待将尽快执行。
+
+    这意味着如果调用者没有执行任何其他操作，则预定的等待组将运行（假设调用者挂起）。
+
+    这也意味着您不必等待从 **gather()** 返回的 **Future**。
+
+    例如：
+    
+    ```python
+    ...
+    # 得到一个代表多个可等待对象的Future对象
+    group = asyncio.gather(coro1(), coro2())
+    # 挂起并等待一段时间，该组可能正在执行..
+    await asyncio.sleep(10)
+    ```
+    
+    可以等待返回的 Future 对象，它将等待组中的所有可等待任务完成。
+    
+    例如：
+    
+    ```python
+    ...
+    # 运行可等待对象组
+    await group
+    ```
+    
+    等待从 **gather()** 返回的 Future 将返回可等待项的返回值列表。
+    
+    如果可等待项不返回值，则此列表将包含默认的 **“None”** 返回值。
+
+    例如：
+    
+    ```python
+    ...
+    # 运行可等待组并获取返回值
+    results = await group
+    ```
+    
+    这通常在一行中执行。
+    
+    例如：
+    
+    ```python
+    ...
+    # 在一行中运行任务并获取结果
+    results = await asyncio.gather(coro1(), coro2())
+    ```
 
 ### 10.3 对于列表中的多个协程的 Gather() 示例
 
@@ -588,7 +4098,192 @@
 
 === "英文"
 
+    It is common to create multiple coroutines beforehand and then gather them later.
+    
+    This allows a program to prepare the tasks that are to be executed concurrently and then trigger their concurrent execution all at once and wait for them to complete.
+    
+    We can collect many coroutines together into a list either manually or using a list comprehension.
+    
+    For example:
+    
+    ```python
+    ...
+    # create many coroutines
+    coros = [task_coro(i) for i in range(10)]
+    ```
+    
+    We can then call **gather()** with all coroutines in the list.
+    
+    The list of coroutines cannot be provided directly to the **gather()** function as this will result in an error.
+    
+    Instead, the **gather()** function requires each awaitable to be provided as a separate positional argument.
+    
+    This can be achieved by unwrapping the list into separate expressions and passing them to the **gather()** function. The star operator (*) will perform this operation for us.
+    
+    For example:
+    
+    ```python
+    ...
+    # run the tasks
+    await asyncio.gather(*coros)
+    Tying this together, the complete example of running a list of pre-prepared coroutines with gather() is listed below.
+    
+    # SuperFastPython.com
+    # example of gather for many coroutines in a list
+    import asyncio
+     
+    # coroutine used for a task
+    async def task_coro(value):
+        # report a message
+        print(f'>task {value} executing')
+        # sleep for a moment
+        await asyncio.sleep(1)
+     
+    # coroutine used for the entry point
+    async def main():
+        # report a message
+        print('main starting')
+        # create many coroutines
+        coros = [task_coro(i) for i in range(10)]
+        # run the tasks
+        await asyncio.gather(*coros)
+        # report a message
+        print('main done')
+     
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+    
+    Running the example executes the **main()** coroutine as the entry point to the program.
+    
+    The **main()** coroutine then creates a list of 10 coroutine objects using a list comprehension.
+    
+    This list is then provided to the **gather()** function and unpacked into 10 separate expressions using the star operator.
+    
+    The **main()** coroutine then awaits the Future object returned from the call to gather(), suspending and waiting for all scheduled coroutines to complete their execution.
+    
+    The coroutines run as soon as they are able, reporting their unique messages and sleeping before terminating.
+    
+    Only after all coroutines in the group are complete does the **main()** coroutine resume and report its final message.
+    
+    This highlights how we might prepare a collection of coroutines and provide them as separate expressions to the **gather()** function.
+    
+    ```text
+    main starting
+    >task 0 executing
+    >task 1 executing
+    >task 2 executing
+    >task 3 executing
+    >task 4 executing
+    >task 5 executing
+    >task 6 executing
+    >task 7 executing
+    >task 8 executing
+    >task 9 executing
+    main done
+    ```
+    
+    You can learn more about how to use the gather() function in the tutorial:
+    
+    - [How to Use asyncio.gather() in Python](https://superfastpython.com/asyncio-gather/)
+    
+    Next, we will explore how to wait on a group of asyncio tasks.
+
 === "中文"
+
+    预先创建多个协程然后稍后收集它们是很常见的。
+    
+    这允许程序准备要并发执行的任务，然后立即触发它们的并发执行并等待它们完成。
+
+    我们可以手动或使用列表理解将许多协程收集到一个列表中。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建许多协程
+    coros = [task_coro(i) for i in range(10)]
+    ```
+    
+    然后我们可以对列表中的所有协程调用**gather()**。
+
+    协程列表不能直接提供给 **gather()** 函数，因为这会导致错误。
+
+    相反， **gather()** 函数要求将每个可等待项作为单独的位置参数提供。
+
+    这可以通过将列表展开为单独的表达式并将它们传递给 **gather()** 函数来实现。 星号运算符（*）将为我们执行此操作。
+
+    例如：
+    
+    ```python
+    ...
+    # 运行任务
+    await asyncio.gather(*coros)
+    ```
+    
+    将它们结合在一起，下面列出了使用 Gather() 运行预先准备的协程列表的完整示例。
+    
+    ```python
+    # SuperFastPython.com
+    # 收集列表中许多协程的示例
+    import asyncio
+     
+    # 用于任务的协程
+    async def task_coro(value):
+        # 报告消息
+        print(f'>task {value} executing')
+        # 睡一会儿
+        await asyncio.sleep(1)
+     
+    # coroutine used for the entry point
+    async def main():
+        # 报告消息
+        print('main starting')
+        # 创建许多协程
+        coros = [task_coro(i) for i in range(10)]
+        # 运行任务
+        await asyncio.gather(*coros)
+        # 报告消息
+        print('main done')
+     
+    # 启动异步程序
+    asyncio.run(main())
+    ```
+    
+    运行该示例将执行 **main()** 协程作为程序的入口点。
+    
+    然后，**main()** 协程使用列表理解创建一个包含 10 个协程对象的列表。
+
+    然后将该列表提供给 **gather()** 函数，并使用星号运算符将其解包为 10 个单独的表达式。
+
+    然后，**main()** 协程等待从调用 Gather() 返回的 Future 对象，挂起并等待所有已调度的协程完成其执行。
+
+    协程会尽快运行，报告其独特的消息并在终止前休眠。
+
+    仅当组中的所有协程完成后， **main()** 协程才会恢复并报告其最终消息。
+
+    这强调了我们如何准备协程集合并将它们作为单独的表达式提供给 **gather()** 函数。
+    
+    ```text
+    main starting
+    >task 0 executing
+    >task 1 executing
+    >task 2 executing
+    >task 3 executing
+    >task 4 executing
+    >task 5 executing
+    >task 6 executing
+    >task 7 executing
+    >task 8 executing
+    >task 9 executing
+    main done
+    ```
+    
+    您可以在教程中了解有关如何使用 Gather() 函数的更多信息：
+    
+    - [如何在 Python 中使用 asyncio.gather()](https://superfastpython.com/asyncio-gather/)
+    
+    接下来，我们将探讨如何等待一组异步任务。
 
 ## 11. 等待任务的集合
 
@@ -596,7 +4291,19 @@
 
 === "英文"
 
+    We can wait for asyncio tasks to complete via the **asyncio.wait()** function.
+    
+    Different conditions can be waited for, such as all tasks to complete, the first task to complete, and the first task to fail with an exception.
+    
+    Let’s take a closer look.
+
 === "中文"
+
+    我们可以通过 **asyncio.wait()** 函数等待 asyncio 任务完成。
+    
+    可以等待不同的条件，例如所有任务完成、第一个任务完成、第一个任务因异常而失败。
+
+    让我们仔细看看。
 
 ### 11.1 什么是 asyncio.wait()
 
@@ -604,7 +4311,35 @@
 
 === "英文"
 
+    The **asyncio.wait()** function can be used to wait for a collection of asyncio tasks to complete.
+    
+    Recall that an asyncio task is an instance of the **asyncio.Task** class that wraps a coroutine. It allows a coroutine to be scheduled and executed independently, and the **Task** instance provides a handle on the task for querying status and getting results.
+    
+    You can learn more about asyncio tasks in the tutorial:
+    
+    - [What is an Asyncio Task](https://superfastpython.com/asyncio-task)
+    
+    The wait() function allows us to wait for a collection of tasks to be done.
+    
+    The call to wait can be configured to wait for different conditions, such as all tasks being completed, the first task completed and the first task failing with an error.
+    
+    Next, let’s look at how we might use the wait() function.
+
 === "中文"
+
+    **asyncio.wait()** 函数可用于等待异步任务集合完成。
+    
+    回想一下，asyncio 任务是包装协程的 **asyncio.Task** 类的实例。 它允许协程独立地调度和执行，并且 **Task** 实例提供任务的句柄用于查询状态和获取结果。
+
+    您可以在教程中了解有关异步任务的更多信息：
+    
+    - [什么是异步任务](https://superfastpython.com/asyncio-task)
+    
+    wait() 函数允许我们等待一组任务完成。
+    
+    对 wait 的调用可以配置为等待不同的条件，例如所有任务都已完成、第一个任务已完成以及第一个任务因错误而失败。
+
+    接下来，让我们看看如何使用 wait() 函数。
 
 ### 11.2 如何使用 asyncio.wait()
 
@@ -612,7 +4347,191 @@
 
 === "英文"
 
+    The **asyncio.wait()** function takes a collection of awaitables, typically **Task** objects.
+    
+    This could be a **list**, **dict**, or **set** of task objects that we have created, such as via calls to the **asyncio.create_task()** function in a list comprehension.
+    
+    For example:
+    
+    ```python
+    ...
+    # create many tasks
+    tasks = [asyncio.create_task(task_coro(i)) for i in range(10)]
+    ```
+    
+    The **asyncio.wait()** will not return until some condition on the collection of tasks is met.
+    
+    By default, the condition is that all tasks are completed.
+    
+    The **wait()** function returns a tuple of two sets. The first set contains all task objects that meet the condition, and the second contains all other task objects that do not yet meet the condition.
+    
+    These sets are referred to as the **“done”** set and the **“pending”** set.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for all tasks to complete
+    done, pending = await asyncio.wait(tasks)
+    ```
+    
+    Technically, the **asyncio.wait()** is a coroutine function that returns a coroutine.
+    
+    We can then await this coroutine which will return the tuple of sets.
+    
+    For example:
+    
+    ```python
+    ...
+    # create the wait coroutine
+    wait_coro = asyncio.wait(tasks)
+    # await the wait coroutine
+    tuple = await wait_coro
+    ```
+    
+    The condition waited for can be specified by the **“return_when”** argument which is set to **asyncio.ALL_COMPLETED** by default.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for all tasks to complete
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
+    ```
+    
+    We can wait for the first task to be completed by setting **return_when** to **FIRST_COMPLETED**.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for the first task to be completed
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+    ```
+    
+    When the first task is complete and returned in the done set, the remaining tasks are not canceled and continue to execute concurrently.
+    
+    We can wait for the first task to fail with an exception by setting **return_when** to **FIRST_EXCEPTION**.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for the first task to fail
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_EXCEPTION)
+    ```
+    
+    In this case, the done set will contain the first task that failed with an exception. If no task fails with an exception, the done set will contain all tasks and **wait()** will return only after all tasks are completed.
+    
+    We can specify how long we are willing to wait for the given condition via a “timeout” argument in seconds.
+    
+    If the timeout expires before the condition is met, the tuple of tasks is returned with whatever subset of tasks do meet the condition at that time, e.g. the subset of tasks that are completed if waiting for all tasks to complete.
+    
+    For example:
+    
+    ```python
+    ...
+    # wait for all tasks to complete with a timeout
+    done, pending = await asyncio.wait(tasks, timeout=3)
+    ```
+    
+    If the timeout is reached before the condition is met, an exception is not raised and the remaining tasks are not canceled.
+    
+    Now that we know how to use the **asyncio.wait()** function, let’s look at some worked examples.
+
 === "中文"
+
+    **asyncio.wait()** 函数采用可等待对象的集合，通常是 **Task** 对象。
+    
+    这可以是我们创建的任务对象的**list**、**dict**或**set**，例如通过调用列表推导式中的 **asyncio.create_task()** 函数 。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建许多任务
+    tasks = [asyncio.create_task(task_coro(i)) for i in range(10)]
+    ```
+    
+    在满足任务集合的某些条件之前， **asyncio.wait()** 将不会返回。
+    
+    默认情况下，条件是所有任务均已完成。
+
+    **wait()** 函数返回两个集合的元组。 第一个集合包含满足条件的所有任务对象，第二个集合包含尚未满足条件的所有其他任务对象。
+
+    这些集称为 **“done”** 集和 **“pending”** 集。
+
+    例如：
+    
+    ```python
+    ...
+    # 等待所有任务完成
+    done, pending = await asyncio.wait(tasks)
+    ```
+    
+    从技术上讲， **asyncio.wait()** 是一个返回协程的协程函数。
+    
+    然后我们可以等待这个协程，它将返回集合的元组。
+
+    例如：
+    
+    ```python
+    ...
+    # 创建等待协程
+    wait_coro = asyncio.wait(tasks)
+    # 等待协程
+    tuple = await wait_coro
+    ```
+    
+    等待的条件可以通过 **“return_when”** 参数指定，默认设置为 **asyncio.ALL_COMPLETED**。
+    
+    例如：
+    
+    ```python
+    ...
+    # 等待所有任务完成
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.ALL_COMPLETED)
+    ```
+    
+    我们可以通过将 **return_when** 设置为 **FIRST_COMPLETED** 来等待第一个任务完成。
+    
+    例如：
+    
+    ```python
+    ...
+    # 等待第一个任务完成
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+    ```
+    
+    当第一个任务完成并返回完成集中时，其余任务不会取消并继续并发执行。
+    
+    我们可以通过将 **return_when** 设置为 **FIRST_EXCEPTION** 来等待第一个任务因异常而失败。
+
+    例如：
+    
+    ```python
+    ...
+    # 等待第一个任务失败
+    done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_EXCEPTION)
+    ```
+    
+    在这种情况下，完成集将包含第一个因异常而失败的任务。 如果没有任务因异常而失败，则完成集将包含所有任务，并且 **wait()** 仅在所有任务完成后才返回。
+    
+    我们可以通过 **“timeout”** 参数指定我们愿意等待给定条件的时间（以秒为单位）。
+
+    如果在满足条件之前超时到期，则返回任务元组以及当时满足条件的任何任务子集，例如 如果等待所有任务完成，则为完成的任务子集。
+
+    例如：
+    
+    ```python
+    ...
+    # 等待所有任务完成并使用超时
+    done, pending = await asyncio.wait(tasks, timeout=3)
+    ```
+    
+    如果在满足条件之前达到超时，则不会引发异常，并且不会取消剩余的任务。
+    
+    现在我们知道如何使用 **asyncio.wait()** 函数，让我们看一些有效的示例。
 
 ### 11.3 等待所有任务的示例
 
@@ -620,7 +4539,151 @@
 
 === "英文"
 
+    We can explore how to wait for all tasks using **asyncio.wait()**.
+    
+    In this example, we will define a simple task coroutine that generates a random value, sleeps for a fraction of a second, then reports a message with the generated value.
+    
+    The main coroutine will then create many tasks in a list comprehension with the coroutine and then wait for all tasks to be completed.
+    
+    The complete example is listed below.
+    
+    ```python
+    # SuperFastPython.com
+    # example of waiting for all tasks to complete
+    from random import random
+    import asyncio
+     
+    # coroutine to execute in a new task
+    async def task_coro(arg):
+        # generate a random value between 0 and 1
+        value = random()
+        # block for a moment
+        await asyncio.sleep(value)
+        # report the value
+        print(f'>task {arg} done with {value}')
+     
+    # main coroutine
+    async def main():
+        # create many tasks
+        tasks = [asyncio.create_task(task_coro(i)) for i in range(10)]
+        # wait for all tasks to complete
+        done,pending = await asyncio.wait(tasks)
+        # report results
+        print('All done')
+     
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+    
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the asyncio program.
+    
+    The **main()** coroutine then creates a list of ten tasks in a list comprehension, each providing a unique integer argument from 0 to 9.
+    
+    The **main()** coroutine is then suspended and waits for all tasks to complete.
+    
+    The tasks execute. Each generates a random value, sleeps for a moment, then reports its generated value.
+    
+    After all tasks have been completed, the main() coroutine resumes and reports a final message.
+    
+    This example highlights how we can use the **wait()** function to wait for a collection of tasks to be completed.
+    
+    This is perhaps the most common usage of the function.
+    
+    Note, that the results will differ each time the program is run given the use of random numbers.
+    
+    ```text
+    >task 5 done with 0.0591009105682192
+    >task 8 done with 0.10453715687017351
+    >task 0 done with 0.15462838864295925
+    >task 6 done with 0.4103492027393125
+    >task 9 done with 0.45567100006991623
+    >task 2 done with 0.6984682905809402
+    >task 7 done with 0.7785363531316224
+    >task 3 done with 0.827386088873161
+    >task 4 done with 0.9481344994700972
+    >task 1 done with 0.9577302665040541
+    All done
+    ```
+    
+    You can learn more about the wait() function in the tutorial:
+    
+    - [How to Use Asyncio wait() in Python](https://superfastpython.com/asyncio-wait/)
+    
+    Next, we will explore how to wait for a single coroutine with a time limit.
+
 === "中文"
+
+    我们可以探索如何使用 **asyncio.wait()** 等待所有任务。
+    
+    在此示例中，我们将定义一个简单的任务协程，它生成一个随机值，休眠一小会儿，然后报告包含生成值的消息。
+
+    然后，主协程将使用协程在列表推导中创建许多任务，然后等待所有任务完成。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 等待所有任务完成的示例
+    from random import random
+    import asyncio
+     
+    # 在新任务中执行的协程
+    async def task_coro(arg):
+        # 生成 0 到 1 之间的随机值
+        value = random()
+        # 暂时阻塞
+        await asyncio.sleep(value)
+        # 报告值
+        print(f'>task {arg} done with {value}')
+     
+    # 主协程
+    async def main():
+        # 创建许多任务
+        tasks = [asyncio.create_task(task_coro(i)) for i in range(10)]
+        # 等待所有任务完成
+        done,pending = await asyncio.wait(tasks)
+        # 报告结果
+        print('All done')
+     
+    # 启动异步程序
+    asyncio.run(main())
+    ```
+    
+    运行该示例首先创建 **main()** 协程，并将其用作 asyncio 程序的入口点。
+    
+    然后，**main()** 协程在列表理解中创建一个包含十个任务的列表，每个任务提供一个从 0 到 9 的唯一整数参数。
+
+    然后 **main()** 协程被挂起并等待所有任务完成。
+
+    任务执行。 每个生成一个随机值，休眠一会儿，然后报告其生成的值。
+
+    所有任务完成后，main() 协程恢复并报告最终消息。
+
+    此示例重点介绍了如何使用 **wait()** 函数来等待任务集合完成。
+
+    这可能是该函数最常见的用法。
+
+    请注意，由于使用随机数，每次运行程序时结果都会有所不同。
+    
+    ```text
+    >task 5 done with 0.0591009105682192
+    >task 8 done with 0.10453715687017351
+    >task 0 done with 0.15462838864295925
+    >task 6 done with 0.4103492027393125
+    >task 9 done with 0.45567100006991623
+    >task 2 done with 0.6984682905809402
+    >task 7 done with 0.7785363531316224
+    >task 3 done with 0.827386088873161
+    >task 4 done with 0.9481344994700972
+    >task 1 done with 0.9577302665040541
+    All done
+    ```
+    
+    您可以在教程中了解有关 **wait()** 函数的更多信息：
+    
+    - [如何在 Python 中使用 Asyncio wait()](https://superfastpython.com/asyncio-wait/)
+    
+    接下来，我们将探讨如何在有时间限制的情况下等待单个协程。
 
 ## 12. 等待有时间限制的协程
 
