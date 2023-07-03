@@ -17,15 +17,15 @@
         <link rel="next" href="../cheat_sheet/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
     
     
       
-        <title>英文完整指南 - FastApi 最佳实践-中文版</title>
+        <title>中英对照指南 - FastApi 最佳实践-中文版</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.26e3688c.min.css">
       
       
 
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              英文完整指南
+              中英对照指南
             
           </span>
         </div>
@@ -457,12 +457,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          英文完整指南
+          中英对照指南
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        英文完整指南
+        中英对照指南
       </a>
       
         
@@ -3874,7 +3874,7 @@
 </code></pre></div>
 <p>An asynchronous iterator is an iterator that yields awaitables.</p>
 <blockquote>
-<p>asynchronous iterator: An object that implements the <strong>aiter</strong>() and <strong>anext</strong>() methods. <strong>anext</strong> must return an awaitable object. async for resolves the awaitables returned by an asynchronous iterator’s <strong>anext</strong>() method until it raises a StopAsyncIteration exception.</p>
+<p>asynchronous iterator: An object that implements the __aiter__() and __anext__() methods. __anext__ must return an awaitable object. async for resolves the awaitables returned by an asynchronous iterator’s __anext__() method until it raises a StopAsyncIteration exception.</p>
 <p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
 </blockquote>
 <p>An asynchronous iterator can be traversed using the <a href="https://superfastpython.com/asyncio-async-for/"><strong>“async for”</strong></a> expression.</p>
@@ -7041,184 +7041,1340 @@ All done
 <p><strong>12. Wait for a Coroutine with a Time Limit</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="60:2"><input checked="checked" id="__tabbed_60_1" name="__tabbed_60" type="radio" /><input id="__tabbed_60_2" name="__tabbed_60" type="radio" /><div class="tabbed-labels"><label for="__tabbed_60_1">英文</label><label for="__tabbed_60_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can wait for an asyncio task or coroutine to complete with a timeout using the <strong>asyncio.wait_for()</strong> function.</p>
+<p>If the timeout elapses before the task completes, the task is canceled.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以使用 <strong>asyncio.wait_for()</strong> 函数等待 asyncio 任务或协程完成并超时。</p>
+<p>如果在任务完成之前超时，则任务将被取消。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="121-什么是-asyncio-wait_for">12.1 什么是 Asyncio wait_for()<a class="headerlink" href="#121-什么是-asyncio-wait_for" title="Permanent link">&para;</a></h3>
 <p><strong>12.1 What is Asyncio wait_for()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="61:2"><input checked="checked" id="__tabbed_61_1" name="__tabbed_61" type="radio" /><input id="__tabbed_61_2" name="__tabbed_61" type="radio" /><div class="tabbed-labels"><label for="__tabbed_61_1">英文</label><label for="__tabbed_61_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <strong>asyncio.wait_for()</strong> function allows the caller to wait for an asyncio task or coroutine to complete with a timeout.</p>
+<p>If no timeout is specified, the <strong>wait_for()</strong> function will wait until the task is completed.</p>
+<p>If a timeout is specified and elapses before the task is complete, then the task is canceled.</p>
+<blockquote>
+<p>Wait for the aw awaitable to complete with a timeout.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>This allows the caller to both set an expectation about how long they are willing to wait for a task to complete, and to enforce the timeout by canceling the task if the timeout elapses.</p>
+<p>Now that we know what the <strong>asyncio.wait_for()</strong> function is, let’s look at how to use it.</p>
+</div>
+<div class="tabbed-block">
+<p><strong>asyncio.wait_for()</strong> 函数允许调用者等待异步任务或协程完成并超时。</p>
+<p>如果没有指定超时，<strong>wait_for()</strong>函数将等待，直到任务完成。</p>
+<p>如果指定了超时并在任务完成之前超时，则任务将被取消。</p>
+<blockquote>
+<p>等待 aw waitable 完成并超时。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>这允许调用者设置他们愿意等待任务完成多长时间的期望，并在超时结束时通过取消任务来强制超时。</p>
+<p>现在我们知道了 <strong>asyncio.wait_for()</strong> 函数是什么，让我们看看如何使用它。</p>
+</div>
 </div>
 </div>
 <h3 id="122-如何使用-asyncio-wait_for">12.2 如何使用 Asyncio wait_for()<a class="headerlink" href="#122-如何使用-asyncio-wait_for" title="Permanent link">&para;</a></h3>
 <p><strong>12.2 How to Use Asyncio wait_for()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="62:2"><input checked="checked" id="__tabbed_62_1" name="__tabbed_62" type="radio" /><input id="__tabbed_62_2" name="__tabbed_62" type="radio" /><div class="tabbed-labels"><label for="__tabbed_62_1">英文</label><label for="__tabbed_62_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for">asyncio.wait_for()</a> function takes an awaitable and a timeout.</p>
+<p>The awaitable may be a coroutine or a task.</p>
+<p>A timeout must be specified and may be <strong>None</strong> for no timeout, an integer or floating point number of seconds.</p>
+<p>The <strong>wait_for()</strong> function returns a coroutine that is not executed until it is explicitly awaited or scheduled as a task.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># wait for a task to complete</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>If a coroutine is provided, it will be converted to the task when the <strong>wait_for()</strong> coroutine is executed.</p>
+<p>If the timeout elapses before the task is completed, the task is canceled, and an <strong>asyncio.TimeoutError</strong> is raised, which may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># execute a task with a timeout</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># wait for a task to complete</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>If the waited-for task fails with an unhandled exception, the exception will be propagated back to the caller that is awaiting on the <strong>wait_for()</strong> coroutine, in which case it may need to be handled.</p>
+<p>For example</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># execute a task that may fail</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># wait for a task to complete</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>Next, let’s look at how we can call <strong>wait_for()</strong> with a timeout.</p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for">asyncio.wait_for()</a> 函数需要等待和超时。</p>
+<p>可等待的可能是协程或任务。</p>
+<p>必须指定超时，并且可以为 <strong>None</strong>（无超时）、整数或浮点数秒数。</p>
+<p><strong>wait_for()</strong> 函数返回一个协程，该协程在被显式等待或安排为任务之前不会执行。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 等待任务完成</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+<p>如果提供了协程，则会在执行 <strong>wait_for()</strong> 协程时将其转换为任务。</p>
+<p>如果在任务完成之前超时，任务将被取消，并引发 <strong>asyncio.TimeoutError</strong>，这可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 执行超时任务</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 等待任务完成</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>如果等待的任务因未处理的异常而失败，则该异常将传播回正在等待 <strong>wait_for()</strong> 协程的调用者，在这种情况下可能需要对其进行处理。</p>
+<p>例如:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 执行可能失败的任务</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 等待任务完成</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">coro</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>接下来，让我们看看如何调用 <strong>wait_for()</strong> 并设置超时。</p>
+</div>
 </div>
 </div>
 <h3 id="123-带有超时的-asyncio-wait_for-示例">12.3 带有超时的 Asyncio wait_for() 示例<a class="headerlink" href="#123-带有超时的-asyncio-wait_for-示例" title="Permanent link">&para;</a></h3>
 <p><strong>12.3 Example of Asyncio wait_for() With a Timeout</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="63:2"><input checked="checked" id="__tabbed_63_1" name="__tabbed_63" type="radio" /><input id="__tabbed_63_2" name="__tabbed_63" type="radio" /><div class="tabbed-labels"><label for="__tabbed_63_1">英文</label><label for="__tabbed_63_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can explore how to wait for a coroutine with a timeout that elapses before the task is completed.</p>
+<p>In this example, we execute a coroutine as above, except the caller waits a fixed timeout of 0.2 seconds or 200 milliseconds.</p>
+<p>Recall that one second is equal to 1,000 milliseconds.</p>
+<p>The task coroutine is modified so that it sleeps for more than one second, ensuring that the timeout always expires before the task is complete.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of waiting for a coroutine with a timeout</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine to execute in a new task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="c1"># generate a random value between 0 and 1</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">random</span><span class="p">()</span>
+    <span class="c1"># report message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task got </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># block for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1"># report all done</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&gt;task done&#39;</span><span class="p">)</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create a task</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">task_coro</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># execute and wait for the task without a timeout</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gave up waiting, task canceled&#39;</span><span class="p">)</span>
+
+<span class="c1"># start the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the <strong>main()</strong> coroutine and uses it as the entry point into the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine creates the task coroutine. It then calls <strong>wait_for()</strong> and passes the task coroutine and sets the timeout to 0.2 seconds.</p>
+<p>The <strong>main()</strong> coroutine is suspended and the <strong>task_coro()</strong> is executed. It reports a message and sleeps for a moment.</p>
+<p>The <strong>main()</strong> coroutine resumes after the timeout has elapsed. The <strong>wait_for()</strong> coroutine cancels the <strong>task_coro()</strong> coroutine and the main() coroutine is suspended.</p>
+<p>The <strong>task_coro()</strong> runs again and responds to the request to be terminated. It raises a <strong>TimeoutError</strong> exception and terminates.</p>
+<p>The <strong>main()</strong> coroutine resumes and handles the <strong>TimeoutError</strong> raised by the task_coro().</p>
+<p>This highlights how we can call the <strong>wait_for()</strong> function with a timeout and to cancel a task if it is not completed within a timeout.</p>
+<p>The output from the program will differ each time it is run given the use of random numbers.</p>
+<div class="highlight"><pre><span></span><code>&gt;task got 0.685375224799321
+Gave up waiting, task canceled
+</code></pre></div>
+<p>You can learn more about the wait_for() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait_for/">Asyncio wait_for() to Wait With a Timeout</a></li>
+</ul>
+<p>Next, we will explore how we might protect an asyncio task from being canceled.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何在任务完成之前等待超时的协程。</p>
+<p>在这个例子中，我们像上面一样执行一个协程，除了调用者等待 0.2 秒或 200 毫秒的固定超时。</p>
+<p>回想一下，一秒等于 1,000 毫秒。</p>
+<p>任务协程经过修改，使其休眠时间超过一秒，确保超时始终在任务完成之前到期。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 等待超时协程的示例</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 在新任务中执行的协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="c1"># 生成 0 到 1 之间的随机值</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">random</span><span class="p">()</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;task got </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="c1"># 阻塞片刻</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="c1"># 报告所有已完成</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&gt;task done&#39;</span><span class="p">)</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建一个任务</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">task_coro</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 执行并等待任务，无超时</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gave up waiting, task canceled&#39;</span><span class="p">)</span>
+
+<span class="c1"># 开始异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程，并将其用作 asyncio 程序的入口点。</p>
+<p><strong>main()</strong> 协程创建任务协程。 然后，它调用 <strong>wait_for()</strong> 并传递任务协程并将超时设置为 0.2 秒。</p>
+<p><strong>main()</strong> 协程被挂起并执行 <strong>task_coro()</strong>。 它报告一条消息并休眠一会儿。</p>
+<p><strong>main()</strong> 协程在超时后恢复。 <strong>wait_for()</strong> 协程取消 <strong>task_coro()</strong> 协程，并且 main() 协程被挂起。</p>
+<p><strong>task_coro()</strong> 再次运行并响应要终止的请求。 它引发 <strong>TimeoutError</strong> 异常并终止。</p>
+<p><strong>main()</strong> 协程恢复并处理由 task_coro() 引发的 <strong>TimeoutError</strong>。</p>
+<p>这强调了我们如何调用带有超时的 <strong>wait_for()</strong> 函数，并在超时内未完成任务时取消任务。</p>
+<p>由于使用随机数，程序每次运行时的输出都会有所不同。</p>
+<div class="highlight"><pre><span></span><code>&gt;task got 0.685375224799321
+Gave up waiting, task canceled
+</code></pre></div>
+<p>您可以在教程中了解有关 wait_for() 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait_for/">Asyncio wait_for() 等待超时</a></li>
+</ul>
+<p>接下来，我们将探讨如何保护异步任务不被取消。</p>
+</div>
 </div>
 </div>
 <h2 id="13-防止任务被取消">13. 防止任务被取消<a class="headerlink" href="#13-防止任务被取消" title="Permanent link">&para;</a></h2>
 <p><strong>13. Shield Tasks from Cancellation</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="64:2"><input checked="checked" id="__tabbed_64_1" name="__tabbed_64" type="radio" /><input id="__tabbed_64_2" name="__tabbed_64" type="radio" /><div class="tabbed-labels"><label for="__tabbed_64_1">英文</label><label for="__tabbed_64_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Asyncio tasks can be canceled by calling their <strong>cancel()</strong> method.</p>
+<p>We can protect a task from being canceled by wrapping it in a call to <strong>asyncio.shield()</strong>.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>可以通过调用异步任务的 <strong>cancel()</strong> 方法来取消异步任务。</p>
+<p>我们可以通过将任务包装在对 <strong>asyncio.shield()</strong> 的调用中来防止任务被取消。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="131-什么是-asyncio-shield">13.1 什么是 Asyncio shield()<a class="headerlink" href="#131-什么是-asyncio-shield" title="Permanent link">&para;</a></h3>
 <p><strong>13.1 What is Asyncio shield()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="65:2"><input checked="checked" id="__tabbed_65_1" name="__tabbed_65" type="radio" /><input id="__tabbed_65_2" name="__tabbed_65" type="radio" /><div class="tabbed-labels"><label for="__tabbed_65_1">英文</label><label for="__tabbed_65_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The asyncio.shield() function wraps an awaitable in Future that will absorb requests to be canceled.</p>
+<blockquote>
+<p>Protect an awaitable object from being cancelled.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>This means the shielded future can be passed around to tasks that may try to cancel it and the cancellation request will look like it was successful, except that the Task or coroutine that is being shielded will continue to run.</p>
+<p>It may be useful in asyncio programs where some tasks can be canceled, but others, perhaps with a higher priority cannot.</p>
+<p>It may also be useful in programs where some tasks can safely be canceled, such as those that were designed with asyncio in mind, whereas others cannot be safely terminated and therefore must be shielded from cancellation.</p>
+<p>Now that we know what <strong>asyncio.shield()</strong> is, let’s look at how to use it.</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio.shield() 函数在 Future 中包装了一个可等待的对象，它将吸收要取消的请求。</p>
+<blockquote>
+<p>保护可等待对象不被取消。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>这意味着受屏蔽的 future 可以传递给可能尝试取消它的任务，并且取消请求看起来像是成功的，只不过被屏蔽的任务或协程将继续运行。</p>
+<p>它在异步程序中可能很有用，其中某些任务可以取消，但其他任务（可能具有更高优先级）则不能。</p>
+<p>它在某些任务可以安全取消的程序中也可能很有用，例如那些设计时考虑了 asyncio 的任务，而其他任务则无法安全终止，因此必须防止取消。</p>
+<p>现在我们知道了 <strong>asyncio.shield()</strong> 是什么，让我们看看如何使用它。</p>
+</div>
 </div>
 </div>
 <h3 id="132-如何使用-asyncioshield">13.2 如何使用 Asyncioshield()<a class="headerlink" href="#132-如何使用-asyncioshield" title="Permanent link">&para;</a></h3>
 <p><strong>13.2 How to Use Asyncio shield()</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="66:2"><input checked="checked" id="__tabbed_66_1" name="__tabbed_66" type="radio" /><input id="__tabbed_66_2" name="__tabbed_66" type="radio" /><div class="tabbed-labels"><label for="__tabbed_66_1">英文</label><label for="__tabbed_66_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.shield"><strong>asyncio.shield()</strong></a> function will protect another <strong>Task</strong> or coroutine from being canceled.</p>
+<p>It takes an awaitable as an argument and returns an <strong>asyncio.Future</strong> object.</p>
+<p>The Future object can then be awaited directly or passed to another task or coroutine.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># shield a task from cancellation</span>
+<span class="n">shielded</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># await the shielded task</span>
+<span class="k">await</span> <span class="n">shielded</span>
+</code></pre></div>
+<p>The returned <strong>Future</strong> can be canceled by calling the <strong>cancel()</strong> method.</p>
+<p>If the inner task is running, the request will be reported as successful.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># cancel a shielded task</span>
+<span class="n">was_canceld</span> <span class="o">=</span> <span class="n">shielded</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>Any coroutines awaiting the <strong>Future</strong> object will raise an <strong>asyncio.CancelledError</strong>, which may need to be handled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># await the shielded task</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>Importantly, the request for cancellation made on the <strong>Future</strong> object is not propagated to the inner task.</p>
+<p>This means that the request for cancellation is absorbed by the shield.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+<span class="c1"># create a shield</span>
+<span class="n">shield</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># cancel the shield (does not cancel the task)</span>
+<span class="n">shield</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>If a coroutine is provided to the <strong>asyncio.shield()</strong> function it is wrapped in an <strong>asyncio.Task()</strong> and scheduled immediately.</p>
+<p>This means that the shield does not need to be awaited for the inner coroutine to run.</p>
+<blockquote>
+<p>If aw is a coroutine it is automatically scheduled as a Task.</p>
+<p>— COROUTINES AND TASKS</p>
+</blockquote>
+<p>If the task that is being shielded is canceled, the cancellation request will be propagated up to the shield, which will also be canceled.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+<span class="c1"># create a shield</span>
+<span class="n">shield</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># cancel the task (also cancels the shield)</span>
+<span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>Now that we know how to use the asyncio.shield() function, let’s look at some worked examples.</p>
+</div>
+<div class="tabbed-block">
+<p><a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.shield"><strong>asyncio.shield()</strong></a> 函数将保护另一个 <strong>Task</strong> 或协程不被 取消。</p>
+<p>它接受一个可等待作为参数并返回一个 <strong>asyncio.Future</strong> 对象。</p>
+<p>然后可以直接等待 Future 对象或将其传递给另一个任务或协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 防止任务被取消</span>
+<span class="n">shielded</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># 等待屏蔽任务</span>
+<span class="k">await</span> <span class="n">shielded</span>
+</code></pre></div>
+<p>返回的 <strong>Future</strong> 可以通过调用 <strong>cancel()</strong> 方法取消。</p>
+<p>如果内部任务正在运行，则请求将报告为成功。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 取消屏蔽任务</span>
+<span class="n">was_canceld</span> <span class="o">=</span> <span class="n">shielded</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>任何等待 <strong>Future</strong> 对象的协程都会引发 <strong>asyncio.CancelledError</strong>，这可能需要处理。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># 等待屏蔽任务</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>重要的是，对 <strong>Future</strong> 对象发出的取消请求不会传播到内部任务。</p>
+<p>这意味着取消请求被屏蔽吸收。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+<span class="c1"># 创建一个防取消</span>
+<span class="n">shield</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># 取消屏蔽（不取消任务）</span>
+<span class="n">shield</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>如果向 <strong>asyncio.shield()</strong> 函数提供协程，它将被包装在 <strong>asyncio.Task()</strong> 中并立即调度。</p>
+<p>这意味着屏蔽不需要等待内部协程运行。</p>
+<blockquote>
+<p>如果 aw 是协程，它会自动安排为任务。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html">COROUTINES AND TASKS</a></p>
+</blockquote>
+<p>如果正在屏蔽的任务被取消，则取消请求将传播到屏蔽，屏蔽也将被取消。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+<span class="c1"># 创建一个盾牌</span>
+<span class="n">shield</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+<span class="c1"># 取消任务（同时取消护盾）</span>
+<span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+</code></pre></div>
+<p>现在我们知道如何使用 <strong>asyncio.shield()</strong> 函数，让我们看一些有效的示例。</p>
+</div>
 </div>
 </div>
 <h3 id="133-任务的-asyncioshield-示例">13.3 任务的 Asyncioshield() 示例<a class="headerlink" href="#133-任务的-asyncioshield-示例" title="Permanent link">&para;</a></h3>
 <p><strong>13.3 Example of Asyncio shield() for a Task</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="67:2"><input checked="checked" id="__tabbed_67_1" name="__tabbed_67" type="radio" /><input id="__tabbed_67_2" name="__tabbed_67" type="radio" /><div class="tabbed-labels"><label for="__tabbed_67_1">英文</label><label for="__tabbed_67_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can explore how to protect a task from cancellation using asyncio.shield().</p>
+<p>In this example, we define a simple coroutine task that takes an integer argument, sleeps for a second, then returns the argument. The coroutine can then be created and scheduled as a Task.</p>
+<p>We can define a second coroutine that takes a task, sleeps for a fraction of a second, then cancels the provided task.</p>
+<p>In the main coroutine, we can then shield the first task and pass it to the second task, then await the shielded task.</p>
+<p>The expectation is that the shield will be canceled and leave the inner task intact. The cancellation will disrupt the main coroutine. We can check the status of the inner task at the end of the program and we expect it to have been completed normally, regardless of the request to cancel made on the shield.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of using asyncio shield to protect a task from cancellation</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># define a simple asynchronous</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">simple_task</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="c1"># block for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># return the argument</span>
+    <span class="k">return</span> <span class="n">number</span>
+
+<span class="c1"># cancel the given task after a moment</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">cancel_task</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="c1"># block for a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="c1"># cancel the task</span>
+    <span class="n">was_cancelled</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cancelled: </span><span class="si">{</span><span class="n">was_cancelled</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># define a simple coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create the coroutine</span>
+    <span class="n">coro</span> <span class="o">=</span> <span class="n">simple_task</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># create a task</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+    <span class="c1"># created the shielded task</span>
+    <span class="n">shielded</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="c1"># create the task to cancel the previous task</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">cancel_task</span><span class="p">(</span><span class="n">shielded</span><span class="p">))</span>
+    <span class="c1"># handle cancellation</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># await the shielded task</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">shielded</span>
+        <span class="c1"># report the result</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;got: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shielded was cancelled&#39;</span><span class="p">)</span>
+    <span class="c1"># wait a moment</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># report the details of the tasks</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;shielded: </span><span class="si">{</span><span class="n">shielded</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;task: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># start</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the <strong>main()</strong> coroutine and uses it as the entry point into the application.</p>
+<p>The task coroutine is created, then it is wrapped and scheduled in a <strong>Task</strong>.</p>
+<p>The task is then shielded from cancellation.</p>
+<p>The shielded task is then passed to the <strong>cancel_task()</strong> coroutine which is wrapped in a task and scheduled.</p>
+<p>The main coroutine then awaits the shielded task, which expects a <strong>CancelledError</strong> exception.</p>
+<p>The task runs for a moment then sleeps. The cancellation task runs for a moment, sleeps, resumes then cancels the shielded task. The request to cancel reports that it was successful.</p>
+<p>This raises a <strong>CancelledError</strong> exception in the shielded <strong>Future</strong>, although not in the inner task.</p>
+<p>The <strong>main()</strong> coroutine resumes and responds to the <strong>CancelledError</strong> exception, reporting a message. It then sleeps for a while longer.</p>
+<p>The task resumes, finishes, and returns a value.</p>
+<p>Finally, the <strong>main()</strong> coroutine resumes, and reports the status of the shielded future and the inner task. We can see that the shielded future is marked as canceled and yet the inner task is marked as finished normally and provides a return value.</p>
+<p>This example highlights how a shield can be used to successfully protect an inner task from cancellation.</p>
+<div class="highlight"><pre><span></span><code>cancelled: True
+shielded was cancelled
+shielded: &lt;Future cancelled&gt;
+task: &lt;Task finished name=&#39;Task-2&#39; coro=&lt;simple_task() done, defined at ...&gt; result=1&gt;
+</code></pre></div>
+<p>You can learn more about the shield() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-shield/">Asyncio Shield From Cancellation</a></li>
+</ul>
+<p>Next, we will explore how to run a blocking task from an asyncio program.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何使用 asyncio.shield() 来保护任务不被取消。</p>
+<p>在这个例子中，我们定义了一个简单的协程任务，它接受一个整数参数，休眠一秒钟，然后返回该参数。 然后可以创建协程并将其安排为任务。</p>
+<p>我们可以定义第二个协程，它接受一个任务，休眠一小会儿，然后取消提供的任务。</p>
+<p>在主协程中，我们可以屏蔽第一个任务并将其传递给第二个任务，然后等待屏蔽的任务。</p>
+<p>预计护盾将被取消，而内部任务完好无损。 取消将扰乱主协程。 我们可以在程序结束时检查内部任务的状态，并且我们希望它已正常完成，无论屏蔽上是否发出取消请求。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 使用 asyncio shield 保护任务不被取消的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 定义一个简单的异步</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">simple_task</span><span class="p">(</span><span class="n">number</span><span class="p">):</span>
+    <span class="c1"># 暂时阻塞</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 返回参数</span>
+    <span class="k">return</span> <span class="n">number</span>
+
+<span class="c1"># cancel the given task after a moment</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">cancel_task</span><span class="p">(</span><span class="n">task</span><span class="p">):</span>
+    <span class="c1"># 暂时阻塞</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="c1"># 取消任务</span>
+    <span class="n">was_cancelled</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;cancelled: </span><span class="si">{</span><span class="n">was_cancelled</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 定义一个简单的协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建协程</span>
+    <span class="n">coro</span> <span class="o">=</span> <span class="n">simple_task</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 创建任务</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+    <span class="c1"># 创建被保护的任务</span>
+    <span class="n">shielded</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">shield</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="c1"># 创建任务以取消上一个任务</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">cancel_task</span><span class="p">(</span><span class="n">shielded</span><span class="p">))</span>
+    <span class="c1"># 处理取消</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 等待屏蔽任务</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">shielded</span>
+        <span class="c1"># 报告结果</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;&gt;got: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;shielded was cancelled&#39;</span><span class="p">)</span>
+    <span class="c1"># 稍等</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 报告任务的详细信息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;shielded: </span><span class="si">{</span><span class="n">shielded</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;task: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 开始</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程并将其用作应用程序的入口点。</p>
+<p>创建任务协程，然后将其包装并安排在 <strong>Task</strong> 中。</p>
+<p>然后该任务就不会被取消。</p>
+<p>然后，屏蔽任务被传递到 <strong>cancel_task()</strong> 协程，该协程被包装在任务中并进行调度。</p>
+<p>然后，主协程等待屏蔽任务，该任务需要 <strong>CancelledError</strong> 异常。</p>
+<p>该任务运行一会儿然后休眠。 取消任务运行一会儿，休眠，恢复，然后取消屏蔽任务。 取消请求报告称已成功。</p>
+<p>这会在屏蔽的 <strong>Future</strong> 中引发 <strong>CancelledError</strong> 异常，但不会在内部任务中引发。</p>
+<p><strong>main()</strong> 协程恢复并响应 <strong>CancelledError</strong> 异常，报告一条消息。 然后它会再睡一会儿。</p>
+<p>任务继续、完成并返回一个值。</p>
+<p>最后，<strong>main()</strong> 协程恢复，并报告屏蔽 future 和内部任务的状态。 我们可以看到，屏蔽的 future 被标记为已取消，而内部任务被标记为正常完成并提供返回值。</p>
+<p>此示例重点介绍了如何使用防护罩成功保护内部任务免遭取消。</p>
+<div class="highlight"><pre><span></span><code>cancelled: True
+shielded was cancelled
+shielded: &lt;Future cancelled&gt;
+task: &lt;Task finished name=&#39;Task-2&#39; coro=&lt;simple_task() done, defined at ...&gt; result=1&gt;
+</code></pre></div>
+<p>您可以在教程中了解有关shield()函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-shield/">Asyncio 防止取消</a></li>
+</ul>
+<p>接下来，我们将探讨如何从 asyncio 程序运行阻塞任务。</p>
+</div>
 </div>
 </div>
 <h2 id="14-在-asyncio-中运行阻塞任务">14. 在 Asyncio 中运行阻塞任务<a class="headerlink" href="#14-在-asyncio-中运行阻塞任务" title="Permanent link">&para;</a></h2>
 <p><strong>14. Run a Blocking Task in Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="68:2"><input checked="checked" id="__tabbed_68_1" name="__tabbed_68" type="radio" /><input id="__tabbed_68_2" name="__tabbed_68" type="radio" /><div class="tabbed-labels"><label for="__tabbed_68_1">英文</label><label for="__tabbed_68_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>A blocking task is a task that stops the current thread from progressing.</p>
+<p>If a blocking task is executed in an asyncio program it stops the entire event loop, preventing any other coroutines from progressing.</p>
+<p>We can run blocking calls asynchronously in an asyncio program via the <strong>asyncio.to_thread()</strong> and <strong>loop.run_in_executor()</strong> functions.</p>
+</div>
+<div class="tabbed-block">
+<p>阻塞任务是阻止当前线程继续执行的任务。</p>
+<p>如果在 asyncio 程序中执行阻塞任务，它将停止整个事件循环，从而阻止任何其他协程进行。</p>
+<p>我们可以通过 <strong>asyncio.to_thread()</strong> 和 <strong>loop.run_in_executor()</strong> 函数在 asyncio 程序中异步运行阻塞调用。</p>
+</div>
 </div>
 </div>
 <h3 id="141-需要在-asyncio-中运行阻塞任务">14.1 需要在 Asyncio 中运行阻塞任务<a class="headerlink" href="#141-需要在-asyncio-中运行阻塞任务" title="Permanent link">&para;</a></h3>
 <p><strong>14.1 Need to Run Blocking Tasks in Asyncio</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="69:2"><input checked="checked" id="__tabbed_69_1" name="__tabbed_69" type="radio" /><input id="__tabbed_69_2" name="__tabbed_69" type="radio" /><div class="tabbed-labels"><label for="__tabbed_69_1">英文</label><label for="__tabbed_69_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The focus of asyncio is asynchronous programming and non-blocking IO.</p>
+<p>Nevertheless, we often need to execute a blocking function call within an asyncio application.</p>
+<p>This could be for many reasons, such as:</p>
+<ul>
+<li>To execute a CPU-bound task like calculating something.</li>
+<li>To execute a blocking IO-bound task like reading or writing from a file.</li>
+<li>To call into a third-party library that does not support asyncio yet.</li>
+</ul>
+<p>Making a blocking call directly in an asyncio program will cause the event loop to stop while the blocking call is executing. It will not allow other coroutines to run in the background.</p>
+<p>How can we execute a blocking call in an asyncio program asynchronously?</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio的重点是异步编程和非阻塞IO。</p>
+<p>然而，我们经常需要在异步应用程序中执行阻塞函数调用。</p>
+<p>这可能有多种原因，例如：</p>
+<ul>
+<li>执行 CPU 密集型任务，例如计算某些内容。</li>
+<li>执行阻塞 IO 密集型任务，例如从文件中读取或写入。</li>
+<li>调用尚不支持 asyncio 的第三方库。</li>
+</ul>
+<p>直接在 asyncio 程序中进行阻塞调用将导致事件循环在阻塞调用执行时停止。 它不会允许其他协程在后台运行。</p>
+<p>我们如何在 asyncio 程序中异步执行阻塞调用？</p>
+</div>
 </div>
 </div>
 <h3 id="142-如何运行阻塞任务">14.2 如何运行阻塞任务<a class="headerlink" href="#142-如何运行阻塞任务" title="Permanent link">&para;</a></h3>
 <p><strong>14.2 How to Run Blocking Tasks</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="70:2"><input checked="checked" id="__tabbed_70_1" name="__tabbed_70" type="radio" /><input id="__tabbed_70_2" name="__tabbed_70" type="radio" /><div class="tabbed-labels"><label for="__tabbed_70_1">英文</label><label for="__tabbed_70_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The asyncio module provides two approaches for executing blocking calls in asyncio programs.</p>
+<p>The first is to use the <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">asyncio.to_thread()</a> function.</p>
+<p>This is in the high-level API and is intended for application developers.</p>
+<p>The <strong>asyncio.to_thread()</strong> function takes a function name to execute and any arguments.</p>
+<p>The function is executed in a separate thread. It returns a coroutine that can be awaited or scheduled as an independent task.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># execute a function in a separate thread</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">to_thread</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>The task will not begin executing until the returned coroutine is given an opportunity to run in the event loop.</p>
+<p>The <strong>asyncio.to_thread()</strong> function creates a <strong>ThreadPoolExecutor</strong> behind the scenes to execute blocking calls.</p>
+<p>As such, the <strong>asyncio.to_thread()</strong> function is only appropriate for IO-bound tasks.</p>
+<p>An alternative approach is to use the <strong>loop.run_in_executor()</strong> function.</p>
+<p>This is in the low-level asyncio API and first requires access to the event loop, such as via the <strong>asyncio.get_running_loop()</strong> function.</p>
+<p>The <strong>loop.run_in_executor()</strong> function takes an executor and a function to execute.</p>
+<p>If <strong>None</strong> is provided for the executor, then the default executor is used, which is a <strong>ThreadPoolExecutor</strong>.</p>
+<p>The <strong>loop.run_in_executor()</strong> function returns an awaitable that can be awaited if needed. The task will begin executing immediately, so the returned awaitable does not need to be awaited or scheduled for the blocking call to start executing.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get the event loop</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+<span class="c1"># execute a function in a separate thread</span>
+<span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>Alternatively, an executor can be created and passed to the <strong>loop.run_in_executor()</strong> function, which will execute the asynchronous call in the executor.</p>
+<p>The caller must manage the executor in this case, shutting it down once the caller is finished with it.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a process pool</span>
+<span class="k">with</span> <span class="n">ProcessPoolExecutor</span> <span class="k">as</span> <span class="n">exe</span><span class="p">:</span>
+    <span class="c1"># get the event loop</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+    <span class="c1"># execute a function in a separate thread</span>
+    <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+    <span class="c1"># process pool is shutdown automatically...</span>
+</code></pre></div>
+<p>These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.</p>
+<p>Now that we know how to execute blocking calls in an asyncio program, let’s look at some worked examples.</p>
+</div>
+<div class="tabbed-block">
+<p>asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。</p>
+<p>第一种是使用 <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread">asyncio.to_thread()</a> 函数。</p>
+<p>这是高级 API 中的内容，适用于应用程序开发人员。</p>
+<p><strong>asyncio.to_thread()</strong> 函数采用要执行的函数名称和任何参数。</p>
+<p>该函数在单独的线程中执行。 它返回一个可以作为独立任务等待或调度的协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 在单独的线程中执行函数</span>
+<span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">to_thread</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>在返回的协程有机会在事件循环中运行之前，任务不会开始执行。</p>
+<p><strong>asyncio.to_thread()</strong> 函数在后台创建一个 <strong>ThreadPoolExecutor</strong> 来执行阻塞调用。</p>
+<p>因此， <strong>asyncio.to_thread()</strong> 函数仅适用于 IO 密集型任务。</p>
+<p>另一种方法是使用 <strong>loop.run_in_executor()</strong> 函数。</p>
+<p>这是在低级 asyncio API 中，首先需要访问事件循环，例如通过 <strong>asyncio.get_running_loop()</strong> 函数。</p>
+<p><strong>loop.run_in_executor()</strong> 函数需要一个执行器和一个要执行的函数。</p>
+<p>如果为执行器提供 <strong>None</strong>，则使用默认执行器，即 <strong>ThreadPoolExecutor</strong>。</p>
+<p><strong>loop.run_in_executor()</strong> 函数返回一个可等待的对象，如果需要，可以等待。 该任务将立即开始执行，因此不需要等待或安排返回的可等待对象来开始执行阻塞调用。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取事件循环</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+<span class="c1"># 在单独的线程中执行函数</span>
+<span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>或者，可以创建一个执行器并将其传递给 <strong>loop.run_in_executor()</strong> 函数，该函数将在执行器中执行异步调用。</p>
+<p>在这种情况下，调用者必须管理执行器，在调用者完成后将其关闭。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建进程池</span>
+<span class="k">with</span> <span class="n">ProcessPoolExecutor</span> <span class="k">as</span> <span class="n">exe</span><span class="p">:</span>
+    <span class="c1"># 获取事件循环</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_running_loop</span><span class="p">()</span>
+    <span class="c1"># 在单独的线程中执行函数</span>
+    <span class="k">await</span> <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="n">exe</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+    <span class="c1"># 进程池自动关闭...</span>
+</code></pre></div>
+<p>这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。</p>
+<p>现在我们知道如何在 asyncio 程序中执行阻塞调用，让我们看一些有效的示例。</p>
+</div>
 </div>
 </div>
 <h3 id="143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例">14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例<a class="headerlink" href="#143-使用-to_thread-在-asyncio-中运行-io-密集型任务的示例" title="Permanent link">&para;</a></h3>
 <p>14.3 Example of Running I/O-Bound Task in Asyncio with to_thread()</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="71:2"><input checked="checked" id="__tabbed_71_1" name="__tabbed_71" type="radio" /><input id="__tabbed_71_2" name="__tabbed_71" type="radio" /><div class="tabbed-labels"><label for="__tabbed_71_1">英文</label><label for="__tabbed_71_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can explore how to execute a blocking IO-bound call in an asyncio program using <strong>asyncio.to_thread()</strong>.</p>
+<p>In this example, we will define a function that blocks the caller for a few seconds. We will then execute this function asynchronously in a thread pool from asyncio using the <strong>asyncio.to_thread()</strong> function.</p>
+<p>This will free the caller to continue with other activities.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of running a blocking io-bound task in asyncio</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># a blocking io-bound task</span>
+<span class="k">def</span> <span class="nf">blocking_task</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task starting&#39;</span><span class="p">)</span>
+    <span class="c1"># block for a while</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task done&#39;</span><span class="p">)</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Main running the blocking task&#39;</span><span class="p">)</span>
+    <span class="c1"># create a coroutine for  the blocking task</span>
+    <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">to_thread</span><span class="p">(</span><span class="n">blocking_task</span><span class="p">)</span>
+    <span class="c1"># schedule the task</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Main doing other things&#39;</span><span class="p">)</span>
+    <span class="c1"># allow the scheduled task to start</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># await the task</span>
+    <span class="k">await</span> <span class="n">task</span>
+
+<span class="c1"># run the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the <strong>main()</strong> coroutine and runs it as the entry point into the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine runs and reports a message. It then issues a call to the blocking function call to the thread pool. This returns a coroutine,</p>
+<p>The coroutine is then wrapped in a <strong>Task</strong> and executed independently.</p>
+<p>The <strong>main()</strong> coroutine is free to continue with other activities. In this case, it sleeps for a moment to allow the scheduled task to start executing. This allows the target function to be issued to the <strong>ThreadPoolExecutor</strong> behind the scenes and start running.</p>
+<p>The <strong>main()</strong> coroutine then suspends and waits for the task to complete.</p>
+<p>The blocking function reports a message, sleeps for 2 seconds, then reports a final message.</p>
+<p>This highlights how we can execute a blocking IO-bound task in a separate thread asynchronously from an asyncio program.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Main</span> <span class="n">running</span> <span class="n">the</span> <span class="n">blocking</span> <span class="n">task</span>
+<span class="n">Main</span> <span class="n">doing</span> <span class="n">other</span> <span class="n">things</span>
+<span class="n">Task</span> <span class="n">starting</span>
+<span class="n">Task</span> <span class="n">done</span>
+</code></pre></div>
+<p>You can learn more about the to_thread() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-to_thread/">How to Use Asyncio to_thread()</a></li>
+</ul>
+<p>Next, we will explore how to develop and use asynchronous iterators.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何使用 <strong>asyncio.to_thread()</strong> 在 asyncio 程序中执行阻塞 IO 绑定调用。</p>
+<p>在此示例中，我们将定义一个函数来阻止调用者几秒钟。 然后，我们将使用 <strong>asyncio.to_thread()</strong> 函数在 asyncio 的线程池中异步执行此函数。</p>
+<p>这将使调用者能够自由地继续其他活动。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 在 asyncio 中运行阻塞 io 绑定任务的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># 阻塞 io 绑定任务</span>
+<span class="k">def</span> <span class="nf">blocking_task</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task starting&#39;</span><span class="p">)</span>
+    <span class="c1"># 阻塞暂停2s</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Task done&#39;</span><span class="p">)</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Main running the blocking task&#39;</span><span class="p">)</span>
+    <span class="c1"># 为阻塞任务创建一个协程</span>
+    <span class="n">coro</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">to_thread</span><span class="p">(</span><span class="n">blocking_task</span><span class="p">)</span>
+    <span class="c1"># 安排任务</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Main doing other things&#39;</span><span class="p">)</span>
+    <span class="c1"># 允许计划任务启动</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># 等待任务</span>
+    <span class="k">await</span> <span class="n">task</span>
+
+<span class="c1"># 运行异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程，并将其作为 asyncio 程序的入口点运行。</p>
+<p><strong>main()</strong> 协程运行并报告一条消息。 然后它向线程池发出对阻塞函数的调用。 这返回一个协程，</p>
+<p>然后协程被包装在 <strong>Task</strong> 中并独立执行。</p>
+<p><strong>main()</strong> 协程可以自由地继续其他活动。 在这种情况下，它会休眠一会儿以允许计划任务开始执行。 这使得目标函数可以在后台发布到<strong>ThreadPoolExecutor</strong>并开始运行。</p>
+<p>然后 <strong>main()</strong> 协程挂起并等待任务完成。</p>
+<p>阻塞函数报告一条消息，休眠2秒，然后报告最后一条消息。</p>
+<p>这突出显示了我们如何在单独的线程中从 asyncio 程序异步执行阻塞 IO 绑定任务。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Main</span> <span class="n">running</span> <span class="n">the</span> <span class="n">blocking</span> <span class="n">task</span>
+<span class="n">Main</span> <span class="n">doing</span> <span class="n">other</span> <span class="n">things</span>
+<span class="n">Task</span> <span class="n">starting</span>
+<span class="n">Task</span> <span class="n">done</span>
+</code></pre></div>
+<p>您可以在教程中了解有关 to_thread() 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-to_thread/">如何使用 Asyncio to_thread()</a></li>
+</ul>
+<p>接下来，我们将探讨如何开发和使用异步迭代器。</p>
+</div>
 </div>
 </div>
 <h2 id="15-异步迭代器">15. 异步迭代器<a class="headerlink" href="#15-异步迭代器" title="Permanent link">&para;</a></h2>
 <p><strong>15. Asynchronous Iterators</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="72:2"><input checked="checked" id="__tabbed_72_1" name="__tabbed_72" type="radio" /><input id="__tabbed_72_2" name="__tabbed_72" type="radio" /><div class="tabbed-labels"><label for="__tabbed_72_1">英文</label><label for="__tabbed_72_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Iteration is a basic operation in Python.</p>
+<p>We can iterate lists, strings, and all manner of other structures.</p>
+<p>Asyncio allows us to develop asynchronous iterators.</p>
+<p>We can create and use asynchronous iterators in asyncio programs by defining an object that implements the <strong>__aiter__()</strong> and <strong>__anext__()</strong> methods.</p>
+<p>Let’s take a closer look.</p>
+</div>
+<div class="tabbed-block">
+<p>迭代是Python中的基本操作。</p>
+<p>我们可以迭代列表、字符串和各种其他结构。</p>
+<p>Asyncio 允许我们开发异步迭代器。</p>
+<p>我们可以通过定义一个实现 <strong>__aiter__()</strong> 和 <strong>__anext__()</strong> 方法的对象来在 asyncio 程序中创建和使用异步迭代器。</p>
+<p>让我们仔细看看。</p>
+</div>
 </div>
 </div>
 <h3 id="151-什么是异步迭代器">15.1 什么是异步迭代器<a class="headerlink" href="#151-什么是异步迭代器" title="Permanent link">&para;</a></h3>
 <p><strong>15.1 What Are Asynchronous Iterators</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="73:2"><input checked="checked" id="__tabbed_73_1" name="__tabbed_73" type="radio" /><input id="__tabbed_73_2" name="__tabbed_73" type="radio" /><div class="tabbed-labels"><label for="__tabbed_73_1">英文</label><label for="__tabbed_73_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An asynchronous iterator is an object that implements the <strong>__aiter__()</strong> and <strong>__anext__()</strong> methods.</p>
+<p>Before we take a close look at asynchronous iterators, let’s review classical iterators.</p>
+</div>
+<div class="tabbed-block">
+<p>异步迭代器是一个实现 <strong>__aiter__()</strong> 和 <strong>__anext__()</strong> 方法的对象。</p>
+<p>在我们仔细研究异步迭代器之前，让我们回顾一下经典迭代器。</p>
+</div>
 </div>
 </div>
 <h4 id="1511-迭代器">15.1.1 迭代器<a class="headerlink" href="#1511-迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>15.1.1 Iterators</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="74:2"><input checked="checked" id="__tabbed_74_1" name="__tabbed_74" type="radio" /><input id="__tabbed_74_2" name="__tabbed_74" type="radio" /><div class="tabbed-labels"><label for="__tabbed_74_1">英文</label><label for="__tabbed_74_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An iterator is a Python object that implements a specific interface.</p>
+<p>Specifically, the <strong>__iter__()</strong> method that returns an instance of the iterator and the <strong>__next__()</strong> method that steps the iterator one cycle and returns a value.</p>
+<blockquote>
+<p>iterator: An object representing a stream of data. Repeated calls to the iterator’s <strong>__next__()</strong> method (or passing it to the built-in function next()) return successive items in the stream. When no more data are available a StopIteration exception is raised instead.</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</blockquote>
+<p>An iterator can be stepped using the <strong>next()</strong> built-in function or traversed using a for loop.</p>
+<p>Many Python objects are iterable, most notable are containers such as lists.</p>
+</div>
+<div class="tabbed-block">
+<p>迭代器是一个实现特定接口的 Python 对象。</p>
+<p>具体来说， <strong>__iter__()</strong> 方法返回迭代器的实例，而 <strong>__next__()</strong> 方法步进迭代器一个周期并返回 一个值。</p>
+<blockquote>
+<p>迭代器：表示数据流的对象。 重复调用迭代器的 <strong>__next__()</strong> 方法（或将其传递给内置函数 next()）会返回流中的连续项。 当没有更多数据可用时，会引发 StopIteration 异常。</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</blockquote>
+<p>可以使用 <strong>next()</strong> 内置函数步进迭代器或使用 for 循环遍历迭代器。</p>
+<p>许多 Python 对象都是可迭代的，最值得注意的是列表等容器。</p>
+</div>
 </div>
 </div>
 <h4 id="1512-异步迭代器">15.1.2 异步迭代器<a class="headerlink" href="#1512-异步迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>15.1.2 Asynchronous Iterators</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="75:2"><input checked="checked" id="__tabbed_75_1" name="__tabbed_75" type="radio" /><input id="__tabbed_75_2" name="__tabbed_75" type="radio" /><div class="tabbed-labels"><label for="__tabbed_75_1">英文</label><label for="__tabbed_75_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>An asynchronous iterator is a Python object that implements a specific interface.</p>
+<div class="admonition info">
+<p>asynchronous iterator: An object that implements the __aiter__() and __anext__() methods.</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</div>
+<p>An asynchronous iterator must implement the <strong>__aiter__()</strong> and <strong>__anext__()</strong> methods.</p>
+<ul>
+<li>The <strong>__aiter__()</strong> method must return an instance of the iterator.</li>
+<li>The <strong>__anext__()</strong> method must return an awaitable that steps the iterator.</li>
+</ul>
+<p>An asynchronous iterator may only be stepped or traversed in an asyncio program, such as within a coroutine.</p>
+<p>Asynchronous iterators were introduced in <a href="https://peps.python.org/pep-0492/">PEP 492 – Coroutines with async and await syntax</a>.</p>
+<p>An asynchronous iterator can be stepped using the <a href="https://docs.python.org/3/library/functions.html#anext">anext()</a> built-in function that returns an awaitable that executes one step of the iterator, e.g. one call to the __anext__() method.</p>
+<p>An asynchronous iterator can be traversed using the “async for” expression that will automatically call anext() each iteration and await the returned awaitable in order to retrieve the return value.</p>
+<div class="admonition info">
+<p>An asynchronous iterable is able to call asynchronous code in its iter implementation, and asynchronous iterator can call asynchronous code in its next method.</p>
+<p>— <a href="https://peps.python.org/pep-0492/">PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX</a></p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>异步迭代器是实现特定接口的 Python 对象。</p>
+<div class="admonition info">
+<p>异步迭代器：实现 __aiter__() 和 __anext__() 方法的对象。</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</div>
+<p>异步迭代器必须实现 <strong>__aiter__()</strong> 和 <strong>__anext__()</strong> 方法。</p>
+<ul>
+<li><strong>__aiter__()</strong> 方法必须返回迭代器的实例。</li>
+<li><strong>__anext__()</strong> 方法必须返回一个步进迭代器的等待对象。</li>
+</ul>
+<p>异步迭代器只能在异步程序中步进或遍历，例如在协程中。</p>
+<p>异步迭代器在 <a href="https://peps.python.org/pep-0492/">PEP 492 – 具有异步和等待语法的协程</a> 中引入。</p>
+<p>异步迭代器可以使用 <a href="https://docs.python.org/3/library/functions.html#anext">anext()</a> 内置函数进行单步执行，该函数返回一个执行迭代器一步的等待对象， 例如 对 __anext__() 方法的一次调用。</p>
+<p>可以使用<strong>“async for”</strong>表达式遍历异步迭代器，该表达式将在每次迭代时自动调用 <strong>anext()</strong> 并等待返回的可等待项以检索返回值。</p>
+<div class="admonition info">
+<p>异步迭代器可以在其 iter 实现中调用异步代码，异步迭代器可以在其 anext 方法中调用异步代码。</p>
+<p>— <a href="https://peps.python.org/pep-0492/">PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX</a></p>
+</div>
+</div>
 </div>
 </div>
 <h3 id="152-什么是async-for循环">15.2 什么是“async for”循环？<a class="headerlink" href="#152-什么是async-for循环" title="Permanent link">&para;</a></h3>
 <p><strong>15.2 What is the “async for” loop?</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="76:2"><input checked="checked" id="__tabbed_76_1" name="__tabbed_76" type="radio" /><input id="__tabbed_76_2" name="__tabbed_76" type="radio" /><div class="tabbed-labels"><label for="__tabbed_76_1">英文</label><label for="__tabbed_76_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The async for expression is used to traverse an asynchronous iterator.</p>
+<p>It is an asynchronous for-loop statement.</p>
+<p>An asynchronous iterator is an iterator that yields awaitables.</p>
+<p>You may recall that an awaitable is an object that can be waited for, such as a coroutine or a task.</p>
+<div class="admonition info">
+<p>awaitable: An object that can be used in an await expression.</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</div>
+<p>An asynchronous generator will automatically implement the asynchronous iterator methods, allowing it to be iterated like an asynchronous iterator.</p>
+<p>The await for expression allows the caller to traverse an asynchronous iterator of awaitables and retrieve the result from each.</p>
+<p>This is not the same as traversing a collection or list of awaitables (e.g. coroutine objects), instead, the awaitables returned must be provided using the expected asynchronous iterator methods.</p>
+<p>Internally, the async for loop will automatically resolve or await each awaitable, scheduling coroutines as needed.</p>
+<p>Because it is a for-loop, it assumes, although does not require, that each awaitable being traversed yields a return value.</p>
+<p>The async for loop must be used within a coroutine because internally it will use the await expression, which can only be used within coroutines.</p>
+<p>The async for expression can be used to traverse an asynchronous iterator within a coroutine.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># traverse an asynchronous iterator</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">async_iterator</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+<p>This does not execute the for-loop in parallel. The asyncio is unable to execute more than one coroutine at a time within a Python thread.</p>
+<p>Instead, this is an asynchronous for-loop.</p>
+<p>The difference is that the coroutine that executes the for loop will suspend and internally await for each awaitable.</p>
+<p>Behind the scenes, this may require coroutines to be scheduled and awaited, or tasks to be awaited.</p>
+<p>We may also use the async for expression in a list comprehension.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># build a list of results</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="n">async_iterator</span><span class="p">]</span>
+</code></pre></div>
+<p>This would construct a list of return values from the asynchronous iterator.</p>
+<p>Next, let’s look at how to define, create and use asynchronous iterators.</p>
+</div>
+<div class="tabbed-block">
+<p>async for 表达式用于遍历异步迭代器。</p>
+<p>它是一个异步for循环语句。</p>
+<p>异步迭代器是产生可等待对象的迭代器。</p>
+<p>您可能还记得，awaitable 是一个可以等待的对象，例如协程或任务。</p>
+<div class="admonition info">
+<p>awaitable: 可在await 表达式中使用的对象。</p>
+<p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
+</div>
+<p>异步生成器将自动实现异步迭代器方法，允许它像异步迭代器一样进行迭代。</p>
+<p>wait for 表达式允许调用者遍历可等待项的异步迭代器并从每个迭代器中检索结果。</p>
+<p>这与遍历可等待对象的集合或列表（例如协程对象）不同，相反，必须使用预期的异步迭代器方法提供返回的可等待对象。</p>
+<p>在内部，async for 循环将自动解析或等待每个可等待的、根据需要调度协程。</p>
+<p>因为它是一个 for 循环，所以它假设（尽管不要求）每个被遍历的可等待对象都会产生一个返回值。</p>
+<p>async for 循环必须在协程内使用，因为它在内部将使用只能在协程内使用的await 表达式。</p>
+<p>async for 表达式可用于遍历协程内的异步迭代器。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 遍历异步迭代器</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">async_iterator</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+<p>这不会并行执行 for 循环。 asyncio 无法在 Python 线程中同时执行多个协程。</p>
+<p>相反，这是一个异步 for 循环。</p>
+<p>不同之处在于，执行 for 循环的协程将挂起并在内部等待每个可等待项。</p>
+<p>在幕后，这可能需要安排和等待协程，或者等待任务。</p>
+<p>我们还可以在列表理解中使用 async for 表达式。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 建立结果列表</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="n">async_iterator</span><span class="p">]</span>
+</code></pre></div>
+<p>这将从异步迭代器构造返回值列表。</p>
+<p>接下来，我们看看如何定义、创建和使用异步迭代器。</p>
+</div>
 </div>
 </div>
 <h3 id="153-如何使用异步迭代器">15.3 如何使用异步迭代器<a class="headerlink" href="#153-如何使用异步迭代器" title="Permanent link">&para;</a></h3>
 <p><strong>15.3 How to Use Asynchronous Iterators</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="77:2"><input checked="checked" id="__tabbed_77_1" name="__tabbed_77" type="radio" /><input id="__tabbed_77_2" name="__tabbed_77" type="radio" /><div class="tabbed-labels"><label for="__tabbed_77_1">英文</label><label for="__tabbed_77_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>In this section, we will take a close look at how to define, create, step, and traverse an asynchronous iterator in asyncio programs.</p>
+<p>Let’s start with how to define an asynchronous iterator.</p>
+</div>
+<div class="tabbed-block">
+<p>在本节中，我们将仔细研究如何在 asyncio 程序中定义、创建、单步执行和遍历异步迭代器。</p>
+<p>让我们从如何定义异步迭代器开始。</p>
+</div>
 </div>
 </div>
 <h4 id="1531-定义异步迭代器">15.3.1 定义异步迭代器<a class="headerlink" href="#1531-定义异步迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>15.3.1 Define an Asynchronous Iterator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="78:2"><input checked="checked" id="__tabbed_78_1" name="__tabbed_78" type="radio" /><input id="__tabbed_78_2" name="__tabbed_78" type="radio" /><div class="tabbed-labels"><label for="__tabbed_78_1">英文</label><label for="__tabbed_78_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can define an asynchronous iterator by defining a class that implements the <strong>__aiter__()</strong> and <strong>__anext__()</strong> methods.</p>
+<p>These methods are defined on a Python object as per normal.</p>
+<p>Importantly, because the <strong>__anext__()</strong> function must return an awaitable, it must be defined using the <strong>“async def”</strong> expression.</p>
+<div class="admonition info">
+<p>object.__anext__(self): Must return an awaitable resulting in a next value of the iterator. Should raise a StopAsyncIteration error when the iteration is over.</p>
+<p>— <a href="https://docs.python.org/3/reference/datamodel.html#asynchronous-iterators">ASYNCHRONOUS ITERATORS</a></p>
+</div>
+<p>When the iteration is complete, the <strong>__anext__()</strong> method must raise a <strong>StopAsyncIteration</strong> exception.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># define an asynchronous iterator</span>
+<span class="k">class</span> <span class="nc">AsyncIterator</span><span class="p">():</span>
+    <span class="c1"># constructor, define some state</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># create an instance of the iterator</span>
+    <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># return the next awaitable</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># check for no further items</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+        <span class="c1"># increment the counter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># return the counter value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+</code></pre></div>
+<p>Because the asynchronous iterator is a coroutine and each iterator returns an awaitable that is scheduled and executed in the asyncio event loop, we can execute and await awaitables within the body of the iterator.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># return the next awaitable</span>
+<span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># check for no further items</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+    <span class="c1"># increment the counter</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># simulate work</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># return the counter value</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+</code></pre></div>
+<p>Next, let’s look at how we might use an asynchronous iterator.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以通过定义一个实现 <strong>__aiter__()</strong> 和 <strong>__anext__()</strong> 方法的类来定义异步迭代器。</p>
+<p>这些方法按照正常方式在 Python 对象上定义。</p>
+<p>重要的是，由于 <strong>__anext__()</strong> 函数必须返回一个等待对象，因此必须使用 <strong>“async def”</strong> 表达式来定义它。</p>
+<div class="admonition info">
+<p>object.__anext__(self)：必须返回一个可等待的结果，从而产生迭代器的下一个值。 迭代结束时应引发 StopAsyncIteration 错误。</p>
+<p>— <a href="https://docs.python.org/3/reference/datamodel.html#asynchronous-iterators">ASYNCHRONOUS ITERATORS</a></p>
+</div>
+<p>迭代完成后， <strong>__anext__()</strong> 方法必须引发 <strong>StopAsyncIteration</strong> 异常。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 定义一个异步迭代器</span>
+<span class="k">class</span> <span class="nc">AsyncIterator</span><span class="p">():</span>
+    <span class="c1"># 构造函数，定义一些状态</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># 创建迭代器的实例</span>
+    <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># 返回下一个等待的</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 检查没有其他项目</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+        <span class="c1"># 增加计数器</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># 返回计数器值</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+</code></pre></div>
+<p>因为异步迭代器是一个协程，并且每个迭代器都返回一个在 asyncio 事件循环中调度和执行的等待对象，所以我们可以在迭代器体内执行和等待等待对象。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 返回下一个等待的</span>
+<span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># 检查没有其他项目</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+    <span class="c1"># 增加计数器</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># 模拟工作</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 返回计数器值</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+</code></pre></div>
+<p>接下来，让我们看看如何使用异步迭代器。</p>
+</div>
 </div>
 </div>
 <h4 id="1532-创建异步迭代器">15.3.2 创建异步迭代器<a class="headerlink" href="#1532-创建异步迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>15.3.2 Create Asynchronous Iterator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="79:2"><input checked="checked" id="__tabbed_79_1" name="__tabbed_79" type="radio" /><input id="__tabbed_79_2" name="__tabbed_79" type="radio" /><div class="tabbed-labels"><label for="__tabbed_79_1">英文</label><label for="__tabbed_79_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>To use an asynchronous iterator we must create the iterator.</p>
+<p>This involves creating the Python object as per normal.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create the iterator</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">AsyncIterator</span><span class="p">()</span>
+</code></pre></div>
+<p>This returns an “asynchronous iterable“, which is an instance of an “asynchronous iterator“.</p>
+</div>
+<div class="tabbed-block">
+<p>要使用异步迭代器，我们必须创建迭代器。</p>
+<p>这涉及到按照正常方式创建 Python 对象。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建迭代器</span>
+<span class="n">it</span> <span class="o">=</span> <span class="n">AsyncIterator</span><span class="p">()</span>
+</code></pre></div>
+<p>这将返回一个“异步迭代器”，它是“异步迭代器”的实例。</p>
+</div>
 </div>
 </div>
 <h4 id="1533-单步执行异步迭代器">15.3.3 单步执行异步迭代器<a class="headerlink" href="#1533-单步执行异步迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>Step an Asynchronous Iterator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="80:2"><input checked="checked" id="__tabbed_80_1" name="__tabbed_80" type="radio" /><input id="__tabbed_80_2" name="__tabbed_80" type="radio" /><div class="tabbed-labels"><label for="__tabbed_80_1">英文</label><label for="__tabbed_80_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>One step of the iterator can be traversed using the anext() built-in function, just like a classical iterator using the next() function.</p>
+<p>The result is an awaitable that is awaited.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># get an awaitable for one step of the iterator</span>
+<span class="n">awaitable</span> <span class="o">=</span> <span class="n">anext</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="c1"># execute the one step of the iterator and get the result</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">awaitable</span>
+</code></pre></div>
+<p>This can be achieved in one step.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># step the async iterator</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anext</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>可以使用 <strong>anext()</strong> 内置函数遍历迭代器的一步，就像使用 <strong>next()</strong> 函数的经典迭代器一样。</p>
+<p>结果是一个可等待对象的结果。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 获取迭代器一步的等待</span>
+<span class="n">awaitable</span> <span class="o">=</span> <span class="n">anext</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+<span class="c1"># 执行迭代器的一步并得到结果</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">awaitable</span>
+</code></pre></div>
+<p>这可以一步实现。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 单步执行异步迭代器</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">anext</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h4 id="1534-遍历异步迭代器">15.3.4 遍历异步迭代器<a class="headerlink" href="#1534-遍历异步迭代器" title="Permanent link">&para;</a></h4>
 <p><strong>Traverse an Asynchronous Iterator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="81:2"><input checked="checked" id="__tabbed_81_1" name="__tabbed_81" type="radio" /><input id="__tabbed_81_2" name="__tabbed_81" type="radio" /><div class="tabbed-labels"><label for="__tabbed_81_1">英文</label><label for="__tabbed_81_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The asynchronous iterator can also be traversed in a loop using the “async for” expression that will await each iteration of the loop automatically.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># traverse an asynchronous iterator</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<p>You can learn more about the “async for” expression in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-async-for/">Asyncio async for loop</a></li>
+</ul>
+<p>We may also use an asynchronous list comprehension with the “async for” expression to collect the results of the iterator.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># async list comprehension with async iterator</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">()]</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>还可以使用“async for”表达式在循环中遍历异步迭代器，该表达式将自动等待循环的每次迭代。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 遍历异步迭代器</span>
+<span class="k">async</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div>
+<p>您可以在教程中了解有关“async for”表达式的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-async-for/">Asyncio 异步 for 循环</a></li>
+</ul>
+<p>我们还可以使用异步列表理解和“async for”表达式来收集迭代器的结果。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 使用异步迭代器的异步列表推导式</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">()]</span>
+</code></pre></div>
+</div>
 </div>
 </div>
 <h3 id="154-异步迭代器的示例">15.4 异步迭代器的示例<a class="headerlink" href="#154-异步迭代器的示例" title="Permanent link">&para;</a></h3>
 <p><strong>15.4 Example of an Asynchronous Iterator</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="82:2"><input checked="checked" id="__tabbed_82_1" name="__tabbed_82" type="radio" /><input id="__tabbed_82_2" name="__tabbed_82" type="radio" /><div class="tabbed-labels"><label for="__tabbed_82_1">英文</label><label for="__tabbed_82_2">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>We can explore how to traverse an asynchronous iterator using the <strong>“async for”</strong> expression.</p>
+<p>In this example, we will update the previous example to traverse the iterator to completion using an <strong>“async for”</strong> loop.</p>
+<p>This loop will automatically await each awaitable returned from the iterator, retrieve the returned value, and make it available within the loop body so that in this case it can be reported.</p>
+<p>This is perhaps the most common usage pattern for asynchronous iterators.</p>
+<p>The complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># example of an asynchronous iterator with async for loop</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># define an asynchronous iterator</span>
+<span class="k">class</span> <span class="nc">AsyncIterator</span><span class="p">():</span>
+    <span class="c1"># constructor, define some state</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># create an instance of the iterator</span>
+    <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># return the next awaitable</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># check for no further items</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+        <span class="c1"># increment the counter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># simulate work</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># return the counter value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+
+<span class="c1"># main coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># loop over async iterator with async for loop</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="c1"># execute the asyncio program</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates the <strong>main()</strong> coroutine and uses it as the entry point into the asyncio program.</p>
+<p>The <strong>main()</strong> coroutine runs and starts the for loop.</p>
+<p>An instance of the asynchronous iterator is created and the loop automatically steps it using the <strong>anext()</strong> function to return an awaitable. The loop then awaits the awaitable and retrieves a value which is made available to the body of the loop where it is reported.</p>
+<p>This process is then repeated, suspending the <strong>main()</strong> coroutine, executing a step of the iterator and suspending, and resuming the <strong>main()</strong> coroutine until the iterator is exhausted.</p>
+<p>Once the internal counter of the iterator reaches 10, a <strong>StopAsyncIteration</strong> is raised. This does not terminate the program. Instead, it is expected and handled by the <strong>“async for”</strong> expression and breaks the loop.</p>
+<p>This highlights how an asynchronous iterator can be traversed using an <strong>async for</strong> expression.</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="mi">10</span>
+</code></pre></div>
+<p>You can learn more about async iterators in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asynchronous-iterators/">Asynchronous Iterators in Python</a></li>
+</ul>
+<p>Next, we will explore asynchronous generators.</p>
+</div>
+<div class="tabbed-block">
+<p>我们可以探索如何使用<strong>“async for”</strong>表达式来遍历异步迭代器。</p>
+<p>在此示例中，我们将更新前面的示例，以使用 <strong>“async for”</strong> 循环遍历迭代器直至完成。</p>
+<p>此循环将自动等待从迭代器返回的每个等待，检索返回的值，并使其在循环体内可用，以便在这种情况下可以报告它。</p>
+<p>这可能是异步迭代器最常见的使用模式。</p>
+<p>下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># SuperFastPython.com</span>
+<span class="c1"># 具有异步 for 循环的异步迭代器的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 定义一个异步迭代器</span>
+<span class="k">class</span> <span class="nc">AsyncIterator</span><span class="p">():</span>
+    <span class="c1"># 构造函数，定义一些状态</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># 创建迭代器的实例</span>
+    <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="c1"># 返回下一个可等待对象</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># 检查没有其他项目</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+        <span class="c1"># 增加计数器</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># 模拟工作</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># 返回计数器值</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span>
+
+<span class="c1"># 主协程</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 使用 async for 循环遍历异步迭代器</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">AsyncIterator</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="c1"># 执行异步程序</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建 <strong>main()</strong> 协程，并将其用作 asyncio 程序的入口点。</p>
+<p><strong>main()</strong> 协程运行并启动 for 循环。</p>
+<p>创建异步迭代器的实例，循环使用 <strong>anext()</strong> 函数自动步进它以返回可等待的对象。 然后，循环等待可等待对象并检索一个值，该值可供报告该值的循环体使用。</p>
+<p>然后重复这个过程，挂起 <strong>main()</strong> 协程，执行迭代器的一个步骤并挂起，然后恢复 <strong>main()</strong> 协程，直到迭代器耗尽。</p>
+<p>一旦迭代器的内部计数器达到 10，就会引发 <strong>StopAsyncIteration</strong>。 这不会终止程序。 相反，它是由 <strong>“async for”</strong> 表达式期望和处理的，并打破循环。</p>
+<p>这突出显示了如何使用 <strong>async for</strong> 表达式遍历异步迭代器。</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+<span class="mi">9</span>
+<span class="mi">10</span>
+</code></pre></div>
+<p>您可以在教程中了解有关异步迭代器的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asynchronous-iterators/">Python 中的异步迭代器</a></li>
+</ul>
+<p>接下来，我们将探索异步生成器。</p>
+</div>
 </div>
 </div>
 <h2 id="16-异步生成器">16. 异步生成器<a class="headerlink" href="#16-异步生成器" title="Permanent link">&para;</a></h2>
@@ -7344,7 +8500,7 @@ All done
 </blockquote>
 <p>Like a classical generator, an asynchronous generator function can be used to create an asynchronous generator iterator that can be traversed using the built-in anext() function, instead of the next() function.</p>
 <blockquote>
-<p>asynchronous generator iterator: An object created by a asynchronous generator function. This is an asynchronous iterator which when called using the <strong>anext</strong>() method returns an awaitable object which will execute the body of the asynchronous generator function until the next yield expression.</p>
+<p>asynchronous generator iterator: An object created by a asynchronous generator function. This is an asynchronous iterator which when called using the __anext__() method returns an awaitable object which will execute the body of the asynchronous generator function until the next yield expression.</p>
 <p>— <a href="https://docs.python.org/3/glossary.html">PYTHON GLOSSARY</a></p>
 </blockquote>
 <p>This means that the asynchronous generator iterator implements the <strong>__anext__()</strong> method and can be used with the async for expression.</p>
@@ -7862,7 +9018,7 @@ results = [item async for item in async_generator()]
 <div class="tabbed-set tabbed-alternate" data-tabs="98:2"><input checked="checked" id="__tabbed_98_1" name="__tabbed_98" type="radio" /><input id="__tabbed_98_2" name="__tabbed_98" type="radio" /><div class="tabbed-labels"><label for="__tabbed_98_1">英文</label><label for="__tabbed_98_2">中文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>We can define an asynchronous context manager as a Python object that implements the <strong><strong>aenter</strong>()</strong> and <strong><strong>aexit</strong>()</strong> methods.</p>
+<p>We can define an asynchronous context manager as a Python object that implements the <strong>__aenter__()</strong> and <strong>__aexit__()</strong> methods.</p>
 <p>Importantly, both methods must be defined as coroutines using the “<strong>async def</strong>” and therefore must return awaitables.</p>
 <p>For example:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># define an asynchronous context manager</span>
@@ -7897,7 +9053,7 @@ results = [item async for item in async_generator()]
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>我们可以将异步上下文管理器定义为实现 <strong><strong>aenter</strong>()</strong> 和 <strong><strong>aexit</strong>()</strong> 方法的 Python 对象。</p>
+<p>我们可以将异步上下文管理器定义为实现 <strong>__aenter__()</strong> 和 <strong>__aexit__()</strong> 方法的 Python 对象。</p>
 <p>重要的是，这两种方法都必须使用“<strong>async def</strong>”定义为协程，因此必须返回可等待对象。</p>
 <p>例如:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># 定义异步上下文管理器</span>
@@ -11650,7 +12806,7 @@ main coroutine done
     <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b4d07000.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
