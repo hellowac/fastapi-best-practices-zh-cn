@@ -79,7 +79,7 @@ nav:
   - 英文原版: raw_en.md
   - Asyncio:
       - 中文简单指南: asyncio/asyncio.md
-      - 英文完整指南: asyncio/asyncio_en.md
+      - 中英对照指南: asyncio/asyncio_en.md
       - 语法备忘录: asyncio/cheat_sheet.md
       - API思维导图: asyncio/api_mind_map.md
   - 互联网协议:

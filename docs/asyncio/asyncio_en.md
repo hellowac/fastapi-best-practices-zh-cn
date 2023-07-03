@@ -374,7 +374,7 @@
 
     An asynchronous iterator is an iterator that yields awaitables.
     
-    > asynchronous iterator: An object that implements the __aiter__() and __anext__() methods. __anext__ must return an awaitable object. async for resolves the awaitables returned by an asynchronous iterator’s __anext__() method until it raises a StopAsyncIteration exception.
+    > asynchronous iterator: An object that implements the \_\_aiter\_\_() and \_\_anext\_\_() methods. \_\_anext\_\_ must return an awaitable object. async for resolves the awaitables returned by an asynchronous iterator’s \_\_anext\_\_() method until it raises a StopAsyncIteration exception.
     >
     > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
     
@@ -4691,7 +4691,19 @@
 
 === "英文"
 
+    We can wait for an asyncio task or coroutine to complete with a timeout using the **asyncio.wait_for()** function.
+
+    If the timeout elapses before the task completes, the task is canceled.
+
+    Let’s take a closer look.
+
 === "中文"
+
+    我们可以使用 **asyncio.wait_for()** 函数等待 asyncio 任务或协程完成并超时。
+
+    如果在任务完成之前超时，则任务将被取消。
+
+    让我们仔细看看。
 
 ### 12.1 什么是 Asyncio wait_for()
 
@@ -4699,7 +4711,35 @@
 
 === "英文"
 
+    The **asyncio.wait_for()** function allows the caller to wait for an asyncio task or coroutine to complete with a timeout.
+
+    If no timeout is specified, the **wait_for()** function will wait until the task is completed.
+
+    If a timeout is specified and elapses before the task is complete, then the task is canceled.
+
+    > Wait for the aw awaitable to complete with a timeout.
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+
+    This allows the caller to both set an expectation about how long they are willing to wait for a task to complete, and to enforce the timeout by canceling the task if the timeout elapses.
+
+    Now that we know what the **asyncio.wait_for()** function is, let’s look at how to use it.
+
 === "中文"
+
+    **asyncio.wait_for()** 函数允许调用者等待异步任务或协程完成并超时。
+
+    如果没有指定超时，**wait_for()**函数将等待，直到任务完成。
+
+    如果指定了超时并在任务完成之前超时，则任务将被取消。
+
+    > 等待 aw waitable 完成并超时。
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+
+    这允许调用者设置他们愿意等待任务完成多长时间的期望，并在超时结束时通过取消任务来强制超时。
+
+    现在我们知道了 **asyncio.wait_for()** 函数是什么，让我们看看如何使用它。
 
 ### 12.2 如何使用 Asyncio wait_for()
 
@@ -4707,7 +4747,109 @@
 
 === "英文"
 
+    The [asyncio.wait_for()](https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for) function takes an awaitable and a timeout.
+
+    The awaitable may be a coroutine or a task.
+
+    A timeout must be specified and may be **None** for no timeout, an integer or floating point number of seconds.
+
+    The **wait_for()** function returns a coroutine that is not executed until it is explicitly awaited or scheduled as a task.
+
+    For example:
+
+    ```python
+    ...
+    # wait for a task to complete
+    await asyncio.wait_for(coro, timeout=10)
+    ```
+
+    If a coroutine is provided, it will be converted to the task when the **wait_for()** coroutine is executed.
+
+    If the timeout elapses before the task is completed, the task is canceled, and an **asyncio.TimeoutError** is raised, which may need to be handled.
+
+    For example:
+
+    ```python
+    ...
+    # execute a task with a timeout
+
+    try:
+        # wait for a task to complete
+        await asyncio.wait_for(coro, timeout=1)
+    except asyncio.TimeoutError:
+        # ...
+    ```
+
+    If the waited-for task fails with an unhandled exception, the exception will be propagated back to the caller that is awaiting on the **wait_for()** coroutine, in which case it may need to be handled.
+
+    For example
+
+    ```python
+    ...
+    # execute a task that may fail
+    try:
+        # wait for a task to complete
+        await asyncio.wait_for(coro, timeout=1)
+    except asyncio.TimeoutError:
+        # ...
+    except Exception:
+        # ...
+    ```
+
+    Next, let’s look at how we can call **wait_for()** with a timeout.
+
 === "中文"
+
+    [asyncio.wait_for()](https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for) 函数需要等待和超时。
+
+    可等待的可能是协程或任务。
+
+    必须指定超时，并且可以为 **None**（无超时）、整数或浮点数秒数。
+
+    **wait_for()** 函数返回一个协程，该协程在被显式等待或安排为任务之前不会执行。
+
+    例如：
+
+    ```python
+    ...
+    # 等待任务完成
+    await asyncio.wait_for(coro, timeout=10)
+    ```
+
+    如果提供了协程，则会在执行 **wait_for()** 协程时将其转换为任务。
+
+    如果在任务完成之前超时，任务将被取消，并引发 **asyncio.TimeoutError**，这可能需要处理。
+
+    例如：
+
+    ```python
+    ...
+    # 执行超时任务
+
+    try:
+        # 等待任务完成
+        await asyncio.wait_for(coro, timeout=1)
+    except asyncio.TimeoutError:
+        # ...
+    ```
+
+    如果等待的任务因未处理的异常而失败，则该异常将传播回正在等待 **wait_for()** 协程的调用者，在这种情况下可能需要对其进行处理。
+
+    例如:
+
+    ```python
+    ...
+    # 执行可能失败的任务
+    try:
+        # 等待任务完成
+        await asyncio.wait_for(coro, timeout=1)
+    except asyncio.TimeoutError:
+        # ...
+    except Exception:
+        # ...
+    ```
+
+    接下来，让我们看看如何调用 **wait_for()** 并设置超时。
 
 ### 12.3 带有超时的 Asyncio wait_for() 示例
 
@@ -4715,7 +4857,143 @@
 
 === "英文"
 
+    We can explore how to wait for a coroutine with a timeout that elapses before the task is completed.
+
+    In this example, we execute a coroutine as above, except the caller waits a fixed timeout of 0.2 seconds or 200 milliseconds.
+
+    Recall that one second is equal to 1,000 milliseconds.
+
+    The task coroutine is modified so that it sleeps for more than one second, ensuring that the timeout always expires before the task is complete.
+
+    The complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # example of waiting for a coroutine with a timeout
+    from random import random
+    import asyncio
+    
+    # coroutine to execute in a new task
+    async def task_coro(arg):
+        # generate a random value between 0 and 1
+        value = 1 + random()
+        # report message
+        print(f'>task got {value}')
+        # block for a moment
+        await asyncio.sleep(value)
+        # report all done
+        print('>task done')
+    
+    # main coroutine
+    async def main():
+        # create a task
+        task = task_coro(1)
+        # execute and wait for the task without a timeout
+        try:
+            await asyncio.wait_for(task, timeout=0.2)
+        except asyncio.TimeoutError:
+            print('Gave up waiting, task canceled')
+    
+    # start the asyncio program
+    asyncio.run(main())
+    ```
+
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the asyncio program.
+
+    The **main()** coroutine creates the task coroutine. It then calls **wait_for()** and passes the task coroutine and sets the timeout to 0.2 seconds.
+
+    The **main()** coroutine is suspended and the **task_coro()** is executed. It reports a message and sleeps for a moment.
+
+    The **main()** coroutine resumes after the timeout has elapsed. The **wait_for()** coroutine cancels the **task_coro()** coroutine and the main() coroutine is suspended.
+
+    The **task_coro()** runs again and responds to the request to be terminated. It raises a **TimeoutError** exception and terminates.
+
+    The **main()** coroutine resumes and handles the **TimeoutError** raised by the task_coro().
+
+    This highlights how we can call the **wait_for()** function with a timeout and to cancel a task if it is not completed within a timeout.
+
+    The output from the program will differ each time it is run given the use of random numbers.
+
+    ```text
+    >task got 0.685375224799321
+    Gave up waiting, task canceled
+    ```
+
+    You can learn more about the wait_for() function in the tutorial:
+
+    - [Asyncio wait_for() to Wait With a Timeout](https://superfastpython.com/asyncio-wait_for/)
+
+    Next, we will explore how we might protect an asyncio task from being canceled.
+
 === "中文"
+
+    我们可以探索如何在任务完成之前等待超时的协程。
+
+    在这个例子中，我们像上面一样执行一个协程，除了调用者等待 0.2 秒或 200 毫秒的固定超时。
+
+    回想一下，一秒等于 1,000 毫秒。
+
+    任务协程经过修改，使其休眠时间超过一秒，确保超时始终在任务完成之前到期。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 等待超时协程的示例
+    from random import random
+    import asyncio
+    
+    # 在新任务中执行的协程
+    async def task_coro(arg):
+        # 生成 0 到 1 之间的随机值
+        value = 1 + random()
+        # 报告消息
+        print(f'>task got {value}')
+        # 阻塞片刻
+        await asyncio.sleep(value)
+        # 报告所有已完成
+        print('>task done')
+    
+    # 主协程
+    async def main():
+        # 创建一个任务
+        task = task_coro(1)
+        # 执行并等待任务，无超时
+        try:
+            await asyncio.wait_for(task, timeout=0.2)
+        except asyncio.TimeoutError:
+            print('Gave up waiting, task canceled')
+    
+    # 开始异步程序
+    asyncio.run(main())
+    ```
+
+    运行该示例首先创建 **main()** 协程，并将其用作 asyncio 程序的入口点。
+
+    **main()** 协程创建任务协程。 然后，它调用 **wait_for()** 并传递任务协程并将超时设置为 0.2 秒。
+
+    **main()** 协程被挂起并执行 **task_coro()**。 它报告一条消息并休眠一会儿。
+
+    **main()** 协程在超时后恢复。 **wait_for()** 协程取消 **task_coro()** 协程，并且 main() 协程被挂起。
+
+    **task_coro()** 再次运行并响应要终止的请求。 它引发 **TimeoutError** 异常并终止。
+
+    **main()** 协程恢复并处理由 task_coro() 引发的 **TimeoutError**。
+
+    这强调了我们如何调用带有超时的 **wait_for()** 函数，并在超时内未完成任务时取消任务。
+
+    由于使用随机数，程序每次运行时的输出都会有所不同。
+
+    ```text
+    >task got 0.685375224799321
+    Gave up waiting, task canceled
+    ```
+
+    您可以在教程中了解有关 wait_for() 函数的更多信息：
+
+    - [Asyncio wait_for() 等待超时](https://superfastpython.com/asyncio-wait_for/)
+
+    接下来，我们将探讨如何保护异步任务不被取消。
 
 ## 13. 防止任务被取消
 
@@ -4723,7 +5001,19 @@
 
 === "英文"
 
+    Asyncio tasks can be canceled by calling their **cancel()** method.
+
+    We can protect a task from being canceled by wrapping it in a call to **asyncio.shield()**.
+
+    Let’s take a closer look.
+
 === "中文"
+
+    可以通过调用异步任务的 **cancel()** 方法来取消异步任务。
+
+    我们可以通过将任务包装在对 **asyncio.shield()** 的调用中来防止任务被取消。
+
+    让我们仔细看看。
 
 ### 13.1 什么是 Asyncio shield()
 
@@ -4731,7 +5021,35 @@
 
 === "英文"
 
+    The asyncio.shield() function wraps an awaitable in Future that will absorb requests to be canceled.
+
+    > Protect an awaitable object from being cancelled.
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+
+    This means the shielded future can be passed around to tasks that may try to cancel it and the cancellation request will look like it was successful, except that the Task or coroutine that is being shielded will continue to run.
+
+    It may be useful in asyncio programs where some tasks can be canceled, but others, perhaps with a higher priority cannot.
+
+    It may also be useful in programs where some tasks can safely be canceled, such as those that were designed with asyncio in mind, whereas others cannot be safely terminated and therefore must be shielded from cancellation.
+
+    Now that we know what **asyncio.shield()** is, let’s look at how to use it.
+
 === "中文"
+
+    asyncio.shield() 函数在 Future 中包装了一个可等待的对象，它将吸收要取消的请求。
+
+    > 保护可等待对象不被取消。
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+
+    这意味着受屏蔽的 future 可以传递给可能尝试取消它的任务，并且取消请求看起来像是成功的，只不过被屏蔽的任务或协程将继续运行。
+
+    它在异步程序中可能很有用，其中某些任务可以取消，但其他任务（可能具有更高优先级）则不能。
+
+    它在某些任务可以安全取消的程序中也可能很有用，例如那些设计时考虑了 asyncio 的任务，而其他任务则无法安全终止，因此必须防止取消。
+
+    现在我们知道了 **asyncio.shield()** 是什么，让我们看看如何使用它。
 
 ### 13.2 如何使用 Asyncioshield()
 
@@ -4739,7 +5057,169 @@
 
 === "英文"
 
+    The [**asyncio.shield()**](https://docs.python.org/3/library/asyncio-task.html#asyncio.shield) function will protect another **Task** or coroutine from being canceled.
+
+    It takes an awaitable as an argument and returns an **asyncio.Future** object.
+
+    The Future object can then be awaited directly or passed to another task or coroutine.
+
+    For example:
+
+    ```python
+    ...
+    # shield a task from cancellation
+    shielded = asyncio.shield(task)
+    # await the shielded task
+    await shielded
+    ```
+
+    The returned **Future** can be canceled by calling the **cancel()** method.
+
+    If the inner task is running, the request will be reported as successful.
+
+    For example:
+
+    ```python
+    ...
+    # cancel a shielded task
+    was_canceld = shielded.cancel()
+    ```
+
+    Any coroutines awaiting the **Future** object will raise an **asyncio.CancelledError**, which may need to be handled.
+
+    For example:
+
+    ```python
+    ...
+    try:
+        # await the shielded task
+        await asyncio.shield(task)
+    except asyncio.CancelledError:
+        # ...
+    ```
+
+    Importantly, the request for cancellation made on the **Future** object is not propagated to the inner task.
+
+    This means that the request for cancellation is absorbed by the shield.
+
+    For example:
+
+    ```python
+    ...
+    # create a task
+    task = asyncio.create_task(coro())
+    # create a shield
+    shield = asyncio.shield(task)
+    # cancel the shield (does not cancel the task)
+    shield.cancel()
+    ```
+
+    If a coroutine is provided to the **asyncio.shield()** function it is wrapped in an **asyncio.Task()** and scheduled immediately.
+
+    This means that the shield does not need to be awaited for the inner coroutine to run.
+
+    > If aw is a coroutine it is automatically scheduled as a Task.
+    >
+    > — COROUTINES AND TASKS
+
+    If the task that is being shielded is canceled, the cancellation request will be propagated up to the shield, which will also be canceled.
+
+    For example:
+
+    ```python
+    ...
+    # create a task
+    task = asyncio.create_task(coro())
+    # create a shield
+    shield = asyncio.shield(task)
+    # cancel the task (also cancels the shield)
+    task.cancel()
+    ```
+
+    Now that we know how to use the asyncio.shield() function, let’s look at some worked examples.
+
 === "中文"
+
+    [**asyncio.shield()**](https://docs.python.org/3/library/asyncio-task.html#asyncio.shield) 函数将保护另一个 **Task** 或协程不被 取消。
+
+    它接受一个可等待作为参数并返回一个 **asyncio.Future** 对象。
+
+    然后可以直接等待 Future 对象或将其传递给另一个任务或协程。
+
+    例如：
+
+    ```python
+    ...
+    # 防止任务被取消
+    shielded = asyncio.shield(task)
+    # 等待屏蔽任务
+    await shielded
+    ```
+
+    返回的 **Future** 可以通过调用 **cancel()** 方法取消。
+
+    如果内部任务正在运行，则请求将报告为成功。
+
+    例如：
+
+    ```python
+    ...
+    # 取消屏蔽任务
+    was_canceld = shielded.cancel()
+    ```
+
+    任何等待 **Future** 对象的协程都会引发 **asyncio.CancelledError**，这可能需要处理。
+
+    例如：
+
+    ```python
+    ...
+    try:
+        # 等待屏蔽任务
+        await asyncio.shield(task)
+    except asyncio.CancelledError:
+        # ...
+    ```
+
+    重要的是，对 **Future** 对象发出的取消请求不会传播到内部任务。
+
+    这意味着取消请求被屏蔽吸收。
+
+    例如：
+
+    ```python
+    ...
+    # 创建任务
+    task = asyncio.create_task(coro())
+    # 创建一个防取消
+    shield = asyncio.shield(task)
+    # 取消屏蔽（不取消任务）
+    shield.cancel()
+    ```
+
+    如果向 **asyncio.shield()** 函数提供协程，它将被包装在 **asyncio.Task()** 中并立即调度。
+
+    这意味着屏蔽不需要等待内部协程运行。
+
+    > 如果 aw 是协程，它会自动安排为任务。
+    >
+    > — [COROUTINES AND TASKS](https://docs.python.org/3/library/asyncio-task.html)
+
+    如果正在屏蔽的任务被取消，则取消请求将传播到屏蔽，屏蔽也将被取消。
+
+    例如：
+
+    ```python
+    ...
+    # 创建任务
+    task = asyncio.create_task(coro())
+    # 创建一个盾牌
+    shield = asyncio.shield(task)
+    # 取消任务（同时取消护盾）
+    task.cancel()
+    ```
+
+    现在我们知道如何使用 **asyncio.shield()** 函数，让我们看一些有效的示例。
 
 ### 13.3 任务的 Asyncioshield() 示例
 
@@ -4747,7 +5227,197 @@
 
 === "英文"
 
+    We can explore how to protect a task from cancellation using asyncio.shield().
+
+    In this example, we define a simple coroutine task that takes an integer argument, sleeps for a second, then returns the argument. The coroutine can then be created and scheduled as a Task.
+
+    We can define a second coroutine that takes a task, sleeps for a fraction of a second, then cancels the provided task.
+
+    In the main coroutine, we can then shield the first task and pass it to the second task, then await the shielded task.
+
+    The expectation is that the shield will be canceled and leave the inner task intact. The cancellation will disrupt the main coroutine. We can check the status of the inner task at the end of the program and we expect it to have been completed normally, regardless of the request to cancel made on the shield.
+
+    The complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # example of using asyncio shield to protect a task from cancellation
+    import asyncio
+    
+    # define a simple asynchronous
+    async def simple_task(number):
+        # block for a moment
+        await asyncio.sleep(1)
+        # return the argument
+        return number
+    
+    # cancel the given task after a moment
+    async def cancel_task(task):
+        # block for a moment
+        await asyncio.sleep(0.2)
+        # cancel the task
+        was_cancelled = task.cancel()
+        print(f'cancelled: {was_cancelled}')
+    
+    # define a simple coroutine
+    async def main():
+        # create the coroutine
+        coro = simple_task(1)
+        # create a task
+        task = asyncio.create_task(coro)
+        # created the shielded task
+        shielded = asyncio.shield(task)
+        # create the task to cancel the previous task
+        asyncio.create_task(cancel_task(shielded))
+        # handle cancellation
+        try:
+            # await the shielded task
+            result = await shielded
+            # report the result
+            print(f'>got: {result}')
+        except asyncio.CancelledError:
+            print('shielded was cancelled')
+        # wait a moment
+        await asyncio.sleep(1)
+        # report the details of the tasks
+        print(f'shielded: {shielded}')
+        print(f'task: {task}')
+    
+    # start
+    asyncio.run(main())
+    ```
+
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the application.
+
+    The task coroutine is created, then it is wrapped and scheduled in a **Task**.
+
+    The task is then shielded from cancellation.
+
+    The shielded task is then passed to the **cancel_task()** coroutine which is wrapped in a task and scheduled.
+
+    The main coroutine then awaits the shielded task, which expects a **CancelledError** exception.
+
+    The task runs for a moment then sleeps. The cancellation task runs for a moment, sleeps, resumes then cancels the shielded task. The request to cancel reports that it was successful.
+
+    This raises a **CancelledError** exception in the shielded **Future**, although not in the inner task.
+
+    The **main()** coroutine resumes and responds to the **CancelledError** exception, reporting a message. It then sleeps for a while longer.
+
+    The task resumes, finishes, and returns a value.
+
+    Finally, the **main()** coroutine resumes, and reports the status of the shielded future and the inner task. We can see that the shielded future is marked as canceled and yet the inner task is marked as finished normally and provides a return value.
+
+    This example highlights how a shield can be used to successfully protect an inner task from cancellation.
+
+    ```text
+    cancelled: True
+    shielded was cancelled
+    shielded: <Future cancelled>
+    task: <Task finished name='Task-2' coro=<simple_task() done, defined at ...> result=1>
+    ```
+
+    You can learn more about the shield() function in the tutorial:
+
+    - [Asyncio Shield From Cancellation](https://superfastpython.com/asyncio-shield/)
+
+    Next, we will explore how to run a blocking task from an asyncio program.
+
 === "中文"
+
+    我们可以探索如何使用 asyncio.shield() 来保护任务不被取消。
+
+    在这个例子中，我们定义了一个简单的协程任务，它接受一个整数参数，休眠一秒钟，然后返回该参数。 然后可以创建协程并将其安排为任务。
+
+    我们可以定义第二个协程，它接受一个任务，休眠一小会儿，然后取消提供的任务。
+
+    在主协程中，我们可以屏蔽第一个任务并将其传递给第二个任务，然后等待屏蔽的任务。
+
+    预计护盾将被取消，而内部任务完好无损。 取消将扰乱主协程。 我们可以在程序结束时检查内部任务的状态，并且我们希望它已正常完成，无论屏蔽上是否发出取消请求。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 使用 asyncio shield 保护任务不被取消的示例
+    import asyncio
+    
+    # 定义一个简单的异步
+    async def simple_task(number):
+        # 暂时阻塞
+        await asyncio.sleep(1)
+        # 返回参数
+        return number
+    
+    # cancel the given task after a moment
+    async def cancel_task(task):
+        # 暂时阻塞
+        await asyncio.sleep(0.2)
+        # 取消任务
+        was_cancelled = task.cancel()
+        print(f'cancelled: {was_cancelled}')
+    
+    # 定义一个简单的协程
+    async def main():
+        # 创建协程
+        coro = simple_task(1)
+        # 创建任务
+        task = asyncio.create_task(coro)
+        # 创建被保护的任务
+        shielded = asyncio.shield(task)
+        # 创建任务以取消上一个任务
+        asyncio.create_task(cancel_task(shielded))
+        # 处理取消
+        try:
+            # 等待屏蔽任务
+            result = await shielded
+            # 报告结果
+            print(f'>got: {result}')
+        except asyncio.CancelledError:
+            print('shielded was cancelled')
+        # 稍等
+        await asyncio.sleep(1)
+        # 报告任务的详细信息
+        print(f'shielded: {shielded}')
+        print(f'task: {task}')
+    
+    # 开始
+    asyncio.run(main())
+    ```
+
+    运行该示例首先创建 **main()** 协程并将其用作应用程序的入口点。
+
+    创建任务协程，然后将其包装并安排在 **Task** 中。
+
+    然后该任务就不会被取消。
+
+    然后，屏蔽任务被传递到 **cancel_task()** 协程，该协程被包装在任务中并进行调度。
+
+    然后，主协程等待屏蔽任务，该任务需要 **CancelledError** 异常。
+
+    该任务运行一会儿然后休眠。 取消任务运行一会儿，休眠，恢复，然后取消屏蔽任务。 取消请求报告称已成功。
+
+    这会在屏蔽的 **Future** 中引发 **CancelledError** 异常，但不会在内部任务中引发。
+
+    **main()** 协程恢复并响应 **CancelledError** 异常，报告一条消息。 然后它会再睡一会儿。
+
+    任务继续、完成并返回一个值。
+
+    最后，**main()** 协程恢复，并报告屏蔽 future 和内部任务的状态。 我们可以看到，屏蔽的 future 被标记为已取消，而内部任务被标记为正常完成并提供返回值。
+
+    此示例重点介绍了如何使用防护罩成功保护内部任务免遭取消。
+
+    ```text
+    cancelled: True
+    shielded was cancelled
+    shielded: <Future cancelled>
+    task: <Task finished name='Task-2' coro=<simple_task() done, defined at ...> result=1>
+    ```
+
+    您可以在教程中了解有关shield()函数的更多信息：
+
+    - [Asyncio 防止取消](https://superfastpython.com/asyncio-shield/)
+
+    接下来，我们将探讨如何从 asyncio 程序运行阻塞任务。
 
 ## 14. 在 Asyncio 中运行阻塞任务
 
@@ -4755,7 +5425,19 @@
 
 === "英文"
 
+    A blocking task is a task that stops the current thread from progressing.
+
+    If a blocking task is executed in an asyncio program it stops the entire event loop, preventing any other coroutines from progressing.
+
+    We can run blocking calls asynchronously in an asyncio program via the **asyncio.to_thread()** and **loop.run_in_executor()** functions.
+
 === "中文"
+
+    阻塞任务是阻止当前线程继续执行的任务。
+
+    如果在 asyncio 程序中执行阻塞任务，它将停止整个事件循环，从而阻止任何其他协程进行。
+
+    我们可以通过 **asyncio.to_thread()** 和 **loop.run_in_executor()** 函数在 asyncio 程序中异步运行阻塞调用。
 
 ### 14.1 需要在 Asyncio 中运行阻塞任务
 
@@ -4763,7 +5445,35 @@
 
 === "英文"
 
+    The focus of asyncio is asynchronous programming and non-blocking IO.
+
+    Nevertheless, we often need to execute a blocking function call within an asyncio application.
+
+    This could be for many reasons, such as:
+
+    - To execute a CPU-bound task like calculating something.
+    - To execute a blocking IO-bound task like reading or writing from a file.
+    - To call into a third-party library that does not support asyncio yet.
+
+    Making a blocking call directly in an asyncio program will cause the event loop to stop while the blocking call is executing. It will not allow other coroutines to run in the background.
+
+    How can we execute a blocking call in an asyncio program asynchronously?
+
 === "中文"
+
+    asyncio的重点是异步编程和非阻塞IO。
+
+    然而，我们经常需要在异步应用程序中执行阻塞函数调用。
+
+    这可能有多种原因，例如：
+
+    - 执行 CPU 密集型任务，例如计算某些内容。
+    - 执行阻塞 IO 密集型任务，例如从文件中读取或写入。
+    - 调用尚不支持 asyncio 的第三方库。
+
+    直接在 asyncio 程序中进行阻塞调用将导致事件循环在阻塞调用执行时停止。 它不会允许其他协程在后台运行。
+
+    我们如何在 asyncio 程序中异步执行阻塞调用？
 
 ### 14.2 如何运行阻塞任务
 
@@ -4771,7 +5481,137 @@
 
 === "英文"
 
+    The asyncio module provides two approaches for executing blocking calls in asyncio programs.
+
+    The first is to use the [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) function.
+
+    This is in the high-level API and is intended for application developers.
+
+    The **asyncio.to_thread()** function takes a function name to execute and any arguments.
+
+    The function is executed in a separate thread. It returns a coroutine that can be awaited or scheduled as an independent task.
+
+    For example:
+
+    ```python
+    ...
+    # execute a function in a separate thread
+    await asyncio.to_thread(task)
+    ```
+
+    The task will not begin executing until the returned coroutine is given an opportunity to run in the event loop.
+
+    The **asyncio.to_thread()** function creates a **ThreadPoolExecutor** behind the scenes to execute blocking calls.
+
+    As such, the **asyncio.to_thread()** function is only appropriate for IO-bound tasks.
+
+    An alternative approach is to use the **loop.run_in_executor()** function.
+
+    This is in the low-level asyncio API and first requires access to the event loop, such as via the **asyncio.get_running_loop()** function.
+
+    The **loop.run_in_executor()** function takes an executor and a function to execute.
+
+    If **None** is provided for the executor, then the default executor is used, which is a **ThreadPoolExecutor**.
+
+    The **loop.run_in_executor()** function returns an awaitable that can be awaited if needed. The task will begin executing immediately, so the returned awaitable does not need to be awaited or scheduled for the blocking call to start executing.
+
+    For example:
+
+    ```python
+    ...
+    # get the event loop
+    loop = asyncio.get_running_loop()
+    # execute a function in a separate thread
+    await loop.run_in_executor(None, task)
+    ```
+
+    Alternatively, an executor can be created and passed to the **loop.run_in_executor()** function, which will execute the asynchronous call in the executor.
+
+    The caller must manage the executor in this case, shutting it down once the caller is finished with it.
+
+    For example:
+
+    ```python
+    ...
+    # create a process pool
+    with ProcessPoolExecutor as exe:
+        # get the event loop
+        loop = asyncio.get_running_loop()
+        # execute a function in a separate thread
+        await loop.run_in_executor(exe, task)
+        # process pool is shutdown automatically...
+    ```
+
+    These two approaches allow a blocking call to be executed as an asynchronous task in an asyncio program.
+
+    Now that we know how to execute blocking calls in an asyncio program, let’s look at some worked examples.
+
 === "中文"
+
+    asyncio 模块提供了两种在 asyncio 程序中执行阻塞调用的方法。
+
+    第一种是使用 [asyncio.to_thread()](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) 函数。
+
+    这是高级 API 中的内容，适用于应用程序开发人员。
+
+    **asyncio.to_thread()** 函数采用要执行的函数名称和任何参数。
+
+    该函数在单独的线程中执行。 它返回一个可以作为独立任务等待或调度的协程。
+
+    例如：
+
+    ```python
+    ...
+    # 在单独的线程中执行函数
+    await asyncio.to_thread(task)
+    ```
+
+    在返回的协程有机会在事件循环中运行之前，任务不会开始执行。
+
+    **asyncio.to_thread()** 函数在后台创建一个 **ThreadPoolExecutor** 来执行阻塞调用。
+
+    因此， **asyncio.to_thread()** 函数仅适用于 IO 密集型任务。
+
+    另一种方法是使用 **loop.run_in_executor()** 函数。
+
+    这是在低级 asyncio API 中，首先需要访问事件循环，例如通过 **asyncio.get_running_loop()** 函数。
+
+    **loop.run_in_executor()** 函数需要一个执行器和一个要执行的函数。
+
+    如果为执行器提供 **None**，则使用默认执行器，即 **ThreadPoolExecutor**。
+
+    **loop.run_in_executor()** 函数返回一个可等待的对象，如果需要，可以等待。 该任务将立即开始执行，因此不需要等待或安排返回的可等待对象来开始执行阻塞调用。
+
+    例如：
+
+    ```python
+    ...
+    # 获取事件循环
+    loop = asyncio.get_running_loop()
+    # 在单独的线程中执行函数
+    await loop.run_in_executor(None, task)
+    ```
+
+    或者，可以创建一个执行器并将其传递给 **loop.run_in_executor()** 函数，该函数将在执行器中执行异步调用。
+
+    在这种情况下，调用者必须管理执行器，在调用者完成后将其关闭。
+
+    例如：
+
+    ```python
+    ...
+    # 创建进程池
+    with ProcessPoolExecutor as exe:
+        # 获取事件循环
+        loop = asyncio.get_running_loop()
+        # 在单独的线程中执行函数
+        await loop.run_in_executor(exe, task)
+        # 进程池自动关闭...
+    ```
+
+    这两种方法允许阻塞调用作为 asyncio 程序中的异步任务执行。
+
+    现在我们知道如何在 asyncio 程序中执行阻塞调用，让我们看一些有效的示例。
 
 ### 14.3 使用 to_thread() 在 Asyncio 中运行 I/O 密集型任务的示例
 
@@ -4779,7 +5619,145 @@
 
 === "英文"
 
+    We can explore how to execute a blocking IO-bound call in an asyncio program using **asyncio.to_thread()**.
+
+    In this example, we will define a function that blocks the caller for a few seconds. We will then execute this function asynchronously in a thread pool from asyncio using the **asyncio.to_thread()** function.
+
+    This will free the caller to continue with other activities.
+
+    The complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # example of running a blocking io-bound task in asyncio
+    import asyncio
+    import time
+    
+    # a blocking io-bound task
+    def blocking_task():
+        # report a message
+        print('Task starting')
+        # block for a while
+        time.sleep(2)
+        # report a message
+        print('Task done')
+    
+    # main coroutine
+    async def main():
+        # report a message
+        print('Main running the blocking task')
+        # create a coroutine for  the blocking task
+        coro = asyncio.to_thread(blocking_task)
+        # schedule the task
+        task = asyncio.create_task(coro)
+        # report a message
+        print('Main doing other things')
+        # allow the scheduled task to start
+        await asyncio.sleep(0)
+        # await the task
+        await task
+    
+    # run the asyncio program
+    asyncio.run(main())
+    ```
+
+    Running the example first creates the **main()** coroutine and runs it as the entry point into the asyncio program.
+
+    The **main()** coroutine runs and reports a message. It then issues a call to the blocking function call to the thread pool. This returns a coroutine,
+
+    The coroutine is then wrapped in a **Task** and executed independently.
+
+    The **main()** coroutine is free to continue with other activities. In this case, it sleeps for a moment to allow the scheduled task to start executing. This allows the target function to be issued to the **ThreadPoolExecutor** behind the scenes and start running.
+
+    The **main()** coroutine then suspends and waits for the task to complete.
+
+    The blocking function reports a message, sleeps for 2 seconds, then reports a final message.
+
+    This highlights how we can execute a blocking IO-bound task in a separate thread asynchronously from an asyncio program.
+
+    ```python
+    Main running the blocking task
+    Main doing other things
+    Task starting
+    Task done
+    ```
+
+    You can learn more about the to_thread() function in the tutorial:
+
+    - [How to Use Asyncio to_thread()](https://superfastpython.com/asyncio-to_thread/)
+
+    Next, we will explore how to develop and use asynchronous iterators.
+
 === "中文"
+
+    我们可以探索如何使用 **asyncio.to_thread()** 在 asyncio 程序中执行阻塞 IO 绑定调用。
+
+    在此示例中，我们将定义一个函数来阻止调用者几秒钟。 然后，我们将使用 **asyncio.to_thread()** 函数在 asyncio 的线程池中异步执行此函数。
+
+    这将使调用者能够自由地继续其他活动。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 在 asyncio 中运行阻塞 io 绑定任务的示例
+    import asyncio
+    import time
+    
+    # 阻塞 io 绑定任务
+    def blocking_task():
+        # 报告消息
+        print('Task starting')
+        # 阻塞暂停2s
+        time.sleep(2)
+        # 报告消息
+        print('Task done')
+    
+    # 主协程
+    async def main():
+        # 报告消息
+        print('Main running the blocking task')
+        # 为阻塞任务创建一个协程
+        coro = asyncio.to_thread(blocking_task)
+        # 安排任务
+        task = asyncio.create_task(coro)
+        # 报告消息
+        print('Main doing other things')
+        # 允许计划任务启动
+        await asyncio.sleep(0)
+        # 等待任务
+        await task
+    
+    # 运行异步程序
+    asyncio.run(main())
+    ```
+
+    运行该示例首先创建 **main()** 协程，并将其作为 asyncio 程序的入口点运行。
+
+    **main()** 协程运行并报告一条消息。 然后它向线程池发出对阻塞函数的调用。 这返回一个协程，
+
+    然后协程被包装在 **Task** 中并独立执行。
+
+    **main()** 协程可以自由地继续其他活动。 在这种情况下，它会休眠一会儿以允许计划任务开始执行。 这使得目标函数可以在后台发布到**ThreadPoolExecutor**并开始运行。
+
+    然后 **main()** 协程挂起并等待任务完成。
+
+    阻塞函数报告一条消息，休眠2秒，然后报告最后一条消息。
+
+    这突出显示了我们如何在单独的线程中从 asyncio 程序异步执行阻塞 IO 绑定任务。
+
+    ```python
+    Main running the blocking task
+    Main doing other things
+    Task starting
+    Task done
+    ```
+
+    您可以在教程中了解有关 to_thread() 函数的更多信息：
+
+    - [如何使用 Asyncio to_thread()](https://superfastpython.com/asyncio-to_thread/)
+
+    接下来，我们将探讨如何开发和使用异步迭代器。
 
 ## 15. 异步迭代器
 
@@ -4787,7 +5765,27 @@
 
 === "英文"
 
+    Iteration is a basic operation in Python.
+
+    We can iterate lists, strings, and all manner of other structures.
+
+    Asyncio allows us to develop asynchronous iterators.
+
+    We can create and use asynchronous iterators in asyncio programs by defining an object that implements the **\_\_aiter\_\_()** and **\_\_anext\_\_()** methods.
+
+    Let’s take a closer look.
+
 === "中文"
+
+    迭代是Python中的基本操作。
+
+    我们可以迭代列表、字符串和各种其他结构。
+
+    Asyncio 允许我们开发异步迭代器。
+
+    我们可以通过定义一个实现 **\_\_aiter\_\_()** 和 **\_\_anext\_\_()** 方法的对象来在 asyncio 程序中创建和使用异步迭代器。
+
+    让我们仔细看看。
 
 ### 15.1 什么是异步迭代器
 
@@ -4795,7 +5793,15 @@
 
 === "英文"
 
+    An asynchronous iterator is an object that implements the **\_\_aiter\_\_()** and **\_\_anext\_\_()** methods.
+
+    Before we take a close look at asynchronous iterators, let’s review classical iterators.
+
 === "中文"
+
+    异步迭代器是一个实现 **\_\_aiter\_\_()** 和 **\_\_anext\_\_()** 方法的对象。
+
+    在我们仔细研究异步迭代器之前，让我们回顾一下经典迭代器。
 
 #### 15.1.1 迭代器
 
@@ -4803,7 +5809,31 @@
 
 === "英文"
 
+    An iterator is a Python object that implements a specific interface.
+
+    Specifically, the **\_\_iter\_\_()** method that returns an instance of the iterator and the **\_\_next\_\_()** method that steps the iterator one cycle and returns a value.
+
+    > iterator: An object representing a stream of data. Repeated calls to the iterator’s **\_\_next\_\_()** method (or passing it to the built-in function next()) return successive items in the stream. When no more data are available a StopIteration exception is raised instead.
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    An iterator can be stepped using the **next()** built-in function or traversed using a for loop.
+
+    Many Python objects are iterable, most notable are containers such as lists.
+
 === "中文"
+
+    迭代器是一个实现特定接口的 Python 对象。
+
+    具体来说， **\_\_iter\_\_()** 方法返回迭代器的实例，而 **\_\_next\_\_()** 方法步进迭代器一个周期并返回 一个值。
+
+    > 迭代器：表示数据流的对象。 重复调用迭代器的 **\_\_next\_\_()** 方法（或将其传递给内置函数 next()）会返回流中的连续项。 当没有更多数据可用时，会引发 StopIteration 异常。
+    >
+    > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    可以使用 **next()** 内置函数步进迭代器或使用 for 循环遍历迭代器。
+
+    许多 Python 对象都是可迭代的，最值得注意的是列表等容器。
 
 #### 15.1.2 异步迭代器
 
@@ -4811,7 +5841,61 @@
 
 === "英文"
 
+    An asynchronous iterator is a Python object that implements a specific interface.
+
+    !!! info ""
+    
+        asynchronous iterator: An object that implements the \_\_aiter\_\_() and \_\_anext\_\_() methods.
+
+        — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    An asynchronous iterator must implement the **\_\_aiter\_\_()** and **\_\_anext\_\_()** methods.
+
+    - The **\_\_aiter\_\_()** method must return an instance of the iterator.
+    - The **\_\_anext\_\_()** method must return an awaitable that steps the iterator.
+
+    An asynchronous iterator may only be stepped or traversed in an asyncio program, such as within a coroutine.
+
+    Asynchronous iterators were introduced in [PEP 492 – Coroutines with async and await syntax](https://peps.python.org/pep-0492/).
+
+    An asynchronous iterator can be stepped using the [anext()](https://docs.python.org/3/library/functions.html#anext) built-in function that returns an awaitable that executes one step of the iterator, e.g. one call to the \_\_anext\_\_() method.
+
+    An asynchronous iterator can be traversed using the “async for” expression that will automatically call anext() each iteration and await the returned awaitable in order to retrieve the return value.
+
+    !!! info ""
+
+        An asynchronous iterable is able to call asynchronous code in its iter implementation, and asynchronous iterator can call asynchronous code in its next method.
+
+        — [PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX](https://peps.python.org/pep-0492/)
+
 === "中文"
+
+    异步迭代器是实现特定接口的 Python 对象。
+
+    !!! info ""
+    
+        异步迭代器：实现 \_\_aiter\_\_() 和 \_\_anext\_\_() 方法的对象。
+
+        — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    异步迭代器必须实现 **\_\_aiter\_\_()** 和 **\_\_anext\_\_()** 方法。
+
+    - **\_\_aiter\_\_()** 方法必须返回迭代器的实例。
+    - **\_\_anext\_\_()** 方法必须返回一个步进迭代器的等待对象。
+
+    异步迭代器只能在异步程序中步进或遍历，例如在协程中。
+
+    异步迭代器在 [PEP 492 – 具有异步和等待语法的协程](https://peps.python.org/pep-0492/) 中引入。
+
+    异步迭代器可以使用 [anext()](https://docs.python.org/3/library/functions.html#anext) 内置函数进行单步执行，该函数返回一个执行迭代器一步的等待对象， 例如 对 \_\_anext\_\_() 方法的一次调用。
+
+    可以使用**“async for”**表达式遍历异步迭代器，该表达式将在每次迭代时自动调用 **anext()** 并等待返回的可等待项以检索返回值。
+
+    !!! info ""
+
+        异步迭代器可以在其 iter 实现中调用异步代码，异步迭代器可以在其 anext 方法中调用异步代码。
+
+        — [PEP 492 – COROUTINES WITH ASYNC AND AWAIT SYNTAX](https://peps.python.org/pep-0492/)
 
 ### 15.2 什么是“async for”循环？
 
@@ -4819,7 +5903,125 @@
 
 === "英文"
 
+    The async for expression is used to traverse an asynchronous iterator.
+
+    It is an asynchronous for-loop statement.
+
+    An asynchronous iterator is an iterator that yields awaitables.
+
+    You may recall that an awaitable is an object that can be waited for, such as a coroutine or a task.
+
+    !!! info ""
+
+        awaitable: An object that can be used in an await expression.
+
+        — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    An asynchronous generator will automatically implement the asynchronous iterator methods, allowing it to be iterated like an asynchronous iterator.
+
+    The await for expression allows the caller to traverse an asynchronous iterator of awaitables and retrieve the result from each.
+
+    This is not the same as traversing a collection or list of awaitables (e.g. coroutine objects), instead, the awaitables returned must be provided using the expected asynchronous iterator methods.
+
+    Internally, the async for loop will automatically resolve or await each awaitable, scheduling coroutines as needed.
+
+    Because it is a for-loop, it assumes, although does not require, that each awaitable being traversed yields a return value.
+
+    The async for loop must be used within a coroutine because internally it will use the await expression, which can only be used within coroutines.
+
+    The async for expression can be used to traverse an asynchronous iterator within a coroutine.
+
+    For example:
+
+    ```python
+    ...
+    # traverse an asynchronous iterator
+    async for item in async_iterator:
+        print(item)
+    ```
+
+    This does not execute the for-loop in parallel. The asyncio is unable to execute more than one coroutine at a time within a Python thread.
+
+    Instead, this is an asynchronous for-loop.
+
+    The difference is that the coroutine that executes the for loop will suspend and internally await for each awaitable.
+
+    Behind the scenes, this may require coroutines to be scheduled and awaited, or tasks to be awaited.
+
+    We may also use the async for expression in a list comprehension.
+
+    For example:
+
+    ```python
+    ...
+    # build a list of results
+    results = [item async for item async_iterator]
+    ```
+
+    This would construct a list of return values from the asynchronous iterator.
+
+    Next, let’s look at how to define, create and use asynchronous iterators.
+
 === "中文"
+
+    async for 表达式用于遍历异步迭代器。
+
+    它是一个异步for循环语句。
+
+    异步迭代器是产生可等待对象的迭代器。
+
+    您可能还记得，awaitable 是一个可以等待的对象，例如协程或任务。
+
+    !!! info ""
+
+        awaitable: 可在await 表达式中使用的对象。
+
+        — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
+
+    异步生成器将自动实现异步迭代器方法，允许它像异步迭代器一样进行迭代。
+
+    wait for 表达式允许调用者遍历可等待项的异步迭代器并从每个迭代器中检索结果。
+
+    这与遍历可等待对象的集合或列表（例如协程对象）不同，相反，必须使用预期的异步迭代器方法提供返回的可等待对象。
+
+    在内部，async for 循环将自动解析或等待每个可等待的、根据需要调度协程。
+
+    因为它是一个 for 循环，所以它假设（尽管不要求）每个被遍历的可等待对象都会产生一个返回值。
+
+    async for 循环必须在协程内使用，因为它在内部将使用只能在协程内使用的await 表达式。
+
+    async for 表达式可用于遍历协程内的异步迭代器。
+
+    例如：
+
+    ```python
+    ...
+    # 遍历异步迭代器
+    async for item in async_iterator:
+        print(item)
+    ```
+
+    这不会并行执行 for 循环。 asyncio 无法在 Python 线程中同时执行多个协程。
+
+    相反，这是一个异步 for 循环。
+
+    不同之处在于，执行 for 循环的协程将挂起并在内部等待每个可等待项。
+
+    在幕后，这可能需要安排和等待协程，或者等待任务。
+
+    我们还可以在列表理解中使用 async for 表达式。
+
+    例如：
+
+    ```python
+    ...
+    # 建立结果列表
+    results = [item async for item async_iterator]
+    ```
+
+    这将从异步迭代器构造返回值列表。
+
+    接下来，我们看看如何定义、创建和使用异步迭代器。
 
 ### 15.3 如何使用异步迭代器
 
@@ -4827,7 +6029,15 @@
 
 === "英文"
 
+    In this section, we will take a close look at how to define, create, step, and traverse an asynchronous iterator in asyncio programs.
+
+    Let’s start with how to define an asynchronous iterator.
+
 === "中文"
+
+    在本节中，我们将仔细研究如何在 asyncio 程序中定义、创建、单步执行和遍历异步迭代器。
+
+    让我们从如何定义异步迭代器开始。
 
 #### 15.3.1 定义异步迭代器
 
@@ -4835,7 +6045,125 @@
 
 === "英文"
 
+    We can define an asynchronous iterator by defining a class that implements the **\_\_aiter\_\_()** and **\_\_anext\_\_()** methods.
+
+    These methods are defined on a Python object as per normal.
+
+    Importantly, because the **\_\_anext\_\_()** function must return an awaitable, it must be defined using the **“async def”** expression.
+
+    !!! info ""
+        
+        object.\_\_anext\_\_(self): Must return an awaitable resulting in a next value of the iterator. Should raise a StopAsyncIteration error when the iteration is over.
+
+        — [ASYNCHRONOUS ITERATORS](https://docs.python.org/3/reference/datamodel.html#asynchronous-iterators)
+
+    When the iteration is complete, the **\_\_anext\_\_()** method must raise a **StopAsyncIteration** exception.
+
+    For example:
+
+    ```python
+    # define an asynchronous iterator
+    class AsyncIterator():
+        # constructor, define some state
+        def __init__(self):
+            self.counter = 0
+    
+        # create an instance of the iterator
+        def __aiter__(self):
+            return self
+    
+        # return the next awaitable
+        async def __anext__(self):
+            # check for no further items
+            if self.counter >= 10:
+                raise StopAsyncIteration
+            # increment the counter
+            self.counter += 1
+            # return the counter value
+            return self.counter
+    ```
+
+    Because the asynchronous iterator is a coroutine and each iterator returns an awaitable that is scheduled and executed in the asyncio event loop, we can execute and await awaitables within the body of the iterator.
+
+    For example:
+
+    ```python
+    ...
+    # return the next awaitable
+    async def __anext__(self):
+        # check for no further items
+        if self.counter >= 10:
+            raise StopAsyncIteration
+        # increment the counter
+        self.counter += 1
+        # simulate work
+        await asyncio.sleep(1)
+        # return the counter value
+        return self.counter
+    ```
+
+    Next, let’s look at how we might use an asynchronous iterator.
+
 === "中文"
+
+    我们可以通过定义一个实现 **\_\_aiter\_\_()** 和 **\_\_anext\_\_()** 方法的类来定义异步迭代器。
+
+    这些方法按照正常方式在 Python 对象上定义。
+
+    重要的是，由于 **\_\_anext\_\_()** 函数必须返回一个等待对象，因此必须使用 **“async def”** 表达式来定义它。
+
+    !!! info ""
+        
+        object.\_\_anext\_\_(self)：必须返回一个可等待的结果，从而产生迭代器的下一个值。 迭代结束时应引发 StopAsyncIteration 错误。
+
+        — [ASYNCHRONOUS ITERATORS](https://docs.python.org/3/reference/datamodel.html#asynchronous-iterators)
+
+    迭代完成后， **\_\_anext\_\_()** 方法必须引发 **StopAsyncIteration** 异常。
+
+    例如：
+
+    ```python
+    # 定义一个异步迭代器
+    class AsyncIterator():
+        # 构造函数，定义一些状态
+        def __init__(self):
+            self.counter = 0
+    
+        # 创建迭代器的实例
+        def __aiter__(self):
+            return self
+    
+        # 返回下一个等待的
+        async def __anext__(self):
+            # 检查没有其他项目
+            if self.counter >= 10:
+                raise StopAsyncIteration
+            # 增加计数器
+            self.counter += 1
+            # 返回计数器值
+            return self.counter
+    ```
+
+    因为异步迭代器是一个协程，并且每个迭代器都返回一个在 asyncio 事件循环中调度和执行的等待对象，所以我们可以在迭代器体内执行和等待等待对象。
+
+    例如：
+
+    ```python
+    ...
+    # 返回下一个等待的
+    async def __anext__(self):
+        # 检查没有其他项目
+        if self.counter >= 10:
+            raise StopAsyncIteration
+        # 增加计数器
+        self.counter += 1
+        # 模拟工作
+        await asyncio.sleep(1)
+        # 返回计数器值
+        return self.counter
+    ```
+
+    接下来，让我们看看如何使用异步迭代器。
 
 #### 15.3.2 创建异步迭代器
 
@@ -4843,7 +6171,35 @@
 
 === "英文"
 
+    To use an asynchronous iterator we must create the iterator.
+
+    This involves creating the Python object as per normal.
+
+    For example:
+
+    ```python
+    ...
+    # create the iterator
+    it = AsyncIterator()
+    ```
+
+    This returns an “asynchronous iterable“, which is an instance of an “asynchronous iterator“.
+
 === "中文"
+
+    要使用异步迭代器，我们必须创建迭代器。
+
+    这涉及到按照正常方式创建 Python 对象。
+
+    例如：
+
+    ```python
+    ...
+    # 创建迭代器
+    it = AsyncIterator()
+    ```
+
+    这将返回一个“异步迭代器”，它是“异步迭代器”的实例。
 
 #### 15.3.3 单步执行异步迭代器
 
@@ -4851,7 +6207,55 @@
 
 === "英文"
 
+    One step of the iterator can be traversed using the anext() built-in function, just like a classical iterator using the next() function.
+
+    The result is an awaitable that is awaited.
+
+    For example:
+
+    ```python
+    ...
+    # get an awaitable for one step of the iterator
+    awaitable = anext(it)
+    # execute the one step of the iterator and get the result
+    result = await awaitable
+    ```
+
+    This can be achieved in one step.
+
+    For example:
+
+    ```python
+    ...
+    # step the async iterator
+    result = await anext(it)
+    ```
+
 === "中文"
+
+    可以使用 **anext()** 内置函数遍历迭代器的一步，就像使用 **next()** 函数的经典迭代器一样。
+
+    结果是一个可等待对象的结果。
+
+    例如：
+
+    ```python
+    ...
+    # 获取迭代器一步的等待
+    awaitable = anext(it)
+    # 执行迭代器的一步并得到结果
+    result = await awaitable
+    ```
+
+    这可以一步实现。
+
+    例如：
+
+    ```python
+    ...
+    # 单步执行异步迭代器
+    result = await anext(it)
+    ```
 
 #### 15.3.4 遍历异步迭代器
 
@@ -4859,7 +6263,57 @@
 
 === "英文"
 
+    The asynchronous iterator can also be traversed in a loop using the “async for” expression that will await each iteration of the loop automatically.
+
+    For example:
+
+    ```python
+    ...
+    # traverse an asynchronous iterator
+    async for result in AsyncIterator():
+        print(result)
+    ```
+
+    You can learn more about the “async for” expression in the tutorial:
+
+    - [Asyncio async for loop](https://superfastpython.com/asyncio-async-for/)
+
+    We may also use an asynchronous list comprehension with the “async for” expression to collect the results of the iterator.
+
+    For example:
+
+    ```python
+    ...
+    # async list comprehension with async iterator
+    results = [item async for item in AsyncIterator()]
+    ```
+
 === "中文"
+
+    还可以使用“async for”表达式在循环中遍历异步迭代器，该表达式将自动等待循环的每次迭代。
+
+    例如：
+
+    ```python
+    ...
+    # 遍历异步迭代器
+    async for result in AsyncIterator():
+        print(result)
+    ```
+
+    您可以在教程中了解有关“async for”表达式的更多信息：
+
+    - [Asyncio 异步 for 循环](https://superfastpython.com/asyncio-async-for/)
+
+    我们还可以使用异步列表理解和“async for”表达式来收集迭代器的结果。
+
+    例如：
+
+    ```python
+    ...
+    # 使用异步迭代器的异步列表推导式
+    results = [item async for item in AsyncIterator()]
+    ```
 
 ### 15.4 异步迭代器的示例
 
@@ -4867,7 +6321,163 @@
 
 === "英文"
 
+    We can explore how to traverse an asynchronous iterator using the **“async for”** expression.
+
+    In this example, we will update the previous example to traverse the iterator to completion using an **“async for”** loop.
+
+    This loop will automatically await each awaitable returned from the iterator, retrieve the returned value, and make it available within the loop body so that in this case it can be reported.
+
+    This is perhaps the most common usage pattern for asynchronous iterators.
+
+    The complete example is listed below.
+
+    ```python
+    # SuperFastPython.com
+    # example of an asynchronous iterator with async for loop
+    import asyncio
+    
+    # define an asynchronous iterator
+    class AsyncIterator():
+        # constructor, define some state
+        def __init__(self):
+            self.counter = 0
+    
+        # create an instance of the iterator
+        def __aiter__(self):
+            return self
+    
+        # return the next awaitable
+        async def __anext__(self):
+            # check for no further items
+            if self.counter >= 10:
+                raise StopAsyncIteration
+            # increment the counter
+            self.counter += 1
+            # simulate work
+            await asyncio.sleep(1)
+            # return the counter value
+            return self.counter
+    
+    # main coroutine
+    async def main():
+        # loop over async iterator with async for loop
+        async for item in AsyncIterator():
+            print(item)
+    
+    # execute the asyncio program
+    asyncio.run(main())
+    ```
+
+    Running the example first creates the **main()** coroutine and uses it as the entry point into the asyncio program.
+
+    The **main()** coroutine runs and starts the for loop.
+
+    An instance of the asynchronous iterator is created and the loop automatically steps it using the **anext()** function to return an awaitable. The loop then awaits the awaitable and retrieves a value which is made available to the body of the loop where it is reported.
+
+    This process is then repeated, suspending the **main()** coroutine, executing a step of the iterator and suspending, and resuming the **main()** coroutine until the iterator is exhausted.
+
+    Once the internal counter of the iterator reaches 10, a **StopAsyncIteration** is raised. This does not terminate the program. Instead, it is expected and handled by the **“async for”** expression and breaks the loop.
+
+    This highlights how an asynchronous iterator can be traversed using an **async for** expression.
+
+    ```python
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    ```
+
+    You can learn more about async iterators in the tutorial:
+
+    - [Asynchronous Iterators in Python](https://superfastpython.com/asynchronous-iterators/)
+
+    Next, we will explore asynchronous generators.
+
 === "中文"
+
+    我们可以探索如何使用**“async for”**表达式来遍历异步迭代器。
+
+    在此示例中，我们将更新前面的示例，以使用 **“async for”** 循环遍历迭代器直至完成。
+
+    此循环将自动等待从迭代器返回的每个等待，检索返回的值，并使其在循环体内可用，以便在这种情况下可以报告它。
+
+    这可能是异步迭代器最常见的使用模式。
+
+    下面列出了完整的示例。
+
+    ```python
+    # SuperFastPython.com
+    # 具有异步 for 循环的异步迭代器的示例
+    import asyncio
+    
+    # 定义一个异步迭代器
+    class AsyncIterator():
+        # 构造函数，定义一些状态
+        def __init__(self):
+            self.counter = 0
+    
+        # 创建迭代器的实例
+        def __aiter__(self):
+            return self
+    
+        # 返回下一个可等待对象
+        async def __anext__(self):
+            # 检查没有其他项目
+            if self.counter >= 10:
+                raise StopAsyncIteration
+            # 增加计数器
+            self.counter += 1
+            # 模拟工作
+            await asyncio.sleep(1)
+            # 返回计数器值
+            return self.counter
+    
+    # 主协程
+    async def main():
+        # 使用 async for 循环遍历异步迭代器
+        async for item in AsyncIterator():
+            print(item)
+    
+    # 执行异步程序
+    asyncio.run(main())
+    ```
+
+    运行该示例首先创建 **main()** 协程，并将其用作 asyncio 程序的入口点。
+
+    **main()** 协程运行并启动 for 循环。
+
+    创建异步迭代器的实例，循环使用 **anext()** 函数自动步进它以返回可等待的对象。 然后，循环等待可等待对象并检索一个值，该值可供报告该值的循环体使用。
+
+    然后重复这个过程，挂起 **main()** 协程，执行迭代器的一个步骤并挂起，然后恢复 **main()** 协程，直到迭代器耗尽。
+
+    一旦迭代器的内部计数器达到 10，就会引发 **StopAsyncIteration**。 这不会终止程序。 相反，它是由 **“async for”** 表达式期望和处理的，并打破循环。
+
+    这突出显示了如何使用 **async for** 表达式遍历异步迭代器。
+
+    ```python
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    ```
+
+    您可以在教程中了解有关异步迭代器的更多信息：
+
+    - [Python 中的异步迭代器](https://superfastpython.com/asynchronous-iterators/)
+
+    接下来，我们将探索异步生成器。
 
 ## 16. 异步生成器
 
@@ -5035,7 +6645,7 @@
     
     Like a classical generator, an asynchronous generator function can be used to create an asynchronous generator iterator that can be traversed using the built-in anext() function, instead of the next() function.
     
-    > asynchronous generator iterator: An object created by a asynchronous generator function. This is an asynchronous iterator which when called using the __anext__() method returns an awaitable object which will execute the body of the asynchronous generator function until the next yield expression.
+    > asynchronous generator iterator: An object created by a asynchronous generator function. This is an asynchronous iterator which when called using the \_\_anext\_\_() method returns an awaitable object which will execute the body of the asynchronous generator function until the next yield expression.
     >
     > — [PYTHON GLOSSARY](https://docs.python.org/3/glossary.html)
     
@@ -5713,7 +7323,7 @@
 
 === "英文"
 
-    We can define an asynchronous context manager as a Python object that implements the **__aenter__()** and **__aexit__()** methods.
+    We can define an asynchronous context manager as a Python object that implements the **\_\_aenter\_\_()** and **\_\_aexit\_\_()** methods.
     
     Importantly, both methods must be defined as coroutines using the “**async def**” and therefore must return awaitables.
     
@@ -5757,7 +7367,7 @@
 
 === "中文"
 
-    我们可以将异步上下文管理器定义为实现 **__aenter__()** 和 **__aexit__()** 方法的 Python 对象。
+    我们可以将异步上下文管理器定义为实现 **\_\_aenter\_\_()** 和 **\_\_aexit\_\_()** 方法的 Python 对象。
     
     重要的是，这两种方法都必须使用“**async def**”定义为协程，因此必须返回可等待对象。
     
