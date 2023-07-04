@@ -1,0 +1,1691 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../asyncio_en/">
+      
+      
+        <link rel="next" href="../cheat_sheet/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>Runner运行协程 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#如何使用asyncrunner执行多个协程" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Runner运行协程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../asyncio/" class="md-tabs__link md-tabs__link--active">
+        Asyncio
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-tabs__link">
+        互联网协议
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../http/" class="md-tabs__link">
+        HTTP
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rest-ful/restapi/" class="md-tabs__link">
+        REST ful
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../git/git-branch-manage/" class="md-tabs__link">
+        Git
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../system-design/perm_design/" class="md-tabs__link">
+        系统设计
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Asyncio
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Asyncio
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asyncio/" class="md-nav__link">
+        中文简单指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asyncio_en/" class="md-nav__link">
+        中英对照指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Runner运行协程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Runner运行协程
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#需要在-python-中运行多个协程" class="md-nav__link">
+    需要在 Python 中运行多个协程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何使用-asynciorunner-运行多个协程" class="md-nav__link">
+    如何使用 asyncio.Runner 运行多个协程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-asynciorun-运行多个协程的示例" class="md-nav__link">
+    使用 asyncio.run() 运行多个协程的示例
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 asyncio.run() 运行多个协程的示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法-1单独调用-asynciorun" class="md-nav__link">
+    方法 1：单独调用 asyncio.run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法2包装为协程" class="md-nav__link">
+    方法2：包装为协程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-asynciorunner-运行多个协程的示例" class="md-nav__link">
+    使用 asyncio.Runner 运行多个协程的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#进一步阅读" class="md-nav__link">
+    进一步阅读
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat_sheet/" class="md-nav__link">
+        语法备忘录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_mind_map/" class="md-nav__link">
+        API思维导图
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          互联网协议
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-nav__link">
+        互联网协议入门（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_ii/" class="md-nav__link">
+        互联网协议入门（二）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../http/">HTTP</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/http-referer/" class="md-nav__link">
+        HTTP Referer 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/https/" class="md-nav__link">
+        HTTPS 升级指南
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          REST ful
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          REST ful
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapi/" class="md-nav__link">
+        Restful API 设计指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapibsetp/" class="md-nav__link">
+        RESTful API 最佳实践
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-branch-manage/" class="md-nav__link">
+        Git分支管理策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-remote/" class="md-nav__link">
+        Git远程操作详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-use-process/" class="md-nav__link">
+        Git 使用规范流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-cheat-sheet/" class="md-nav__link">
+        常用 Git 命令清单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-work-flow/" class="md-nav__link">
+        Git 协作流程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          系统设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          系统设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/perm_design/" class="md-nav__link">
+        权限系统的设计
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#需要在-python-中运行多个协程" class="md-nav__link">
+    需要在 Python 中运行多个协程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何使用-asynciorunner-运行多个协程" class="md-nav__link">
+    如何使用 asyncio.Runner 运行多个协程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-asynciorun-运行多个协程的示例" class="md-nav__link">
+    使用 asyncio.run() 运行多个协程的示例
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 asyncio.run() 运行多个协程的示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#方法-1单独调用-asynciorun" class="md-nav__link">
+    方法 1：单独调用 asyncio.run()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#方法2包装为协程" class="md-nav__link">
+    方法2：包装为协程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-asynciorunner-运行多个协程的示例" class="md-nav__link">
+    使用 asyncio.Runner 运行多个协程的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#进一步阅读" class="md-nav__link">
+    进一步阅读
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="如何使用asyncrunner执行多个协程">如何使用async.Runner执行多个协程<a class="headerlink" href="#如何使用asyncrunner执行多个协程" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="https://superfastpython.com/asyncio-runner/">https://superfastpython.com/asyncio-runner/</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">中文</label><label for="__tabbed_1_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>您可以使用高级 asyncio API 中的 asyncio.Runner 类在同一事件循环中执行多个协程。</p>
+<p>这是Python 3.11中提供的新功能。 在添加 <strong>asyncio.Runner</strong> 类之前，我们必须在单独的事件循环中执行每个协程，重组我们的程序以使用包装器协程或深入研究低级 asyncio API。</p>
+<p>在本教程中，您将了解如何使用 <strong>asyncio.Runner</strong> 类在 Python 的同一事件循环中执行多个协程。</p>
+<p>让我们开始吧。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Execute Multiple Coroutines with asyncio.Runner</strong></p>
+<p>You can execute multiple coroutines in the same event loop using the asyncio.Runner class in the high-level asyncio API.</p>
+<p>This is a new feature provided in Python 3.11. Before the addition of the <strong>asyncio.Runner</strong> class, we would have to execute each coroutine in a separate event loop, restructure our program to use a wrapper coroutine or delve into the low-level asyncio API.</p>
+<p>In this tutorial, you will discover how to execute multiple coroutines in the same event loop from Python using the <strong>asyncio.Runner</strong> class.</p>
+<p>Let’s get started.</p>
+</div>
+</div>
+</div>
+<h2 id="需要在-python-中运行多个协程">需要在 Python 中运行多个协程<a class="headerlink" href="#需要在-python-中运行多个协程" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>运行 asyncio 程序的典型方法是调用 asyncio.run() 并传入一个协程对象来执行。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>提供给 asyncio.run() 的单个协程表示 asyncio 事件循环的入口点。</p>
+<p>在某些情况下，我们可能希望从 Python 程序中执行多个单独的协程。</p>
+<p>这可以通过多次调用 asyncio.run() 来实现，但这将为每个调用启动并运行一个新的 asyncio 事件循环。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>另一种解决方案是重构程序并创建一个新的入口点协程来为我们调用多个协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">coro1</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">coro2</span><span class="p">()</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>我们是否可以在同一个事件循环中运行多个协程，而无需通过高级 asyncio API 重构我们的程序？</p>
+<p>使用所有 CPU 运行循环，<a href="https://superfastpython.com/plip-incontent">下载我的免费书</a> 以了解如何操作。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Need to Run Multiple Coroutines from Python</strong></p>
+<p>The typical way to run an asyncio program is to call asyncio.run() and pass in a coroutine object to execute.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>The single coroutine is provided to the asyncio.run() represents the entry point into the asyncio event loop.</p>
+<p>There may be cases where we want to execute multiple separate coroutines from our Python program.</p>
+<p>This could be achieved with multiple calls to asyncio.run(), but this would start and run a new asyncio event loop for each call.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>Another solution is to restructure the program and create a new entry point coroutine that calls the multiple coroutines for us.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">await</span> <span class="n">coro1</span><span class="p">()</span>
+    <span class="k">await</span> <span class="n">coro2</span><span class="p">()</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Can we run multiple coroutines in the same event loop without having to restructure our program via the high-level asyncio API?</p>
+<p>Run your loops using all CPUs, <a href="https://superfastpython.com/plip-incontent">download my FREE book</a> to learn how.</p>
+</div>
+</div>
+</div>
+<h2 id="如何使用-asynciorunner-运行多个协程">如何使用 asyncio.Runner 运行多个协程<a class="headerlink" href="#如何使用-asynciorunner-运行多个协程" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Python 3.11 引入了一项新功能，允许直接从 Python 程序运行多个协程。</p>
+<p>此功能是通过高级 asyncio API 中提供的 <a href="https://docs.python.org/3/library/asyncio-runner.html#runner-context-manager">asyncio.Runner</a> 类提供的。</p>
+<div class="admonition info">
+<p>添加了 Runner 类，它公开了 run() 使用的机制。</p>
+<p>— <a href="https://docs.python.org/3/whatsnew/3.11.html">Python 3.11 的新功能</a></p>
+</div>
+<p>可以创建 <strong>asyncio.Runner</strong> 并用于在同一事件循环中执行多个协程。</p>
+<p>可以通过 <strong>run()</strong> 方法创建该类的实例并直接执行协程。 完成后，可以调用 <strong>close()</strong> 方法。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建异步运行器</span>
+<span class="n">runner</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Runner</span><span class="p">()</span>
+<span class="c1"># 执行第一个协程</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+<span class="c1"># 执行第二个协程</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+<span class="c1"># close runner</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>或者，我们可以使用类上的上下文管理器接口，当我们完成它时，它将为我们关闭事件循环。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建异步运行器</span>
+<span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># 执行第一个协程</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+    <span class="c1"># 执行第二个协程</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>现在我们知道如何在 Python 程序的同一事件循环中执行多个协程，让我们看一些有效的示例。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Run Multiple Coroutines with asyncio.Runner</strong></p>
+<p>Python 3.11 introduced a new feature to allow multiple coroutines to be run directly from a Python program.</p>
+<p>This capability is provided via the <a href="https://docs.python.org/3/library/asyncio-runner.html#runner-context-manager">asyncio.Runner</a> class, provided in the high-level asyncio API.</p>
+<div class="admonition info">
+<p>Added the Runner class, which exposes the machinery used by run().</p>
+<p>— <a href="https://docs.python.org/3/whatsnew/3.11.html">WHAT’S NEW IN PYTHON 3.11</a></p>
+</div>
+<p>The <strong>asyncio.Runner</strong> can be created and used to execute multiple coroutines within the same event loop.</p>
+<p>An instance of the class can be created and coroutines can be executed directly via the <strong>run()</strong> method. Once finished, the <strong>close()</strong> method can be called.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create asyncio runner</span>
+<span class="n">runner</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Runner</span><span class="p">()</span>
+<span class="c1"># execute first coroutine</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+<span class="c1"># execute second coroutine</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+<span class="c1"># close runner</span>
+<span class="n">runner</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<p>Alternatively, we can use the context manager interface on the class which will close the event loop for us when we’re finished with it.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create asyncio runner</span>
+<span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># execute first coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+    <span class="c1"># execute second coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>Now that we know how to execute multiple coroutines in the same event loop from our Python program, let’s look at some worked examples.</p>
+</div>
+</div>
+</div>
+<h2 id="使用-asynciorun-运行多个协程的示例">使用 asyncio.run() 运行多个协程的示例<a class="headerlink" href="#使用-asynciorun-运行多个协程的示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>在查看使用 <strong>asyncio.Runner</strong> 的示例之前，让我们看看在提供 <strong>asyncio.Runner</strong> 之前如何运行多个协程，例如 Python 3.10 及更低版本。</p>
+<p>考虑这样的情况：我们的 Python 程序有两个协程运行。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 另一个协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>我们可以使用两种方法：</p>
+<ol>
+<li>单独调用 asyncio.run()</li>
+<li>创建包装协程</li>
+</ol>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of Running Multiple Coroutines with asyncio.run()</strong></p>
+<p>Before we look at an example of using <strong>asyncio.Runner</strong>, let’s look at how we would run multiple coroutines before the <strong>asyncio.Runner</strong> was provided, e.g. Python 3.10 and lower.</p>
+<p>Consider the case where we have two coroutines to run from our Python program.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># another example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>There are two methods we could use:</p>
+<ol>
+<li>Separate calls to asyncio.run()</li>
+<li>Create a wrapper coroutine</li>
+</ol>
+</div>
+</div>
+</div>
+<h3 id="方法-1单独调用-asynciorun">方法 1：单独调用 asyncio.run()<a class="headerlink" href="#方法-1单独调用-asynciorun" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>一种方法是单独运行每个协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># run first coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+<span class="c1"># run second coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>下面列出了使用此方法的完整示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用单独的 asyncio.run() 调用的示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 另一个协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 运行第一个协程</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+<span class="c1"># 运行第二个协程</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例首先创建一个 asyncio 事件循环，并使用该循环执行第一个协程。</p>
+<p>然后事件循环被关闭并清理。</p>
+<p>创建第二个异步事件循环，并用于在关闭和清理之前执行第二个协程。</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>这种方法的成本很高，因为必须为每个协程创建并关闭新的事件循环。 如果我们有数千或数百万个协程要从 Python 执行，这可能会成为一个问题。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Method 1: Separate Calls to asyncio.run()</strong></p>
+<p>One approach would be to run each coroutine separately.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># run first coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+<span class="c1"># run second coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>A complete example using this method is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of using separate asyncio.run() calls</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># another example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># run first coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+<span class="c1"># run second coroutine</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first creates an asyncio event loop and uses the loop to execute the first coroutine.</p>
+<p>The event loop is then closed and cleaned up.</p>
+<p>A second asyncio event loop is created and used to execute the second coroutine before being closed and cleaned up.</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>This approach is expensive as a new event loop must be created and closed for each coroutine. This can become a problem if we have thousands or millions of coroutines to execute from Python.</p>
+</div>
+</div>
+</div>
+<h3 id="方法2包装为协程">方法2：包装为协程<a class="headerlink" href="#方法2包装为协程" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>另一种方法是定义一个新的包装协程，该协程反过来使用单个事件循环为我们调用协程。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 执行第一个协程</span>
+    <span class="k">await</span> <span class="n">task_coro1</span><span class="p">()</span>
+    <span class="c1"># 执行第二个协程</span>
+    <span class="k">await</span> <span class="n">task_coro2</span><span class="p">()</span>
+</code></pre></div>
+<p>下面列出了此更改的完整示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 将 asyncio.run() 与包装协程一起使用的示例</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># 协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 另一个协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 执行第一个协程</span>
+    <span class="k">await</span> <span class="n">task_coro1</span><span class="p">()</span>
+    <span class="c1"># 执行第二个协程</span>
+    <span class="k">await</span> <span class="n">task_coro2</span><span class="p">()</span>
+
+<span class="c1"># 程序的入口点</span>
+<span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例将创建一个异步事件循环并执行 <strong>main()</strong> 包装协程。</p>
+<p>然后，<strong>main()</strong> 协程依次执行并等待每个任务协程，然后关闭。</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>这种方法的问题在于，必须使用新的包装协程作为执行所有协程的入口点来重构程序。</p>
+<p>这可能意味着在执行包装器协程之前必须收集和设置所需的所有数据和协程。 它还不允许 Python 程序根据先前协程的结果有条件地创建和启动协程。</p>
+<p>接下来，让我们看看使用 asyncio.Runner 类的替代方案。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Method 2: Wrapper Coroutine</strong></p>
+<p>Another approach is to define a new wrapper coroutine that in turn calls the coroutines for us using the single event loop.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># execute the first coroutine</span>
+    <span class="k">await</span> <span class="n">task_coro1</span><span class="p">()</span>
+    <span class="c1"># execute the second coroutine</span>
+    <span class="k">await</span> <span class="n">task_coro2</span><span class="p">()</span>
+</code></pre></div>
+<p>The complete example of this change is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of using asyncio.run() with wrapper coroutine</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">run</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># another example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># execute the first coroutine</span>
+    <span class="k">await</span> <span class="n">task_coro1</span><span class="p">()</span>
+    <span class="c1"># execute the second coroutine</span>
+    <span class="k">await</span> <span class="n">task_coro2</span><span class="p">()</span>
+
+<span class="c1"># entry point of the program</span>
+<span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example creates a single asyncio event loop and executes the <strong>main()</strong> wrapper coroutine.</p>
+<p>The <strong>main()</strong> coroutine then executes and awaits each task coroutine in turn before closing.</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>The problem with this approach is that the program must be restructured with a new wrapper coroutine used as the entry point for executing all coroutines.</p>
+<p>This may mean that all data and coroutines needed must be collected and set up before executing the wrapper coroutine. It also does not allow the Python program to conditionally create and start coroutines based on the results of prior coroutines.</p>
+<p>Next, let’s look at an alternative using the asyncio.Runner class.</p>
+</div>
+</div>
+</div>
+<h2 id="使用-asynciorunner-运行多个协程的示例">使用 asyncio.Runner 运行多个协程的示例<a class="headerlink" href="#使用-asynciorunner-运行多个协程的示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以开发一个使用 <strong>asyncio.Runner</strong> 类从 Python 程序执行多个协程的示例。</p>
+<p>这可以使用 <strong>asyncio.Runner</strong> 的上下文管理器接口来实现，并调用每个协程的 <strong>run()</strong> 方法来执行。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 程序的入口点</span>
+<span class="k">with</span> <span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># execute the first coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+    <span class="c1"># execute the second coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>下面列出了这种方法的完整示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 使用 asyncio.Runner 的示例</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">Runner</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># 协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 另一个协程示例</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 程序的入口点</span>
+<span class="k">with</span> <span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># 执行第一个协程</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+    <span class="c1"># 执行第二个协程</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>运行该示例使用上下文管理器接口创建 asyncio.Runner。</p>
+<p>第一个协程运行，然后是第二个。</p>
+<p>每个协程都在同一个事件循环中执行，并且直到第一次调用 run() 才会创建所使用的循环。</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>这种方法为 Python 程序提供了灵活性，允许它在同一事件循环中以临时甚至有条件的方式执行协程。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of Running Multiple Coroutines with asyncio.Runner</strong></p>
+<p>We can develop an example of executing multiple coroutines from a Python program using the <strong>asyncio.Runner</strong> class.</p>
+<p>This can be achieved using the context manager interface for the <strong>asyncio.Runner</strong> and call the <strong>run()</strong> method for each coroutine to execute.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># entry point of the program</span>
+<span class="k">with</span> <span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># execute the first coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+    <span class="c1"># execute the second coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>A complete example of this approach is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of using asyncio.Runner</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">Runner</span>
+<span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro1</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from first coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># another example coroutine</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task_coro2</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from second coro&#39;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># entry point of the program</span>
+<span class="k">with</span> <span class="n">Runner</span><span class="p">()</span> <span class="k">as</span> <span class="n">runner</span><span class="p">:</span>
+    <span class="c1"># execute the first coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro1</span><span class="p">())</span>
+    <span class="c1"># execute the second coroutine</span>
+    <span class="n">runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task_coro2</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example creates the asyncio.Runner using the context manager interface.</p>
+<p>The first coroutine is run, then the second.</p>
+<p>Each coroutine is executed in the same event loop and the loop used is not created until the first call to run().</p>
+<div class="highlight"><pre><span></span><code>Hello from first coro
+Hello from second coro
+</code></pre></div>
+<p>This approach provides flexibility to the Python program, allowing it to execute coroutines in an ad hoc and even conditional manner within the same event loop.</p>
+</div>
+</div>
+</div>
+<h2 id="进一步阅读">进一步阅读<a class="headerlink" href="#进一步阅读" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>本节提供了您可能会觉得有用的其他资源。</p>
+<p><strong>书籍</strong></p>
+<ul>
+<li><a href="https://amzn.to/3UDIf9K">Python Asyncio Jump-Start</a>, Jason Brownlee, 2022 (my book).</li>
+<li><a href="https://amzn.to/3XFEZgj">Python Asyncio Interview Questions</a></li>
+<li><a href="https://superfastpython.gumroad.com/l/pacs">Asyncio Module API Cheat Sheet</a></li>
+</ul>
+<p>我还推荐以下书籍:</p>
+<ul>
+<li><a href="https://amzn.to/3LZvxNn">Python Concurrency with asyncio</a>, Matthew Fowler, 2022.</li>
+<li><a href="https://amzn.to/3lNp2ml">Using Asyncio in Python</a>, Caleb Hattingh, 2020.</li>
+</ul>
+<p><strong>指南</strong></p>
+<ul>
+<li><a href="https://superfastpython.com/python-asyncio/">Python Asyncio: The Complete Guide</a></li>
+</ul>
+<p><strong>APIs</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio — Asynchronous I/O</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Asyncio Coroutines and Tasks</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-stream.html">Asyncio Streams</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-subprocess.html">Asyncio Subprocesses</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-queue.html">Asyncio Queues</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-sync.html">Asyncio Synchronization Primitives</a></li>
+</ul>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Asynchronous_I/O">Asynchronous I/O, Wikipedia.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine, Wikipedia.</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>Further Reading</strong></p>
+<p>This section provides additional resources that you may find helpful.</p>
+<p><strong>Books</strong></p>
+<ul>
+<li><a href="https://amzn.to/3UDIf9K">Python Asyncio Jump-Start</a>, Jason Brownlee, 2022 (my book).</li>
+<li><a href="https://amzn.to/3XFEZgj">Python Asyncio Interview Questions</a></li>
+<li><a href="https://superfastpython.gumroad.com/l/pacs">Asyncio Module API Cheat Sheet</a></li>
+</ul>
+<p>I also recommend the following books:</p>
+<ul>
+<li><a href="https://amzn.to/3LZvxNn">Python Concurrency with asyncio</a>, Matthew Fowler, 2022.</li>
+<li><a href="https://amzn.to/3lNp2ml">Using Asyncio in Python</a>, Caleb Hattingh, 2020.</li>
+</ul>
+<p><strong>Guides</strong></p>
+<ul>
+<li><a href="https://superfastpython.com/python-asyncio/">Python Asyncio: The Complete Guide</a></li>
+</ul>
+<p><strong>APIs</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio — Asynchronous I/O</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Asyncio Coroutines and Tasks</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-stream.html">Asyncio Streams</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-subprocess.html">Asyncio Subprocesses</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-queue.html">Asyncio Queues</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-sync.html">Asyncio Synchronization Primitives</a></li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Asynchronous_I/O">Asynchronous I/O, Wikipedia.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine, Wikipedia.</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月4日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月4日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
