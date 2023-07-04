@@ -81,6 +81,7 @@ nav:
       - 中文简单指南: asyncio/asyncio.md
       - 中英对照指南: asyncio/asyncio_en.md
       - Runner运行协程: asyncio/runner.md
+      - TaskGroup管理协程: asyncio/task_group.md
       - 语法备忘录: asyncio/cheat_sheet.md
       - API思维导图: asyncio/api_mind_map.md
   - 互联网协议:
