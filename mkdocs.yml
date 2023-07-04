@@ -84,16 +84,14 @@ nav:
       - TaskGroup管理协程: asyncio/task_group.md
       - 语法备忘录: asyncio/cheat_sheet.md
       - API思维导图: asyncio/api_mind_map.md
-  - 互联网协议:
-      - network/internet_protocol_suite_part_i.md
-      - network/internet_protocol_suite_part_ii.md
   - HTTP:
+      - http/internet_protocol_suite_part_i.md
+      - http/internet_protocol_suite_part_ii.md
       - http/index.md
+      - http/restapi.md
+      - http/restapibsetp.md
       - http/http-referer.md
       - http/https.md
-  - REST ful:
-      - rest-ful/restapi.md
-      - rest-ful/restapibsetp.md
   - Git:
       - git/git-branch-manage.md
       - git/git-remote.md
@@ -101,5 +99,5 @@ nav:
       - git/git-cheat-sheet.md
       - git/git-work-flow.md
   - 系统设计:
-      - system-design/perm_design.md
+      - sysdesign/perm_design.md
   - 关于: about.md
