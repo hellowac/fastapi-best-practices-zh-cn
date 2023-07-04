@@ -1,0 +1,2493 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastApi 最佳实践-中文版">
+      
+      
+      
+      
+        <link rel="prev" href="../runner/">
+      
+      
+        <link rel="next" href="../cheat_sheet/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>TaskGroup管理协程 - FastApi 最佳实践-中文版</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#如何使用-asynciotaskgroup" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastApi 最佳实践-中文版
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              TaskGroup管理协程
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      最佳实践
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../raw_en/" class="md-tabs__link">
+      英文原版
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../asyncio/" class="md-tabs__link md-tabs__link--active">
+        Asyncio
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-tabs__link">
+        互联网协议
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../http/" class="md-tabs__link">
+        HTTP
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rest-ful/restapi/" class="md-tabs__link">
+        REST ful
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../git/git-branch-manage/" class="md-tabs__link">
+        Git
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../system-design/perm_design/" class="md-tabs__link">
+        系统设计
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../about/" class="md-tabs__link">
+      关于
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    FastApi 最佳实践-中文版
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FastApi 最佳实践-中文版
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        最佳实践
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../raw_en/" class="md-nav__link">
+        英文原版
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Asyncio
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Asyncio
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asyncio/" class="md-nav__link">
+        中文简单指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asyncio_en/" class="md-nav__link">
+        中英对照指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../runner/" class="md-nav__link">
+        Runner运行协程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          TaskGroup管理协程
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        TaskGroup管理协程
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#需要将多个协程作为一个组进行管理" class="md-nav__link">
+    需要将多个协程作为一个组进行管理
+  </a>
+  
+    <nav class="md-nav" aria-label="需要将多个协程作为一个组进行管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#使用-asynciogather-管理多个协程" class="md-nav__link">
+    使用 asyncio.gather() 管理多个协程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#使用-asynciowait-管理多个协程" class="md-nav__link">
+    使用 asyncio.wait() 管理多个协程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-类" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 类
+  </a>
+  
+    <nav class="md-nav" aria-label="如何使用 asyncio.TaskGroup 类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#如何创建-asynciotaskgroup" class="md-nav__link">
+    如何创建 asyncio.TaskGroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-创建任务" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 创建任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-等待任务" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 等待任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如果一项任务失败如何使用-asynciotaskgroup-取消所有任务" class="md-nav__link">
+    如果一项任务失败，如何使用 asyncio.TaskGroup 取消所有任务
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用taskgroup等待多个任务的示例" class="md-nav__link">
+    使用TaskGroup等待多个任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#带有参数和返回值的任务组示例" class="md-nav__link">
+    带有参数和返回值的任务组示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-taskgroup-如果一项任务失败则取消所有任务的示例" class="md-nav__link">
+    使用 TaskGroup 如果一项任务失败则取消所有任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#取消任务组中的一项任务的示例" class="md-nav__link">
+    取消任务组中的一项任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#进一步阅读" class="md-nav__link">
+    进一步阅读
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cheat_sheet/" class="md-nav__link">
+        语法备忘录
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_mind_map/" class="md-nav__link">
+        API思维导图
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          互联网协议
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          互联网协议
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_i/" class="md-nav__link">
+        互联网协议入门（一）
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/internet_protocol_suite_part_ii/" class="md-nav__link">
+        互联网协议入门（二）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../http/">HTTP</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/http-referer/" class="md-nav__link">
+        HTTP Referer 教程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../http/https/" class="md-nav__link">
+        HTTPS 升级指南
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          REST ful
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          REST ful
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapi/" class="md-nav__link">
+        Restful API 设计指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rest-ful/restapibsetp/" class="md-nav__link">
+        RESTful API 最佳实践
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Git
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-branch-manage/" class="md-nav__link">
+        Git分支管理策略
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-remote/" class="md-nav__link">
+        Git远程操作详解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-use-process/" class="md-nav__link">
+        Git 使用规范流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-cheat-sheet/" class="md-nav__link">
+        常用 Git 命令清单
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/git-work-flow/" class="md-nav__link">
+        Git 协作流程
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          系统设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          系统设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-design/perm_design/" class="md-nav__link">
+        权限系统的设计
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        关于
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#需要将多个协程作为一个组进行管理" class="md-nav__link">
+    需要将多个协程作为一个组进行管理
+  </a>
+  
+    <nav class="md-nav" aria-label="需要将多个协程作为一个组进行管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#使用-asynciogather-管理多个协程" class="md-nav__link">
+    使用 asyncio.gather() 管理多个协程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#使用-asynciowait-管理多个协程" class="md-nav__link">
+    使用 asyncio.wait() 管理多个协程
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-类" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 类
+  </a>
+  
+    <nav class="md-nav" aria-label="如何使用 asyncio.TaskGroup 类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#如何创建-asynciotaskgroup" class="md-nav__link">
+    如何创建 asyncio.TaskGroup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-创建任务" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 创建任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如何使用-asynciotaskgroup-等待任务" class="md-nav__link">
+    如何使用 asyncio.TaskGroup 等待任务
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#如果一项任务失败如何使用-asynciotaskgroup-取消所有任务" class="md-nav__link">
+    如果一项任务失败，如何使用 asyncio.TaskGroup 取消所有任务
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用taskgroup等待多个任务的示例" class="md-nav__link">
+    使用TaskGroup等待多个任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#带有参数和返回值的任务组示例" class="md-nav__link">
+    带有参数和返回值的任务组示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用-taskgroup-如果一项任务失败则取消所有任务的示例" class="md-nav__link">
+    使用 TaskGroup 如果一项任务失败则取消所有任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#取消任务组中的一项任务的示例" class="md-nav__link">
+    取消任务组中的一项任务的示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#进一步阅读" class="md-nav__link">
+    进一步阅读
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="如何使用-asynciotaskgroup">如何使用 asyncio.TaskGroup<a class="headerlink" href="#如何使用-asynciotaskgroup" title="Permanent link">&para;</a></h1>
+<p>转自: <a href="https://superfastpython.com/asyncio-taskgroup/">https://superfastpython.com/asyncio-taskgroup/</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">中文</label><label for="__tabbed_1_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>您可以使用 <strong>asyncio.TaskGroup</strong> 类将 <strong>asyncio.Task</strong> 对象集合作为一个组进行管理。</p>
+<p><strong>asyncio.TaskGroup</strong> 将允许创建任务、跟踪已发出的任务、在一个任务失败时取消所有任务，并允许一起等待组中的所有任务。</p>
+<p>在本教程中，您将了解如何在 Python 中使用 <strong>asyncio.TaskGroup</strong>。</p>
+<p>让我们开始吧。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to use asyncio.TaskGroup</strong></p>
+<p>You can manage a collection of <strong>asyncio.Task</strong> objects as a group using the <strong>asyncio.TaskGroup</strong> class.</p>
+<p>The <strong>asyncio.TaskGroup</strong> will allow tasks to be created, keep track of issued tasks, cancel all tasks if one task fails, and allow all tasks in the group to be awaited together.</p>
+<p>In this tutorial, you will discover how to use the <strong>asyncio.TaskGroup</strong> in Python.</p>
+<p>Let’s get started.</p>
+</div>
+</div>
+</div>
+<h2 id="需要将多个协程作为一个组进行管理">需要将多个协程作为一个组进行管理<a class="headerlink" href="#需要将多个协程作为一个组进行管理" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>发出许多协程然后将它们作为一个组进行管理是很常见的。</p>
+<p>将多个协程视为一个组可以实现以下功能：</p>
+<ol>
+<li>等待所有任务完成。</li>
+<li>如果一项任务失败，则取消所有任务。</li>
+<li>处理任何任务中引发的异常。</li>
+</ol>
+<p>在 Python 3.11 之前，有两种主要方法将多个协程作为一个组进行处理，它们是：</p>
+<ul>
+<li>调用 <strong>asyncio.gather()</strong></li>
+<li>调用 <strong>asyncio.wait()</strong></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>Need To Manage Multiple Coroutines as a Group</strong></p>
+<p>It is common to issue many coroutines and then manage them as a group.</p>
+<p>Treating multiple coroutines as a group allows for functionality such as:</p>
+<ol>
+<li>Waiting until all tasks are completed.</li>
+<li>Canceling all tasks if one task fails.</li>
+<li>Handling an exception raised in any task.</li>
+</ol>
+<p>Prior to Python 3.11, there were two main approaches to handling multiple coroutines as a group, they were:</p>
+<ul>
+<li>Call <strong>asyncio.gather()</strong></li>
+<li>Call <strong>asyncio.wait()</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="使用-asynciogather-管理多个协程">使用 asyncio.gather() 管理多个协程<a class="headerlink" href="#使用-asynciogather-管理多个协程" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>asyncio.gather()</strong> 函数再接受一个协程或 <strong>asyncio.Task</strong> 对象。</p>
+<p>它返回一个 <strong>Future</strong> 对象，该对象允许将任务组与取消所有任务和等待所有任务等功能一起管理。</p>
+<p>您可以在教程中了解有关如何使用 <strong>asyncio.gather()</strong> 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather/">如何在 Python 中使用 asyncio.gather()</a></li>
+</ul>
+<p>如果组中的一项任务因异常而失败，则可以使用取消组中的所有任务。</p>
+<p>您可以在教程中看到这样的示例：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather-cancel-all-if-one-fails/">Asyncio Gather() 如果一个任务失败则取消所有任务</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>Manage Multiple Coroutines with asyncio.gather()</strong></p>
+<p>The <strong>asyncio.gather()</strong> function takes one more coroutine or <strong>asyncio.Task</strong> objects.</p>
+<p>It returns a <strong>Future</strong> object that allows the group of tasks to be managed together with features such as canceling all tasks and waiting on all tasks.</p>
+<p>You can learn more about how to use the <strong>asyncio.gather()</strong> function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather/">How to Use asyncio.gather() in Python</a></li>
+</ul>
+<p>It is possible to use cancel all tasks in the group if one task in the group fails with an exception.</p>
+<p>You can see an example of this in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-gather-cancel-all-if-one-fails/">Asyncio gather() Cancel All Tasks if One Task Fails</a></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="使用-asynciowait-管理多个协程">使用 asyncio.wait() 管理多个协程<a class="headerlink" href="#使用-asynciowait-管理多个协程" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>asyncio.wait() 函数接受协程或任务的集合，并返回满足指定条件的任务集，例如一个完成、全部完成或第一个失败。</p>
+<p>您可以在教程中了解有关如何使用 asyncio.wait() 函数的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait/">如何在 Python 中使用 Asyncio wait()</a></li>
+</ul>
+<p>Python 3.11 版的发布引入了一种将多个协程或任务作为一个组进行管理的新方法，称为 <strong>asyncio.TaskGroup</strong>。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Manage Multiple Coroutines with asyncio.wait()</strong></p>
+<p>The asyncio.wait() function takes a collection of coroutines or tasks and returns the set of tasks that meet the specified conditions, such as one completed, all completed or first to fail.</p>
+<p>You can learn more about how to use the asyncio.wait() function in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-wait/">How to Use Asyncio wait() in Python</a></li>
+</ul>
+<p>The release of Python version 3.11 introduced a new approach to managing multiple coroutines or tasks as a group, called the asyncio.TaskGroup.</p>
+</div>
+</div>
+</div>
+<h2 id="如何使用-asynciotaskgroup-类">如何使用 asyncio.TaskGroup 类<a class="headerlink" href="#如何使用-asynciotaskgroup-类" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>Python 3.11 引入了 asyncio.TaskGroup 任务来管理一组关联的 asyncio 任务。</p>
+<div class="admonition info">
+<p>添加了 TaskGroup 类，这是一个异步上下文管理器，包含一组任务，在退出时将等待所有任务。 对于新代码，建议直接使用 <strong>create_task()</strong> 和 <strong>Gather()</strong>。</p>
+<p>— <a href="https://docs.python.org/3/whatsnew/3.11.html">Python 3.11 的新功能</a></p>
+</div>
+<p><strong>asyncio.TaskGroup</strong> 类旨在替代用于创建任务的 <strong>asyncio.create_task()</strong> 函数和用于等待一组任务的 <strong>asyncio.gather()</strong> 函数。</p>
+<p>从历史上看，我们使用 <strong>asyncio.create_task()</strong> 函数创建并发出一个协程作为 <strong>asyncio.Task</strong>。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建协程并将其作为任务发出</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>这将创建一个新的 <strong>asyncio.Task</strong> 对象，并将其发送到 asyncio 事件循环以便尽快执行。</p>
+<p>然后我们可以选择等待任务并等待它完成。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 将协程作为任务发出并等待它们完成</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>asyncio.TaskGroup</strong> 可以执行这两项活动，但不是首选方法。</p>
+<div class="admonition info">
+<p>保存一组任务的异步上下文管理器。 可以使用 create_task() 将任务添加到组中。 当上下文管理器退出时，所有任务都将等待。</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.TaskGroup">异步任务组</a></p>
+</div>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Use asyncio.TaskGroup</strong></p>
+<p>Python 3.11 introduce the asyncio.TaskGroup task for managing a group of associated asyncio task.</p>
+<div class="admonition info">
+<p>Added the TaskGroup class, an asynchronous context manager holding a group of tasks that will wait for all of them upon exit. For new code this is recommended over using create_task() and gather() directly.</p>
+<p>— <a href="https://docs.python.org/3/whatsnew/3.11.html">WHAT’S NEW IN PYTHON 3.11</a></p>
+</div>
+<p>The <strong>asyncio.TaskGroup</strong> class is intended as a replacement for the <strong>asyncio.create_task()</strong> function for creating tasks and the <strong>asyncio.gather()</strong> function for waiting on a group of tasks.</p>
+<p>Historically, we create and issue a coroutine as an <strong>asyncio.Task</strong> using the <strong>asyncio.create_task()</strong> function.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create and issue coroutine as task</span>
+<span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>This creates a new <strong>asyncio.Task</strong> object and issues it to the asyncio event loop for execution as soon as it is able.</p>
+<p>We can then choose to await the task and wait for it to be completed.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># issue coroutines as tasks and wait for them to complete</span>
+<span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">coro1</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">(),</span> <span class="n">coro2</span><span class="p">)</span>
+</code></pre></div>
+<p>The asyncio.TaskGroup can perform both of these activities and is not the preferred approach.</p>
+<div class="admonition info">
+<p>An asynchronous context manager holding a group of tasks. Tasks can be added to the group using create_task(). All tasks are awaited when the context manager exits.</p>
+<p>— <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.TaskGroup">ASYNCIO TASK GROUPS</a></p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="如何创建-asynciotaskgroup">如何创建 asyncio.TaskGroup<a class="headerlink" href="#如何创建-asynciotaskgroup" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>asyncio.TaskGroup</strong> 对象实现异步上下文管理器接口，这是该类的首选用法。</p>
+<p>这意味着该类的实例被创建并通过<strong>“async with”</strong>表达式使用。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务组</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>如果您不熟悉 <strong>“async with”</strong> 表达式，请参阅教程：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-async-with/">如何在 Python 中使用 <strong>“async with”</strong> 表达式</a></li>
+</ul>
+<p>回想一下，异步上下文管理器实现了可以等待的 <strong>__aenter__()</strong> 和 <strong>__aexit__()</strong> 方法。</p>
+<p>对于 <strong>asyncio.TaskGroup</strong>，退出上下文管理器块时自动调用<strong>asyncio.TaskGroup</strong> 的 <strong>__aexit__()</strong> 方法并等待创建的所有任务 。</p>
+<p>这意味着正常或通过异常退出 <strong>TaskGroup</strong> 对象的块将自动等待，直到所有组任务完成。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务组</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="c1"># 等待所有小组任务完成</span>
+</code></pre></div>
+<p>您可以在教程中了解有关异步上下文管理器的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asynchronous-context-manager/">Python 中的异步上下文管理器</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Create an asyncio.TaskGroup</strong></p>
+<p>An asyncio.TaskGroup object implements the asynchronous context manager interface, and this is the preferred usage of the class.</p>
+<p>This means that an instance of the class is created and is used via the “async with” expression.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a taskgroup</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>If you are new to the <strong>“async with”</strong> expression, see the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-async-with/">How to Use the <strong>“async with”</strong> Expression in Python</a></li>
+</ul>
+<p>Recall that an asynchronous context manager implements the <strong>__aenter__()</strong> and <strong>__aexit__()</strong> methods which can be awaited.</p>
+<p>In the case of the <strong>asyncio.TaskGroup</strong>, the <strong>__aexit__()</strong> method which is called automatically when the context manager block is exited will await all tasks created by the <strong>asyncio.TaskGroup</strong>.</p>
+<p>This means that exiting the <strong>TaskGroup</strong> object’s block normally or via an exception will automatically await until all group tasks are done.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a taskgroup</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="c1"># wait for all group tasks are done</span>
+</code></pre></div>
+<p>You can learn more about asynchronous context managers in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asynchronous-context-manager/">Asynchronous Context Managers in Python</a></li>
+</ul>
+</div>
+</div>
+</div>
+<h3 id="如何使用-asynciotaskgroup-创建任务">如何使用 asyncio.TaskGroup 创建任务<a class="headerlink" href="#如何使用-asynciotaskgroup-创建任务" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以通过 <strong>asyncio.TaskGroup</strong> 对象上的 <strong>create_task()</strong> 方法在任务组中创建任务。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务组</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># 创建并发出任务</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>这将创建一个 <strong>asyncio.Task</strong> 对象并将其发送到 asyncio 事件循环来执行，就像 <strong>asyncio.create_task()</strong> 函数一样，只不过该任务与组关联。</p>
+<p>如果我们选择并得到结果，我们可以直接等待任务。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务组</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># 创建并发出任务</span>
+    <span class="n">esult</span> <span class="o">=</span> <span class="k">await</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>使用 <strong>asyncio.TaskGroup</strong> 的好处是我们可以在组中发出多个任务并在其间执行代码。 例如检查结果或收集更多数据。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Create Tasks Using asyncio.TaskGroup</strong></p>
+<p>We can create a task in the task group via the <strong>create_task()</strong> method on the <strong>asyncio.TaskGroup</strong> object.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a taskgroup</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># create and issue a task</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>This will create an <strong>asyncio.Task</strong> object and issue it to the asyncio event loop for execution, just like the <strong>asyncio.create_task()</strong> function, except that the task is associated with the group.</p>
+<p>We can await the task directly if we choose and get results.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a taskgroup</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># create and issue a task</span>
+    <span class="n">esult</span> <span class="o">=</span> <span class="k">await</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro</span><span class="p">())</span>
+</code></pre></div>
+<p>The benefit of using the asyncio.TaskGroup is that we can issue multiple tasks in the group and execute code in between. such as checking results or gathering more data.</p>
+</div>
+</div>
+</div>
+<h3 id="如何使用-asynciotaskgroup-等待任务">如何使用 asyncio.TaskGroup 等待任务<a class="headerlink" href="#如何使用-asynciotaskgroup-等待任务" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以通过退出异步上下文管理器块来等待组中的所有任务。</p>
+<p>因此，任务会自动等待，不需要任何额外的操作。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 创建任务组</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="c1"># 等待所有小组任务完成</span>
+</code></pre></div>
+<p>如果这种行为不是首选，那么我们必须确保在退出上下文管理器之前所有任务都“完成(done)”（完成、取消或失败）。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Wait on Tasks Using asyncio.TaskGroup</strong></p>
+<p>We can wait on all tasks in the group by exiting the asynchronous context manager block.</p>
+<p>As such, the tasks are awaited automatically and nothing additional is required.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># create a taskgroup</span>
+<span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+<span class="c1"># wait for all group tasks are done</span>
+</code></pre></div>
+<p>If this behavior is not preferred, then we must ensure all tasks are “done” (finished, canceled, or failed) before exiting the context manager.</p>
+</div>
+</div>
+</div>
+<h3 id="如果一项任务失败如何使用-asynciotaskgroup-取消所有任务">如果一项任务失败，如何使用 asyncio.TaskGroup 取消所有任务<a class="headerlink" href="#如果一项任务失败如何使用-asynciotaskgroup-取消所有任务" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>如果组中的一项任务因异常而失败，则组中剩余的所有未完成的任务将被取消。</p>
+<p>这是自动执行的，不需要任何额外的代码。</p>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 处理组中任何任务的失败</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 创建并发出任务</span>
+        <span class="n">task1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+        <span class="c1"># 创建并发出任务</span>
+        <span class="n">task2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+        <span class="c1"># 创建并发出任务</span>
+        <span class="n">task3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro3</span><span class="p">())</span>
+    <span class="c1"># 等待所有小组任务完成</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># 所有未完成的任务都被取消</span>
+    <span class="k">pass</span>
+</code></pre></div>
+<p>如果这种行为不是首选，则必须在任务本身内管理每个任务的失败，例如 通过协程内的 try- except 块。</p>
+<p>现在我们知道如何使用 <strong>asyncio.TaskGroup</strong>，让我们看一些有效的示例。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>How to Cancel All Tasks If One Task Fails Using asyncio.TaskGroup</strong></p>
+<p>If one task in the group fails with an exception, then all non-done tasks remaining in the group will be canceled.</p>
+<p>This is performed automatically and does not require any additional code.</p>
+<p>For example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># handle the failure of any tasks in the group</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span>
+    <span class="c1"># create a taskgroup</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># create and issue a task</span>
+        <span class="n">task1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro1</span><span class="p">())</span>
+        <span class="c1"># create and issue a task</span>
+        <span class="n">task2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro2</span><span class="p">())</span>
+        <span class="c1"># create and issue a task</span>
+        <span class="n">task3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">coro3</span><span class="p">())</span>
+    <span class="c1"># wait for all group tasks are done</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="c1"># all non-done tasks are cancelled</span>
+    <span class="k">pass</span>
+</code></pre></div>
+<p>If this behavior is not preferred, then the failure of each task must be managed within the tasks themselves, e.g. by a try-except block within the coroutine.</p>
+<p>Now that we know how to use the asyncio.TaskGroup, let’s look at some worked examples.</p>
+</div>
+</div>
+</div>
+<h2 id="使用taskgroup等待多个任务的示例">使用TaskGroup等待多个任务的示例<a class="headerlink" href="#使用taskgroup等待多个任务的示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以探索在 <strong>asyncio.TaskGroup</strong> 中创建多个任务，然后等待所有任务完成的情况。</p>
+<p>这可以通过首先定义一组代表我们想要完成的任务的不同协程来实现。</p>
+<p>在本例中，我们将定义 3 个协程，每个协程报告不同的消息，然后休眠一秒钟。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>接下来，我们可以定义一个 <strong>main()</strong> 协程，它通过上下文管理器接口创建 <strong>asyncio.TaskGroup</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>然后，我们可以创建每个协程并将其作为任务发送到事件循环中，尽管它们作为组的一部分收集在一起。</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># 运行第一个任务</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+<span class="c1"># 运行第二个任务</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+<span class="c1"># 运行第三个任务</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+</code></pre></div>
+<p>请注意，我们不需要保留对 <strong>asyncio.Task</strong> 对象的引用，因为 <strong>asyncio.TaskGroup</strong> 将为我们跟踪它们。</p>
+<p>另外，请注意，我们不需要等待任务，因为当我们退出 <strong>asyncio.TaskGroup</strong> 的上下文管理器块时，我们将等待组中的所有任务。</p>
+<p>将它们结合在一起，下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio 任务组示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 运行第一个任务</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># 运行第二个任务</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># 运行第三个任务</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="c1"># 等待所有任务完成...</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span>
+
+<span class="c1"># 入口点</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行示例首先执行 <strong>main()</strong> 协程，为我们启动一个新的事件循环。</p>
+<p><strong>main()</strong> 协程运行并创建一个 <strong>asyncio.TaskGroup</strong>。</p>
+<p>然后，所有三个协程都创建为 <strong>asyncio.Task</strong> 对象，并通过 <strong>asyncio.TaskGroup</strong> 发送到事件循环。</p>
+<p><strong>asyncio.TaskGroup</strong> 的上下文管理器块已退出，它会自动等待所有三个任务。</p>
+<p>任务报告它们的消息并休眠。</p>
+<p>所有任务完成后，main() 协程会报告最终消息。</p>
+<div class="highlight"><pre><span></span><code>Hello from coroutine 1
+Hello from coroutine 2
+Hello from coroutine 3
+Done
+</code></pre></div>
+<p>接下来，让我们探讨如何将 <strong>asyncio.TaskGroup</strong> 与接受参数和返回值的任务一起使用。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of Waiting on Multiple Tasks with a TaskGroup</strong></p>
+<p>We can explore the case of creating multiple tasks within an <strong>asyncio.TaskGroup</strong> and then waiting for all tasks to complete.</p>
+<p>This can be achieved by first defining a suite of different coroutines that represent the tasks we want to complete.</p>
+<p>In this case, we will define 3 coroutines that each report a different message and then sleep for one second.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Next, we can define a <strong>main()</strong> coroutine that creates the <strong>asyncio.TaskGroup</strong> via the context manager interface.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</code></pre></div>
+<p>We can then create and issue each coroutine as a task into the event loop, although collected together as part of the group.</p>
+<div class="highlight"><pre><span></span><code><span class="o">...</span>
+<span class="c1"># run first task</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+<span class="c1"># run second task</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+<span class="c1"># run third task</span>
+<span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+</code></pre></div>
+<p>Notice that we don’t need to keep a reference to the <strong>asyncio.Task</strong> objects as the <strong>asyncio.TaskGroup</strong> will keep track of them for us.</p>
+<p>Also, notice that we don’t need to await the tasks because when we exit the context manager block for the <strong>asyncio.TaskGroup</strong> we will await all tasks in the group.</p>
+<p>Tying this together, the complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of asyncio task group</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># run first task</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># run second task</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># run third task</span>
+        <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="c1"># wait for all tasks to complete...</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span>
+
+<span class="c1"># entry point</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first executes the <strong>main()</strong> coroutine, starting a new event loop for us.</p>
+<p>The <strong>main()</strong> coroutine runs and creates an <strong>asyncio.TaskGroup</strong>.</p>
+<p>All three coroutines are then created as <strong>asyncio.Task</strong> objects and issued to the event loop via the <strong>asyncio.TaskGroup</strong>.</p>
+<p>The context manager block for the <strong>asyncio.TaskGroup</strong> is exited which automatically awaits all three tasks.</p>
+<p>The tasks report their message and sleep.</p>
+<p>Once all tasks are completed the main() coroutine reports a final message.</p>
+<div class="highlight"><pre><span></span><code>Hello from coroutine 1
+Hello from coroutine 2
+Hello from coroutine 3
+Done
+</code></pre></div>
+<p>Next, let’s explore how we might use an <strong>asyncio.TaskGroup</strong> with tasks that take arguments and return values.</p>
+</div>
+</div>
+</div>
+<h2 id="带有参数和返回值的任务组示例">带有参数和返回值的任务组示例<a class="headerlink" href="#带有参数和返回值的任务组示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以探索将协程执行为带有参数和返回值的任务的情况。</p>
+<p>这些就像我们通常在没有 <strong>asyncio.TaskGroup</strong> 的情况下作为任务发出的协程一样，但最好有一个示例可供参考。</p>
+<p>在本例中，我们将定义一个任务，该任务接受一个参数，休眠，然后返回该参数乘以 100。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 返回值</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">100</span>
+</code></pre></div>
+<p>然后，主协程将创建一个 <strong>asyncio.TaskGroup</strong>，然后创建该任务的 9 个实例，并将值 1 到 9 作为参数传递给该任务。</p>
+<p>保留任务对象，以便我们稍后可以从中检索值。 这是使用列表理解来实现的。</p>
+<p>所有任务完成后，将检索并报告返回值。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 创建并发布任务</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># 等待所有任务完成...</span>
+    <span class="c1"># 报告所有结果</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</code></pre></div>
+<p>将它们结合在一起，下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 具有返回值的 asyncio 任务组示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 返回值</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 创建并发布任务</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># 等待所有任务完成...</span>
+    <span class="c1"># 报告所有结果</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+<span class="c1"># 入口点</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行示例首先执行 <strong>main()</strong> 协程，为我们启动一个新的事件循环。</p>
+<p><strong>main()</strong> 协程运行并创建一个 <strong>asyncio.TaskGroup</strong>。</p>
+<p>总共 9 个协程通过 <strong>asyncio.TaskGroup</strong> 作为任务发出，并且 <strong>asyncio.Task</strong> 对象存储在列表中。</p>
+<p>然后 main() 协程等待所有任务。</p>
+<p>每个任务运行、休眠，然后返回其输入参数的一百倍。</p>
+<p>所有任务完成后，将迭代 <strong>asyncio.Task</strong> 对象并报告每个对象的返回值。</p>
+<p>这展示了我们如何将参数传递给通过 <strong>asyncio.TaskGroup</strong> 创建的任务，以及如何跟踪 <strong>asyncio.Task</strong> 对象，以便在稍后阶段手动检索每个任务的结果。</p>
+<div class="highlight"><pre><span></span><code>100
+200
+300
+400
+500
+600
+700
+800
+900
+</code></pre></div>
+<p>接下来我们看一个例子，如果一个任务失败，则取消组中的所有任务。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of TaskGroup with Arguments and Return Values</strong></p>
+<p>We can explore the case of executing coroutines as tasks that take arguments and return values.</p>
+<p>These are just like coroutines we might issue normally as tasks without the <strong>asyncio.TaskGroup</strong>, but it is good to have an example for reference.</p>
+<p>In this case, we will define a task that takes an argument, sleeps, then returns the argument multiplied by 100.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># return value</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">100</span>
+</code></pre></div>
+<p>The main coroutine will then create an <strong>asyncio.TaskGroup</strong> and then create 9 instances of the task, passing the value 1 to 9 as arguments to the task.</p>
+<p>The task objects are kept so we can retrieve the values from them later. This is achieved using a list comprehension.</p>
+<p>Once all tasks are complete, the return values are retrieved and reported.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># create and issue tasks</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># wait for all tasks to complete...</span>
+    <span class="c1"># report all results</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+</code></pre></div>
+<p>Tying this together, the complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of asyncio task group with return values</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># return value</span>
+    <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">100</span>
+
+<span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># create and issue tasks</span>
+        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+    <span class="c1"># wait for all tasks to complete...</span>
+    <span class="c1"># report all results</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+<span class="c1"># entry point</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first executes the <strong>main()</strong> coroutine, starting a new event loop for us.</p>
+<p>The <strong>main()</strong> coroutine runs and creates an <strong>asyncio.TaskGroup</strong>.</p>
+<p>A total of 9 coroutines are issued as tasks via the <strong>asyncio.TaskGroup</strong> and the <strong>asyncio.Task</strong> objects are stored in a list.</p>
+<p>The main() coroutine then awaits all tasks.</p>
+<p>Each task runs, sleeps, then returns its input argument multiples by one hundred.</p>
+<p>Once all tasks are complete, the <strong>asyncio.Task</strong> objects are iterated and the return value is reported from each.</p>
+<p>This shows how we might pass arguments to tasks created via the <strong>asyncio.TaskGroup</strong> and how we might keep track of <strong>asyncio.Task</strong> objects in order to manually retrieve results from each task at a later stage.</p>
+<div class="highlight"><pre><span></span><code>100
+200
+300
+400
+500
+600
+700
+800
+900
+</code></pre></div>
+<p>Next, let’s look at an example of canceling all tasks in the group if one task fails.</p>
+</div>
+</div>
+</div>
+<h2 id="使用-taskgroup-如果一项任务失败则取消所有任务的示例">使用 TaskGroup 如果一项任务失败则取消所有任务的示例<a class="headerlink" href="#使用-taskgroup-如果一项任务失败则取消所有任务的示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">中文</label><label for="__tabbed_12_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以探讨如果一个任务失败则取消 <strong>asyncio.TaskGroup</strong> 中的所有任务的情况。</p>
+<p>失败的任务意味着协程在 <strong>asyncio.Task</strong> 对象中执行，该对象引发协程中未处理的异常，这意味着它会冒泡到任务并导致任务提前停止。</p>
+<p>发出许多任务并在一项或多项任务失败时取消所有任务是很常见的。</p>
+<p><strong>asyncio.TaskGroup</strong> 将为我们自动执行此操作。</p>
+<p>在本例中，我们将定义 3 个不同的协程来报告消息和睡眠。 然后，第二个协程将失败并出现未捕获的异常。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Something bad happened&#39;</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>请注意，在引发异常之前，第二个任务的睡眠时间少于其他两个任务。</p>
+<p>这是为了确保在第二个任务失败时其他两个任务仍在运行，以便我们可以看到它们是否如我们预期的那样被取消。</p>
+<p><strong>main()</strong> 协程将通过 <strong>asyncio.TaskGroup</strong> 发出所有任务，然后在所有任务“完成”后依次报告每个任务的完成和取消状态。</p>
+<p>回想一下，“完成”任务是指正常完成、取消或因异常而失败的任务。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 处理异常</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 创建任务组</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+            <span class="c1"># 运行第一个任务</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+            <span class="c1"># 运行第二个任务</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+            <span class="c1"># 运行第三个任务</span>
+            <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># 检查每个任务的状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>请注意，我们将整个 <strong>asyncio.TaskGroup</strong> 包装在异常中，因为任务中发生的任何未捕获的异常都会由 <strong>asyncio.TaskGroup</strong> 重新引发</p>
+<p>将它们结合在一起，下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 任务失败的 asyncio 任务组示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># 因异常而失败</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Something bad happened&#39;</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 处理异常</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 创建任务组</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+            <span class="c1"># 运行第一个任务</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+            <span class="c1"># 运行第二个任务</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+            <span class="c1"># 运行第三个任务</span>
+            <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># 检查每个任务的状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 入口点</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行示例首先执行 <strong>main()</strong> 协程，为我们启动一个新的事件循环。</p>
+<p><strong>main()</strong> 协程运行并创建一个 <strong>asyncio.TaskGroup</strong>。</p>
+<p>然后，这三个协程通过 <strong>asyncio.TaskGroup</strong> 作为任务发出，并且 <strong>asyncio.Task</strong> 对象保存在局部变量中以供稍后使用。</p>
+<p><strong>asyncio.TaskGroup</strong> 上下文管理器块退出，然后 <strong>main()</strong> 协程等待所有三个任务。</p>
+<p>任务运行、报告消息并休眠。 然后第二个协程失败并出现异常。</p>
+<p><strong>asyncio.TaskGroup</strong> 处理异常并取消所有剩余的未完成任务。 然后，该异常在顶层重新引发并被忽略。</p>
+<p>然后报告每个任务的完成和取消状态。 我们可以看到所有任务都已完成，并且任务 2 因异常失败时正在运行的两个任务（1 和 3）确实被取消。</p>
+<p>这突出显示了如果组中的任务因未处理的异常而失败，则将如何取消组中的所有正在运行的任务。</p>
+<p>可以防止任务被取消。 您可以在教程中了解更多相关信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-shield/">Asyncio 防止取消</a></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">1</span>
+<span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">2</span>
+<span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">2</span>
+<span class="n">Task1</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">Task2</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">Task3</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">True</span>
+</code></pre></div>
+<p>接下来我们看一个手动取消组内一项任务的例子。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of Cancelling All Tasks if One Task Fails Using TaskGroup</strong></p>
+<p>We can explore the case of canceling all tasks in the <strong>asyncio.TaskGroup</strong> if one task fails.</p>
+<p>A failed task means that a coroutine is executed in an <strong>asyncio.Task</strong> object that raises an exception that is not handled in the coroutine, meaning that it bubbles up to the task and causes the task to be halted early.</p>
+<p>It is common to issue many tasks and cancel all tasks if one or more of the tasks fails.</p>
+<p>The <strong>asyncio.TaskGroup</strong> will perform this action automatically for us.</p>
+<p>In this case, we will define 3 different coroutines that report a message and sleep. The second coroutine will then fail with an uncaught exception.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># fail with an exception</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Something bad happened&#39;</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+<p>Note that the second task sleeps less than the other two tasks before raising an exception.</p>
+<p>This is to ensure that the other two tasks are still running at the point that the second task fails so that we can see if they are canceled as we expect.</p>
+<p>The <strong>main()</strong> coroutine will issue all tasks via the <strong>asyncio.TaskGroup</strong> and then report the done and cancel status of each in turn once all tasks are “done”.</p>
+<p>Recall a “done” task is a task that is finished normally, canceled, or failed with an exception.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># handle exceptions</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># create task group</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+            <span class="c1"># run first task</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+            <span class="c1"># run second task</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+            <span class="c1"># run third task</span>
+            <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># check the status of each task</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Notice that we wrap the entire <strong>asyncio.TaskGroup</strong> in an exception as any uncaught exception that occurs in a task is re-raised by the <strong>asyncio.TaskGroup</strong></p>
+<p>Tying this together, the complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of asyncio task group with a failed task</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1"># fail with an exception</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Something bad happened&#39;</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># handle exceptions</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># create task group</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+            <span class="c1"># run first task</span>
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+            <span class="c1"># run second task</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+            <span class="c1"># run third task</span>
+            <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="c1"># check the status of each task</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># entry point</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first executes the <strong>main()</strong> coroutine, starting a new event loop for us.</p>
+<p>The <strong>main()</strong> coroutine runs and creates an <strong>asyncio.TaskGroup</strong>.</p>
+<p>The three coroutines are then issued as tasks via the <strong>asyncio.TaskGroup</strong> and the <strong>asyncio.Task</strong> objects are kept in local variables for later.</p>
+<p>The <strong>asyncio.TaskGroup</strong> context manager block is exited and the <strong>main()</strong> coroutine then awaits all three tasks.</p>
+<p>The tasks run, report a message and sleep. The second coroutine then fails with an exception.</p>
+<p>The <strong>asyncio.TaskGroup</strong> handles the exception and cancels all remaining not-done tasks. The exception is then re-raised at the top level and ignored.</p>
+<p>The done and canceled status of each task is then reported. We can see that all tasks are done and that the two tasks (1 and 3) that were running at the time task 2 failed with an exception were indeed canceled.</p>
+<p>This highlights how all running tasks in the group will be canceled if a task in the group fails with an unhanded exception.</p>
+<p>It is possible to shield a task from cancellation. You can learn more about this in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-shield/">Asyncio Shield From Cancellation</a></li>
+</ul>
+<div class="highlight"><pre><span></span><code>Hello from coroutine 1
+Hello from coroutine 2
+Hello from coroutine 2
+Task1: done=True, cancelled=True
+Task2: done=True, cancelled=False
+Task3: done=True, cancelled=True
+</code></pre></div>
+<p>Next, let’s look at an example of manually canceling one task in the group.</p>
+</div>
+</div>
+</div>
+<h2 id="取消任务组中的一项任务的示例">取消任务组中的一项任务的示例<a class="headerlink" href="#取消任务组中的一项任务的示例" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">中文</label><label for="__tabbed_13_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>我们可以探讨手动取消组中一项任务的情况。</p>
+<p>这可以通过调用 <strong>asyncio.Task</strong> 对象上的 <strong>cancel()</strong> 方法来实现。</p>
+<p>如果任务没有完成，取消任务的请求将由任务处理。</p>
+<p>您可以在教程中了解有关取消任务的更多信息：</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-cancel-task/">如何取消 Asyncio 任务</a></li>
+</ul>
+<p>在本例中，我们将使用 <strong>asyncio.TaskGroup</strong> 发出 3 个任务，稍等片刻，然后取消第二个任务。</p>
+<p>预期只有第二个任务会被取消，所有其他任务将继续正常运行。 我们将在所有任务完成后通过报告所有任务的“已完成”和“已取消”状态来确认这一点。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 运行第一个任务</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># 运行第二个任务</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># 运行第三个任务</span>
+        <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+        <span class="c1"># 暂停片刻</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="c1"># 取消第二个任务</span>
+        <span class="n">t2</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="c1"># 检查每个任务的状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>将它们结合在一起，下面列出了完整的示例。</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 具有已取消任务的 asyncio 任务组示例</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># 协程任务</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># sleep 来模拟等待</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># 报告消息</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 3&#39;</span><span class="p">)</span>
+
+<span class="c1"># 异步入口点</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># 创建任务组</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># 运行第一个任务</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># 运行第二个任务</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># 运行第三个任务</span>
+        <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+        <span class="c1"># 暂停片刻</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="c1"># 取消第二个任务</span>
+        <span class="n">t2</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="c1"># 检查每个任务的状态</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># 入口点</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>运行示例首先执行 <strong>main()</strong> 协程，为我们启动一个新的事件循环。</p>
+<p><strong>main()</strong> 协程运行并创建一个 <strong>asyncio.TaskGroup</strong>。</p>
+<p>然后，这三个协程通过 <strong>asyncio.TaskGroup</strong> 作为任务发出，并且 <strong>asyncio.Task</strong> 对象保存在局部变量中以供稍后使用。</p>
+<p><strong>main()</strong> 协程会休眠一会儿，以允许任务运行。</p>
+<p><strong>main()</strong> 协程结果然后取消第二个任务。 然后它退出 <strong>asyncio.TaskGroup</strong> 的上下文管理器并等待所有任务。</p>
+<p>第二个任务被取消。 其余任务正常完成。 我们只能看到来自任务 1 和 3 的消息，因为任务 2 在报告消息之前已被取消。</p>
+<p>检查任务的状态，我们可以看到所有任务都已完成，只有任务 2 被取消。</p>
+<p>这凸显了我们可以手动取消组中的任务，而不影响其他任务。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">1</span>
+<span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">2</span>
+<span class="n">Task1</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">Task2</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">Task3</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><strong>Example of Cancelling One Task in a TaskGroup</strong></p>
+<p>We can explore the case of manually canceling one task in the group.</p>
+<p>This can be achieved by calling the <strong>cancel()</strong> method on the <strong>asyncio.Task</strong> object.</p>
+<p>If the task is not done, the request to cancel the task will be handled by the task.</p>
+<p>You can learn more about canceling tasks in the tutorial:</p>
+<ul>
+<li><a href="https://superfastpython.com/asyncio-cancel-task/">How to Cancel an Asyncio Task</a></li>
+</ul>
+<p>In this case, we will issue 3 tasks using the <strong>asyncio.TaskGroup</strong>, wait a moment, then cancel the second task.</p>
+<p>The expectation is that only the second task will be canceled and all other tasks will be left to run as per normal. We will confirm this by reporting the “done” and “cancelled” status of all tasks after all tasks are done.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># run first task</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># run second task</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># run third task</span>
+        <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+        <span class="c1"># wait a moment</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="c1"># cancel the second task</span>
+        <span class="n">t2</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="c1"># check the status of each task</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Tying this together, the complete example is listed below.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example of asyncio task group with a canceled task</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task1</span><span class="p">():</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 1&#39;</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task2</span><span class="p">():</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># coroutine task</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">task3</span><span class="p">():</span>
+    <span class="c1"># sleep to simulate waiting</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># report a message</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello from coroutine 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># asyncio entry point</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># create task group</span>
+    <span class="k">async</span> <span class="k">with</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TaskGroup</span><span class="p">()</span> <span class="k">as</span> <span class="n">group</span><span class="p">:</span>
+        <span class="c1"># run first task</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task1</span><span class="p">())</span>
+        <span class="c1"># run second task</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task2</span><span class="p">())</span>
+        <span class="c1"># run third task</span>
+        <span class="n">t3</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="n">task3</span><span class="p">())</span>
+        <span class="c1"># wait a moment</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="c1"># cancel the second task</span>
+        <span class="n">t2</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+    <span class="c1"># check the status of each task</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task1: done=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t1</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task2: done=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t2</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Task3: done=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">done</span><span class="p">()</span><span class="si">}</span><span class="s1">, cancelled=</span><span class="si">{</span><span class="n">t3</span><span class="o">.</span><span class="n">cancelled</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># entry point</span>
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>Running the example first executes the <strong>main()</strong> coroutine, starting a new event loop for us.</p>
+<p>The <strong>main()</strong> coroutine runs and creates an <strong>asyncio.TaskGroup</strong>.</p>
+<p>The three coroutines are then issued as tasks via the <strong>asyncio.TaskGroup</strong> and the <strong>asyncio.Task</strong> objects are kept in local variables for later.</p>
+<p>The <strong>main()</strong> coroutine sleeps for a moment, allowing the tasks to run.</p>
+<p>The <strong>main()</strong> coroutine results and then cancels the second task. It then exits the context manager of the <strong>asyncio.TaskGroup</strong> and awaits all tasks.</p>
+<p>The second task is canceled. The remaining tasks complete normally. We see messages from tasks 1 and 3 only because task 2 was canceled before the message could be reported.</p>
+<p>Checking the status of the tasks, we can see that all tasks are done and only task 2 was canceled.</p>
+<p>This highlights that we can manually cancel tasks in the group, leaving other tasks unaffected.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">1</span>
+<span class="n">Hello</span> <span class="kn">from</span> <span class="nn">coroutine</span> <span class="mi">2</span>
+<span class="n">Task1</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">Task2</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">True</span>
+<span class="n">Task3</span><span class="p">:</span> <span class="n">done</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cancelled</span><span class="o">=</span><span class="kc">False</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="进一步阅读">进一步阅读<a class="headerlink" href="#进一步阅读" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">中文</label><label for="__tabbed_14_2">原文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>本节提供了您可能会觉得有用的其他资源。</p>
+<p><strong>书籍</strong></p>
+<ul>
+<li><a href="https://amzn.to/3UDIf9K">Python Asyncio Jump-Start</a>, Jason Brownlee, 2022 (my book).</li>
+<li><a href="https://amzn.to/3XFEZgj">Python Asyncio Interview Questions</a></li>
+<li><a href="https://superfastpython.gumroad.com/l/pacs">Asyncio Module API Cheat Sheet</a></li>
+</ul>
+<p>我还推荐以下书籍:</p>
+<ul>
+<li><a href="https://amzn.to/3LZvxNn">Python Concurrency with asyncio</a>, Matthew Fowler, 2022.</li>
+<li><a href="https://amzn.to/3lNp2ml">Using Asyncio in Python</a>, Caleb Hattingh, 2020.</li>
+</ul>
+<p><strong>指南</strong></p>
+<ul>
+<li><a href="https://superfastpython.com/python-asyncio/">Python Asyncio: The Complete Guide</a></li>
+</ul>
+<p><strong>APIs</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio — Asynchronous I/O</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Asyncio Coroutines and Tasks</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-stream.html">Asyncio Streams</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-subprocess.html">Asyncio Subprocesses</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-queue.html">Asyncio Queues</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-sync.html">Asyncio Synchronization Primitives</a></li>
+</ul>
+<p><strong>参考</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Asynchronous_I/O">Asynchronous I/O, Wikipedia.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine, Wikipedia.</a></li>
+</ul>
+</div>
+<div class="tabbed-block">
+<p><strong>Further Reading</strong></p>
+<p>This section provides additional resources that you may find helpful.</p>
+<p><strong>Books</strong></p>
+<ul>
+<li><a href="https://amzn.to/3UDIf9K">Python Asyncio Jump-Start</a>, Jason Brownlee, 2022 (my book).</li>
+<li><a href="https://amzn.to/3XFEZgj">Python Asyncio Interview Questions</a></li>
+<li><a href="https://superfastpython.gumroad.com/l/pacs">Asyncio Module API Cheat Sheet</a></li>
+</ul>
+<p>I also recommend the following books:</p>
+<ul>
+<li><a href="https://amzn.to/3LZvxNn">Python Concurrency with asyncio</a>, Matthew Fowler, 2022.</li>
+<li><a href="https://amzn.to/3lNp2ml">Using Asyncio in Python</a>, Caleb Hattingh, 2020.</li>
+</ul>
+<p><strong>Guides</strong></p>
+<ul>
+<li><a href="https://superfastpython.com/python-asyncio/">Python Asyncio: The Complete Guide</a></li>
+</ul>
+<p><strong>APIs</strong></p>
+<ul>
+<li><a href="https://docs.python.org/3/library/asyncio.html">asyncio — Asynchronous I/O</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-task.html">Asyncio Coroutines and Tasks</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-stream.html">Asyncio Streams</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-subprocess.html">Asyncio Subprocesses</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-queue.html">Asyncio Queues</a></li>
+<li><a href="https://docs.python.org/3/library/asyncio-sync.html">Asyncio Synchronization Primitives</a></li>
+</ul>
+<p><strong>References</strong></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Asynchronous_I/O">Asynchronous I/O, Wikipedia.</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Coroutine">Coroutine, Wikipedia.</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月4日</span>
+      
+        <br>
+        创建日期:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月4日</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            回到页面顶部
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
