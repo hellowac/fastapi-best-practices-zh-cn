@@ -84,6 +84,8 @@ nav:
       - TaskGroup管理协程: asyncio/task_group.md
       - 语法备忘录: asyncio/cheat_sheet.md
       - API思维导图: asyncio/api_mind_map.md
+  - mypy:
+      - 类型注解备忘录: mypy/cheat_sheet_py3.md
   - HTTP:
       - http/internet_protocol_suite_part_i.md
       - http/internet_protocol_suite_part_ii.md
