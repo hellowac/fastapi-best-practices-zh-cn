@@ -86,6 +86,21 @@ nav:
       - API思维导图: asyncio/api_mind_map.md
   - mypy:
       - 类型注解备忘录: mypy/cheat_sheet_py3.md
+      - 类型系统参考-内置类型: mypy/builtin_types.md
+      - 类型系统参考-类型推断和类型注解: mypy/type_inference_type_annotations.md
+      - 类型系统参考-类型种类: mypy/kind_of_types.md
+      - 类型系统参考-类的基础: mypy/class_basics.md
+      - 类型系统参考-运行时的注解问题: mypy/annotation_issue_at_runtime.md
+      - 类型系统参考-协议和结构子类型: mypy/protocol_and_struct_subtyping.md
+      - 类型系统参考-类型缩小: mypy/type_narrowing.md
+      - 类型系统参考-鸭子类型兼容: mypy/duck_type_compatibility.md
+      - 类型系统参考-存根文件: mypy/stub_files.md
+      - 类型系统参考-泛型: mypy/generics.md
+      - 类型系统参考-更多类型: mypy/more_types.md
+      - 类型系统参考-文字类型和枚举: mypy/literal_and_enum.md
+      - 类型系统参考-类型字典: mypy/typeddict.md
+      - 类型系统参考-最终名称、方法和类: mypy/final_names_methods_classes.md
+      - 类型系统参考-元类: mypy/metaclasses.md
   - HTTP:
       - http/internet_protocol_suite_part_i.md
       - http/internet_protocol_suite_part_ii.md

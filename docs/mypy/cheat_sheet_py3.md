@@ -548,7 +548,7 @@
 
 === "原文"
 
-**Standard “duck types”**
+    **Standard “duck types”**
 
     In typical Python code, many functions that can take a list or a dict as an argument only need their argument to be somehow “list-like” or “dict-like”. A specific meaning of “list-like” or “dict-like” (or something-else-like) is called a “duck type”, and several duck types that are common in idiomatic Python are standardized.
 
@@ -689,11 +689,11 @@
         ...
     ```
 
-## Coroutines and asyncio
+## 协程和 asyncio
 
 === "中文"
 
-    有关键入协程和异步代码的完整详细信息，请参阅[注解 async/await](https://mypy.readthedocs.io/en/stable/more_types.html#async-and-await)。
+    有关编写协程和异步代码的完整详细信息，请参阅[注解 async/await](https://mypy.readthedocs.io/en/stable/more_types.html#async-and-await)。
 
     ```python
     import asyncio
