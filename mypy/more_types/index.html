@@ -11,19 +11,21 @@
       
       
       
-        <link rel="prev" href="../sysdesign/perm_design/">
+        <link rel="prev" href="../generics/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+        <link rel="next" href="../literal_and_enum/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
-        <title>关于 - FastApi 最佳实践-中文版</title>
+        <title>类型系统参考-更多类型 - FastApi 最佳实践-中文版</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
       
       
 
@@ -39,14 +41,14 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
     
-   <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
         html.glightbox-open { overflow: initial; height: 100%; }
         .gslide-title { margin-top: 0px; user-select: text; }
         .gslide-desc { color: #666; user-select: text; }
@@ -57,7 +59,7 @@
             body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
             body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
             body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../assets/javascripts/glightbox.min.js"></script></head>
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
@@ -72,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#关于" class="md-skip">
+        <a href="#更多类型" class="md-skip">
           跳转至
         </a>
       
@@ -88,7 +90,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href=".." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -107,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              关于
+              类型系统参考-更多类型
             
           </span>
         </div>
@@ -176,7 +178,7 @@
 
 
   <li class="md-tabs__item">
-    <a href=".." class="md-tabs__link">
+    <a href="../.." class="md-tabs__link">
       最佳实践
     </a>
   </li>
@@ -188,7 +190,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../raw_en/" class="md-tabs__link">
+    <a href="../../raw_en/" class="md-tabs__link">
       英文原版
     </a>
   </li>
@@ -203,7 +205,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../asyncio/asyncio/" class="md-tabs__link">
+      <a href="../../asyncio/asyncio/" class="md-tabs__link">
         Asyncio
       </a>
     </li>
@@ -213,13 +215,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../mypy/cheat_sheet_py3/" class="md-tabs__link">
+      <a href="../cheat_sheet_py3/" class="md-tabs__link md-tabs__link--active">
         mypy
       </a>
     </li>
@@ -235,7 +239,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../http/internet_protocol_suite_part_i/" class="md-tabs__link">
+      <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
         HTTP
       </a>
     </li>
@@ -251,7 +255,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../git/git-branch-manage/" class="md-tabs__link">
+      <a href="../../git/git-branch-manage/" class="md-tabs__link">
         Git
       </a>
     </li>
@@ -267,7 +271,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../sysdesign/perm_design/" class="md-tabs__link">
+      <a href="../../sysdesign/perm_design/" class="md-tabs__link">
         系统设计
       </a>
     </li>
@@ -277,12 +281,10 @@
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="./" class="md-tabs__link md-tabs__link--active">
+    <a href="../../about/" class="md-tabs__link">
       关于
     </a>
   </li>
@@ -305,9 +307,7 @@
           
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -317,7 +317,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
+    <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
@@ -348,7 +348,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         最佳实践
       </a>
     </li>
@@ -363,7 +363,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../raw_en/" class="md-nav__link">
+      <a href="../../raw_en/" class="md-nav__link">
         英文原版
       </a>
     </li>
@@ -419,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/asyncio/" class="md-nav__link">
+      <a href="../../asyncio/asyncio/" class="md-nav__link">
         中文简单指南
       </a>
     </li>
@@ -433,7 +433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/asyncio_en/" class="md-nav__link">
+      <a href="../../asyncio/asyncio_en/" class="md-nav__link">
         中英对照指南
       </a>
     </li>
@@ -447,7 +447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/runner/" class="md-nav__link">
+      <a href="../../asyncio/runner/" class="md-nav__link">
         Runner运行协程
       </a>
     </li>
@@ -461,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/task_group/" class="md-nav__link">
+      <a href="../../asyncio/task_group/" class="md-nav__link">
         TaskGroup管理协程
       </a>
     </li>
@@ -475,7 +475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/cheat_sheet/" class="md-nav__link">
+      <a href="../../asyncio/cheat_sheet/" class="md-nav__link">
         语法备忘录
       </a>
     </li>
@@ -489,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../asyncio/api_mind_map/" class="md-nav__link">
+      <a href="../../asyncio/api_mind_map/" class="md-nav__link">
         API思维导图
       </a>
     </li>
@@ -509,14 +509,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
         
@@ -559,7 +561,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           mypy
@@ -572,7 +574,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/cheat_sheet_py3/" class="md-nav__link">
+      <a href="../cheat_sheet_py3/" class="md-nav__link">
         类型注解备忘录
       </a>
     </li>
@@ -586,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/builtin_types/" class="md-nav__link">
+      <a href="../builtin_types/" class="md-nav__link">
         类型系统参考-内置类型
       </a>
     </li>
@@ -600,7 +602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/type_inference_type_annotations/" class="md-nav__link">
+      <a href="../type_inference_type_annotations/" class="md-nav__link">
         类型系统参考-类型推断和类型注解
       </a>
     </li>
@@ -614,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/kind_of_types/" class="md-nav__link">
+      <a href="../kind_of_types/" class="md-nav__link">
         类型系统参考-类型种类
       </a>
     </li>
@@ -628,7 +630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/class_basics/" class="md-nav__link">
+      <a href="../class_basics/" class="md-nav__link">
         类型系统参考-类的基础
       </a>
     </li>
@@ -642,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/annotation_issue_at_runtime/" class="md-nav__link">
+      <a href="../annotation_issue_at_runtime/" class="md-nav__link">
         类型系统参考-运行时的注解问题
       </a>
     </li>
@@ -656,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/protocol_and_struct_subtyping/" class="md-nav__link">
+      <a href="../protocol_and_struct_subtyping/" class="md-nav__link">
         类型系统参考-协议和结构子类型
       </a>
     </li>
@@ -670,7 +672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/type_narrowing/" class="md-nav__link">
+      <a href="../type_narrowing/" class="md-nav__link">
         类型系统参考-类型缩小
       </a>
     </li>
@@ -684,7 +686,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/duck_type_compatibility/" class="md-nav__link">
+      <a href="../duck_type_compatibility/" class="md-nav__link">
         类型系统参考-鸭子类型兼容
       </a>
     </li>
@@ -698,7 +700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/stub_files/" class="md-nav__link">
+      <a href="../stub_files/" class="md-nav__link">
         类型系统参考-存根文件
       </a>
     </li>
@@ -712,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/generics/" class="md-nav__link">
+      <a href="../generics/" class="md-nav__link">
         类型系统参考-泛型
       </a>
     </li>
@@ -724,11 +726,52 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../mypy/more_types/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          类型系统参考-更多类型
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         类型系统参考-更多类型
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aaa" class="md-nav__link">
+    aaa
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -740,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/literal_and_enum/" class="md-nav__link">
+      <a href="../literal_and_enum/" class="md-nav__link">
         类型系统参考-文字类型和枚举
       </a>
     </li>
@@ -754,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/typeddict/" class="md-nav__link">
+      <a href="../typeddict/" class="md-nav__link">
         类型系统参考-类型字典
       </a>
     </li>
@@ -768,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/final_names_methods_classes/" class="md-nav__link">
+      <a href="../final_names_methods_classes/" class="md-nav__link">
         类型系统参考-最终名称、方法和类
       </a>
     </li>
@@ -782,7 +825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mypy/metaclasses/" class="md-nav__link">
+      <a href="../metaclasses/" class="md-nav__link">
         类型系统参考-元类
       </a>
     </li>
@@ -834,7 +877,7 @@
         
         
         <div class="md-nav__link md-nav__link--index ">
-          <a href="../http/">HTTP</a>
+          <a href="../../http/">HTTP</a>
           
             <label for="__nav_5">
               <span class="md-nav__icon md-icon"></span>
@@ -855,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/internet_protocol_suite_part_i/" class="md-nav__link">
+      <a href="../../http/internet_protocol_suite_part_i/" class="md-nav__link">
         互联网协议入门（一）
       </a>
     </li>
@@ -869,7 +912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/internet_protocol_suite_part_ii/" class="md-nav__link">
+      <a href="../../http/internet_protocol_suite_part_ii/" class="md-nav__link">
         互联网协议入门（二）
       </a>
     </li>
@@ -885,7 +928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/restapi/" class="md-nav__link">
+      <a href="../../http/restapi/" class="md-nav__link">
         Restful API 设计指南
       </a>
     </li>
@@ -899,7 +942,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/restapibsetp/" class="md-nav__link">
+      <a href="../../http/restapibsetp/" class="md-nav__link">
         RESTful API 最佳实践
       </a>
     </li>
@@ -913,7 +956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/http-referer/" class="md-nav__link">
+      <a href="../../http/http-referer/" class="md-nav__link">
         HTTP Referer 教程
       </a>
     </li>
@@ -927,7 +970,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http/https/" class="md-nav__link">
+      <a href="../../http/https/" class="md-nav__link">
         HTTPS 升级指南
       </a>
     </li>
@@ -988,7 +1031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/git-branch-manage/" class="md-nav__link">
+      <a href="../../git/git-branch-manage/" class="md-nav__link">
         Git分支管理策略
       </a>
     </li>
@@ -1002,7 +1045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/git-remote/" class="md-nav__link">
+      <a href="../../git/git-remote/" class="md-nav__link">
         Git远程操作详解
       </a>
     </li>
@@ -1016,7 +1059,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/git-use-process/" class="md-nav__link">
+      <a href="../../git/git-use-process/" class="md-nav__link">
         Git 使用规范流程
       </a>
     </li>
@@ -1030,7 +1073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/git-cheat-sheet/" class="md-nav__link">
+      <a href="../../git/git-cheat-sheet/" class="md-nav__link">
         常用 Git 命令清单
       </a>
     </li>
@@ -1044,7 +1087,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../git/git-work-flow/" class="md-nav__link">
+      <a href="../../git/git-work-flow/" class="md-nav__link">
         Git 协作流程
       </a>
     </li>
@@ -1097,7 +1140,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sysdesign/perm_design/" class="md-nav__link">
+      <a href="../../sysdesign/perm_design/" class="md-nav__link">
         权限系统的设计
       </a>
     </li>
@@ -1117,59 +1160,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          关于
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
         关于
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#基础" class="md-nav__link">
-    基础
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1182,9 +1177,7 @@
             
             
               
-                
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1203,15 +1196,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#基础" class="md-nav__link">
-    基础
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#其他" class="md-nav__link">
-    其他
+  <a href="#aaa" class="md-nav__link">
+    aaa
   </a>
   
 </li>
@@ -1234,37 +1220,31 @@
   
 
 
-<h1 id="关于">关于<a class="headerlink" href="#关于" title="Permanent link">&para;</a></h1>
-<ul>
-<li>翻译自 <a href="https://github.com/zhanymkanov/fastapi-best-practices">https://github.com/zhanymkanov/fastapi-best-practices</a> 有效性参考原文。</li>
-</ul>
-<h2 id="基础">基础<a class="headerlink" href="#基础" title="Permanent link">&para;</a></h2>
-<ul>
-<li>网络基础, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank">互联网协议入门（一）</a></li>
-<li>HTTP Referer 教程, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2019/06/http-referer.html" target="_blank">HTTP Referer 教程</a></li>
-<li>HTTPS 升级指南, 参考: <a href="http://www.ruanyifeng.com/" target="_blank">阮一峰</a>老师的 - <a href="https://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html" target="_blank">HTTPS 升级指南</a></li>
-</ul>
-<h2 id="其他">其他<a class="headerlink" href="#其他" title="Permanent link">&para;</a></h2>
-<p>作者还有一个仓库: <a href="https://github.com/zhanymkanov/fastapi_production_template">https://github.com/zhanymkanov/fastapi_production_template</a> - 一个基于fastapi的生产模版仓库，也挺不错的。</p>
+<h1 id="更多类型">更多类型<a class="headerlink" href="#更多类型" title="Permanent link">&para;</a></h1>
+<h2 id="aaa">aaa<a class="headerlink" href="#aaa" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">中文</label><label for="__tabbed_1_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月16日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
       
         <br>
         创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年6月15日</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
       
     
   </small>
 </div>
 
 
-
-  
 
 
 
@@ -1307,12 +1287,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
       
-        <script src="../javascripts/mathjax.js"></script>
+        <script src="../../javascripts/mathjax.js"></script>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
       
