@@ -764,7 +764,7 @@
     
     Mypy treats this as semantically equivalent to the previous example if strict optional checking is disabled, since `None` is implicitly valid for any type, but it's much more useful for a programmer who is reading the code. This also makes it easier to migrate to strict `None` checking in the future.
 
-## Type 别名
+## 类型别名
 
 === "中文"
 
