@@ -1521,19 +1521,17 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Python does not allow references to a class object before the class is
-defined (aka forward reference). Thus this code does not work as expected:</p>
+<p>Python 不允许在定义类之前引用类对象（也称为前向引用）。 因此这段代码不能按预期工作：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># NameError: name &quot;A&quot; is not defined</span>
 <span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
 </code></pre></div>
-<p>Starting from Python 3.7, you can add <code>from __future__ import annotations</code> to
-resolve this, as discussed earlier:</p>
+<p>从 Python 3.7 开始，您可以添加 <code>from __future__ import annotations</code> 来解决此问题，如前所述：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># OK</span>
 <span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
 </code></pre></div>
-<p>For Python 3.6 and below, you can enter the type as a string literal or type comment:</p>
+<p>对于 Python 3.6 及更低版本，您可以将类型输入为字符串文字或类型注释：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># OK</span>
 
 <span class="c1"># Also OK</span>
@@ -1542,9 +1540,7 @@ resolve this, as discussed earlier:</p>
 
 <span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
 </code></pre></div>
-<p>Of course, instead of using future annotations import or string literal types,
-you could move the function definition after the class definition. This is not
-always desirable or even possible, though.</p>
+<p>当然，您可以将函数定义移到类定义之后，而不是使用将来的注释导入或字符串文字类型。 但这并不总是可取的，甚至是不可能的。</p>
 </div>
 <div class="tabbed-block">
 <p><strong>Class name forward references</strong></p>
@@ -1579,11 +1575,11 @@ always desirable or even possible, though.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>An import cycle occurs where module A imports module B and module B imports module A (perhaps indirectly, e.g. <code>A -&gt; B -&gt; C -&gt; A</code>). Sometimes in order to add type annotations you have to add extra imports to a module and those imports cause cycles that didn't exist before. This can lead to errors at runtime like:</p>
+<p>当模块 A 导入模块 B 并且模块 B 导入模块 A（可能是间接的，例如 <code>A -&gt; B -&gt; C -&gt; A</code>）时，会发生导入循环。 有时，为了添加类型注释，您必须向模块添加额外的导入，而这些导入会导致以前不存在的循环。 这可能会导致运行时出现错误，例如：</p>
 <div class="highlight"><pre><span></span><code>ImportError: cannot import name &#39;b&#39; from partially initialized module &#39;A&#39; (most likely due to a circular import)
 </code></pre></div>
-<p>If those cycles do become a problem when running your program, there's a trick: if the import is only needed for type annotations and you're using a) the <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations import</code></a>, or b) string literals or type comments for the relevant annotations, you can write the imports inside <code>if TYPE_CHECKING:</code> so that they are not executed at runtime. Example:</p>
-<p>File <code>foo.py</code>:</p>
+<p>如果这些循环在运行程序时确实成为问题，那么有一个技巧：如果仅类型注释需要导入并且您正在使用 a) <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future comments import</code></a>，或 b) 相关注释的字符串文字或类型注释，您可以将导入写入 <code>if TYPE_CHECKING:</code> 中，这样它们就不会在运行时执行。 例子：</p>
+<p>文件 <code>foo.py</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -1592,7 +1588,7 @@ always desirable or even possible, though.</p>
 <span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="s1">&#39;bar.BarClass&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;list[bar.BarClass]&#39;</span><span class="p">:</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">arg</span><span class="p">]</span>
 </code></pre></div>
-<p>File <code>bar.py</code>:</p>
+<p>文件 <code>bar.py</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">foo</span> <span class="kn">import</span> <span class="n">listify</span>
 
 <span class="k">class</span> <span class="nc">BarClass</span><span class="p">:</span>
@@ -1629,9 +1625,8 @@ always desirable or even possible, though.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Some classes are declared as <a href="https://mypy.readthedocs.io/en/latest/generics.html#generic-classes"><code>generic</code></a> in stubs, but not at runtime.</p>
-<p>In Python 3.8 and earlier, there are several examples within the standard library, for instance, <a href="https://docs.python.org/3/library/os.html#os.PathLike"><code>os.PathLike</code></a> and <a href="https://docs.python.org/3/library/queue.html#queue.Queue"><code>queue.Queue</code></a>. Subscripting
-such a class will result in a runtime error:</p>
+<p>有些类在存根中声明为 <a href="https://mypy.readthedocs.io/en/latest/generics.html#generic-classes"><code>generic</code></a>，但不是在运行时声明。</p>
+<p>在 Python 3.8 及更早版本中，标准库中有几个示例，例如 <a href="https://docs.python.org/3/library/os.html#os.PathLike"><code>os.PathLike</code></a> 和 <a href="https://docs.python.org/3/library/queue.html#queue.Queue"> <code>queue.Queue</code></a>。 为这样的类添加下标将导致运行时错误：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
 
 <span class="k">class</span> <span class="nc">Tasks</span><span class="p">(</span><span class="n">Queue</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>  <span class="c1"># TypeError: &#39;type&#39; object is not subscriptable</span>
@@ -1639,10 +1634,8 @@ such a class will result in a runtime error:</p>
 
 <span class="n">results</span><span class="p">:</span> <span class="n">Queue</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>  <span class="c1"># TypeError: &#39;type&#39; object is not subscriptable</span>
 </code></pre></div>
-<p>To avoid errors from use of these generics in annotations, just use the <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations import</code></a> (or string literals or type
-comments for Python 3.6 and below).</p>
-<p>To avoid errors when inheriting from these classes, things are a little more
-complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#typing-type-checking"><code>typing.TYPE_CHECKING</code></a>:</p>
+<p>为了避免在注释中使用这些泛型而产生错误，只需使用 <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future comments import</code></a> （或字符串文字或类型 Python 3.6 及以下版本的注释）。</p>
+<p>为了避免从这些类继承时出现错误，事情会稍微复杂一些，您需要使用 [<code>typing.TYPE_CHECKING</code>](https://mypy.readthedocs.io/en/latest/runtime_troubles.html#typing-type- 检查）：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
 
@@ -1657,7 +1650,7 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <span class="n">task_queue</span><span class="p">:</span> <span class="n">Tasks</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">task_queue</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>  <span class="c1"># Reveals str</span>
 </code></pre></div>
-<p>If your subclass is also generic, you can use the following:</p>
+<p>如果您的子类也是通用的，您可以使用以下内容：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Generic</span>
 <span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
 
@@ -1672,7 +1665,7 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <span class="n">task_queue</span><span class="p">:</span> <span class="n">MyQueue</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">task_queue</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>  <span class="c1"># Reveals str</span>
 </code></pre></div>
-<p>In Python 3.9, we can just inherit directly from <code>Queue[str]</code> or <code>Queue[T]</code> since its [<code>queue.Queue</code>](https://docs.python.org/3/library/queue.html#queue.Queue implements {py:meth}<code>__class_getitem__</code>, so the class object can be subscripted at runtime without issue.</p>
+<p>在Python 3.9中，我们可以直接继承<code>Queue[str]</code>或<code>Queue[T]</code>，因为它的[<code>queue.Queue</code>](https://docs.python.org/3/library/queue.html#queue.Queue 实现了 <code>__class_getitem__</code>，因此类对象可以在运行时使用下标而不会出现问题。</p>
 </div>
 <div class="tabbed-block">
 <p><strong>Using classes that are generic in stubs but not at runtime</strong></p>
@@ -1727,7 +1720,7 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Sometimes stubs that you're using may define types you wish to re-use that do not exist at runtime. Importing these types naively will cause your code to fail at runtime with <code>ImportError</code> or <code>ModuleNotFoundError</code>. Similar to previous sections, these can be dealt with by using <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#typing-type-checking"><code>typing.TYPE_CHECKING</code></a>:</p>
+<p>有时，您正在使用的存根可能会定义您希望重用的类型，但这些类型在运行时并不存在。 天真地导入这些类型将导致您的代码在运行时失败，并出现“ImportError”或“ModuleNotFoundError”。 与前面的部分类似，这些可以通过使用 <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#typing-type-checking"><code>typing.TYPE_CHECKING</code></a> 来处理：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 <span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
@@ -1735,7 +1728,7 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">SupportsRichComparison</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-<p>The <code>from __future__ import annotations</code> is required to avoid a <code>NameError</code> when using the imported symbol. For more information and caveats, see the section on <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations</code></a>.</p>
+<p>使用导入符号时需要使用 “from <strong>future</strong> import annotations” 以避免出现 “NameError”。 有关更多信息和注意事项，请参阅有关<a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations</code></a>的部分。</p>
 </div>
 <div class="tabbed-block">
 <p><strong>Using types defined in stubs but not at runtime</strong></p>
@@ -1755,13 +1748,13 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Starting with Python 3.9 (<a href="https://peps.python.org/pep-0585/"><code>585</code></a>), the type objects of many collections in the standard library support subscription at runtime. This means that you no longer have to import the equivalents from <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a>; you can simply use the built-in collections or those from <a href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc"><code>collections.abc</code></a>:</p>
+<p>从Python 3.9（<a href="https://peps.python.org/pep-0585/"><code>585</code></a>）开始，标准库中许多集合的类型对象支持运行时订阅。 这意味着您不再需要从 <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 导入等效项； 您可以简单地使用内置集合或来自 <a href="https://docs.python.org/3/library/collections.abc.html#module-collections.abc"><code>collections.abc</code></a> 的集合：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 <span class="n">y</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
 <span class="n">z</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
 </code></pre></div>
-<p>There is limited support for using this syntax in Python 3.7 and later as well: if you use <code>from __future__ import annotations</code>, mypy will understand this syntax in annotations. However, since this will not be supported by the Python interpreter at runtime, make sure you're aware of the caveats mentioned in the notes at {ref} <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations import</code></a>.</p>
+<p>Python 3.7 及更高版本中对使用此语法的支持也很有限：如果您使用 “from <strong>future</strong> import annotations”，mypy 将在注释中理解此语法。 但是，由于 Python 解释器在运行时不支持此功能，因此请确保您了解 <a href="https://mypy.readthedocs.io/"><code>future comments import</code></a> 注释中提到的注意事项 en/latest/runtime_troubles.html#future-annotations）。</p>
 </div>
 <div class="tabbed-block">
 <p><strong>Using generic builtins</strong></p>
@@ -1779,8 +1772,8 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Starting with Python 3.10 <a href="https://peps.python.org/pep-0604/"><code>PEP 604</code></a>, you can spell union types as <code>x: int | str</code>, instead of <code>x: typing.Union[int, str]</code>.</p>
-<p>There is limited support for using this syntax in Python 3.7 and later as well: if you use <code>from __future__ import annotations</code>, mypy will understand this syntax in annotations, string literal types, type comments and stub files. However, since this will not be supported by the Python interpreter at runtime (if evaluated, <code>int | str</code> will raise <code>TypeError: unsupported operand type(s) for |: 'type' and 'type'</code>), make sure you're aware of the caveats mentioned in the notes at <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future annotations import&lt;future-annotations&gt;</code></a>.</p>
+<p>从 Python 3.10 <a href="https://peps.python.org/pep-0604/"><code>PEP 604</code></a> 开始，您可以将联合类型拼写为 <code>x: int | str</code>，而不是<code>x:typing.Union[int, str]</code>。</p>
+<p>Python 3.7 及更高版本中对使用此语法的支持也很有限：如果您使用“from <strong>future</strong> import annotations”，mypy 将在注释、字符串文字类型、类型注释和存根文件中理解此语法。 但是，由于 Python 解释器在运行时不支持这一点（如果计算，<code>int | str</code> 将引发 <code>TypeError: unsupported operand type(s) for |: 'type' and 'type'</code>），请确保 了解 <a href="https://mypy.readthedocs.io/en/latest/runtime_troubles.html#future-annotations"><code>future 注释 import&lt;future-annotations&gt;</code></a> 的注释中提到的警告。</p>
 </div>
 <div class="tabbed-block">
 <p><strong>Using X | Y syntax for Unions</strong></p>
@@ -1793,12 +1786,12 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>You may find yourself wanting to use features added to the {py:mod}<code>typing</code> module in earlier versions of Python than the addition, for example, using any of <code>Literal</code>, <code>Protocol</code>, <code>TypedDict</code> with Python 3.6.</p>
-<p>The easiest way to do this is to install and use the <code>typing_extensions</code> package from PyPI for the relevant imports, for example:</p>
+<p>您可能会发现自己想要使用早期版本的 Python 中添加到 <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 模块的功能，例如，在 Python 3.6 中使用 <code>Literal</code>、<code>Protocol</code>、<code>TypedDict</code> 中的任何一个。</p>
+<p>最简单的方法是安装并使用 PyPI 中的 typing_extensions 包进行相关导入，例如：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Literal</span>
 <span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>If you don't want to rely on <code>typing_extensions</code> being installed on newer Pythons, you could alternatively use:</p>
+<p>如果您不想依赖在较新的 Python 上安装的 <code>typing_extensions</code>，您也可以使用：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sys</span>
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
@@ -1807,7 +1800,7 @@ complicated and you need to use <a href="https://mypy.readthedocs.io/en/latest/r
 
 <span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="s2">&quot;close&quot;</span><span class="p">]</span>
 </code></pre></div>
-<p>This plays nicely well with following <a href="https://peps.python.org/pep-0508/"><code>PEP 508</code></a> dependency specification: <code>typing_extensions; python_version&lt;"3.8"</code></p>
+<p>这与以下 <a href="https://peps.python.org/pep-0508/"><code>PEP 508</code></a> 依赖项规范配合得很好：<code>typing_extensions; python_version &lt;“3.8”</code></p>
 </div>
 <div class="tabbed-block">
 <p><strong>Using new additions to the typing module</strong></p>
