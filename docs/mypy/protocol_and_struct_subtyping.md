@@ -22,360 +22,647 @@
 
     Structural subtyping can be seen as a static equivalent of duck typing, which is well known to Python programmers. See [`PEP 544`](https://peps.python.org/pep-0544/) for the detailed specification of protocols and structural subtyping in Python.
 
-## Predefined protocols
+## 预定义协议
 
-The {py:mod}`typing` module defines various protocol classes that correspond
-to common Python protocols, such as {py:class}`Iterable[T] <typing.Iterable>`. If a class
-defines a suitable {py:meth}`__iter__ <object.__iter__>` method, mypy understands that it
-implements the iterable protocol and is compatible with {py:class}`Iterable[T] <typing.Iterable>`.
-For example, `IntList` below is iterable, over `int` values:
+=== "中文"
 
-```python
-from typing import Iterator, Iterable, Optional
+    [`typing`](https://docs.python.org/3/library/typing.html#module-typing) 模块定义了与常见 Python 协议相对应的各种协议类，例如 [`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable)。 如果一个类定义了合适的 [`__iter__`](https://docs.python.org/3/reference/datamodel.html#object.__iter__) 方法，mypy 就会理解它实现了可迭代协议并且与 [`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable) 兼容。 例如，下面的`IntList`是可迭代的，类型是`int`值：
 
-class IntList:
-    def __init__(self, value: int, next: Optional['IntList']) -> None:
-        self.value = value
-        self.next = next
+    ```python
+    from typing import Iterator, Iterable, Optional
 
-    def __iter__(self) -> Iterator[int]:
-        current = self
-        while current:
-            yield current.value
-            current = current.next
+    class IntList:
+        def __init__(self, value: int, next: Optional['IntList']) -> None:
+            self.value = value
+            self.next = next
 
-def print_numbered(items: Iterable[int]) -> None:
-    for n, x in enumerate(items):
-        print(n + 1, x)
+        def __iter__(self) -> Iterator[int]:
+            current = self
+            while current:
+                yield current.value
+                current = current.next
 
-x = IntList(3, IntList(5, None))
-print_numbered(x)  # OK
-print_numbered([4, 5])  # Also OK
-```
+    def print_numbered(items: Iterable[int]) -> None:
+        for n, x in enumerate(items):
+            print(n + 1, x)
 
-{ref}`predefined_protocols_reference` lists all protocols defined in
-{py:mod}`typing` and the signatures of the corresponding methods you need to define
-to implement each protocol.
+    x = IntList(3, IntList(5, None))
+    print_numbered(x)  # OK
+    print_numbered([4, 5])  # Also OK
+    ```
 
-## Simple user-defined protocols
+    [`predefined_protocols_reference`](https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols-reference) 列出了 [`typing`](https://docs.python.org/3/library/typing.html#module-typing) 中定义的所有协议以及您需要定义以实现每个协议的相应方法的签名。
 
-You can define your own protocol class by inheriting the special `Protocol`
-class:
+=== "英文"
 
-```python
-from typing import Iterable
-from typing_extensions import Protocol
+    **Predefined protocols**
 
-class SupportsClose(Protocol):
-    # Empty method body (explicit '...')
-    def close(self) -> None: ...
+    The [`typing`](https://docs.python.org/3/library/typing.html#module-typing) module defines various protocol classes that correspond to common Python protocols, such as [`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable). If a class defines a suitable [`__iter__`](https://docs.python.org/3/reference/datamodel.html#object.__iter__) method, mypy understands that it implements the iterable protocol and is compatible with [`Iterable[T]`](https://docs.python.org/3/library/typing.html#typing.Iterable). For example, `IntList` below is iterable, over `int` values:
 
-class Resource:  # No SupportsClose base class!
+    ```python
+    from typing import Iterator, Iterable, Optional
+
+    class IntList:
+        def __init__(self, value: int, next: Optional['IntList']) -> None:
+            self.value = value
+            self.next = next
+
+        def __iter__(self) -> Iterator[int]:
+            current = self
+            while current:
+                yield current.value
+                current = current.next
+
+    def print_numbered(items: Iterable[int]) -> None:
+        for n, x in enumerate(items):
+            print(n + 1, x)
+
+    x = IntList(3, IntList(5, None))
+    print_numbered(x)  # OK
+    print_numbered([4, 5])  # Also OK
+    ```
+
+    [`predefined_protocols_reference`](https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols-reference) lists all protocols defined in [`typing`](https://docs.python.org/3/library/typing.html#module-typing) and the signatures of the corresponding methods you need to define to implement each protocol.
+
+## 简单的自定义协议
+
+=== "中文"
+
+    您可以通过继承特殊的 `Protocol` 类来定义自己的协议类：
+
+    ```python
+    from typing import Iterable
+    from typing_extensions import Protocol
+
+    class SupportsClose(Protocol):
+        #空方法体 (explicit '...')
+        def close(self) -> None: ...
+
+    class Resource:  # No SupportsClose base class!
+
+        def close(self) -> None:
+            self.resource.release()
+
+        # ... 其他方法 ...
+
+    def close_all(items: Iterable[SupportsClose]) -> None:
+        for item in items:
+            item.close()
+
+    close_all([Resource(), open('some/file')])  # OK
+    ```
+
+    `Resource` 是 `SupportsClose` 协议的子类型，因为它定义了兼容的 `close` 方法。 [`open`](https://docs.python.org/3/library/functions.html#open) 返回的常规文件对象同样与协议兼容，因为它们支持 `close()`。
+
+=== "英文"
+
+    **Simple user-defined protocols**
+
+    You can define your own protocol class by inheriting the special `Protocol` class:
+
+    ```python
+    from typing import Iterable
+    from typing_extensions import Protocol
+
+    class SupportsClose(Protocol):
+        # Empty method body (explicit '...')
+        def close(self) -> None: ...
+
+    class Resource:  # No SupportsClose base class!
+
+        def close(self) -> None:
+        self.resource.release()
+
+        # ... other methods ...
+
+    def close_all(items: Iterable[SupportsClose]) -> None:
+        for item in items:
+            item.close()
+
+    close_all([Resource(), open('some/file')])  # OK
+    ```
+
+    `Resource` is a subtype of the `SupportsClose` protocol since it defines a compatible `close` method. Regular file objects returned by [`open`](https://docs.python.org/3/library/functions.html#open) are similarly compatible with the protocol, as they support `close()`.
+
+## 定义子协议和子类化协议
+
+=== "中文"
+
+    您还可以定义子协议。 可以使用多重继承来扩展和合并现有协议。 例子：
+
+    ```python
+    # ... 继续上一个示例
+
+    class SupportsRead(Protocol):
+        def read(self, amount: int) -> bytes: ...
+
+    class TaggedReadableResource(SupportsClose, SupportsRead, Protocol):
+        label: str
+
+    class AdvancedResource(Resource):
+        def __init__(self, label: str) -> None:
+            self.label = label
+
+        def read(self, amount: int) -> bytes:
+            # some implementation
+            ...
+
+    resource: TaggedReadableResource
+    resource = AdvancedResource('handle with care')  # OK
+    ```
+
+    请注意，从现有协议继承不会自动将子类转换为协议 - 它只是创建一个实现给定协议（或多个协议）的常规（非协议）类或 ABC。 如果您定义协议，{==**则 `Protocol` 基类必须始终显式存在**==}：
+
+    ```python
+    class NotAProtocol(SupportsClose):  # 这不是一个协议
+        new_attr: int
+
+    class Concrete:
+    new_attr: int = 0
 
     def close(self) -> None:
-       self.resource.release()
-
-    # ... other methods ...
-
-def close_all(items: Iterable[SupportsClose]) -> None:
-    for item in items:
-        item.close()
-
-close_all([Resource(), open('some/file')])  # OK
-```
-
-`Resource` is a subtype of the `SupportsClose` protocol since it defines
-a compatible `close` method. Regular file objects returned by {py:func}`open` are
-similarly compatible with the protocol, as they support `close()`.
-
-## Defining subprotocols and subclassing protocols
-
-You can also define subprotocols. Existing protocols can be extended
-and merged using multiple inheritance. Example:
-
-```python
-# ... continuing from the previous example
-
-class SupportsRead(Protocol):
-    def read(self, amount: int) -> bytes: ...
-
-class TaggedReadableResource(SupportsClose, SupportsRead, Protocol):
-    label: str
-
-class AdvancedResource(Resource):
-    def __init__(self, label: str) -> None:
-        self.label = label
-
-    def read(self, amount: int) -> bytes:
-        # some implementation
         ...
 
-resource: TaggedReadableResource
-resource = AdvancedResource('handle with care')  # OK
-```
+    # Error: nominal subtyping used by default
+    # Error: 默认使用的名义子类型
+    x: NotAProtocol = Concrete()  # Error!
+    ```
 
-Note that inheriting from an existing protocol does not automatically
-turn the subclass into a protocol -- it just creates a regular
-(non-protocol) class or ABC that implements the given protocol (or
-protocols). The `Protocol` base class must always be explicitly
-present if you are defining a protocol:
+    您还可以在协议中包含方法的默认实现。 如果您明确地子类化这些协议，您可以继承这些默认实现。
 
-```python
-class NotAProtocol(SupportsClose):  # This is NOT a protocol
-    new_attr: int
+    显式包含协议作为基类也是记录您的类实现特定协议的一种方式，并且它强制 mypy 验证您的类实现实际上与该协议兼容。 特别是，省略属性或方法体的值将使其隐式抽象：
 
-class Concrete:
-   new_attr: int = 0
+    ```python
+    class SomeProto(Protocol):
+        attr: int  # 注意，没有右手边 （Note, no right hand side）
+        def method(self) -> str: ...  # 从字面上看只是...这里 （Literally just ... here）
 
-   def close(self) -> None:
-       ...
+    class ExplicitSubclass(SomeProto):
+        pass
 
-# Error: nominal subtyping used by default
-x: NotAProtocol = Concrete()  # Error!
-```
+    ExplicitSubclass()  # error: Cannot instantiate abstract class 'ExplicitSubclass'
+                        # with abstract attributes 'attr' and 'method'
+                        # error：无法使用抽象属性“attr”和“method”实例化抽象类“ExplicitSubclass”
+    ```
 
-You can also include default implementations of methods in
-protocols. If you explicitly subclass these protocols you can inherit
-these default implementations.
+    类似地，显式分配给协议实例可以是要求类型检查器验证您的类是否实现协议的一种方法：
 
-Explicitly including a protocol as a
-base class is also a way of documenting that your class implements a
-particular protocol, and it forces mypy to verify that your class
-implementation is actually compatible with the protocol. In particular,
-omitting a value for an attribute or a method body will make it implicitly
-abstract:
+    ```python
+    _proto: SomeProto = cast(ExplicitSubclass, None)
+    ```
 
-```python
-class SomeProto(Protocol):
-    attr: int  # Note, no right hand side
-    def method(self) -> str: ...  # Literally just ... here
+=== "英文"
 
-class ExplicitSubclass(SomeProto):
-    pass
+    **Defining subprotocols and subclassing protocols**
 
-ExplicitSubclass()  # error: Cannot instantiate abstract class 'ExplicitSubclass'
-                    # with abstract attributes 'attr' and 'method'
-```
+    You can also define subprotocols. Existing protocols can be extended
+    and merged using multiple inheritance. Example:
 
-Similarly, explicitly assigning to a protocol instance can be a way to ask the
-type checker to verify that your class implements a protocol:
+    ```python
+    # ... continuing from the previous example
 
-```python
-_proto: SomeProto = cast(ExplicitSubclass, None)
-```
+    class SupportsRead(Protocol):
+        def read(self, amount: int) -> bytes: ...
 
-## Invariance of protocol attributes
+    class TaggedReadableResource(SupportsClose, SupportsRead, Protocol):
+        label: str
 
-A common issue with protocols is that protocol attributes are invariant.
-For example:
+    class AdvancedResource(Resource):
+        def __init__(self, label: str) -> None:
+            self.label = label
 
-```python
-class Box(Protocol):
-      content: object
+        def read(self, amount: int) -> bytes:
+            # some implementation
+            ...
 
-class IntBox:
-      content: int
+    resource: TaggedReadableResource
+    resource = AdvancedResource('handle with care')  # OK
+    ```
 
-def takes_box(box: Box) -> None: ...
+    Note that inheriting from an existing protocol does not automatically
+    turn the subclass into a protocol -- it just creates a regular
+    (non-protocol) class or ABC that implements the given protocol (or
+    protocols). The `Protocol` base class must always be explicitly
+    present if you are defining a protocol:
 
-takes_box(IntBox())  # error: Argument 1 to "takes_box" has incompatible type "IntBox"; expected "Box"
-                     # note:  Following member(s) of "IntBox" have conflicts:
-                     # note:      content: expected "object", got "int"
-```
+    ```python
+    class NotAProtocol(SupportsClose):  # This is NOT a protocol
+        new_attr: int
 
-This is because `Box` defines `content` as a mutable attribute.
-Here's why this is problematic:
+    class Concrete:
+    new_attr: int = 0
 
-```python
-def takes_box_evil(box: Box) -> None:
-    box.content = "asdf"  # This is bad, since box.content is supposed to be an object
+    def close(self) -> None:
+        ...
 
-my_int_box = IntBox()
-takes_box_evil(my_int_box)
-my_int_box.content + 1  # Oops, TypeError!
-```
+    # Error: nominal subtyping used by default
+    x: NotAProtocol = Concrete()  # Error!
+    ```
 
-This can be fixed by declaring `content` to be read-only in the `Box`
-protocol using `@property`:
+    You can also include default implementations of methods in
+    protocols. If you explicitly subclass these protocols you can inherit
+    these default implementations.
 
-```python
-class Box(Protocol):
-    @property
-    def content(self) -> object: ...
+    Explicitly including a protocol as a
+    base class is also a way of documenting that your class implements a
+    particular protocol, and it forces mypy to verify that your class
+    implementation is actually compatible with the protocol. In particular,
+    omitting a value for an attribute or a method body will make it implicitly
+    abstract:
 
-class IntBox:
-    content: int
+    ```python
+    class SomeProto(Protocol):
+        attr: int  # Note, no right hand side
+        def method(self) -> str: ...  # Literally just ... here
 
-def takes_box(box: Box) -> None: ...
+    class ExplicitSubclass(SomeProto):
+        pass
 
-takes_box(IntBox(42))  # OK
-```
+    ExplicitSubclass()  # error: Cannot instantiate abstract class 'ExplicitSubclass'
+                        # with abstract attributes 'attr' and 'method'
+    ```
 
-## Recursive protocols
+    Similarly, explicitly assigning to a protocol instance can be a way to ask the
+    type checker to verify that your class implements a protocol:
 
-Protocols can be recursive (self-referential) and mutually
-recursive. This is useful for declaring abstract recursive collections
-such as trees and linked lists:
+    ```python
+    _proto: SomeProto = cast(ExplicitSubclass, None)
+    ```
 
-```python
-from typing import TypeVar, Optional
-from typing_extensions import Protocol
+## 协议属性的不变性
 
-class TreeLike(Protocol):
-    value: int
+=== "中文"
 
-    @property
-    def left(self) -> Optional['TreeLike']: ...
+    协议的一个常见问题是协议属性是不变的。 例如：
 
-    @property
-    def right(self) -> Optional['TreeLike']: ...
+    ```python
+    class Box(Protocol):
+        content: object
 
-class SimpleTree:
-    def __init__(self, value: int) -> None:
-        self.value = value
-        self.left: Optional['SimpleTree'] = None
-        self.right: Optional['SimpleTree'] = None
+    class IntBox:
+        content: int
 
-root: TreeLike = SimpleTree(0)  # OK
-```
+    def takes_box(box: Box) -> None: ...
+
+    takes_box(IntBox())  # error: Argument 1 to "takes_box" has incompatible type （不兼容类型） "IntBox"; expected "Box"
+                        # note:  Following member(s) of "IntBox" have conflicts:
+                        # note:      content: expected "object", got "int"
+    ```
+
+    这是因为 `Box` 将 `content` 定义为可变属性。 这就是为什么这是有问题的：
+
+    ```python
+    def takes_box_evil(box: Box) -> None:
+        box.content = "asdf"  # 这很糟糕，因为 box.content 应该是一个对象
+
+    my_int_box = IntBox()
+    takes_box_evil(my_int_box)
+    my_int_box.content + 1  # Oops, TypeError!
+    ```
+
+    可以通过使用 `@property` 在 `Box` 协议中将 `content` 声明为只读来解决此问题：
+
+    ```python
+    class Box(Protocol):
+        @property
+        def content(self) -> object: ...
+
+    class IntBox:
+        content: int
+
+    def takes_box(box: Box) -> None: ...
+
+    takes_box(IntBox(42))  # OK
+    ```
+
+=== "英文"
+
+    **Invariance of protocol attributes**
+
+    A common issue with protocols is that protocol attributes are invariant.
+    For example:
+
+    ```python
+    class Box(Protocol):
+        content: object
+
+    class IntBox:
+        content: int
+
+    def takes_box(box: Box) -> None: ...
+
+    takes_box(IntBox())  # error: Argument 1 to "takes_box" has incompatible type "IntBox"; expected "Box"
+                        # note:  Following member(s) of "IntBox" have conflicts:
+                        # note:      content: expected "object", got "int"
+    ```
+
+    This is because `Box` defines `content` as a mutable attribute.
+    Here's why this is problematic:
+
+    ```python
+    def takes_box_evil(box: Box) -> None:
+        box.content = "asdf"  # This is bad, since box.content is supposed to be an object
+
+    my_int_box = IntBox()
+    takes_box_evil(my_int_box)
+    my_int_box.content + 1  # Oops, TypeError!
+    ```
+
+    This can be fixed by declaring `content` to be read-only in the `Box`
+    protocol using `@property`:
+
+    ```python
+    class Box(Protocol):
+        @property
+        def content(self) -> object: ...
+
+    class IntBox:
+        content: int
+
+    def takes_box(box: Box) -> None: ...
+
+    takes_box(IntBox(42))  # OK
+    ```
+
+## 递归协议
+
+=== "中文"
+
+    协议可以是递归的（自引用）和相互递归的。 这对于声明抽象递归集合（例如树和链表）很有用：
+
+    ```python
+    from typing import TypeVar, Optional
+    from typing_extensions import Protocol
+
+    class TreeLike(Protocol):
+        value: int
+
+        @property
+        def left(self) -> Optional['TreeLike']: ...
+
+        @property
+        def right(self) -> Optional['TreeLike']: ...
+
+    class SimpleTree:
+        def __init__(self, value: int) -> None:
+            self.value = value
+            self.left: Optional['SimpleTree'] = None
+            self.right: Optional['SimpleTree'] = None
+
+    root: TreeLike = SimpleTree(0)  # OK
+    ```
+
+=== "英文"
+
+    **Recursive protocols**
+
+    Protocols can be recursive (self-referential) and mutually recursive. This is useful for declaring abstract recursive collections such as trees and linked lists:
+
+    ```python
+    from typing import TypeVar, Optional
+    from typing_extensions import Protocol
+
+    class TreeLike(Protocol):
+        value: int
+
+        @property
+        def left(self) -> Optional['TreeLike']: ...
+
+        @property
+        def right(self) -> Optional['TreeLike']: ...
+
+    class SimpleTree:
+        def __init__(self, value: int) -> None:
+            self.value = value
+            self.left: Optional['SimpleTree'] = None
+            self.right: Optional['SimpleTree'] = None
+
+    root: TreeLike = SimpleTree(0)  # OK
+    ```
 
 ## Using isinstance() with protocols
 
-You can use a protocol class with {py:func}`isinstance` if you decorate it
-with the `@runtime_checkable` class decorator. The decorator adds
-rudimentary support for runtime structural checks:
+=== "中文"
 
-```python
-from typing_extensions import Protocol, runtime_checkable
+=== "英文"
 
-@runtime_checkable
-class Portable(Protocol):
-    handles: int
+    **Using isinstance() with protocols**
 
-class Mug:
-    def __init__(self) -> None:
-        self.handles = 1
+    如果使用`@runtime_checkable`类装饰器装饰协议类，则可以将其与 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 一起使用。 装饰器添加了对运行时结构检查的基本支持：
 
-def use(handles: int) -> None: ...
+    ```python
+    from typing_extensions import Protocol, runtime_checkable
 
-mug = Mug()
-if isinstance(mug, Portable):  # Works at runtime!
-   use(mug.handles)
-```
+    @runtime_checkable
+    class Portable(Protocol):
+        handles: int
 
-{py:func}`isinstance` also works with the {ref}`predefined protocols <predefined_protocols>`
-in {py:mod}`typing` such as {py:class}`~typing.Iterable`.
+    class Mug:
+        def __init__(self) -> None:
+            self.handles = 1
 
-:::{warning}
-{py:func}`isinstance` with protocols is not completely safe at runtime.
-For example, signatures of methods are not checked. The runtime
-implementation only checks that all protocol members exist,
-not that they have the correct type. {py:func}`issubclass` with protocols
-will only check for the existence of methods.
-:::
+    def use(handles: int) -> None: ...
 
-:::{note}
-{py:func}`isinstance` with protocols can also be surprisingly slow.
-In many cases, you're better served by using {py:func}`hasattr` to
-check for the presence of attributes.
-:::
+    mug = Mug()
+    if isinstance(mug, Portable):  # Works at runtime!
+    use(mug.handles)
+    ```
 
-(callback-protocols)=
+    [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也适用于 [`预定义协议`](https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols) 在 [`typing`](https://docs.python.org/3/library/typing.html#module-typing) 中，例如 [`~typing.Iterable`](https ://docs.python.org/3/library/typing.html#typing.Iterable)。
+
+
+    !!! info "Warning"
+    
+        使用协议的 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 在运行时并不完全安全。 例如，不检查方法的签名。 运行时实现仅检查所有协议成员是否存在，而不检查它们是否具有正确的类型。 使用协议的 [`issubclass`](https://docs.python.org/3/library/functions.html#issubclass) 只会检查方法是否存在。
+
+
+    !!! info "Note"
+    
+        使用协议的 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也可能慢得惊人。 在许多情况下，使用 [`hasattr`](https://docs.python.org/3/library/functions.html#hasattr) 来检查属性是否存在会更好。
 
 ## Callback protocols
 
-Protocols can be used to define flexible callback types that are hard
-(or even impossible) to express using the {py:data}`Callable[...] <typing.Callable>` syntax, such as variadic,
-overloaded, and complex generic callbacks. They are defined with a special {py:meth}`__call__ <object.__call__>`
-member:
+=== "中文"
 
-```python
-from typing import Optional, Iterable
-from typing_extensions import Protocol
+    协议可用于定义灵活的回调类型，这些类型很难（甚至不可能）使用 [`Callable[...]`](https://docs.python.org/3/library/typing.html#types.Callable）语法，例如可变参数、重载和复杂的泛型回调。 它们是用特殊的 [`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__) 成员定义的：
 
-class Combiner(Protocol):
-    def __call__(self, *vals: bytes, maxlen: Optional[int] = None) -> list[bytes]: ...
+    ```python
+    from typing import Optional, Iterable
+    from typing_extensions import Protocol
 
-def batch_proc(data: Iterable[bytes], cb_results: Combiner) -> bytes:
-    for item in data:
+    class Combiner(Protocol):
+        def __call__(self, *vals: bytes, maxlen: Optional[int] = None) -> list[bytes]: ...
+
+    def batch_proc(data: Iterable[bytes], cb_results: Combiner) -> bytes:
+        for item in data:
+            ...
+
+    def good_cb(*vals: bytes, maxlen: Optional[int] = None) -> list[bytes]:
+        ...
+    def bad_cb(*vals: bytes, maxitems: Optional[int]) -> list[bytes]:
         ...
 
-def good_cb(*vals: bytes, maxlen: Optional[int] = None) -> list[bytes]:
-    ...
-def bad_cb(*vals: bytes, maxitems: Optional[int]) -> list[bytes]:
-    ...
+    batch_proc([], good_cb)  # OK
+    batch_proc([], bad_cb)   # Error! Argument 2 has incompatible type because of
+                            # different name and kind in the callback
+    ```
 
-batch_proc([], good_cb)  # OK
-batch_proc([], bad_cb)   # Error! Argument 2 has incompatible type because of
-                         # different name and kind in the callback
-```
+    回调协议和 [`typing.Callable`](https://docs.python.org/3/library/typing.html#typing.Callable) 大部分类型可以互换使用。 [`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__) 方法中的参数名称必须相同，除非使用双下划线前缀。 例如：
 
-Callback protocols and {py:data}`~typing.Callable` types can be used mostly interchangeably.
-Argument names in {py:meth}`__call__ <object.__call__>` methods must be identical, unless
-a double underscore prefix is used. For example:
+    ```python
+    from typing import Callable, TypeVar
+    from typing_extensions import Protocol
 
-```python
-from typing import Callable, TypeVar
-from typing_extensions import Protocol
+    T = TypeVar('T')
 
-T = TypeVar('T')
+    class Copy(Protocol):
+        def __call__(self, __origin: T) -> T: ...
 
-class Copy(Protocol):
-    def __call__(self, __origin: T) -> T: ...
+    copy_a: Callable[[T], T]
+    copy_b: Copy
 
-copy_a: Callable[[T], T]
-copy_b: Copy
+    copy_a = copy_b  # OK
+    copy_b = copy_a  # Also OK
+    ```
 
-copy_a = copy_b  # OK
-copy_b = copy_a  # Also OK
-```
+=== "英文"
 
-(predefined-protocols-reference)=
+    **Callback protocols**
+
+    Protocols can be used to define flexible callback types that are hard (or even impossible) to express using the [`Callable[...]`](https://docs.python.org/3/library/typing.html#typing.Callable) syntax, such as variadic, overloaded, and complex generic callbacks. They are defined with a special [`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__) member:
+
+    ```python
+    from typing import Optional, Iterable
+    from typing_extensions import Protocol
+
+    class Combiner(Protocol):
+        def __call__(self, *vals: bytes, maxlen: Optional[int] = None) -> list[bytes]: ...
+
+    def batch_proc(data: Iterable[bytes], cb_results: Combiner) -> bytes:
+        for item in data:
+            ...
+
+    def good_cb(*vals: bytes, maxlen: Optional[int] = None) -> list[bytes]:
+        ...
+    def bad_cb(*vals: bytes, maxitems: Optional[int]) -> list[bytes]:
+        ...
+
+    batch_proc([], good_cb)  # OK
+    batch_proc([], bad_cb)   # Error! Argument 2 has incompatible type because of
+                            # different name and kind in the callback
+    ```
+
+    Callback protocols and [`typing.Callable`](https://docs.python.org/3/library/typing.html#typing.Callable) types can be used mostly interchangeably. Argument names in [`__call__`](https://docs.python.org/3/reference/datamodel.html#object.__call__) methods must be identical, unless a double underscore prefix is used. For example:
+
+    ```python
+    from typing import Callable, TypeVar
+    from typing_extensions import Protocol
+
+    T = TypeVar('T')
+
+    class Copy(Protocol):
+        def __call__(self, __origin: T) -> T: ...
+
+    copy_a: Callable[[T], T]
+    copy_b: Copy
+
+    copy_a = copy_b  # OK
+    copy_b = copy_a  # Also OK
+    ```
 
 ## Predefined protocol reference
 
 ### Iteration protocols
 
-The iteration protocols are useful in many contexts. For example, they allow
-iteration of objects in for loops.
+=== "中文"
+
+    迭代协议在许多情况下都很有用。 例如，它们允许在 for 循环中迭代对象。
+
+=== "英文"
+
+    The iteration protocols are useful in many contexts. For example, they allow iteration of objects in for loops.
 
 #### Iterable\[T\]
 
-The {ref}`example above <predefined_protocols>` has a simple implementation of an
-{py:meth}`__iter__ <object.__iter__>` method.
+=== "中文"
 
-```python
-def __iter__(self) -> Iterator[T]
-```
+    [`上面的例子`](#预定义协议)有一个 [`__iter__`](https://docs.python.org/3/reference/datamodel.html#object.__iter__) 方法的简单实现。
 
-See also {py:class}`~typing.Iterable`.
+    ```python
+    def __iter__(self) -> Iterator[T]
+    ```
+
+    另请参阅[`typing.Iterable`](https://docs.python.org/3/library/typing.html#typing.Iterable)。
+
+=== "英文"
+
+    The [`example above`](#预定义协议) has a simple implementation of an [`__iter__`](https://docs.python.org/3/reference/datamodel.html#object.__iter__) method.
+
+    ```python
+    def __iter__(self) -> Iterator[T]
+    ```
+
+    See also [`typing.Iterable`](https://docs.python.org/3/library/typing.html#typing.Iterable).
 
 #### Iterator\[T\]
 
-```python
-def __next__(self) -> T
-def __iter__(self) -> Iterator[T]
-```
+=== "中文"
 
-See also {py:class}`~typing.Iterator`.
+    ```python
+    def __next__(self) -> T
+    def __iter__(self) -> Iterator[T]
+    ```
 
-### Collection protocols
+    也可以看看 [`typing.Iterator`](https://docs.python.org/3/library/typing.html#typing.Iterator).
 
-Many of these are implemented by built-in container types such as
-{py:class}`list` and {py:class}`dict`, and these are also useful for user-defined
-collection objects.
+=== "英文"
+
+    ```python
+    def __next__(self) -> T
+    def __iter__(self) -> Iterator[T]
+    ```
+
+    See also [`typing.Iterator`](https://docs.python.org/3/library/typing.html#typing.Iterator).
+
+### 集合协议
+
+=== "中文"
+
+    其中许多是通过内置容器类型实现的，例如 [`list`](https://docs.python.org/3/library/stdtypes.html#list) 和 [`dict`](https:// docs.python.org/3/library/stdtypes.html#dict），这些对于用户定义的集合对象也很有用。
+
+=== "英文"
+
+    **Collection protocols**
+
+    Many of these are implemented by built-in container types such as [`list`](https://docs.python.org/3/library/stdtypes.html#list) and [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), and these are also useful for user-defined collection objects.
 
 #### Sized
 
-This is a type for objects that support {py:func}`len(x) <len>`.
+=== "中文"
 
-```python
-def __len__(self) -> int
-```
+    这是支持 [`len(x)`](https://docs.python.org/3/library/functions.html#len) 的对象类型。
 
-See also {py:class}`~typing.Sized`.
+    ```python
+    def __len__(self) -> int
+    ```
+
+    也可以看看 [`typing.Sized`](https://docs.python.org/3/library/typing.html#typing.Sized).
+
+=== "英文"
+
+    This is a type for objects that support [`len(x)`](https://docs.python.org/3/library/functions.html#len).
+
+    ```python
+    def __len__(self) -> int
+    ```
+
+    See also [`typing.Sized`](https://docs.python.org/3/library/typing.html#typing.Sized).
 
 #### Container\[T\]
+
+=== "中文"
+
+=== "英文"
 
 This is a type for objects that support the `in` operator.
 
@@ -387,6 +674,10 @@ See also {py:class}`~typing.Container`.
 
 #### Collection\[T\]
 
+=== "中文"
+
+=== "英文"
+
 ```python
 def __len__(self) -> int
 def __iter__(self) -> Iterator[T]
@@ -397,10 +688,18 @@ See also {py:class}`~typing.Collection`.
 
 ### One-off protocols
 
+=== "中文"
+
+=== "英文"
+
 These protocols are typically only useful with a single standard
 library function or class.
 
 #### Reversible\[T\]
+
+=== "中文"
+
+=== "英文"
 
 This is a type for objects that support {py:func}`reversed(x) <reversed>`.
 
@@ -412,6 +711,10 @@ See also {py:class}`~typing.Reversible`.
 
 #### SupportsAbs\[T\]
 
+=== "中文"
+
+=== "英文"
+
 This is a type for objects that support {py:func}`abs(x) <abs>`. `T` is the type of
 value returned by {py:func}`abs(x) <abs>`.
 
@@ -422,6 +725,10 @@ def __abs__(self) -> T
 See also {py:class}`~typing.SupportsAbs`.
 
 #### SupportsBytes
+
+=== "中文"
+
+=== "英文"
 
 This is a type for objects that support {py:class}`bytes(x) <bytes>`.
 
@@ -435,6 +742,10 @@ See also {py:class}`~typing.SupportsBytes`.
 
 #### SupportsComplex
 
+=== "中文"
+
+=== "英文"
+
 This is a type for objects that support {py:class}`complex(x) <complex>`. Note that no arithmetic operations
 are supported.
 
@@ -445,6 +756,10 @@ def __complex__(self) -> complex
 See also {py:class}`~typing.SupportsComplex`.
 
 #### SupportsFloat
+
+=== "中文"
+
+=== "英文"
 
 This is a type for objects that support {py:class}`float(x) <float>`. Note that no arithmetic operations
 are supported.
@@ -457,6 +772,10 @@ See also {py:class}`~typing.SupportsFloat`.
 
 #### SupportsInt
 
+=== "中文"
+
+=== "英文"
+
 This is a type for objects that support {py:class}`int(x) <int>`. Note that no arithmetic operations
 are supported.
 
@@ -468,6 +787,10 @@ See also {py:class}`~typing.SupportsInt`.
 
 #### SupportsRound\[T\]
 
+=== "中文"
+
+=== "英文"
+
 This is a type for objects that support {py:func}`round(x) <round>`.
 
 ```python
@@ -478,10 +801,18 @@ See also {py:class}`~typing.SupportsRound`.
 
 ### Async protocols
 
+=== "中文"
+
+=== "英文"
+
 These protocols can be useful in async code. See {ref}`async-and-await`
 for more information.
 
 #### Awaitable\[T\]
+
+=== "中文"
+
+=== "英文"
 
 ```python
 def __await__(self) -> Generator[Any, None, T]
@@ -491,6 +822,10 @@ See also {py:class}`~typing.Awaitable`.
 
 #### AsyncIterable\[T\]
 
+=== "中文"
+
+=== "英文"
+
 ```python
 def __aiter__(self) -> AsyncIterator[T]
 ```
@@ -498,6 +833,10 @@ def __aiter__(self) -> AsyncIterator[T]
 See also {py:class}`~typing.AsyncIterable`.
 
 #### AsyncIterator\[T\]
+
+=== "中文"
+
+=== "英文"
 
 ```python
 def __anext__(self) -> Awaitable[T]
@@ -508,11 +847,19 @@ See also {py:class}`~typing.AsyncIterator`.
 
 ### Context manager protocols
 
+=== "中文"
+
+=== "英文"
+
 There are two protocols for context managers -- one for regular context
 managers and one for async ones. These allow defining objects that can
 be used in `with` and `async with` statements.
 
 #### ContextManager\[T\]
+
+=== "中文"
+
+=== "英文"
 
 ```python
 def __enter__(self) -> T
@@ -525,6 +872,10 @@ def __exit__(self,
 See also {py:class}`~typing.ContextManager`.
 
 #### AsyncContextManager\[T\]
+
+=== "中文"
+
+=== "英文"
 
 ```python
 def __aenter__(self) -> Awaitable[T]
