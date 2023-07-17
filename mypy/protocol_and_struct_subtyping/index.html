@@ -694,36 +694,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#predefined-protocols" class="md-nav__link">
-    Predefined protocols
+  <a href="#预定义协议" class="md-nav__link">
+    预定义协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#simple-user-defined-protocols" class="md-nav__link">
-    Simple user-defined protocols
+  <a href="#简单的自定义协议" class="md-nav__link">
+    简单的自定义协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#defining-subprotocols-and-subclassing-protocols" class="md-nav__link">
-    Defining subprotocols and subclassing protocols
+  <a href="#定义子协议和子类化协议" class="md-nav__link">
+    定义子协议和子类化协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#invariance-of-protocol-attributes" class="md-nav__link">
-    Invariance of protocol attributes
+  <a href="#协议属性的不变性" class="md-nav__link">
+    协议属性的不变性
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recursive-protocols" class="md-nav__link">
-    Recursive protocols
+  <a href="#递归协议" class="md-nav__link">
+    递归协议
   </a>
   
 </li>
@@ -778,11 +778,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#collection-protocols" class="md-nav__link">
-    Collection protocols
+  <a href="#集合协议" class="md-nav__link">
+    集合协议
   </a>
   
-    <nav class="md-nav" aria-label="Collection protocols">
+    <nav class="md-nav" aria-label="集合协议">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1451,36 +1451,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#predefined-protocols" class="md-nav__link">
-    Predefined protocols
+  <a href="#预定义协议" class="md-nav__link">
+    预定义协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#simple-user-defined-protocols" class="md-nav__link">
-    Simple user-defined protocols
+  <a href="#简单的自定义协议" class="md-nav__link">
+    简单的自定义协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#defining-subprotocols-and-subclassing-protocols" class="md-nav__link">
-    Defining subprotocols and subclassing protocols
+  <a href="#定义子协议和子类化协议" class="md-nav__link">
+    定义子协议和子类化协议
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#invariance-of-protocol-attributes" class="md-nav__link">
-    Invariance of protocol attributes
+  <a href="#协议属性的不变性" class="md-nav__link">
+    协议属性的不变性
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#recursive-protocols" class="md-nav__link">
-    Recursive protocols
+  <a href="#递归协议" class="md-nav__link">
+    递归协议
   </a>
   
 </li>
@@ -1535,11 +1535,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#collection-protocols" class="md-nav__link">
-    Collection protocols
+  <a href="#集合协议" class="md-nav__link">
+    集合协议
   </a>
   
-    <nav class="md-nav" aria-label="Collection protocols">
+    <nav class="md-nav" aria-label="集合协议">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1732,12 +1732,11 @@
 </div>
 </div>
 </div>
-<h2 id="predefined-protocols">Predefined protocols<a class="headerlink" href="#predefined-protocols" title="Permanent link">&para;</a></h2>
-<p>The {py:mod}<code>typing</code> module defines various protocol classes that correspond
-to common Python protocols, such as {py:class}<code>Iterable[T] &lt;typing.Iterable&gt;</code>. If a class
-defines a suitable {py:meth}<code>__iter__ &lt;object.__iter__&gt;</code> method, mypy understands that it
-implements the iterable protocol and is compatible with {py:class}<code>Iterable[T] &lt;typing.Iterable&gt;</code>.
-For example, <code>IntList</code> below is iterable, over <code>int</code> values:</p>
+<h2 id="预定义协议">预定义协议<a class="headerlink" href="#预定义协议" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 模块定义了与常见 Python 协议相对应的各种协议类，例如 <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>。 如果一个类定义了合适的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> 方法，mypy 就会理解它实现了可迭代协议并且与 <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a> 兼容。 例如，下面的<code>IntList</code>是可迭代的，类型是<code>int</code>值：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="k">class</span> <span class="nc">IntList</span><span class="p">:</span>
@@ -1759,12 +1758,66 @@ For example, <code>IntList</code> below is iterable, over <code>int</code> value
 <span class="n">print_numbered</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># OK</span>
 <span class="n">print_numbered</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>  <span class="c1"># Also OK</span>
 </code></pre></div>
-<p>{ref}<code>predefined_protocols_reference</code> lists all protocols defined in
-{py:mod}<code>typing</code> and the signatures of the corresponding methods you need to define
-to implement each protocol.</p>
-<h2 id="simple-user-defined-protocols">Simple user-defined protocols<a class="headerlink" href="#simple-user-defined-protocols" title="Permanent link">&para;</a></h2>
-<p>You can define your own protocol class by inheriting the special <code>Protocol</code>
-class:</p>
+<p><a href="https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols-reference"><code>predefined_protocols_reference</code></a> 列出了 <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 中定义的所有协议以及您需要定义以实现每个协议的相应方法的签名。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Predefined protocols</strong></p>
+<p>The <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> module defines various protocol classes that correspond to common Python protocols, such as <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>. If a class defines a suitable <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> method, mypy understands that it implements the iterable protocol and is compatible with <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>. For example, <code>IntList</code> below is iterable, over <code>int</code> values:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="k">class</span> <span class="nc">IntList</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;IntList&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">current</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
+
+<span class="k">def</span> <span class="nf">print_numbered</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">IntList</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">IntList</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+<span class="n">print_numbered</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># OK</span>
+<span class="n">print_numbered</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>  <span class="c1"># Also OK</span>
+</code></pre></div>
+<p><a href="https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols-reference"><code>predefined_protocols_reference</code></a> lists all protocols defined in <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> and the signatures of the corresponding methods you need to define to implement each protocol.</p>
+</div>
+</div>
+</div>
+<h2 id="简单的自定义协议">简单的自定义协议<a class="headerlink" href="#简单的自定义协议" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>您可以通过继承特殊的 <code>Protocol</code> 类来定义自己的协议类：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">SupportsClose</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="c1">#空方法体 (explicit &#39;...&#39;)</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
+
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+    <span class="c1"># ... 其他方法 ...</span>
+
+<span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SupportsClose</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">close_all</span><span class="p">([</span><span class="n">Resource</span><span class="p">(),</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some/file&#39;</span><span class="p">)])</span>  <span class="c1"># OK</span>
+</code></pre></div>
+<p><code>Resource</code> 是 <code>SupportsClose</code> 协议的子类型，因为它定义了兼容的 <code>close</code> 方法。 <a href="https://docs.python.org/3/library/functions.html#open"><code>open</code></a> 返回的常规文件对象同样与协议兼容，因为它们支持 <code>close()</code>。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Simple user-defined protocols</strong></p>
+<p>You can define your own protocol class by inheriting the special <code>Protocol</code> class:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
@@ -1775,7 +1828,7 @@ class:</p>
 <span class="k">class</span> <span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
 
     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-       <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
     <span class="c1"># ... other methods ...</span>
 
@@ -1785,10 +1838,67 @@ class:</p>
 
 <span class="n">close_all</span><span class="p">([</span><span class="n">Resource</span><span class="p">(),</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some/file&#39;</span><span class="p">)])</span>  <span class="c1"># OK</span>
 </code></pre></div>
-<p><code>Resource</code> is a subtype of the <code>SupportsClose</code> protocol since it defines
-a compatible <code>close</code> method. Regular file objects returned by {py:func}<code>open</code> are
-similarly compatible with the protocol, as they support <code>close()</code>.</p>
-<h2 id="defining-subprotocols-and-subclassing-protocols">Defining subprotocols and subclassing protocols<a class="headerlink" href="#defining-subprotocols-and-subclassing-protocols" title="Permanent link">&para;</a></h2>
+<p><code>Resource</code> is a subtype of the <code>SupportsClose</code> protocol since it defines a compatible <code>close</code> method. Regular file objects returned by <a href="https://docs.python.org/3/library/functions.html#open"><code>open</code></a> are similarly compatible with the protocol, as they support <code>close()</code>.</p>
+</div>
+</div>
+</div>
+<h2 id="定义子协议和子类化协议">定义子协议和子类化协议<a class="headerlink" href="#定义子协议和子类化协议" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>您还可以定义子协议。 可以使用多重继承来扩展和合并现有协议。 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ... 继续上一个示例</span>
+
+<span class="k">class</span> <span class="nc">SupportsRead</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">TaggedReadableResource</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">,</span> <span class="n">SupportsRead</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">AdvancedResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+        <span class="c1"># some implementation</span>
+        <span class="o">...</span>
+
+<span class="n">resource</span><span class="p">:</span> <span class="n">TaggedReadableResource</span>
+<span class="n">resource</span> <span class="o">=</span> <span class="n">AdvancedResource</span><span class="p">(</span><span class="s1">&#39;handle with care&#39;</span><span class="p">)</span>  <span class="c1"># OK</span>
+</code></pre></div>
+<p>请注意，从现有协议继承不会自动将子类转换为协议 - 它只是创建一个实现给定协议（或多个协议）的常规（非协议）类或 ABC。 如果您定义协议，<mark class="critic"><strong>则 <code>Protocol</code> 基类必须始终显式存在</strong></mark>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NotAProtocol</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">):</span>  <span class="c1"># 这不是一个协议</span>
+    <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">Concrete</span><span class="p">:</span>
+<span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="c1"># Error: nominal subtyping used by default</span>
+<span class="c1"># Error: 默认使用的名义子类型</span>
+<span class="n">x</span><span class="p">:</span> <span class="n">NotAProtocol</span> <span class="o">=</span> <span class="n">Concrete</span><span class="p">()</span>  <span class="c1"># Error!</span>
+</code></pre></div>
+<p>您还可以在协议中包含方法的默认实现。 如果您明确地子类化这些协议，您可以继承这些默认实现。</p>
+<p>显式包含协议作为基类也是记录您的类实现特定协议的一种方式，并且它强制 mypy 验证您的类实现实际上与该协议兼容。 特别是，省略属性或方法体的值将使其隐式抽象：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SomeProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">attr</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># 注意，没有右手边 （Note, no right hand side）</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># 从字面上看只是...这里 （Literally just ... here）</span>
+
+<span class="k">class</span> <span class="nc">ExplicitSubclass</span><span class="p">(</span><span class="n">SomeProto</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">ExplicitSubclass</span><span class="p">()</span>  <span class="c1"># error: Cannot instantiate abstract class &#39;ExplicitSubclass&#39;</span>
+                    <span class="c1"># with abstract attributes &#39;attr&#39; and &#39;method&#39;</span>
+                    <span class="c1"># error：无法使用抽象属性“attr”和“method”实例化抽象类“ExplicitSubclass”</span>
+</code></pre></div>
+<p>类似地，显式分配给协议实例可以是要求类型检查器验证您的类是否实现协议的一种方法：</p>
+<div class="highlight"><pre><span></span><code><span class="n">_proto</span><span class="p">:</span> <span class="n">SomeProto</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ExplicitSubclass</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><strong>Defining subprotocols and subclassing protocols</strong></p>
 <p>You can also define subprotocols. Existing protocols can be extended
 and merged using multiple inheritance. Example:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ... continuing from the previous example</span>
@@ -1819,10 +1929,10 @@ present if you are defining a protocol:</p>
     <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span>
 
 <span class="k">class</span> <span class="nc">Concrete</span><span class="p">:</span>
-   <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-   <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-       <span class="o">...</span>
+<span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="o">...</span>
 
 <span class="c1"># Error: nominal subtyping used by default</span>
 <span class="n">x</span><span class="p">:</span> <span class="n">NotAProtocol</span> <span class="o">=</span> <span class="n">Concrete</span><span class="p">()</span>  <span class="c1"># Error!</span>
@@ -1850,20 +1960,62 @@ abstract:</p>
 type checker to verify that your class implements a protocol:</p>
 <div class="highlight"><pre><span></span><code><span class="n">_proto</span><span class="p">:</span> <span class="n">SomeProto</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">ExplicitSubclass</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="invariance-of-protocol-attributes">Invariance of protocol attributes<a class="headerlink" href="#invariance-of-protocol-attributes" title="Permanent link">&para;</a></h2>
+</div>
+</div>
+</div>
+<h2 id="协议属性的不变性">协议属性的不变性<a class="headerlink" href="#协议属性的不变性" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>协议的一个常见问题是协议属性是不变的。 例如：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">object</span>
+
+<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">())</span>  <span class="c1"># error: Argument 1 to &quot;takes_box&quot; has incompatible type （不兼容类型） &quot;IntBox&quot;; expected &quot;Box&quot;</span>
+                    <span class="c1"># note:  Following member(s) of &quot;IntBox&quot; have conflicts:</span>
+                    <span class="c1"># note:      content: expected &quot;object&quot;, got &quot;int&quot;</span>
+</code></pre></div>
+<p>这是因为 <code>Box</code> 将 <code>content</code> 定义为可变属性。 这就是为什么这是有问题的：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">takes_box_evil</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;asdf&quot;</span>  <span class="c1"># 这很糟糕，因为 box.content 应该是一个对象</span>
+
+<span class="n">my_int_box</span> <span class="o">=</span> <span class="n">IntBox</span><span class="p">()</span>
+<span class="n">takes_box_evil</span><span class="p">(</span><span class="n">my_int_box</span><span class="p">)</span>
+<span class="n">my_int_box</span><span class="o">.</span><span class="n">content</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Oops, TypeError!</span>
+</code></pre></div>
+<p>可以通过使用 <code>@property</code> 在 <code>Box</code> 协议中将 <code>content</code> 声明为只读来解决此问题：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># OK</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><strong>Invariance of protocol attributes</strong></p>
 <p>A common issue with protocols is that protocol attributes are invariant.
 For example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-      <span class="n">content</span><span class="p">:</span> <span class="nb">object</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">object</span>
 
 <span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
-      <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
 
 <span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">())</span>  <span class="c1"># error: Argument 1 to &quot;takes_box&quot; has incompatible type &quot;IntBox&quot;; expected &quot;Box&quot;</span>
-                     <span class="c1"># note:  Following member(s) of &quot;IntBox&quot; have conflicts:</span>
-                     <span class="c1"># note:      content: expected &quot;object&quot;, got &quot;int&quot;</span>
+                    <span class="c1"># note:  Following member(s) of &quot;IntBox&quot; have conflicts:</span>
+                    <span class="c1"># note:      content: expected &quot;object&quot;, got &quot;int&quot;</span>
 </code></pre></div>
 <p>This is because <code>Box</code> defines <code>content</code> as a mutable attribute.
 Here's why this is problematic:</p>
@@ -1887,10 +2039,14 @@ protocol using <code>@property</code>:</p>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># OK</span>
 </code></pre></div>
-<h2 id="recursive-protocols">Recursive protocols<a class="headerlink" href="#recursive-protocols" title="Permanent link">&para;</a></h2>
-<p>Protocols can be recursive (self-referential) and mutually
-recursive. This is useful for declaring abstract recursive collections
-such as trees and linked lists:</p>
+</div>
+</div>
+</div>
+<h2 id="递归协议">递归协议<a class="headerlink" href="#递归协议" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>协议可以是递归的（自引用）和相互递归的。 这对于声明抽象递归集合（例如树和链表）很有用：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
@@ -1911,10 +2067,40 @@ such as trees and linked lists:</p>
 
 <span class="n">root</span><span class="p">:</span> <span class="n">TreeLike</span> <span class="o">=</span> <span class="n">SimpleTree</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># OK</span>
 </code></pre></div>
+</div>
+<div class="tabbed-block">
+<p><strong>Recursive protocols</strong></p>
+<p>Protocols can be recursive (self-referential) and mutually recursive. This is useful for declaring abstract recursive collections such as trees and linked lists:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">TreeLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">int</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">SimpleTree</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">root</span><span class="p">:</span> <span class="n">TreeLike</span> <span class="o">=</span> <span class="n">SimpleTree</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># OK</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="using-isinstance-with-protocols">Using isinstance() with protocols<a class="headerlink" href="#using-isinstance-with-protocols" title="Permanent link">&para;</a></h2>
-<p>You can use a protocol class with {py:func}<code>isinstance</code> if you decorate it
-with the <code>@runtime_checkable</code> class decorator. The decorator adds
-rudimentary support for runtime structural checks:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p><strong>Using isinstance() with protocols</strong></p>
+<p>如果使用<code>@runtime_checkable</code>类装饰器装饰协议类，则可以将其与 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 一起使用。 装饰器添加了对运行时结构检查的基本支持：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
 <span class="nd">@runtime_checkable</span>
@@ -1929,28 +2115,25 @@ rudimentary support for runtime structural checks:</p>
 
 <span class="n">mug</span> <span class="o">=</span> <span class="n">Mug</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mug</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>  <span class="c1"># Works at runtime!</span>
-   <span class="n">use</span><span class="p">(</span><span class="n">mug</span><span class="o">.</span><span class="n">handles</span><span class="p">)</span>
+<span class="n">use</span><span class="p">(</span><span class="n">mug</span><span class="o">.</span><span class="n">handles</span><span class="p">)</span>
 </code></pre></div>
-<p>{py:func}<code>isinstance</code> also works with the {ref}<code>predefined protocols &lt;predefined_protocols&gt;</code>
-in {py:mod}<code>typing</code> such as {py:class}<code>~typing.Iterable</code>.</p>
-<p>:::{warning}
-{py:func}<code>isinstance</code> with protocols is not completely safe at runtime.
-For example, signatures of methods are not checked. The runtime
-implementation only checks that all protocol members exist,
-not that they have the correct type. {py:func}<code>issubclass</code> with protocols
-will only check for the existence of methods.
-:::</p>
-<p>:::{note}
-{py:func}<code>isinstance</code> with protocols can also be surprisingly slow.
-In many cases, you're better served by using {py:func}<code>hasattr</code> to
-check for the presence of attributes.
-:::</p>
-<p>(callback-protocols)=</p>
+<p><a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 也适用于 <a href="https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols"><code>预定义协议</code></a> 在 <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 中，例如 <a href="https ://docs.python.org/3/library/typing.html#typing.Iterable"><code>~typing.Iterable</code></a>。</p>
+<div class="admonition info">
+<p class="admonition-title">Warning</p>
+<p>使用协议的 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 在运行时并不完全安全。 例如，不检查方法的签名。 运行时实现仅检查所有协议成员是否存在，而不检查它们是否具有正确的类型。 使用协议的 <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> 只会检查方法是否存在。</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>使用协议的 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 也可能慢得惊人。 在许多情况下，使用 <a href="https://docs.python.org/3/library/functions.html#hasattr"><code>hasattr</code></a> 来检查属性是否存在会更好。</p>
+</div>
+</div>
+</div>
+</div>
 <h2 id="callback-protocols">Callback protocols<a class="headerlink" href="#callback-protocols" title="Permanent link">&para;</a></h2>
-<p>Protocols can be used to define flexible callback types that are hard
-(or even impossible) to express using the {py:data}<code>Callable[...] &lt;typing.Callable&gt;</code> syntax, such as variadic,
-overloaded, and complex generic callbacks. They are defined with a special {py:meth}<code>__call__ &lt;object.__call__&gt;</code>
-member:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>协议可用于定义灵活的回调类型，这些类型很难（甚至不可能）使用 [<code>Callable[...]</code>](https://docs.python.org/3/library/typing.html#types.Callable）语法，例如可变参数、重载和复杂的泛型回调。 它们是用特殊的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> 成员定义的：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
@@ -1968,11 +2151,9 @@ member:</p>
 
 <span class="n">batch_proc</span><span class="p">([],</span> <span class="n">good_cb</span><span class="p">)</span>  <span class="c1"># OK</span>
 <span class="n">batch_proc</span><span class="p">([],</span> <span class="n">bad_cb</span><span class="p">)</span>   <span class="c1"># Error! Argument 2 has incompatible type because of</span>
-                         <span class="c1"># different name and kind in the callback</span>
+                        <span class="c1"># different name and kind in the callback</span>
 </code></pre></div>
-<p>Callback protocols and {py:data}<code>~typing.Callable</code> types can be used mostly interchangeably.
-Argument names in {py:meth}<code>__call__ &lt;object.__call__&gt;</code> methods must be identical, unless
-a double underscore prefix is used. For example:</p>
+<p>回调协议和 <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>typing.Callable</code></a> 大部分类型可以互换使用。 <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> 方法中的参数名称必须相同，除非使用双下划线前缀。 例如：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
 <span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
@@ -1987,106 +2168,293 @@ a double underscore prefix is used. For example:</p>
 <span class="n">copy_a</span> <span class="o">=</span> <span class="n">copy_b</span>  <span class="c1"># OK</span>
 <span class="n">copy_b</span> <span class="o">=</span> <span class="n">copy_a</span>  <span class="c1"># Also OK</span>
 </code></pre></div>
-<p>(predefined-protocols-reference)=</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Callback protocols</strong></p>
+<p>Protocols can be used to define flexible callback types that are hard (or even impossible) to express using the <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>Callable[...]</code></a> syntax, such as variadic, overloaded, and complex generic callbacks. They are defined with a special <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> member:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">Combiner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">batch_proc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">cb_results</span><span class="p">:</span> <span class="n">Combiner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">good_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+    <span class="o">...</span>
+<span class="k">def</span> <span class="nf">bad_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxitems</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+    <span class="o">...</span>
+
+<span class="n">batch_proc</span><span class="p">([],</span> <span class="n">good_cb</span><span class="p">)</span>  <span class="c1"># OK</span>
+<span class="n">batch_proc</span><span class="p">([],</span> <span class="n">bad_cb</span><span class="p">)</span>   <span class="c1"># Error! Argument 2 has incompatible type because of</span>
+                        <span class="c1"># different name and kind in the callback</span>
+</code></pre></div>
+<p>Callback protocols and <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>typing.Callable</code></a> types can be used mostly interchangeably. Argument names in <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> methods must be identical, unless a double underscore prefix is used. For example:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Copy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__origin</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="n">copy_a</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span>
+<span class="n">copy_b</span><span class="p">:</span> <span class="n">Copy</span>
+
+<span class="n">copy_a</span> <span class="o">=</span> <span class="n">copy_b</span>  <span class="c1"># OK</span>
+<span class="n">copy_b</span> <span class="o">=</span> <span class="n">copy_a</span>  <span class="c1"># Also OK</span>
+</code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="predefined-protocol-reference">Predefined protocol reference<a class="headerlink" href="#predefined-protocol-reference" title="Permanent link">&para;</a></h2>
 <h3 id="iteration-protocols">Iteration protocols<a class="headerlink" href="#iteration-protocols" title="Permanent link">&para;</a></h3>
-<p>The iteration protocols are useful in many contexts. For example, they allow
-iteration of objects in for loops.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>迭代协议在许多情况下都很有用。 例如，它们允许在 for 循环中迭代对象。</p>
+</div>
+<div class="tabbed-block">
+<p>The iteration protocols are useful in many contexts. For example, they allow iteration of objects in for loops.</p>
+</div>
+</div>
+</div>
 <h4 id="iterablet">Iterable[T]<a class="headerlink" href="#iterablet" title="Permanent link">&para;</a></h4>
-<p>The {ref}<code>example above &lt;predefined_protocols&gt;</code> has a simple implementation of an
-{py:meth}<code>__iter__ &lt;object.__iter__&gt;</code> method.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><a href="#预定义协议"><code>上面的例子</code></a>有一个 <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> 方法的简单实现。</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
-<p>See also {py:class}<code>~typing.Iterable</code>.</p>
+<p>另请参阅<a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>typing.Iterable</code></a>。</p>
+</div>
+<div class="tabbed-block">
+<p>The <a href="#预定义协议"><code>example above</code></a> has a simple implementation of an <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> method.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+</code></pre></div>
+<p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>typing.Iterable</code></a>.</p>
+</div>
+</div>
+</div>
 <h4 id="iteratort">Iterator[T]<a class="headerlink" href="#iteratort" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
-<p>See also {py:class}<code>~typing.Iterator</code>.</p>
-<h3 id="collection-protocols">Collection protocols<a class="headerlink" href="#collection-protocols" title="Permanent link">&para;</a></h3>
-<p>Many of these are implemented by built-in container types such as
-{py:class}<code>list</code> and {py:class}<code>dict</code>, and these are also useful for user-defined
-collection objects.</p>
+<p>也可以看看 <a href="https://docs.python.org/3/library/typing.html#typing.Iterator"><code>typing.Iterator</code></a>.</p>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+</code></pre></div>
+<p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Iterator"><code>typing.Iterator</code></a>.</p>
+</div>
+</div>
+</div>
+<h3 id="集合协议">集合协议<a class="headerlink" href="#集合协议" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">中文</label><label for="__tabbed_12_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>其中许多是通过内置容器类型实现的，例如 <a href="https://docs.python.org/3/library/stdtypes.html#list"><code>list</code></a> 和 [<code>dict</code>](https:// docs.python.org/3/library/stdtypes.html#dict），这些对于用户定义的集合对象也很有用。</p>
+</div>
+<div class="tabbed-block">
+<p><strong>Collection protocols</strong></p>
+<p>Many of these are implemented by built-in container types such as <a href="https://docs.python.org/3/library/stdtypes.html#list"><code>list</code></a> and <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a>, and these are also useful for user-defined collection objects.</p>
+</div>
+</div>
+</div>
 <h4 id="sized">Sized<a class="headerlink" href="#sized" title="Permanent link">&para;</a></h4>
-<p>This is a type for objects that support {py:func}<code>len(x) &lt;len&gt;</code>.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">中文</label><label for="__tabbed_13_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>这是支持 <a href="https://docs.python.org/3/library/functions.html#len"><code>len(x)</code></a> 的对象类型。</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
-<p>See also {py:class}<code>~typing.Sized</code>.</p>
+<p>也可以看看 <a href="https://docs.python.org/3/library/typing.html#typing.Sized"><code>typing.Sized</code></a>.</p>
+</div>
+<div class="tabbed-block">
+<p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#len"><code>len(x)</code></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+<p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Sized"><code>typing.Sized</code></a>.</p>
+</div>
+</div>
+</div>
 <h4 id="containert">Container[T]<a class="headerlink" href="#containert" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">中文</label><label for="__tabbed_14_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support the <code>in</code> operator.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.Container</code>.</p>
 <h4 id="collectiont">Collection[T]<a class="headerlink" href="#collectiont" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">中文</label><label for="__tabbed_15_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.Collection</code>.</p>
 <h3 id="one-off-protocols">One-off protocols<a class="headerlink" href="#one-off-protocols" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:2"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><input id="__tabbed_16_2" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">中文</label><label for="__tabbed_16_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>These protocols are typically only useful with a single standard
 library function or class.</p>
 <h4 id="reversiblet">Reversible[T]<a class="headerlink" href="#reversiblet" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:2"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><input id="__tabbed_17_2" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">中文</label><label for="__tabbed_17_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:func}<code>reversed(x) &lt;reversed&gt;</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.Reversible</code>.</p>
 <h4 id="supportsabst">SupportsAbs[T]<a class="headerlink" href="#supportsabst" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:2"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><input id="__tabbed_18_2" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">中文</label><label for="__tabbed_18_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:func}<code>abs(x) &lt;abs&gt;</code>. <code>T</code> is the type of
 value returned by {py:func}<code>abs(x) &lt;abs&gt;</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsAbs</code>.</p>
 <h4 id="supportsbytes">SupportsBytes<a class="headerlink" href="#supportsbytes" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:2"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><input id="__tabbed_19_2" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">中文</label><label for="__tabbed_19_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:class}<code>bytes(x) &lt;bytes&gt;</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsBytes</code>.</p>
 <p>(supports-int-etc)=</p>
 <h4 id="supportscomplex">SupportsComplex<a class="headerlink" href="#supportscomplex" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:2"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><input id="__tabbed_20_2" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">中文</label><label for="__tabbed_20_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:class}<code>complex(x) &lt;complex&gt;</code>. Note that no arithmetic operations
 are supported.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsComplex</code>.</p>
 <h4 id="supportsfloat">SupportsFloat<a class="headerlink" href="#supportsfloat" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="21:2"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><input id="__tabbed_21_2" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">中文</label><label for="__tabbed_21_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:class}<code>float(x) &lt;float&gt;</code>. Note that no arithmetic operations
 are supported.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsFloat</code>.</p>
 <h4 id="supportsint">SupportsInt<a class="headerlink" href="#supportsint" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="22:2"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><input id="__tabbed_22_2" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">中文</label><label for="__tabbed_22_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:class}<code>int(x) &lt;int&gt;</code>. Note that no arithmetic operations
 are supported.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsInt</code>.</p>
 <h4 id="supportsroundt">SupportsRound[T]<a class="headerlink" href="#supportsroundt" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="23:2"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><input id="__tabbed_23_2" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">中文</label><label for="__tabbed_23_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>This is a type for objects that support {py:func}<code>round(x) &lt;round&gt;</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.SupportsRound</code>.</p>
 <h3 id="async-protocols">Async protocols<a class="headerlink" href="#async-protocols" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="24:2"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><input id="__tabbed_24_2" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">中文</label><label for="__tabbed_24_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>These protocols can be useful in async code. See {ref}<code>async-and-await</code>
 for more information.</p>
 <h4 id="awaitablet">Awaitable[T]<a class="headerlink" href="#awaitablet" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">中文</label><label for="__tabbed_25_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__await__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.Awaitable</code>.</p>
 <h4 id="asynciterablet">AsyncIterable[T]<a class="headerlink" href="#asynciterablet" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">中文</label><label for="__tabbed_26_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.AsyncIterable</code>.</p>
 <h4 id="asynciteratort">AsyncIterator[T]<a class="headerlink" href="#asynciteratort" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">中文</label><label for="__tabbed_27_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.AsyncIterator</code>.</p>
 <h3 id="context-manager-protocols">Context manager protocols<a class="headerlink" href="#context-manager-protocols" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="28:2"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><input id="__tabbed_28_2" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">中文</label><label for="__tabbed_28_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <p>There are two protocols for context managers -- one for regular context
 managers and one for async ones. These allow defining objects that can
 be used in <code>with</code> and <code>async with</code> statements.</p>
 <h4 id="contextmanagert">ContextManager[T]<a class="headerlink" href="#contextmanagert" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="29:2"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">中文</label><label for="__tabbed_29_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
@@ -2095,6 +2463,12 @@ be used in <code>with</code> and <code>async with</code> statements.</p>
 </code></pre></div>
 <p>See also {py:class}<code>~typing.ContextManager</code>.</p>
 <h4 id="asynccontextmanagert">AsyncContextManager[T]<a class="headerlink" href="#asynccontextmanagert" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="30:2"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><input id="__tabbed_30_2" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">中文</label><label for="__tabbed_30_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block"></div>
+</div>
+</div>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 <span class="k">def</span> <span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
