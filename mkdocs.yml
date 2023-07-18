@@ -116,6 +116,7 @@ nav:
       - git/git-use-process.md
       - git/git-cheat-sheet.md
       - git/git-work-flow.md
+  - xml: xml/index.md
   - 系统设计:
       - sysdesign/perm_design.md
   - 关于: about.md
