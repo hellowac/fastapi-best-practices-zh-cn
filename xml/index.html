@@ -11,13 +11,17 @@
       
       
       
+        <link rel="prev" href="../git/git-work-flow/">
+      
+      
+        <link rel="next" href="../sysdesign/perm_design/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
     
     
       
-        <title>Python中XML解析地图 - FastApi 最佳实践-中文版</title>
+        <title>xml - FastApi 最佳实践-中文版</title>
       
     
     
@@ -105,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python中XML解析地图
+              xml
             
           </span>
         </div>
@@ -254,6 +258,20 @@
       </a>
     </li>
   
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      xml
+    </a>
+  </li>
 
       
         
@@ -1074,6 +1092,212 @@
 
   
   
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          xml
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        xml
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#选择正确的-xml-解析模型" class="md-nav__link">
+    选择正确的 XML 解析模型
+  </a>
+  
+    <nav class="md-nav" aria-label="选择正确的 XML 解析模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#文档对象模型-dom" class="md-nav__link">
+    文档对象模型 (DOM)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml-的简单-api-sax" class="md-nav__link">
+    XML 的简单 API (SAX)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml-流式-api-stax" class="md-nav__link">
+    XML 流式 API (StAX)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#了解-python-标准库中的-xml-解析器" class="md-nav__link">
+    了解 Python 标准库中的 XML 解析器
+  </a>
+  
+    <nav class="md-nav" aria-label="了解 Python 标准库中的 XML 解析器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xmldomminidom-最小-dom-实现" class="md-nav__link">
+    xml.dom.minidom: 最小 DOM 实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xmlsax-python-的-sax-接口" class="md-nav__link">
+    xml.sax: Python 的 SAX 接口
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xmldompulldom-流式拉取解析器" class="md-nav__link">
+    xml.dom.pulldom: 流式拉取解析器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xmletreeelementtree-一个轻量级更-pythonic-的替代方案" class="md-nav__link">
+    xml.etree.ElementTree: 一个轻量级、更 Pythonic 的替代方案
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#探索第三方-xml-解析器库" class="md-nav__link">
+    探索第三方 XML 解析器库
+  </a>
+  
+    <nav class="md-nav" aria-label="探索第三方 XML 解析器库">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#untangle-将-xml-转换为-python-对象" class="md-nav__link">
+    untangle: 将 XML 转换为 Python 对象
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xmltodict-将-xml-转换为-python-字典" class="md-nav__link">
+    xmltodict: 将 XML 转换为 Python 字典
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxml-使用经过扩充的-elementtree" class="md-nav__link">
+    lxml: 使用经过扩充的 ElementTree
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#beautifulsoup-处理错误格式的-xml" class="md-nav__link">
+    BeautifulSoup: 处理错误格式的 XML
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#将-xml-数据绑定到-python-对象" class="md-nav__link">
+    将 XML 数据绑定到 Python 对象
+  </a>
+  
+    <nav class="md-nav" aria-label="将 XML 数据绑定到 Python 对象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#使用-xpath-表达式定义模型" class="md-nav__link">
+    使用 XPath 表达式定义模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#从-xml-模式生成模型" class="md-nav__link">
+    从 XML 模式生成模型
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#使用安全解析器拆除-xml-炸弹" class="md-nav__link">
+    使用安全解析器拆除 XML 炸弹
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#结语" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
   
     
     <li class="md-nav__item md-nav__item--nested">
@@ -1081,7 +1305,7 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
       
       
         
@@ -1089,13 +1313,13 @@
         
       
       
-        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
           系统设计
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_7">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
           <span class="md-nav__icon md-icon"></span>
           系统设计
         </label>
