@@ -92,7 +92,7 @@ nav:
       - 类型系统参考-类的基础: mypy/class_basics.md
       - 类型系统参考-运行时的注解问题: mypy/annotation_issue_at_runtime.md
       - 类型系统参考-协议和结构子类型: mypy/protocol_and_struct_subtyping.md
-      - 类型系统参考-类型收缩: mypy/dynamic_typing.md
+      - 类型系统参考-动态类型: mypy/dynamic_typing.md
       - 类型系统参考-类型收缩: mypy/type_narrowing.md
       - 类型系统参考-鸭子类型兼容: mypy/duck_type_compatibility.md
       - 类型系统参考-存根文件: mypy/stub_files.md

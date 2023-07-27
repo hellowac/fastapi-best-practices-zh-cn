@@ -440,13 +440,9 @@
     root: TreeLike = SimpleTree(0)  # OK
     ```
 
-## Using isinstance() with protocols
+## isinstance() 和协议一起使用
 
 === "中文"
-
-=== "英文"
-
-    **Using isinstance() with protocols**
 
     如果使用`@runtime_checkable`类装饰器装饰协议类，则可以将其与 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 一起使用。 装饰器添加了对运行时结构检查的基本支持：
 
@@ -468,7 +464,7 @@
     use(mug.handles)
     ```
 
-    [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也适用于 [`预定义协议`](https://mypy.readthedocs.io/en/latest/protocols.html#predefined-protocols) 在 [`typing`](https://docs.python.org/3/library/typing.html#module-typing) 中，例如 [`~typing.Iterable`](https ://docs.python.org/3/library/typing.html#typing.Iterable)。
+    [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也适用于 [`预定义协议`](#预定义协议参考) 在 [`typing`](https://docs.python.org/3/library/typing.html#module-typing) 中，例如 [`Iterable`](https ://docs.python.org/3/library/typing.html#typing.Iterable)。
 
 
     !!! info "Warning"
@@ -480,7 +476,43 @@
     
         使用协议的 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也可能慢得惊人。 在许多情况下，使用 [`hasattr`](https://docs.python.org/3/library/functions.html#hasattr) 来检查属性是否存在会更好。
 
-## Callback protocols
+=== "英文"
+
+    **Using isinstance() with protocols**
+
+    You can use a protocol class with [isinstance()](https://docs.python.org/3/library/functions.html#isinstance) if you decorate it with the @runtime_checkable class decorator. The decorator adds rudimentary support for runtime structural checks:
+
+    ```python
+    from typing_extensions import Protocol, runtime_checkable
+
+    @runtime_checkable
+    class Portable(Protocol):
+        handles: int
+
+    class Mug:
+        def __init__(self) -> None:
+            self.handles = 1
+
+    def use(handles: int) -> None: ...
+
+    mug = Mug()
+    if isinstance(mug, Portable):  # Works at runtime!
+    use(mug.handles)
+    ```
+
+    [isinstance()](https://docs.python.org/3/library/functions.html#isinstance) also works with the [predefined](#预定义协议参考) protocols in [typing](https://docs.python.org/3/library/typing.html#module-typing) such as [Iterable](https://docs.python.org/3/library/typing.html#typing.Iterable).
+
+
+    !!! info "Warning"
+    
+        使用协议的 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 在运行时并不完全安全。 例如，不检查方法的签名。 运行时实现仅检查所有协议成员是否存在，而不检查它们是否具有正确的类型。 使用协议的 [`issubclass`](https://docs.python.org/3/library/functions.html#issubclass) 只会检查方法是否存在。
+
+
+    !!! info "Note"
+    
+        使用协议的 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 也可能慢得惊人。 在许多情况下，使用 [`hasattr`](https://docs.python.org/3/library/functions.html#hasattr) 来检查属性是否存在会更好。
+
+## 回调协议
 
 === "中文"
 
@@ -570,9 +602,11 @@
     copy_b = copy_a  # Also OK
     ```
 
-## Predefined protocol reference
+## 预定义协议参考
 
-### Iteration protocols
+### 迭代协议
+
+Iteration protocols
 
 === "中文"
 
@@ -582,7 +616,9 @@
 
     The iteration protocols are useful in many contexts. For example, they allow iteration of objects in for loops.
 
-#### Iterable\[T\]
+#### 可迭代泛型
+
+Iterable\[T\]
 
 === "中文"
 
@@ -604,7 +640,9 @@
 
     See also [`typing.Iterable`](https://docs.python.org/3/library/typing.html#typing.Iterable).
 
-#### Iterator\[T\]
+#### 迭代器泛型
+
+Iterator\[T\]
 
 === "中文"
 
@@ -625,6 +663,8 @@
     See also [`typing.Iterator`](https://docs.python.org/3/library/typing.html#typing.Iterator).
 
 ### 集合协议
+
+Collection protocols
 
 === "中文"
 
@@ -658,231 +698,368 @@
 
     See also [`typing.Sized`](https://docs.python.org/3/library/typing.html#typing.Sized).
 
-#### Container\[T\]
+#### 泛型容器
+
+Container\[T\]
 
 === "中文"
 
+    这是支持 `in` 运算符的对象类型。
+
+    ```python
+    def __contains__(self, x: object) -> bool
+    ```
+
+    同样参考 [`Container`](https://docs.python.org/3/library/typing.html#typing.Container).
+
 === "英文"
 
-This is a type for objects that support the `in` operator.
+    This is a type for objects that support the `in` operator.
 
-```python
-def __contains__(self, x: object) -> bool
-```
+    ```python
+    def __contains__(self, x: object) -> bool
+    ```
 
-See also {py:class}`~typing.Container`.
+    See also [`Container`](https://docs.python.org/3/library/typing.html#typing.Container).
 
-#### Collection\[T\]
+#### 集合泛型
+
+Collection\[T\]
 
 === "中文"
 
+    ```python
+    def __len__(self) -> int
+    def __iter__(self) -> Iterator[T]
+    def __contains__(self, x: object) -> bool
+    ```
+
+    同样参考 [`Collection`](https://docs.python.org/3/library/typing.html#typing.Collection).
+
 === "英文"
 
-```python
-def __len__(self) -> int
-def __iter__(self) -> Iterator[T]
-def __contains__(self, x: object) -> bool
-```
+    ```python
+    def __len__(self) -> int
+    def __iter__(self) -> Iterator[T]
+    def __contains__(self, x: object) -> bool
+    ```
 
-See also {py:class}`~typing.Collection`.
+    See also [`Collection`](https://docs.python.org/3/library/typing.html#typing.Collection).
 
-### One-off protocols
+### 一次性协议
+
+One-off protocols
 
 === "中文"
 
+    这些协议通常仅适用于单个标准库函数或类。
+
 === "英文"
 
-These protocols are typically only useful with a single standard
-library function or class.
+    These protocols are typically only useful with a single standard library function or class.
 
-#### Reversible\[T\]
+#### 倒序泛型
+
+Reversible\[T\]
 
 === "中文"
 
+    这是支持 [`reversed(x)`](https://docs.python.org/3/library/functions.html#reversed) 的对象类型。
+
+    ```python
+    def __reversed__(self) -> Iterator[T]
+    ```
+
+    同样参考 [`Reversible`](https://docs.python.org/3/library/typing.html#typing.Reversible).
+
 === "英文"
 
-This is a type for objects that support {py:func}`reversed(x) <reversed>`.
+    This is a type for objects that support [`reversed(x)`](https://docs.python.org/3/library/functions.html#reversed).
 
-```python
-def __reversed__(self) -> Iterator[T]
-```
+    ```python
+    def __reversed__(self) -> Iterator[T]
+    ```
 
-See also {py:class}`~typing.Reversible`.
+    See also [`Reversible`](https://docs.python.org/3/library/typing.html#typing.Reversible).
 
-#### SupportsAbs\[T\]
+#### 绝对值泛型
+
+SupportsAbs\[T\]
 
 === "中文"
 
+    这是支持 [`abs(x)`](https://docs.python.org/3/library/functions.html#abs) 的对象类型。 `T` 是 [`abs(x)`](https://docs.python.org/3/library/functions.html#abs) 返回的值的类型。
+
+    ```python
+    def __abs__(self) -> T
+    ```
+
+    同样参考 [`SupportsAbs`](https://docs.python.org/3/library/typing.html#typing.SupportsAbs).
+
 === "英文"
 
-This is a type for objects that support {py:func}`abs(x) <abs>`. `T` is the type of
-value returned by {py:func}`abs(x) <abs>`.
+    This is a type for objects that support [`abs(x)`](https://docs.python.org/3/library/functions.html#abs). `T` is the type of value returned by [`abs(x)`](https://docs.python.org/3/library/functions.html#abs).
 
-```python
-def __abs__(self) -> T
-```
+    ```python
+    def __abs__(self) -> T
+    ```
 
-See also {py:class}`~typing.SupportsAbs`.
+    See also [`SupportsAbs`](https://docs.python.org/3/library/typing.html#typing.SupportsAbs).
 
-#### SupportsBytes
+#### 支持字节
+
+SupportsBytes
 
 === "中文"
 
+    这是支持 [`bytes(x)`](https://docs.python.org/3/library/stdtypes.html#bytes) 的对象类型。
+
+    ```python
+    def __bytes__(self) -> bytes
+    ```
+
+    另请参阅 [`SupportsBytes`](https://docs.python.org/3/library/typing.html#typing.SupportsBytes)。
+
 === "英文"
 
-This is a type for objects that support {py:class}`bytes(x) <bytes>`.
+    This is a type for objects that support [`bytes(x)`](https://docs.python.org/3/library/stdtypes.html#bytes).
 
-```python
-def __bytes__(self) -> bytes
-```
+    ```python
+    def __bytes__(self) -> bytes
+    ```
 
-See also {py:class}`~typing.SupportsBytes`.
+    See also [`SupportsBytes`](https://docs.python.org/3/library/typing.html#typing.SupportsBytes).
 
-(supports-int-etc)=
+#### 支持复数
 
-#### SupportsComplex
+SupportsComplex
 
 === "中文"
 
+    这是支持 [`complex(x)`](https://docs.python.org/3/library/functions.html#complex) 的对象类型。 请注意，不支持算术运算。
+
+    ```python
+    def __complex__(self) -> complex
+    ```
+
+    另请参阅 [`SupportsComplex`](https://docs.python.org/3/library/typing.html#typing.SupportsComplex).
+
 === "英文"
 
-This is a type for objects that support {py:class}`complex(x) <complex>`. Note that no arithmetic operations
-are supported.
+    This is a type for objects that support [`complex(x)`](https://docs.python.org/3/library/functions.html#complex). Note that no arithmetic operations are supported.
 
-```python
-def __complex__(self) -> complex
-```
+    ```python
+    def __complex__(self) -> complex
+    ```
 
-See also {py:class}`~typing.SupportsComplex`.
+    See also [`SupportsComplex`](https://docs.python.org/3/library/typing.html#typing.SupportsComplex).
 
-#### SupportsFloat
+#### 支持浮点数
+
+SupportsFloat
 
 === "中文"
 
+    这是支持 [`float(x)`](https://docs.python.org/3/library/functions.html#float) 的对象类型。 请注意，不支持算术运算。
+
+    ```python
+    def __float__(self) -> float
+    ```
+
+    另请参阅 [`SupportsFloat`](https://docs.python.org/3/library/typing.html#typing.SupportsFloat).
+
 === "英文"
 
-This is a type for objects that support {py:class}`float(x) <float>`. Note that no arithmetic operations
-are supported.
+    This is a type for objects that support [`float(x)`](https://docs.python.org/3/library/functions.html#float). Note that no arithmetic operations are supported.
 
-```python
-def __float__(self) -> float
-```
+    ```python
+    def __float__(self) -> float
+    ```
 
-See also {py:class}`~typing.SupportsFloat`.
+    See also [`SupportsFloat`](https://docs.python.org/3/library/typing.html#typing.SupportsFloat).
 
-#### SupportsInt
+#### 支持整数
+
+SupportsInt
 
 === "中文"
 
+    这是支持 [`int(x)`](https://docs.python.org/3/library/functions.html#int) 的对象类型。 请注意，不支持算术运算。
+
+    ```python
+    def __int__(self) -> int
+    ```
+
+    另请参阅 [`SupportsInt`](https://docs.python.org/3/library/typing.html#typing.SupportsInt).
+
 === "英文"
 
-This is a type for objects that support {py:class}`int(x) <int>`. Note that no arithmetic operations
-are supported.
+    This is a type for objects that support [`int(x)`](https://docs.python.org/3/library/functions.html#int). Note that no arithmetic operations are supported.
 
-```python
-def __int__(self) -> int
-```
+    ```python
+    def __int__(self) -> int
+    ```
 
-See also {py:class}`~typing.SupportsInt`.
+    See also [`SupportsInt`](https://docs.python.org/3/library/typing.html#typing.SupportsInt).
 
-#### SupportsRound\[T\]
+#### 支持Round泛型
+
+SupportsRound\[T\]
 
 === "中文"
 
+    这是支持 [`round(x)`](https://docs.python.org/3/library/functions.html#round) 的对象类型。
+
+    ```python
+    def __round__(self) -> T
+    ```
+
+    另请参阅 [`SupportsRound`](https://docs.python.org/3/library/typing.html#typing.SupportsRound).
+
 === "英文"
 
-This is a type for objects that support {py:func}`round(x) <round>`.
+    This is a type for objects that support [`round(x)`](https://docs.python.org/3/library/functions.html#round).
 
-```python
-def __round__(self) -> T
-```
+    ```python
+    def __round__(self) -> T
+    ```
 
-See also {py:class}`~typing.SupportsRound`.
+    See also [`SupportsRound`](https://docs.python.org/3/library/typing.html#typing.SupportsRound).
 
 ### Async protocols
 
 === "中文"
 
+    这些协议在异步代码中很有用。 请参阅 [`async-and-await`](./more_types.md) 了解更多信息。
+
 === "英文"
 
-These protocols can be useful in async code. See {ref}`async-and-await`
-for more information.
+    These protocols can be useful in async code. See [`async-and-await`](./more_types.md) for more information.
 
-#### Awaitable\[T\]
+#### 可等待泛型对象
+
+Awaitable\[T\]
 
 === "中文"
 
+    ```python
+    def __await__(self) -> Generator[Any, None, T]
+    ```
+
+    另请参阅 [`Awaitable`](https://docs.python.org/3/library/typing.html#typing.Awaitable).
+
 === "英文"
 
-```python
-def __await__(self) -> Generator[Any, None, T]
-```
+    ```python
+    def __await__(self) -> Generator[Any, None, T]
+    ```
 
-See also {py:class}`~typing.Awaitable`.
+    See also [`Awaitable`](https://docs.python.org/3/library/typing.html#typing.Awaitable).
 
-#### AsyncIterable\[T\]
+#### 异步可迭代泛型对象
+
+AsyncIterable\[T\]
 
 === "中文"
 
+    ```python
+    def __aiter__(self) -> AsyncIterator[T]
+    ```
+
+    另请参阅 [`AsyncIterable`](https://docs.python.org/3/library/typing.html#typing.AsyncIterable).
+
 === "英文"
 
-```python
-def __aiter__(self) -> AsyncIterator[T]
-```
+    ```python
+    def __aiter__(self) -> AsyncIterator[T]
+    ```
 
-See also {py:class}`~typing.AsyncIterable`.
+    See also [`AsyncIterable`](https://docs.python.org/3/library/typing.html#typing.AsyncIterable).
 
-#### AsyncIterator\[T\]
+#### 异步迭代器泛型对象
+
+AsyncIterator\[T\]
 
 === "中文"
 
+    ```python
+    def __anext__(self) -> Awaitable[T]
+    def __aiter__(self) -> AsyncIterator[T]
+    ```
+
+    另请参阅 [`AsyncIterator`](https://docs.python.org/3/library/typing.html#typing.AsyncIterator).
+
 === "英文"
 
-```python
-def __anext__(self) -> Awaitable[T]
-def __aiter__(self) -> AsyncIterator[T]
-```
+    ```python
+    def __anext__(self) -> Awaitable[T]
+    def __aiter__(self) -> AsyncIterator[T]
+    ```
 
-See also {py:class}`~typing.AsyncIterator`.
+    See also [`AsyncIterator`](https://docs.python.org/3/library/typing.html#typing.AsyncIterator).
 
 ### Context manager protocols
 
 === "中文"
 
+    上下文管理器有两种协议——一种用于常规上下文管理器，另一种用于异步上下文管理器。 这些允许定义可在`with`和`async with`语句中使用的对象。
+
 === "英文"
 
-There are two protocols for context managers -- one for regular context
-managers and one for async ones. These allow defining objects that can
-be used in `with` and `async with` statements.
+    There are two protocols for context managers -- one for regular context managers and one for async ones. These allow defining objects that can be used in `with` and `async with` statements.
 
-#### ContextManager\[T\]
+#### 上下文管理器泛型
+
+ContextManager\[T\]
 
 === "中文"
 
+    ```python
+    def __enter__(self) -> T
+    def __exit__(self,
+                exc_type: Optional[Type[BaseException]],
+                exc_value: Optional[BaseException],
+                traceback: Optional[TracebackType]) -> Optional[bool]
+    ```
+
+    另请参阅 [`ContextManager`](https://docs.python.org/3/library/typing.html#typing.ContextManager).
+
 === "英文"
 
-```python
-def __enter__(self) -> T
-def __exit__(self,
-             exc_type: Optional[Type[BaseException]],
-             exc_value: Optional[BaseException],
-             traceback: Optional[TracebackType]) -> Optional[bool]
-```
+    ```python
+    def __enter__(self) -> T
+    def __exit__(self,
+                exc_type: Optional[Type[BaseException]],
+                exc_value: Optional[BaseException],
+                traceback: Optional[TracebackType]) -> Optional[bool]
+    ```
 
-See also {py:class}`~typing.ContextManager`.
+    See also [`ContextManager`](https://docs.python.org/3/library/typing.html#typing.ContextManager).
 
-#### AsyncContextManager\[T\]
+#### 异步上下文泛型管理器
+
+AsyncContextManager\[T\]
 
 === "中文"
 
+    ```python
+    def __aenter__(self) -> Awaitable[T]
+    def __aexit__(self,
+                exc_type: Optional[Type[BaseException]],
+                exc_value: Optional[BaseException],
+                traceback: Optional[TracebackType]) -> Awaitable[Optional[bool]]
+    ```
+
+    另请参阅 [`AsyncContextManager`](https://docs.python.org/3/library/typing.html#typing.AsyncContextManager)。
+
 === "英文"
 
-```python
-def __aenter__(self) -> Awaitable[T]
-def __aexit__(self,
-              exc_type: Optional[Type[BaseException]],
-              exc_value: Optional[BaseException],
-              traceback: Optional[TracebackType]) -> Awaitable[Optional[bool]]
-```
+    ```python
+    def __aenter__(self) -> Awaitable[T]
+    def __aexit__(self,
+                exc_type: Optional[Type[BaseException]],
+                exc_value: Optional[BaseException],
+                traceback: Optional[TracebackType]) -> Awaitable[Optional[bool]]
+    ```
 
-See also {py:class}`~typing.AsyncContextManager`.
+    See also [`AsyncContextManager`](https://docs.python.org/3/library/typing.html#typing.AsyncContextManager).
