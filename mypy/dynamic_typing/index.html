@@ -720,15 +720,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#operations-on-any-values" class="md-nav__link">
-    Operations on Any values
+  <a href="#对任意值的操作" class="md-nav__link">
+    对任意值的操作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#any-vs-object" class="md-nav__link">
-    Any vs. object
+  <a href="#any-和-object" class="md-nav__link">
+    Any 和 object
   </a>
   
 </li>
@@ -1246,15 +1246,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#operations-on-any-values" class="md-nav__link">
-    Operations on Any values
+  <a href="#对任意值的操作" class="md-nav__link">
+    对任意值的操作
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#any-vs-object" class="md-nav__link">
-    Any vs. object
+  <a href="#any-和-object" class="md-nav__link">
+    Any 和 object
   </a>
   
 </li>
@@ -1315,7 +1315,12 @@
 </div>
 </div>
 </div>
-<h2 id="operations-on-any-values">Operations on Any values<a class="headerlink" href="#operations-on-any-values" title="Permanent link">&para;</a></h2>
+<h2 id="对任意值的操作">对任意值的操作<a class="headerlink" href="#对任意值的操作" title="Permanent link">&para;</a></h2>
+<p>Operations on Any values</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
 <p>You can do anything using a value with type <code>Any</code>, and the type checker
 will not complain:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -1344,8 +1349,7 @@ less effective, unless you are careful.</p>
     <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Any&quot;</span>
     <span class="n">x</span><span class="o">.</span><span class="n">can</span><span class="o">.</span><span class="n">do</span><span class="p">[</span><span class="s2">&quot;anything&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">](</span><span class="s2">&quot;wants&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
-<p>You can make mypy warn you about untyped function parameters using the
-{option}<code>--disallow-untyped-defs &lt;mypy --disallow-untyped-defs&gt;</code> flag.</p>
+<p>You can make mypy warn you about untyped function parameters using the <code>--disallow-untyped-defs</code> flag.</p>
 <p>Generic types missing type parameters will have those parameters implicitly
 treated as <code>Any</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
@@ -1356,16 +1360,24 @@ treated as <code>Any</code>:</p>
     <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">anything_goes</span><span class="p">()</span>  <span class="c1"># OK</span>
 </code></pre></div>
 <p>You can make mypy warn you about untyped function parameters using the
-{option}<code>--disallow-any-generics &lt;mypy --disallow-any-generics&gt;</code> flag.</p>
+<code>--disallow-any-generics &lt;mypy --disallow-any-generics&gt;</code> flag.</p>
 <p>Finally, another major source of <code>Any</code> types leaking into your program is from
 third party libraries that mypy does not know about. This is particularly the case
-when using the {option}<code>--ignore-missing-imports &lt;mypy --ignore-missing-imports&gt;</code>
-flag. See {ref}<code>fix-missing-imports</code> for more information about this.</p>
-<h2 id="any-vs-object">Any vs. object<a class="headerlink" href="#any-vs-object" title="Permanent link">&para;</a></h2>
-<p>The type {py:class}<code>object</code> is another type that can have an instance of arbitrary
-type as a value. Unlike <code>Any</code>, {py:class}<code>object</code> is an ordinary static type (it
+when using the <code>--ignore-missing-imports &lt;mypy --ignore-missing-imports&gt;</code>
+flag. See <code>fix-missing-imports</code> for more information about this.</p>
+</div>
+</div>
+</div>
+<h2 id="any-和-object">Any 和 object<a class="headerlink" href="#any-和-object" title="Permanent link">&para;</a></h2>
+<p>Any vs. object</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>The type <code>object</code> is another type that can have an instance of arbitrary
+type as a value. Unlike <code>Any</code>, <code>object</code> is an ordinary static type (it
 is similar to <code>Object</code> in Java), and only operations valid for <em>all</em>
-types are accepted for {py:class}<code>object</code> values. These are all valid:</p>
+types are accepted for <code>object</code> values. These are all valid:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">o</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
@@ -1382,13 +1394,16 @@ operations:</p>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">o</span>         <span class="c1"># Error!</span>
 </code></pre></div>
-<p>If you're not sure whether you need to use {py:class}<code>object</code> or <code>Any</code>, use
-{py:class}<code>object</code> -- only switch to using <code>Any</code> if you get a type checker
+<p>If you're not sure whether you need to use <code>object</code> or <code>Any</code>, use
+<code>object</code> -- only switch to using <code>Any</code> if you get a type checker
 complaint.</p>
-<p>You can use different {ref}<code>type narrowing &lt;type-narrowing&gt;</code>
-techniques to narrow {py:class}<code>object</code> to a more specific
+<p>You can use different <code>type narrowing</code>
+techniques to narrow <code>object</code> to a more specific
 type (subtype) such as <code>int</code>. Type narrowing is not needed with
 dynamically typed values (values with type <code>Any</code>).</p>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">

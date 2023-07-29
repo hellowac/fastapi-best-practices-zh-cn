@@ -832,23 +832,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#final-names" class="md-nav__link">
-    Final names
+  <a href="#最终名称" class="md-nav__link">
+    最终名称
   </a>
   
-    <nav class="md-nav" aria-label="Final names">
+    <nav class="md-nav" aria-label="最终名称">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#syntax-variants" class="md-nav__link">
-    Syntax variants
+  <a href="#语法变体" class="md-nav__link">
+    语法变体
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#details-of-using-final" class="md-nav__link">
-    Details of using Final
+  <a href="#使用final的详情" class="md-nav__link">
+    使用Final的详情
   </a>
   
 </li>
@@ -859,15 +859,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-methods" class="md-nav__link">
-    Final methods
+  <a href="#最终方法" class="md-nav__link">
+    最终方法
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-classes" class="md-nav__link">
-    Final classes
+  <a href="#最终类" class="md-nav__link">
+    最终类
   </a>
   
 </li>
@@ -1273,23 +1273,23 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#final-names" class="md-nav__link">
-    Final names
+  <a href="#最终名称" class="md-nav__link">
+    最终名称
   </a>
   
-    <nav class="md-nav" aria-label="Final names">
+    <nav class="md-nav" aria-label="最终名称">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#syntax-variants" class="md-nav__link">
-    Syntax variants
+  <a href="#语法变体" class="md-nav__link">
+    语法变体
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#details-of-using-final" class="md-nav__link">
-    Details of using Final
+  <a href="#使用final的详情" class="md-nav__link">
+    使用Final的详情
   </a>
   
 </li>
@@ -1300,15 +1300,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-methods" class="md-nav__link">
-    Final methods
+  <a href="#最终方法" class="md-nav__link">
+    最终方法
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#final-classes" class="md-nav__link">
-    Final classes
+  <a href="#最终类" class="md-nav__link">
+    最终类
   </a>
   
 </li>
@@ -1363,12 +1363,13 @@
 </div>
 </div>
 </div>
-<h2 id="final-names">Final names<a class="headerlink" href="#final-names" title="Permanent link">&para;</a></h2>
-<p>You can use the <code>typing.Final</code> qualifier to indicate that
-a name or attribute should not be reassigned, redefined, or
-overridden.  This is often useful for module and class level constants
-as a way to prevent unintended modification.  Mypy will prevent
-further assignments to final names in type-checked code:</p>
+<h2 id="最终名称">最终名称<a class="headerlink" href="#最终名称" title="Permanent link">&para;</a></h2>
+<p>Final names</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>You can use the <code>typing.Final</code> qualifier to indicate that a name or attribute should not be reassigned, redefined, or overridden.  This is often useful for module and class level constants as a way to prevent unintended modification.  Mypy will prevent further assignments to final names in type-checked code:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span>
 
 <span class="n">RATE</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">3_000</span>
@@ -1379,8 +1380,7 @@ further assignments to final names in type-checked code:</p>
 <span class="n">RATE</span> <span class="o">=</span> <span class="mi">300</span>  <span class="c1"># Error: can&#39;t assign to final attribute</span>
 <span class="n">Base</span><span class="o">.</span><span class="n">DEFAULT_ID</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Error: can&#39;t override a final attribute</span>
 </code></pre></div>
-<p>Another use case for final attributes is to protect certain attributes
-from being overridden in a subclass:</p>
+<p>Another use case for final attributes is to protect certain attributes from being overridden in a subclass:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span>
 
 <span class="k">class</span> <span class="nc">Window</span><span class="p">:</span>
@@ -1390,10 +1390,16 @@ from being overridden in a subclass:</p>
 <span class="k">class</span> <span class="nc">ListView</span><span class="p">(</span><span class="n">Window</span><span class="p">):</span>
     <span class="n">BORDER_WIDTH</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Error: can&#39;t override a final attribute</span>
 </code></pre></div>
-<p>You can use {py:class}<code>@property &lt;property&gt;</code> to make an attribute read-only, but unlike <code>Final</code>,
-it doesn't work with module attributes, and it doesn't prevent overriding in
-subclasses.</p>
-<h3 id="syntax-variants">Syntax variants<a class="headerlink" href="#syntax-variants" title="Permanent link">&para;</a></h3>
+<p>You can use {py:class}<code>@property &lt;property&gt;</code> to make an attribute read-only, but unlike <code>Final</code>, it doesn't work with module attributes, and it doesn't prevent overriding in subclasses.</p>
+</div>
+</div>
+</div>
+<h3 id="语法变体">语法变体<a class="headerlink" href="#语法变体" title="Permanent link">&para;</a></h3>
+<p>Syntax variants</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
 <p>You can use <code>Final</code> in one of these forms:</p>
 <ul>
 <li>You can provide an explicit type using the syntax <code>Final[&lt;type&gt;]</code>. Example:</li>
@@ -1406,31 +1412,31 @@ subclasses.</p>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="n">ID</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">1</span>
 </code></pre></div>
-<p>Here mypy will infer type <code>Literal[1]</code> for <code>ID</code>. Note that unlike for
-  generic classes this is <em>not</em> the same as <code>Final[Any]</code>.</p>
+<p>Here mypy will infer type <code>Literal[1]</code> for <code>ID</code>. Note that unlike for generic classes this is <em>not</em> the same as <code>Final[Any]</code>.</p>
 <ul>
 <li>
 <p>In class bodies and stub files you can omit the right hand side and just write
   <code>ID: Final[int]</code>.</p>
 </li>
 <li>
-<p>Finally, you can write <code>self.id: Final = 1</code> (also optionally with
-  a type in square brackets). This is allowed <em>only</em> in
-  {py:meth}<code>__init__ &lt;object.__init__&gt;</code> methods, so that the final instance attribute is
-  assigned only once when an instance is created.</p>
+<p>Finally, you can write <code>self.id: Final = 1</code> (also optionally with a type in square brackets). This is allowed <em>only</em> in {py:meth}<code>__init__ &lt;object.__init__&gt;</code> methods, so that the final instance attribute is assigned only once when an instance is created.</p>
 </li>
 </ul>
-<h3 id="details-of-using-final">Details of using <code>Final</code><a class="headerlink" href="#details-of-using-final" title="Permanent link">&para;</a></h3>
+</div>
+</div>
+</div>
+<h3 id="使用final的详情">使用<code>Final</code>的详情<a class="headerlink" href="#使用final的详情" title="Permanent link">&para;</a></h3>
+<p>Details of using <code>Final</code></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
 <p>These are the two main rules for defining a final name:</p>
 <ul>
-<li>There can be <em>at most one</em> final declaration per module or class for
-  a given attribute. There can't be separate class-level and instance-level
-  constants with the same name.</li>
+<li>There can be <em>at most one</em> final declaration per module or class for a given attribute. There can't be separate class-level and instance-level constants with the same name.</li>
 <li>There must be <em>exactly one</em> assignment to a final name.</li>
 </ul>
-<p>A final attribute declared in a class body without an initializer must
-be initialized in the {py:meth}<code>__init__ &lt;object.__init__&gt;</code> method (you can skip the
-initializer in stub files):</p>
+<p>A final attribute declared in a class body without an initializer must be initialized in the {py:meth}<code>__init__ &lt;object.__init__&gt;</code> method (you can skip the initializer in stub files):</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ImmutablePoint</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>  <span class="c1"># Error: final attribute without an initializer</span>
@@ -1438,20 +1444,14 @@ initializer in stub files):</p>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Good</span>
 </code></pre></div>
-<p><code>Final</code> can only be used as the outermost type in assignments or variable
-annotations. Using it in any other position is an error. In particular,
-<code>Final</code> can't be used in annotations for function arguments:</p>
+<p><code>Final</code> can only be used as the outermost type in assignments or variable annotations. Using it in any other position is an error. In particular, <code>Final</code> can't be used in annotations for function arguments:</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Final</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Error!</span>
 
 <span class="k">def</span> <span class="nf">fun</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Final</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]])</span> <span class="o">-&gt;</span>  <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error!</span>
     <span class="o">...</span>
 </code></pre></div>
-<p><code>Final</code> and {py:data}<code>~typing.ClassVar</code> should not be used together. Mypy will infer
-the scope of a final declaration automatically depending on whether it was
-initialized in the class body or in {py:meth}<code>__init__ &lt;object.__init__&gt;</code>.</p>
-<p>A final attribute can't be overridden by a subclass (even with another
-explicit final declaration). Note however that a final attribute can
-override a read-only property:</p>
+<p><code>Final</code> and {py:data}<code>~typing.ClassVar</code> should not be used together. Mypy will infer the scope of a final declaration automatically depending on whether it was initialized in the class body or in {py:meth}<code>__init__ &lt;object.__init__&gt;</code>.</p>
+<p>A final attribute can't be overridden by a subclass (even with another explicit final declaration). Note however that a final attribute can override a read-only property:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ID</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
@@ -1459,9 +1459,7 @@ override a read-only property:</p>
 <span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">ID</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># OK</span>
 </code></pre></div>
-<p>Declaring a name as final only guarantees that the name will not be re-bound
-to another value. It doesn't make the value immutable. You can use immutable ABCs
-and containers to prevent mutating such values:</p>
+<p>Declaring a name as final only guarantees that the name will not be re-bound to another value. It doesn't make the value immutable. You can use immutable ABCs and containers to prevent mutating such values:</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
 <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>  <span class="c1"># OK</span>
 
@@ -1469,9 +1467,16 @@ and containers to prevent mutating such values:</p>
 <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>  <span class="c1"># Error: Sequence is immutable</span>
 <span class="n">z</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># Also an option</span>
 </code></pre></div>
-<h2 id="final-methods">Final methods<a class="headerlink" href="#final-methods" title="Permanent link">&para;</a></h2>
-<p>Like with attributes, sometimes it is useful to protect a method from
-overriding. You can use the <code>typing.final</code> decorator for this purpose:</p>
+</div>
+</div>
+</div>
+<h2 id="最终方法">最终方法<a class="headerlink" href="#最终方法" title="Permanent link">&para;</a></h2>
+<p>Final methods</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Like with attributes, sometimes it is useful to protect a method from overriding. You can use the <code>typing.final</code> decorator for this purpose:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">final</span>
 
 <span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
@@ -1483,10 +1488,8 @@ overriding. You can use the <code>typing.final</code> decorator for this purpose
     <span class="k">def</span> <span class="nf">common_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error: cannot override a final method</span>
         <span class="o">...</span>
 </code></pre></div>
-<p>This <code>@final</code> decorator can be used with instance methods, class methods,
-static methods, and properties.</p>
-<p>For overloaded methods you should add <code>@final</code> on the implementation
-to make it final (or on the first overload in stubs):</p>
+<p>This <code>@final</code> decorator can be used with instance methods, class methods, static methods, and properties.</p>
+<p>For overloaded methods you should add <code>@final</code> on the implementation to make it final (or on the first overload in stubs):</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
@@ -1498,9 +1501,16 @@ to make it final (or on the first overload in stubs):</p>
     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="o">...</span>
 </code></pre></div>
-<h2 id="final-classes">Final classes<a class="headerlink" href="#final-classes" title="Permanent link">&para;</a></h2>
-<p>You can apply the <code>typing.final</code> decorator to a class to indicate
-to mypy that it should not be subclassed:</p>
+</div>
+</div>
+</div>
+<h2 id="最终类">最终类<a class="headerlink" href="#最终类" title="Permanent link">&para;</a></h2>
+<p>Final classes</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>You can apply the <code>typing.final</code> decorator to a class to indicate to mypy that it should not be subclassed:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">final</span>
 
 <span class="nd">@final</span>
@@ -1510,21 +1520,14 @@ to mypy that it should not be subclassed:</p>
 <span class="k">class</span> <span class="nc">MyLeaf</span><span class="p">(</span><span class="n">Leaf</span><span class="p">):</span>  <span class="c1"># Error: Leaf can&#39;t be subclassed</span>
     <span class="o">...</span>
 </code></pre></div>
-<p>The decorator acts as a declaration for mypy (and as documentation for
-humans), but it doesn't actually prevent subclassing at runtime.</p>
+<p>The decorator acts as a declaration for mypy (and as documentation for humans), but it doesn't actually prevent subclassing at runtime.</p>
 <p>Here are some situations where using a final class may be useful:</p>
 <ul>
-<li>A class wasn't designed to be subclassed. Perhaps subclassing would not
-  work as expected, or subclassing would be error-prone.</li>
-<li>Subclassing would make code harder to understand or maintain.
-  For example, you may want to prevent unnecessarily tight coupling between
-  base classes and subclasses.</li>
-<li>You want to retain the freedom to arbitrarily change the class implementation
-  in the future, and these changes might break subclasses.</li>
+<li>A class wasn't designed to be subclassed. Perhaps subclassing would not work as expected, or subclassing would be error-prone.</li>
+<li>Subclassing would make code harder to understand or maintain. For example, you may want to prevent unnecessarily tight coupling between base classes and subclasses.</li>
+<li>You want to retain the freedom to arbitrarily change the class implementation in the future, and these changes might break subclasses.</li>
 </ul>
-<p>An abstract class that defines at least one abstract method or
-property and has <code>@final</code> decorator will generate an error from
-mypy, since those attributes could never be implemented.</p>
+<p>An abstract class that defines at least one abstract method or property and has <code>@final</code> decorator will generate an error from mypy, since those attributes could never be implemented.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">final</span>
 
@@ -1533,6 +1536,9 @@ mypy, since those attributes could never be implemented.</p>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">

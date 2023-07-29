@@ -762,22 +762,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-a-stub" class="md-nav__link">
-    Creating a stub
+  <a href="#创建一个存根" class="md-nav__link">
+    创建一个存根
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#stub-file-syntax" class="md-nav__link">
-    Stub file syntax
+  <a href="#存根文件语法" class="md-nav__link">
+    存根文件语法
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-stub-file-syntax-at-runtime" class="md-nav__link">
-    Using stub file syntax at runtime
+  <a href="#在运行时使用存根文件语法" class="md-nav__link">
+    在运行时使用存根文件语法
   </a>
   
 </li>
@@ -1253,22 +1253,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-a-stub" class="md-nav__link">
-    Creating a stub
+  <a href="#创建一个存根" class="md-nav__link">
+    创建一个存根
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#stub-file-syntax" class="md-nav__link">
-    Stub file syntax
+  <a href="#存根文件语法" class="md-nav__link">
+    存根文件语法
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#using-stub-file-syntax-at-runtime" class="md-nav__link">
-    Using stub file syntax at runtime
+  <a href="#在运行时使用存根文件语法" class="md-nav__link">
+    在运行时使用存根文件语法
   </a>
   
 </li>
@@ -1305,58 +1305,43 @@
 </div>
 </div>
 </div>
-<h2 id="creating-a-stub">Creating a stub<a class="headerlink" href="#creating-a-stub" title="Permanent link">&para;</a></h2>
+<h2 id="创建一个存根">创建一个存根<a class="headerlink" href="#创建一个存根" title="Permanent link">&para;</a></h2>
+<p>Creating a stub</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
 <p>Here is an overview of how to create a stub file:</p>
 <ul>
 <li>
-<p>Write a stub file for the library (or an arbitrary module) and store it as
-  a <code>.pyi</code> file in the same directory as the library module.</p>
+<p>Write a stub file for the library (or an arbitrary module) and store it as a <code>.pyi</code> file in the same directory as the library module.</p>
 </li>
 <li>
-<p>Alternatively, put your stubs (<code>.pyi</code> files) in a directory
-  reserved for stubs (e.g., {file}<code>myproject/stubs</code>). In this case you
-  have to set the environment variable <code>MYPYPATH</code> to refer to the
-  directory.  For example:</p>
+<p>Alternatively, put your stubs (<code>.pyi</code> files) in a directory reserved for stubs (e.g., {file}<code>myproject/stubs</code>). In this case you have to set the environment variable <code>MYPYPATH</code> to refer to the directory.  For example:</p>
 </li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">MYPYPATH</span><span class="o">=</span>~/work/myproject/stubs
 </code></pre></div>
-<p>Use the normal Python file name conventions for modules, e.g. {file}<code>csv.pyi</code>
-for module <code>csv</code>. Use a subdirectory with {file}<code>__init__.pyi</code> for packages. Note
-that {pep}<code>561</code> stub-only packages must be installed, and may not be pointed
-at through the <code>MYPYPATH</code> (see {ref}<code>PEP 561 support &lt;installed-packages&gt;</code>).</p>
-<p>If a directory contains both a <code>.py</code> and a <code>.pyi</code> file for the
-same module, the <code>.pyi</code> file takes precedence. This way you can
-easily add annotations for a module even if you don't want to modify
-the source code. This can be useful, for example, if you use 3rd party
-open source libraries in your program (and there are no stubs in
-typeshed yet).</p>
+<p>Use the normal Python file name conventions for modules, e.g. {file}<code>csv.pyi</code> for module <code>csv</code>. Use a subdirectory with {file}<code>__init__.pyi</code> for packages. Note that {pep}<code>561</code> stub-only packages must be installed, and may not be pointed at through the <code>MYPYPATH</code> (see <code>PEP 561 support &lt;installed-packages&gt;</code>).</p>
+<p>If a directory contains both a <code>.py</code> and a <code>.pyi</code> file for the same module, the <code>.pyi</code> file takes precedence. This way you can easily add annotations for a module even if you don't want to modify the source code. This can be useful, for example, if you use 3rd party open source libraries in your program (and there are no stubs in typeshed yet).</p>
 <p>That's it!</p>
-<p>Now you can access the module in mypy programs and type check
-code that uses the library. If you write a stub for a library module,
-consider making it available for other programmers that use mypy
-by contributing it back to the typeshed repo.</p>
-<p>Mypy also ships with two tools for making it easier to create and maintain
-stubs: {ref}<code>stubgen</code> and {ref}<code>stubtest</code>.</p>
-<p>The following sections explain the kinds of type annotations you can use
-in your programs and stub files.</p>
-<p>:::{note}
-You may be tempted to point <code>MYPYPATH</code> to the standard library or
-to the {file}<code>site-packages</code> directory where your 3rd party packages
-are installed. This is almost always a bad idea -- you will likely
-get tons of error messages about code you didn't write and that
-mypy can't analyze all that well yet, and in the worst case
-scenario mypy may crash due to some construct in a 3rd party
-package that it didn't expect.
-:::</p>
-<h2 id="stub-file-syntax">Stub file syntax<a class="headerlink" href="#stub-file-syntax" title="Permanent link">&para;</a></h2>
-<p>Stub files are written in normal Python syntax, but generally
-leaving out runtime logic like variable initializers, function bodies,
-and default arguments.</p>
-<p>If it is not possible to completely leave out some piece of runtime
-logic, the recommended convention is to replace or elide them with ellipsis
-expressions (<code>...</code>). Each ellipsis below is literally written in the
-stub file as three dots:</p>
+<p>Now you can access the module in mypy programs and type check code that uses the library. If you write a stub for a library module, consider making it available for other programmers that use mypy by contributing it back to the typeshed repo.</p>
+<p>Mypy also ships with two tools for making it easier to create and maintain stubs: <code>stubgen</code> and <code>stubtest</code>.</p>
+<p>The following sections explain the kinds of type annotations you can use in your programs and stub files.</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>You may be tempted to point <code>MYPYPATH</code> to the standard library or to the {file}<code>site-packages</code> directory where your 3rd party packages are installed. This is almost always a bad idea -- you will likely get tons of error messages about code you didn't write and that mypy can't analyze all that well yet, and in the worst case scenario mypy may crash due to some construct in a 3rd party package that it didn't expect.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="存根文件语法">存根文件语法<a class="headerlink" href="#存根文件语法" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Stub files are written in normal Python syntax, but generally leaving out runtime logic like variable initializers, function bodies, and default arguments.</p>
+<p>If it is not possible to completely leave out some piece of runtime logic, the recommended convention is to replace or elide them with ellipsis expressions (<code>...</code>). Each ellipsis below is literally written in the stub file as three dots:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Variables with annotations do not need to be assigned a value.</span>
 <span class="c1"># So by convention, we omit them in the stub file.</span>
 <span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
@@ -1368,25 +1353,22 @@ stub file as three dots:</p>
 <span class="c1"># We can do the same with default arguments.</span>
 <span class="k">def</span> <span class="nf">func_2</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
 </code></pre></div>
-<p>:::{note}
-The ellipsis <code>...</code> is also used with a different meaning in
-{ref}<code>callable types &lt;callable-types&gt;</code> and {ref}<code>tuple types
-&lt;tuple-types&gt;</code>.
-:::</p>
-<h2 id="using-stub-file-syntax-at-runtime">Using stub file syntax at runtime<a class="headerlink" href="#using-stub-file-syntax-at-runtime" title="Permanent link">&para;</a></h2>
-<p>You may also occasionally need to elide actual logic in regular
-Python code -- for example, when writing methods in
-{ref}<code>overload variants &lt;function-overloading&gt;</code> or
-{ref}<code>custom protocols &lt;protocol-types&gt;</code>.</p>
-<p>The recommended style is to use ellipses to do so, just like in
-stub files. It is also considered stylistically acceptable to
-throw a {py:exc}<code>NotImplementedError</code> in cases where the user of the
-code may accidentally call functions with no actual logic.</p>
-<p>You can also elide default arguments as long as the function body
-also contains no runtime logic: the function body only contains
-a single ellipsis, the pass statement, or a <code>raise NotImplementedError()</code>.
-It is also acceptable for the function body to contain a docstring.
-For example:</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>The ellipsis <code>...</code> is also used with a different meaning in <code>callable types &lt;callable-types&gt;</code> and <code>tuple types &lt;tuple-types&gt;</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="在运行时使用存根文件语法">在运行时使用存根文件语法<a class="headerlink" href="#在运行时使用存根文件语法" title="Permanent link">&para;</a></h2>
+<p>Using stub file syntax at runtime</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>You may also occasionally need to elide actual logic in regular Python code -- for example, when writing methods in <code>overload variants &lt;function-overloading&gt;</code> or <code>custom protocols &lt;protocol-types&gt;</code>.</p>
+<p>The recommended style is to use ellipses to do so, just like in stub files. It is also considered stylistically acceptable to throw a {py:exc}<code>NotImplementedError</code> in cases where the user of the code may accidentally call functions with no actual logic.</p>
+<p>You can also elide default arguments as long as the function body also contains no runtime logic: the function body only contains a single ellipsis, the pass statement, or a <code>raise NotImplementedError()</code>. It is also acceptable for the function body to contain a docstring. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
 <span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
@@ -1404,6 +1386,9 @@ For example:</p>
     <span class="k">def</span> <span class="nf">not_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
 </code></pre></div>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">
