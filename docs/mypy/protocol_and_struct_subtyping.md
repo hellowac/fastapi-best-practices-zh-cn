@@ -926,7 +926,9 @@ SupportsRound\[T\]
 
     See also [`SupportsRound`](https://docs.python.org/3/library/typing.html#typing.SupportsRound).
 
-### Async protocols
+### 异步协议
+
+Async protocols
 
 === "中文"
 
@@ -998,7 +1000,9 @@ AsyncIterator\[T\]
 
     See also [`AsyncIterator`](https://docs.python.org/3/library/typing.html#typing.AsyncIterator).
 
-### Context manager protocols
+### 上下文管理器协议
+
+Context manager protocols
 
 === "中文"
 

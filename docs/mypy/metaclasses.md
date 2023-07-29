@@ -1,7 +1,5 @@
 # 元类
 
-## aaa
-
 === "中文"
 
     元类 [`metaclasses`](https://docs.python.org/3/reference/datamodel.html#metaclasses) 是一个描述其他类的构造和行为的类，类似于类描述对象的构造和行为。 默认元类是 [`type`](https://docs.python.org/3/library/functions.html#type)，但可以使用其他元类。 元类允许创建 “一种不同类型的类”，例如 [`enum.Enum`](https://docs.python.org/3/library/enum.html#enum.Enum)、[`typing.NamedTuple`](https://docs.python.org/3/library/typing.html#typing.NamedTuple) 和单例。

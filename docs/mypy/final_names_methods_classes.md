@@ -30,212 +30,208 @@
     
         The examples in this page import `Final` and `final` from the `typing` module. These types were added to `typing` in Python 3.8, but are also available for use in Python 3.4 - 3.7 via the `typing_extensions` package.
 
-## Final names
+## 最终名称
 
-You can use the `typing.Final` qualifier to indicate that
-a name or attribute should not be reassigned, redefined, or
-overridden.  This is often useful for module and class level constants
-as a way to prevent unintended modification.  Mypy will prevent
-further assignments to final names in type-checked code:
+Final names
 
-```python
-from typing import Final
+=== "中文"
 
-RATE: Final = 3_000
+=== "英文"
 
-class Base:
-    DEFAULT_ID: Final = 0
+    You can use the `typing.Final` qualifier to indicate that a name or attribute should not be reassigned, redefined, or overridden.  This is often useful for module and class level constants as a way to prevent unintended modification.  Mypy will prevent further assignments to final names in type-checked code:
 
-RATE = 300  # Error: can't assign to final attribute
-Base.DEFAULT_ID = 1  # Error: can't override a final attribute
-```
+    ```python
+    from typing import Final
 
-Another use case for final attributes is to protect certain attributes
-from being overridden in a subclass:
+    RATE: Final = 3_000
 
-```python
-from typing import Final
+    class Base:
+        DEFAULT_ID: Final = 0
 
-class Window:
-    BORDER_WIDTH: Final = 2.5
-    ...
+    RATE = 300  # Error: can't assign to final attribute
+    Base.DEFAULT_ID = 1  # Error: can't override a final attribute
+    ```
 
-class ListView(Window):
-    BORDER_WIDTH = 3  # Error: can't override a final attribute
-```
+    Another use case for final attributes is to protect certain attributes from being overridden in a subclass:
 
-You can use {py:class}`@property <property>` to make an attribute read-only, but unlike `Final`,
-it doesn't work with module attributes, and it doesn't prevent overriding in
-subclasses.
+    ```python
+    from typing import Final
 
-### Syntax variants
+    class Window:
+        BORDER_WIDTH: Final = 2.5
+        ...
 
-You can use `Final` in one of these forms:
+    class ListView(Window):
+        BORDER_WIDTH = 3  # Error: can't override a final attribute
+    ```
 
-- You can provide an explicit type using the syntax `Final[<type>]`. Example:
+    You can use {py:class}`@property <property>` to make an attribute read-only, but unlike `Final`, it doesn't work with module attributes, and it doesn't prevent overriding in subclasses.
 
-  ```python
-  ID: Final[int] = 1
-  ```
+### 语法变体
 
-  Here mypy will infer type `int` for `ID`.
+Syntax variants
 
-- You can omit the type:
+=== "中文"
 
-  ```python
-  ID: Final = 1
-  ```
+=== "英文"
 
-  Here mypy will infer type `Literal[1]` for `ID`. Note that unlike for
-  generic classes this is *not* the same as `Final[Any]`.
+    You can use `Final` in one of these forms:
 
-- In class bodies and stub files you can omit the right hand side and just write
-  `ID: Final[int]`.
+    - You can provide an explicit type using the syntax `Final[<type>]`. Example:
 
-- Finally, you can write `self.id: Final = 1` (also optionally with
-  a type in square brackets). This is allowed *only* in
-  {py:meth}`__init__ <object.__init__>` methods, so that the final instance attribute is
-  assigned only once when an instance is created.
+      ```python
+      ID: Final[int] = 1
+      ```
 
-### Details of using `Final`
+      Here mypy will infer type `int` for `ID`.
 
-These are the two main rules for defining a final name:
+    - You can omit the type:
 
-- There can be *at most one* final declaration per module or class for
-  a given attribute. There can't be separate class-level and instance-level
-  constants with the same name.
-- There must be *exactly one* assignment to a final name.
+      ```python
+      ID: Final = 1
+      ```
 
-A final attribute declared in a class body without an initializer must
-be initialized in the {py:meth}`__init__ <object.__init__>` method (you can skip the
-initializer in stub files):
+      Here mypy will infer type `Literal[1]` for `ID`. Note that unlike for generic classes this is *not* the same as `Final[Any]`.
 
-```python
-class ImmutablePoint:
-    x: Final[int]
-    y: Final[int]  # Error: final attribute without an initializer
+    - In class bodies and stub files you can omit the right hand side and just write
+      `ID: Final[int]`.
 
-    def __init__(self) -> None:
-        self.x = 1  # Good
-```
+    - Finally, you can write `self.id: Final = 1` (also optionally with a type in square brackets). This is allowed *only* in {py:meth}`__init__ <object.__init__>` methods, so that the final instance attribute is assigned only once when an instance is created.
 
-`Final` can only be used as the outermost type in assignments or variable
-annotations. Using it in any other position is an error. In particular,
-`Final` can't be used in annotations for function arguments:
+### 使用`Final`的详情
 
-```python
-x: list[Final[int]] = []  # Error!
+Details of using `Final`
 
-def fun(x: Final[list[int]]) ->  None:  # Error!
-    ...
-```
+=== "中文"
 
-`Final` and {py:data}`~typing.ClassVar` should not be used together. Mypy will infer
-the scope of a final declaration automatically depending on whether it was
-initialized in the class body or in {py:meth}`__init__ <object.__init__>`.
+=== "英文"
 
-A final attribute can't be overridden by a subclass (even with another
-explicit final declaration). Note however that a final attribute can
-override a read-only property:
+    These are the two main rules for defining a final name:
 
-```python
-class Base:
-    @property
-    def ID(self) -> int: ...
+    - There can be *at most one* final declaration per module or class for a given attribute. There can't be separate class-level and instance-level constants with the same name.
+    - There must be *exactly one* assignment to a final name.
 
-class Derived(Base):
-    ID: Final = 1  # OK
-```
+    A final attribute declared in a class body without an initializer must be initialized in the {py:meth}`__init__ <object.__init__>` method (you can skip the initializer in stub files):
 
-Declaring a name as final only guarantees that the name will not be re-bound
-to another value. It doesn't make the value immutable. You can use immutable ABCs
-and containers to prevent mutating such values:
+    ```python
+    class ImmutablePoint:
+        x: Final[int]
+        y: Final[int]  # Error: final attribute without an initializer
 
-```python
-x: Final = ['a', 'b']
-x.append('c')  # OK
+        def __init__(self) -> None:
+            self.x = 1  # Good
+    ```
 
-y: Final[Sequence[str]] = ['a', 'b']
-y.append('x')  # Error: Sequence is immutable
-z: Final = ('a', 'b')  # Also an option
-```
+    `Final` can only be used as the outermost type in assignments or variable annotations. Using it in any other position is an error. In particular, `Final` can't be used in annotations for function arguments:
 
-## Final methods
+    ```python
+    x: list[Final[int]] = []  # Error!
 
-Like with attributes, sometimes it is useful to protect a method from
-overriding. You can use the `typing.final` decorator for this purpose:
+    def fun(x: Final[list[int]]) ->  None:  # Error!
+        ...
+    ```
 
-```python
-from typing import final
+    `Final` and {py:data}`~typing.ClassVar` should not be used together. Mypy will infer the scope of a final declaration automatically depending on whether it was initialized in the class body or in {py:meth}`__init__ <object.__init__>`.
 
-class Base:
+    A final attribute can't be overridden by a subclass (even with another explicit final declaration). Note however that a final attribute can override a read-only property:
+
+    ```python
+    class Base:
+        @property
+        def ID(self) -> int: ...
+
+    class Derived(Base):
+        ID: Final = 1  # OK
+    ```
+
+    Declaring a name as final only guarantees that the name will not be re-bound to another value. It doesn't make the value immutable. You can use immutable ABCs and containers to prevent mutating such values:
+
+    ```python
+    x: Final = ['a', 'b']
+    x.append('c')  # OK
+
+    y: Final[Sequence[str]] = ['a', 'b']
+    y.append('x')  # Error: Sequence is immutable
+    z: Final = ('a', 'b')  # Also an option
+    ```
+
+## 最终方法
+
+Final methods
+
+=== "中文"
+
+=== "英文"
+
+    Like with attributes, sometimes it is useful to protect a method from overriding. You can use the `typing.final` decorator for this purpose:
+
+    ```python
+    from typing import final
+
+    class Base:
+        @final
+        def common_name(self) -> None:
+            ...
+
+    class Derived(Base):
+        def common_name(self) -> None:  # Error: cannot override a final method
+            ...
+    ```
+
+    This `@final` decorator can be used with instance methods, class methods, static methods, and properties.
+
+    For overloaded methods you should add `@final` on the implementation to make it final (or on the first overload in stubs):
+
+    ```python
+    from typing import Any, overload
+
+    class Base:
+        @overload
+        def method(self) -> None: ...
+        @overload
+        def method(self, arg: int) -> int: ...
+        @final
+        def method(self, x=None):
+            ...
+    ```
+
+## 最终类
+
+Final classes
+
+=== "中文"
+
+=== "英文"
+
+    You can apply the `typing.final` decorator to a class to indicate to mypy that it should not be subclassed:
+
+    ```python
+    from typing import final
+
     @final
-    def common_name(self) -> None:
+    class Leaf:
         ...
 
-class Derived(Base):
-    def common_name(self) -> None:  # Error: cannot override a final method
+    class MyLeaf(Leaf):  # Error: Leaf can't be subclassed
         ...
-```
+    ```
 
-This `@final` decorator can be used with instance methods, class methods,
-static methods, and properties.
+    The decorator acts as a declaration for mypy (and as documentation for humans), but it doesn't actually prevent subclassing at runtime.
 
-For overloaded methods you should add `@final` on the implementation
-to make it final (or on the first overload in stubs):
+    Here are some situations where using a final class may be useful:
 
-```python
-from typing import Any, overload
+    - A class wasn't designed to be subclassed. Perhaps subclassing would not work as expected, or subclassing would be error-prone.
+    - Subclassing would make code harder to understand or maintain. For example, you may want to prevent unnecessarily tight coupling between base classes and subclasses.
+    - You want to retain the freedom to arbitrarily change the class implementation in the future, and these changes might break subclasses.
 
-class Base:
-    @overload
-    def method(self) -> None: ...
-    @overload
-    def method(self, arg: int) -> int: ...
+    An abstract class that defines at least one abstract method or property and has `@final` decorator will generate an error from mypy, since those attributes could never be implemented.
+
+    ```python
+    from abc import ABCMeta, abstractmethod
+    from typing import final
+
     @final
-    def method(self, x=None):
-        ...
-```
-
-## Final classes
-
-You can apply the `typing.final` decorator to a class to indicate
-to mypy that it should not be subclassed:
-
-```python
-from typing import final
-
-@final
-class Leaf:
-    ...
-
-class MyLeaf(Leaf):  # Error: Leaf can't be subclassed
-    ...
-```
-
-The decorator acts as a declaration for mypy (and as documentation for
-humans), but it doesn't actually prevent subclassing at runtime.
-
-Here are some situations where using a final class may be useful:
-
-- A class wasn't designed to be subclassed. Perhaps subclassing would not
-  work as expected, or subclassing would be error-prone.
-- Subclassing would make code harder to understand or maintain.
-  For example, you may want to prevent unnecessarily tight coupling between
-  base classes and subclasses.
-- You want to retain the freedom to arbitrarily change the class implementation
-  in the future, and these changes might break subclasses.
-
-An abstract class that defines at least one abstract method or
-property and has `@final` decorator will generate an error from
-mypy, since those attributes could never be implemented.
-
-```python
-from abc import ABCMeta, abstractmethod
-from typing import final
-
-@final
-class A(metaclass=ABCMeta):  # error: Final class A has abstract attributes "f"
-    @abstractmethod
-    def f(self, x: int) -> None: pass
-```
+    class A(metaclass=ABCMeta):  # error: Final class A has abstract attributes "f"
+        @abstractmethod
+        def f(self, x: int) -> None: pass
+    ```
