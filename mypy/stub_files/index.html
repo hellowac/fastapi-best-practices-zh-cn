@@ -1309,7 +1309,29 @@
 <p>Creating a stub</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>以下是如何创建存根文件的概述：</p>
+<ul>
+<li>
+<p>为库（或任意模块）编写存根文件，并将其作为<code>.pyi</code>文件存储在与库模块相同的目录中。</p>
+</li>
+<li>
+<p>或者，将存根（<code>.pyi</code> 文件）放在为存根保留的目录中（例如，<code>myproject/stubs</code>）。 在这种情况下，您必须设置环境变量<code>MYPYPATH</code>来引用该目录。 例如：</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">MYPYPATH</span><span class="o">=</span>~/work/myproject/stubs
+</code></pre></div>
+</li>
+</ul>
+<p>对模块使用正常的 Python 文件名约定，例如 模块<code>csv</code>的<code>csv.pyi</code>。 使用包含<code>__init__.pyi</code>的子目录作为包。 请注意，必须安装 <a href="https://peps.python.org/pep-0561/"><code>PEP 561</code></a> 仅存根软件包，并且不能通过 <code>MYPYPATH</code> 指向(请参阅 <a href="https://mypy.readthedocs.io/en/latest/installed_packages.html#installed-packages"><code>PEP 561 支持</code></a>)。</p>
+<p>如果目录包含同一模块的<code>.py</code>和<code>.pyi</code>文件，则<code>.pyi</code>文件优先。 这样，即使您不想修改源代码，也可以轻松地为模块添加注释。 例如，如果您在程序中使用第 3 方开源库（并且 typeshed 中还没有存根），这可能很有用。</p>
+<p>就是这样！</p>
+<p>现在您可以在 mypy 程序中访问该模块并输入使用该库的检查代码。 如果您为库模块编写存根，请考虑将其贡献给 typeshed 存储库，以供使用 mypy 的其他程序员使用。</p>
+<p>Mypy 还附带了两个工具，可以更轻松地创建和维护存根：<a href="https://mypy.readthedocs.io/en/latest/stubgen.html#stubgen"><code>自动存根生成 (stubgen)</code></a> 和 [<code>自动存根测试（stubtest）</code>]（https://mypy.readthedocs.io/en/latest/stubtest.html#stubtest）。</p>
+<p>以下部分介绍了可以在程序和存根文件中使用的类型注释类型。</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>您可能想将<code>MYPYPATH</code>指向标准库或安装第 3 方软件包的 <code>site-packages</code>目录。 这几乎总是一个坏主意——您可能会收到大量关于您没有编写的代码的错误消息，并且 mypy 还无法很好地分析，并且在最坏的情况下，mypy 可能会由于某些它没想到的第 3 方包构构建而崩溃, </p>
+</div>
+</div>
 <div class="tabbed-block">
 <p>Here is an overview of how to create a stub file:</p>
 <ul>
@@ -1322,11 +1344,11 @@
 </ul>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">MYPYPATH</span><span class="o">=</span>~/work/myproject/stubs
 </code></pre></div>
-<p>Use the normal Python file name conventions for modules, e.g. {file}<code>csv.pyi</code> for module <code>csv</code>. Use a subdirectory with {file}<code>__init__.pyi</code> for packages. Note that {pep}<code>561</code> stub-only packages must be installed, and may not be pointed at through the <code>MYPYPATH</code> (see <code>PEP 561 support &lt;installed-packages&gt;</code>).</p>
+<p>Use the normal Python file name conventions for modules, e.g. {file}<code>csv.pyi</code> for module <code>csv</code>. Use a subdirectory with <code>__init__.pyi</code> for packages. Note that <a href="https://peps.python.org/pep-0561/"><code>PEP 561</code></a> stub-only packages must be installed, and may not be pointed at through the <code>MYPYPATH</code> (see <a href="https://mypy.readthedocs.io/en/latest/installed_packages.html#installed-packages"><code>PEP 561 support</code></a>).</p>
 <p>If a directory contains both a <code>.py</code> and a <code>.pyi</code> file for the same module, the <code>.pyi</code> file takes precedence. This way you can easily add annotations for a module even if you don't want to modify the source code. This can be useful, for example, if you use 3rd party open source libraries in your program (and there are no stubs in typeshed yet).</p>
 <p>That's it!</p>
 <p>Now you can access the module in mypy programs and type check code that uses the library. If you write a stub for a library module, consider making it available for other programmers that use mypy by contributing it back to the typeshed repo.</p>
-<p>Mypy also ships with two tools for making it easier to create and maintain stubs: <code>stubgen</code> and <code>stubtest</code>.</p>
+<p>Mypy also ships with two tools for making it easier to create and maintain stubs: <a href="https://mypy.readthedocs.io/en/latest/stubgen.html#stubgen"><code>Automatic stub generation (stubgen)</code></a> and <a href="https://mypy.readthedocs.io/en/latest/stubtest.html#stubtest"><code>Automatic stub testing (stubtest)</code></a>.</p>
 <p>The following sections explain the kinds of type annotations you can use in your programs and stub files.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
@@ -1338,7 +1360,25 @@
 <h2 id="存根文件语法">存根文件语法<a class="headerlink" href="#存根文件语法" title="Permanent link">&para;</a></h2>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>存根文件是用普通的 Python 语法编写的，但通常会省略运行时逻辑，例如变量初始值设定项、函数体和默认参数。</p>
+<p>如果不可能完全省略某些运行时逻辑，建议的约定是用省略号表达式（<code>...</code>）替换或删除它们。 下面的每个省略号实际上都以三个点的形式写在存根文件中：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 带注释的变量不需要赋值。</span>
+<span class="c1"># 因此按照惯例，我们在存根文件中省略它们。</span>
+<span class="n">x</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="c1"># 函数体无法完全去除。 按照惯例，</span>
+<span class="c1"># 我们将它们替换为“...”而不是“pass”语句。</span>
+<span class="k">def</span> <span class="nf">func_1</span><span class="p">(</span><span class="n">code</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="c1"># 我们可以对默认参数执行相同的操作。</span>
+<span class="k">def</span> <span class="nf">func_2</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>省略号<code>...</code>在<a href="https://mypy.readthedocs.io/en/latest/kinds_of_types.html#callable-types"><code>可调用类型</code></a>和<a href="https://mypy.readthedocs.io/en/latest/kinds_of_types.html#tuple-types"><code>元组类型</code></a>中也有不同的含义。</p>
+</div>
+</div>
 <div class="tabbed-block">
 <p>Stub files are written in normal Python syntax, but generally leaving out runtime logic like variable initializers, function bodies, and default arguments.</p>
 <p>If it is not possible to completely leave out some piece of runtime logic, the recommended convention is to replace or elide them with ellipsis expressions (<code>...</code>). Each ellipsis below is literally written in the stub file as three dots:</p>
@@ -1355,7 +1395,7 @@
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>The ellipsis <code>...</code> is also used with a different meaning in <code>callable types &lt;callable-types&gt;</code> and <code>tuple types &lt;tuple-types&gt;</code>.</p>
+<p>The ellipsis <code>...</code> is also used with a different meaning in <a href="https://mypy.readthedocs.io/en/latest/kinds_of_types.html#callable-types"><code>callable types</code></a> and <a href="https://mypy.readthedocs.io/en/latest/kinds_of_types.html#tuple-types"><code>tuple types</code></a>.</p>
 </div>
 </div>
 </div>
@@ -1364,10 +1404,30 @@
 <p>Using stub file syntax at runtime</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>You may also occasionally need to elide actual logic in regular Python code -- for example, when writing methods in <code>overload variants &lt;function-overloading&gt;</code> or <code>custom protocols &lt;protocol-types&gt;</code>.</p>
-<p>The recommended style is to use ellipses to do so, just like in stub files. It is also considered stylistically acceptable to throw a {py:exc}<code>NotImplementedError</code> in cases where the user of the code may accidentally call functions with no actual logic.</p>
+<p>您有时可能还需要省略常规 Python 代码中的实际逻辑——例如，在使用 <a href="../more_types/#函数重载"><code>函数重载</code></a> 或 <a href="../protocol_and_struct_subtyping/#简单的自定义协议"><code>自定义协议</code></a>编写方法时.</p>
+<p>推荐的风格是使用省略号来执行此操作，就像在存根文件中一样。 在代码的用户可能意外调用没有实际功能的函数的情况下，抛出 <code>NotImplementedError</code> 也被认为是可以接受的。 逻辑。</p>
+<p>只要函数体不包含运行时逻辑，您也可以省略默认参数：函数体仅包含单个省略号、pass 语句或<code>raise NotImplementedError()</code>。 函数体包含文档字符串也是可以接受的。 例如：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="k">class</span> <span class="nc">Resource</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ok_1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">ok_2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">ok_3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Some docstring&quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Error: Incompatible default for argument &quot;foo&quot; (default has type &quot;ellipsis&quot;, argument has type &quot;list[str]&quot;)</span>
+    <span class="k">def</span> <span class="nf">not_ok</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">foo</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>You may also occasionally need to elide actual logic in regular Python code -- for example, when writing methods in <a href="../more_types/#函数重载"><code>overload variants</code></a> or <a href="../protocol_and_struct_subtyping/#简单的自定义协议"><code>custom protocols</code></a>.</p>
+<p>The recommended style is to use ellipses to do so, just like in stub files. It is also considered stylistically acceptable to throw a <a href="https://docs.python.org/3/library/exceptions.html#NotImplementedError"><code>NotImplementedError</code></a> in cases where the user of the code may accidentally call functions with no actual logic.</p>
 <p>You can also elide default arguments as long as the function body also contains no runtime logic: the function body only contains a single ellipsis, the pass statement, or a <code>raise NotImplementedError()</code>. It is also acceptable for the function body to contain a docstring. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
 
@@ -1395,7 +1455,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
       
         <br>
         创建日期:

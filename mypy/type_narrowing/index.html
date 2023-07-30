@@ -776,8 +776,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#通用类型保护" class="md-nav__link">
-    通用类型保护
+  <a href="#泛型类型保护" class="md-nav__link">
+    泛型类型保护
   </a>
   
 </li>
@@ -1349,8 +1349,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#通用类型保护" class="md-nav__link">
-    通用类型保护
+  <a href="#泛型类型保护" class="md-nav__link">
+    泛型类型保护
   </a>
   
 </li>
@@ -1417,14 +1417,69 @@
 <p>Type narrowing expressions</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>缩小类型范围的最简单方法是使用受支持的表达式之一：</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 就像 <code>isinstance(obj, float)</code> 会将 <code>obj</code> 缩小为 <code>float</code> 类型</li>
+<li><a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> 就像 <code>issubclass(cls, MyClass)</code> 会将<code>cls</code> 缩小为 <code>Type[MyClass]</code> 类型</li>
+<li><a href="https://docs.python.org/3/library/functions.html#type"><code>type</code></a> 就像 <code>type(obj) is int</code> 会将 <code>obj</code> 缩小为 <code>int</code> 类型</li>
+<li><a href="https://docs.python.org/3/library/functions.html#callable"><code>callable</code></a> 就像 <code>callable(obj)</code> 将对象缩小为可调用类型</li>
+</ul>
+<p>类型缩小是根据上下文而定的。 例如，根据条件，mypy 将仅在<code>if</code>分支内缩小表达式：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># 类型仅在“if”分支内缩小</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型：“builtins.int”</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="c1"># 在这个 elif 分支中，类型以不同的方式缩小：</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型：“builtins.str |builtins.bool”</span>
+
+        <span class="c1"># 后续的缩小操作将进一步缩小类型</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型: &quot;builtins.bool&quot;</span>
+
+    <span class="c1"># 回到“if”语句之外，类型没有缩小：</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型: &quot;builtins.object&quot;</span>
+</code></pre></div>
+<p>Mypy 理解<code>return</code>或异常引发对对象类型的影响：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="c1"># 此时 `arg` 不能是 `int`：</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型: &quot;builtins.str&quot;</span>
+</code></pre></div>
+<p>我们还可以使用<code>assert</code>来缩小相同上下文中的类型：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  <span class="c1"># 显示类型: &quot;builtins.int&quot;</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>使用 <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-warn-unreachable"><code>--warn-unreachable</code></a> 将类型缩小到某些不可能的状态将被视为错误。</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># error: “int”和“str”的子类不能存在：</span>
+    <span class="c1"># 会有不兼容的方法签名</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+    <span class="c1"># error: 声明无法访问(Statement is unreachable)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;so mypy concludes the assert will always trigger&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>如果没有<code>--warn-unreachable</code>，mypy 将不会检查它认为无法访问的代码。 有关更多信息，请参阅<a href="https://mypy.readthedocs.io/en/latest/common_issues.html#unreachable"><code>无法访问的代码</code></a>。</p>
+<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 显示类型 &quot;builtins.int&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;!&#39;</span><span class="p">)</span>  <span class="c1"># 使用`mypy`进行类型检查，但在运行时失败。</span>
+</code></pre></div>
+</div>
+</div>
 <div class="tabbed-block">
 <p>The simplest way to narrow a type is to use one of the supported expressions:</p>
 <ul>
-<li><code>isinstance</code> like in <code>isinstance(obj, float)</code> will narrow <code>obj</code> to have <code>float</code> type</li>
-<li><code>issubclass</code> like in <code>issubclass(cls, MyClass)</code> will narrow <code>cls</code> to be <code>Type[MyClass]</code></li>
-<li>{py:class}<code>type</code> like in <code>type(obj) is int</code> will narrow <code>obj</code> to have <code>int</code> type</li>
-<li><code>callable</code> like in <code>callable(obj)</code> will narrow object to callable type</li>
+<li><a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> like in <code>isinstance(obj, float)</code> will narrow <code>obj</code> to have <code>float</code> type</li>
+<li><a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> like in <code>issubclass(cls, MyClass)</code> will narrow <code>cls</code> to be <code>Type[MyClass]</code></li>
+<li><a href="https://docs.python.org/3/library/functions.html#type"><code>type</code></a> like in <code>type(obj) is int</code> will narrow <code>obj</code> to have <code>int</code> type</li>
+<li><a href="https://docs.python.org/3/library/functions.html#callable"><code>callable</code></a> like in <code>callable(obj)</code> will narrow object to callable type</li>
 </ul>
 <p>Type narrowing is contextual. For example, based on the condition, mypy will narrow an expression only within an <code>if</code> branch:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">object</span><span class="p">):</span>
@@ -1458,8 +1513,7 @@ for what type an object could be:</p>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>With {option}<code>--warn-unreachable &lt;mypy --warn-unreachable&gt;</code>
-narrowing types to some impossible state will be treated as an error.</p>
+<p>With <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-warn-unreachable"><code>--warn-unreachable</code></a> narrowing types to some impossible state will be treated as an error.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="c1"># error: Subclass of &quot;int&quot; and &quot;str&quot; cannot exist:</span>
     <span class="c1"># would have incompatible method signatures</span>
@@ -1468,8 +1522,7 @@ narrowing types to some impossible state will be treated as an error.</p>
     <span class="c1"># error: Statement is unreachable</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;so mypy concludes the assert will always trigger&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>Without <code>--warn-unreachable</code> mypy will simply not check code it deems to be
-unreachable. See {ref}<code>unreachable</code> for more information.</p>
+<p>Without <code>--warn-unreachable</code> mypy will simply not check code it deems to be unreachable. See <a href="https://mypy.readthedocs.io/en/latest/common_issues.html#unreachable"><code>unreachable code</code></a> for more information.</p>
 <div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;builtins.int&quot;</span>
@@ -1483,9 +1536,24 @@ unreachable. See {ref}<code>unreachable</code> for more information.</p>
 <p>issubclass</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>Mypy can also use <code>issubclass</code> for better type inference when working with types and metaclasses:</p>
+<p>Mypy 还可以使用 <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> 在处理类型和元类时进行更好的类型推断：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyCalcMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>  <span class="c1"># 我们必须在这里使用一个变量</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;builtins.type&quot;</span>
+
+    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">MyCalcMeta</span><span class="p">):</span>  <span class="c1"># `issubclass(type(o), MyCalcMeta)` 不起作用</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Type[MyCalcMeta]&quot;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">calc</span><span class="p">()</span>  <span class="c1"># Okay</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Mypy can also use <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> for better type inference when working with types and metaclasses:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MyCalcMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">calc</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -1506,7 +1574,28 @@ unreachable. See {ref}<code>unreachable</code> for more information.</p>
 <p>callable</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Mypy 在类型检查期间知道哪些类型可调用，哪些类型不可调用。 所以，我们知道 <code>callable()</code> 会返回什么。 例如：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+
+<span class="n">x</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">int</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># N: 揭示的类型是 &quot;def () -&gt; builtins.int&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="o">...</span>  <span class="c1"># 永远不会被执行并且会引发错误 `--warn-unreachable`</span>
+</code></pre></div>
+<p><a href="https://docs.python.org/3/library/functions.html#callable"><code>callable</code></a> 函数甚至可以将 <code>Union</code> 类型拆分为可调用部分和不可调用部分：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">int</span><span class="p">]]</span>
+
+<span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># N: 揭示的类型是 &quot;def () -&gt; builtins.int&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># N: 揭示的类型是 &quot;builtins.int&quot;</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>Mypy knows what types are callable and which ones are not during type checking. So, we know what <code>callable()</code> will return. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
@@ -1518,7 +1607,7 @@ unreachable. See {ref}<code>unreachable</code> for more information.</p>
 <span class="k">else</span><span class="p">:</span>
     <span class="o">...</span>  <span class="c1"># Will never be executed and will raise error with `--warn-unreachable`</span>
 </code></pre></div>
-<p><code>callable</code> function can even split <code>Union</code> type for callable and non-callable parts:</p>
+<p><a href="https://docs.python.org/3/library/functions.html#callable"><code>callable</code></a> function can even split <code>Union</code> type for callable and non-callable parts:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="nb">int</span><span class="p">]]</span>
@@ -1535,20 +1624,15 @@ unreachable. See {ref}<code>unreachable</code> for more information.</p>
 <p>Casts</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>Mypy supports type casts that are usually used to coerce a statically typed value to a subtype. Unlike languages such as Java or C#, however, mypy casts are only used as hints for the type checker, and they don't perform a runtime type check. Use the function <code>~typing.cast</code> to perform a cast:</p>
+<p>Mypy 支持类型转换，通常用于将静态类型值强制转换为子类型。 然而，与 Java 或 C# 等语言不同，mypy 强制转换仅用作类型检查器的提示，并且不执行运行时类型检查。 使用函数 <a href="https://docs.python.org/3/library/typing.html#typing.cast"><code>typing.cast</code></a> 执行转换：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span>
 
 <span class="n">o</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">o</span><span class="p">)</span>  <span class="c1"># OK</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">o</span><span class="p">)</span>  <span class="c1"># OK (cast performs no actual runtime check)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">o</span><span class="p">)</span>  <span class="c1"># OK (强制转换不执行实际的运行时检查)</span>
 </code></pre></div>
-<p>To support runtime checking of casts such as the above, we'd have to check
-the types of all list items, which would be very inefficient for large lists.
-Casts are used to silence spurious
-type checker warnings and give the type checker a little help when it can't
-quite understand what is going on.</p>
+<p>为了支持上述类型转换的运行时检查，我们必须检查所有列表项的类型，这对于大型列表来说效率非常低。 强制转换用于消除虚假的类型检查器警告，并在类型检查器无法完全理解正在发生的情况时为类型检查器提供一些帮助。</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
 <p>You can use an assertion if you want to perform an actual runtime check:</p>
@@ -1558,10 +1642,34 @@ quite understand what is going on.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># OK: type of &#39;o&#39; is &#39;int&#39; here</span>
 </code></pre></div>
 </div>
-<p>You don't need a cast for expressions with type <code>Any</code>, or when
-assigning to a variable with type <code>Any</code>, as was explained earlier.
-You can also use <code>Any</code> as the cast target type -- this lets you perform
-any operations on the result. For example:</p>
+<p>正如前面所解释的，您不需要对<code>Any</code>类型的表达式进行强制转换，或者在分配给类型为<code>Any</code>的变量时进行强制转换。 您还可以使用<code>Any</code>作为转换目标类型——这允许您对结果执行任何操作。 例如：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x</span><span class="o">.</span><span class="n">whatever</span><span class="p">()</span>  <span class="c1"># Type check error</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="n">Any</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">y</span><span class="o">.</span><span class="n">whatever</span><span class="p">()</span>  <span class="c1"># Type check OK (runtime error)</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Mypy supports type casts that are usually used to coerce a statically typed value to a subtype. Unlike languages such as Java or C#, however, mypy casts are only used as hints for the type checker, and they don't perform a runtime type check. Use the function <a href="https://docs.python.org/3/library/typing.html#typing.cast"><code>typing.cast</code></a> to perform a cast:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span>
+
+<span class="n">o</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">o</span><span class="p">)</span>  <span class="c1"># OK</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">o</span><span class="p">)</span>  <span class="c1"># OK (cast performs no actual runtime check)</span>
+</code></pre></div>
+<p>To support runtime checking of casts such as the above, we'd have to check the types of all list items, which would be very inefficient for large lists. Casts are used to silence spurious type checker warnings and give the type checker a little help when it can't quite understand what is going on.</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>You can use an assertion if you want to perform an actual runtime check:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Error: can&#39;t add &#39;object&#39; and &#39;int&#39;</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">o</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># OK: type of &#39;o&#39; is &#39;int&#39; here</span>
+</code></pre></div>
+</div>
+<p>You don't need a cast for expressions with type <code>Any</code>, or when assigning to a variable with type <code>Any</code>, as was explained earlier. You can also use <code>Any</code> as the cast target type -- this lets you perform any operations on the result. For example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">cast</span><span class="p">,</span> <span class="n">Any</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
@@ -1576,13 +1684,46 @@ any operations on the result. For example:</p>
 <p>User-Defined Type Guards</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>Mypy supports User-Defined Type Guards ({pep}<code>647</code>).</p>
-<p>A type guard is a way for programs to influence conditional
-type narrowing employed by a type checker based on runtime checks.</p>
-<p>Basically, a <code>TypeGuard</code> is a "smart" alias for a <code>bool</code> type.
-Let's have a look at the regular <code>bool</code> example:</p>
+<p>Mypy 支持用户定义的类型防护 (<a href="https://peps.python.org/pep-0647/"><code>PEP 647</code></a>).</p>
+<p>类型保护是程序影响类型检查器基于运行时检查所采用的条件类型缩小的一种方式。</p>
+<p>基本上，<code>TypeGuard</code>是<code>bool</code>类型的“智能(smart)”别名。 让我们看一下常规的<code>bool</code>示例：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_str_list</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="sd">&quot;&quot;&quot;判断列表中的所有对象是否都是字符串&quot;&quot;&quot;</span>
+<span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">is_str_list</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># Reveals list[object]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="c1"># Error: incompatible type</span>
+</code></pre></div>
+<p>与<code>TypeGuard</code>相同的示例:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>  <span class="c1"># use `typing_extensions` for Python 3.9 and below</span>
+
+<span class="k">def</span> <span class="nf">is_str_list</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;判断列表中的所有对象是否都是字符串&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">func1</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">is_str_list</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>  <span class="c1"># list[str]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="c1"># ok</span>
+</code></pre></div>
+<p>它是如何工作的？ <code>TypeGuard</code> 将第一个函数参数 (<code>val</code>) 缩小为指定为第一个类型参数 (<code>list[str]</code>) 的类型。</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>缩小范围<a href="https://www.python.org/dev/peps/pep-0647/#enforcing-strict-narrowing">不严格(not strict)</a>。 例如，您可以将<code>str</code>缩小为<code>int</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</code></pre></div>
+<p>注意: 由于不强制执行严格的缩小，因此很容易破坏类型安全。</p>
+<p>然而，坚定或不知情的开发人员可以通过多种方式破坏类型安全——最常见的是使用强制转换或 Any。 如果 Python 开发人员花时间在代码中学习和实现用户定义的类型保护，则可以安全地假设他们对类型安全感兴趣，并且不会以破坏类型安全或破坏类型安全的方式编写类型保护函数。 产生无意义的结果。</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>Mypy supports User-Defined Type Guards (<a href="https://peps.python.org/pep-0647/"><code>PEP 647</code></a>).</p>
+<p>A type guard is a way for programs to influence conditional type narrowing employed by a type checker based on runtime checks.</p>
+<p>Basically, a <code>TypeGuard</code> is a "smart" alias for a <code>bool</code> type. Let's have a look at the regular <code>bool</code> example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">is_str_list</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="sd">&quot;&quot;&quot;Determines whether all objects in the list are strings&quot;&quot;&quot;</span>
 <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">val</span><span class="p">)</span>
@@ -1612,16 +1753,31 @@ Let's have a look at the regular <code>bool</code> example:</p>
     <span class="k">return</span> <span class="kc">True</span>
 </code></pre></div>
 <p>Note: since strict narrowing is not enforced, it's easy to break type safety.</p>
-<p>However, there are many ways a determined or uninformed developer can subvert type safety -- most commonly by using cast or Any.
-If a Python developer takes the time to learn about and implement user-defined type guards within their code, it is safe to assume that they are interested in type safety and will not write their type guard functions in a way that will undermine type safety or produce nonsensical results.</p>
+<p>However, there are many ways a determined or uninformed developer can subvert type safety -- most commonly by using cast or Any. If a Python developer takes the time to learn about and implement user-defined type guards within their code, it is safe to assume that they are interested in type safety and will not write their type guard functions in a way that will undermine type safety or produce nonsensical results.</p>
 </div>
 </div>
 </div>
 </div>
-<h3 id="通用类型保护">通用类型保护<a class="headerlink" href="#通用类型保护" title="Permanent link">&para;</a></h3>
+<h3 id="泛型类型保护">泛型类型保护<a class="headerlink" href="#泛型类型保护" title="Permanent link">&para;</a></h3>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p><code>TypeGuard</code> 也可以使用泛型类型：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>  <span class="c1"># use `typing_extensions` for `python&lt;3.10`</span>
+
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_two_element_tuple</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">_T</span><span class="p">,</span> <span class="n">_T</span><span class="p">]]:</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">names</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">is_two_element_tuple</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># tuple[str, str]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>  <span class="c1"># tuple[str, ...]</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p><code>TypeGuard</code> can also work with generic types:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
@@ -1645,7 +1801,21 @@ If a Python developer takes the time to learn about and implement user-defined t
 <p>Typeguards with parameters</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>类型保护函数可以接受额外的参数：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>  <span class="c1"># use `typing_extensions` for `python&lt;3.10`</span>
+
+<span class="n">_T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;_T&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">is_set_of</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">_T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">set</span><span class="p">[</span><span class="n">_T</span><span class="p">]]:</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">val</span><span class="p">)</span>
+
+<span class="n">items</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
+<span class="k">if</span> <span class="n">is_set_of</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>  <span class="c1"># set[str]</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>Type guard functions can accept extra arguments:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span><span class="p">,</span> <span class="n">TypeVar</span>
@@ -1667,7 +1837,36 @@ If a Python developer takes the time to learn about and implement user-defined t
 <p>TypeGuards as methods</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<blockquote>
+<p>方法也可以充当<code>TypeGuard</code>：</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">StrValidator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">to_validate</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">StrValidator</span><span class="p">()</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">to_validate</span><span class="p">):</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">to_validate</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;builtins.str&quot;</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>请注意，<code>TypeGuard</code><a href="https://www.python.org/dev/peps/pep-0647/#narrowing-of-implicit-self-and-cls-parameters">不会缩小</a><code>self</code>的类型 或<code>cls</code>隐式参数。</p>
+<p>如果需要缩小<code>self</code>或<code>cls</code>，则可以将该值作为显式参数传递给类型保护函数：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Parent&quot;</span>
+        <span class="k">if</span> <span class="n">is_child</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="n">reveal_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Child&quot;</span>
+
+<span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Parent</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">is_child</span><span class="p">(</span><span class="n">instance</span><span class="p">:</span> <span class="n">Parent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">Child</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">Child</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
 <div class="tabbed-block">
 <blockquote>
 <p>A method can also serve as the <code>TypeGuard</code>:</p>
@@ -1682,10 +1881,8 @@ If a Python developer takes the time to learn about and implement user-defined t
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>Note, that <code>TypeGuard</code>
-<a href="https://www.python.org/dev/peps/pep-0647/#narrowing-of-implicit-self-and-cls-parameters">does not narrow</a>types of <code>self</code> or <code>cls</code> implicit arguments.</p>
-<p>If narrowing of <code>self</code> or <code>cls</code> is required,
-the value can be passed as an explicit argument to a type guard function:</p>
+<p>Note, that <code>TypeGuard</code> <a href="https://www.python.org/dev/peps/pep-0647/#narrowing-of-implicit-self-and-cls-parameters">does not narrow</a> types of <code>self</code> or <code>cls</code> implicit arguments.</p>
+<p>If narrowing of <code>self</code> or <code>cls</code> is required, the value can be passed as an explicit argument to a type guard function:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Parent</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Parent&quot;</span>
@@ -1706,14 +1903,33 @@ the value can be passed as an explicit argument to a type guard function:</p>
 <p>Assignment expressions as TypeGuards</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>有时您可能需要创建一个新变量并同时将其缩小为某种特定类型。 这可以通过将<code>TypeGuard</code>与 <a href="https://docs.python.org/3/whatsnew/3.8.html#assignment-expressions">:= 运算符</a> 一起使用来实现。</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>  <span class="c1"># use `typing_extensions` for `python&lt;3.10`</span>
+
+<span class="k">def</span> <span class="nf">is_float</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">is_float</span><span class="p">(</span><span class="n">x</span> <span class="o">:=</span> <span class="n">a</span><span class="p">):</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &#39;builtins.float&#39;</span>
+        <span class="n">reveal_type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &#39;builtins.object&#39;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &#39;builtins.object&#39;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &#39;builtins.object&#39;</span>
+</code></pre></div>
+<p>这里会发生什么？</p>
+<ol>
+<li>我们创建一个新变量<code>x</code>并为其分配值<code>a</code></li>
+<li>我们在<code>x</code>上运行<code>is_float()</code>类型保护</li>
+<li>它将<code>x</code>缩小为<code>if</code>上下文中的<code>float</code>，并且不涉及<code>a</code></li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>这同样适用于<code>isinstance(x := a, float)</code>。</p>
 </div>
 </div>
-<p>Sometimes you might need to create a new variable and narrow it
-to some specific type at the same time.
-This can be achieved by using <code>TypeGuard</code> together
-with <a href="https://docs.python.org/3/whatsnew/3.8.html#assignment-expressions">:= operator</a>.</p>
+<div class="tabbed-block">
+<p>Sometimes you might need to create a new variable and narrow it to some specific type at the same time. This can be achieved by using <code>TypeGuard</code> together with <a href="https://docs.python.org/3/whatsnew/3.8.html#assignment-expressions">:= operator</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeGuard</span>  <span class="c1"># use `typing_extensions` for `python&lt;3.10`</span>
 
 <span class="k">def</span> <span class="nf">is_float</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
@@ -1736,13 +1952,16 @@ with <a href="https://docs.python.org/3/whatsnew/3.8.html#assignment-expressions
 <p class="admonition-title">Note</p>
 <p>The same will work with <code>isinstance(x := a, float)</code> as well.</p>
 </div>
+</div>
+</div>
+</div>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
       
         <br>
         创建日期:

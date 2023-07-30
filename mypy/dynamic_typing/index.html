@@ -1319,10 +1319,44 @@
 <p>Operations on Any values</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>You can do anything using a value with type <code>Any</code>, and the type checker
-will not complain:</p>
+<p>您可以使用类型为<code>Any</code>的值执行任何操作，并且类型检查器不会抱怨：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="c1"># 这些都是有效的！</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">foobar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;f&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div>
+<p>从<code>Any</code>值派生的值通常也隐式具有<code>Any</code>类型，因为 mypy 无法推断出更精确的结果类型。 例如，如果您获取<code>Any</code>值的属性或调用<code>Any</code>值，则结果为<code>Any</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="s2">&quot;mypy will let you do anything to y&quot;</span><span class="p">)</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
+</code></pre></div>
+<p>除非您小心，否则<code>Any</code>类型都可能在您的程序中传播，从而降低类型检查的效率。</p>
+<p>没有注释的函数参数也隐式为“Any”：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">can</span><span class="o">.</span><span class="n">do</span><span class="p">[</span><span class="s2">&quot;anything&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">](</span><span class="s2">&quot;wants&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p>您可以使用 <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-disallow-untyped-defs"><code>--disallow-untyped-defs</code></a> 让 mypy 警告您有关无类型函数参数的信息标志。</p>
+<p>缺少类型参数的泛型类型会将这些参数隐式视为<code>Any</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>        <span class="c1"># 揭示的类型是 &quot;builtins.list[Any]&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">anything_goes</span><span class="p">()</span>  <span class="c1"># OK</span>
+</code></pre></div>
+<p>您可以使用 <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-disallow-any-generics"><code>--disallow-any-generics</code></a>让 mypy 警告您有关非类型化函数参数的信息标志。</p>
+<p>最后，<code>Any</code>类型泄漏到程序中的另一个主要来源是来自 mypy 不知道的第三方库。 使用 <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-ignore-missing-imports"><code>--ignore-missing-imports</code></a> 标志时尤其如此。 有关此内容的更多信息，请参阅 <a href="https://mypy.readthedocs.io/en/latest/running_mypy.html#fix-missing-imports"><code>fix-missing-imports</code></a>。</p>
+</div>
+<div class="tabbed-block">
+<p>You can do anything using a value with type <code>Any</code>, and the type checker will not complain:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="c1"># All of these are valid!</span>
     <span class="n">x</span><span class="o">.</span><span class="n">foobar</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
@@ -1332,39 +1366,30 @@ will not complain:</p>
     <span class="nb">open</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">x</span>
 </code></pre></div>
-<p>Values derived from an <code>Any</code> value also usually have the type <code>Any</code>
-implicitly, as mypy can't infer a more precise result type. For
-example, if you get the attribute of an <code>Any</code> value or call a
-<code>Any</code> value the result is <code>Any</code>:</p>
+<p>Values derived from an <code>Any</code> value also usually have the type <code>Any</code> implicitly, as mypy can't infer a more precise result type. For example, if you get the attribute of an <code>Any</code> value or call a <code>Any</code> value the result is <code>Any</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span>
-    <span class="n">reveal_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Any&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="s2">&quot;mypy will let you do anything to y&quot;</span><span class="p">)</span>
-    <span class="n">reveal_type</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Any&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
 </code></pre></div>
-<p><code>Any</code> types may propagate through your program, making type checking
-less effective, unless you are careful.</p>
+<p><code>Any</code> types may propagate through your program, making type checking less effective, unless you are careful.</p>
 <p>Function parameters without annotations are also implicitly <code>Any</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Any&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
     <span class="n">x</span><span class="o">.</span><span class="n">can</span><span class="o">.</span><span class="n">do</span><span class="p">[</span><span class="s2">&quot;anything&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">](</span><span class="s2">&quot;wants&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
-<p>You can make mypy warn you about untyped function parameters using the <code>--disallow-untyped-defs</code> flag.</p>
-<p>Generic types missing type parameters will have those parameters implicitly
-treated as <code>Any</code>:</p>
+<p>You can make mypy warn you about untyped function parameters using the <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-disallow-untyped-defs"><code>--disallow-untyped-defs</code></a> flag.</p>
+<p>Generic types missing type parameters will have those parameters implicitly treated as <code>Any</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
 <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>        <span class="c1"># Revealed type is &quot;builtins.list[Any]&quot;</span>
-    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># Revealed type is &quot;Any&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>        <span class="c1"># 揭示的类型是 &quot;builtins.list[Any]&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>     <span class="c1"># 揭示的类型是 &quot;Any&quot;</span>
     <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">anything_goes</span><span class="p">()</span>  <span class="c1"># OK</span>
 </code></pre></div>
-<p>You can make mypy warn you about untyped function parameters using the
-<code>--disallow-any-generics &lt;mypy --disallow-any-generics&gt;</code> flag.</p>
-<p>Finally, another major source of <code>Any</code> types leaking into your program is from
-third party libraries that mypy does not know about. This is particularly the case
-when using the <code>--ignore-missing-imports &lt;mypy --ignore-missing-imports&gt;</code>
-flag. See <code>fix-missing-imports</code> for more information about this.</p>
+<p>You can make mypy warn you about untyped function parameters using the <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-disallow-any-generics"><code>--disallow-any-generics</code></a> flag.</p>
+<p>Finally, another major source of <code>Any</code> types leaking into your program is from third party libraries that mypy does not know about. This is particularly the case when using the <a href="https://mypy.readthedocs.io/en/latest/command_line.html#cmdoption-mypy-ignore-missing-imports"><code>--ignore-missing-imports</code></a> flag. See <a href="https://mypy.readthedocs.io/en/latest/running_mypy.html#fix-missing-imports"><code>fix-missing-imports</code></a> for more information about this.</p>
 </div>
 </div>
 </div>
@@ -1372,12 +1397,8 @@ flag. See <code>fix-missing-imports</code> for more information about this.</p>
 <p>Any vs. object</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>The type <code>object</code> is another type that can have an instance of arbitrary
-type as a value. Unlike <code>Any</code>, <code>object</code> is an ordinary static type (it
-is similar to <code>Object</code> in Java), and only operations valid for <em>all</em>
-types are accepted for <code>object</code> values. These are all valid:</p>
+<p>类型 <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> 是另一种可以将任意类型的实例作为值的类型。 与 <code>Any</code> 不同，<a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> 是一个普通的静态类型（类似于 Java 中的 <code>Object</code>），并且仅 <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> 值接受对<em>所有</em>类型有效的操作。 这些都是有效的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">o</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
@@ -1385,8 +1406,7 @@ types are accepted for <code>object</code> values. These are all valid:</p>
     <span class="n">o</span> <span class="o">=</span> <span class="mi">2</span>
     <span class="n">o</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span>
 </code></pre></div>
-<p>These are, however, flagged as errors, since not all objects support these
-operations:</p>
+<p>然而，这些被标记为错误，因为并非所有对象都支持这些操作：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">o</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span>       <span class="c1"># Error!</span>
     <span class="n">o</span> <span class="o">+</span> <span class="mi">2</span>         <span class="c1"># Error!</span>
@@ -1394,13 +1414,28 @@ operations:</p>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">o</span>         <span class="c1"># Error!</span>
 </code></pre></div>
-<p>If you're not sure whether you need to use <code>object</code> or <code>Any</code>, use
-<code>object</code> -- only switch to using <code>Any</code> if you get a type checker
-complaint.</p>
-<p>You can use different <code>type narrowing</code>
-techniques to narrow <code>object</code> to a more specific
-type (subtype) such as <code>int</code>. Type narrowing is not needed with
-dynamically typed values (values with type <code>Any</code>).</p>
+<p>如果您不确定是否需要使用<a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>或<code>Any</code>，请使用<a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>——仅当您收到类型检查器投诉时才切换到使用<code>Any</code>。</p>
+<p>您可以使用不同的<a href="../type_narrowing/#类型收缩"><code>类型收缩</code></a>技术来缩小<a href="https://docs.python. org/3/library/functions.html#object"><code>对象</code></a> 转换为更具体的类型（子类型），例如 <code>int</code>。 动态类型值（类型为<code>Any</code>的值）不需要类型缩小。</p>
+</div>
+<div class="tabbed-block">
+<p>The type <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> is another type that can have an instance of arbitrary type as a value. Unlike <code>Any</code>, <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> is an ordinary static type (it is similar to <code>Object</code> in Java), and only operations valid for <em>all</em> types are accepted for <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> values. These are all valid:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">o</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span>
+</code></pre></div>
+<p>These are, however, flagged as errors, since not all objects support these operations:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">o</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">o</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span>       <span class="c1"># Error!</span>
+    <span class="n">o</span> <span class="o">+</span> <span class="mi">2</span>         <span class="c1"># Error!</span>
+    <span class="nb">open</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>       <span class="c1"># Error!</span>
+    <span class="n">n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">o</span>         <span class="c1"># Error!</span>
+</code></pre></div>
+<p>If you're not sure whether you need to use <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> or <code>Any</code>, use <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> -- only switch to using <code>Any</code> if you get a type checker complaint.</p>
+<p>You can use different <a href="../type_narrowing/#类型收缩"><code>type narrowing</code></a> techniques to narrow <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a> to a more specific type (subtype) such as <code>int</code>. Type narrowing is not needed with dynamically typed values (values with type <code>Any</code>).</p>
 </div>
 </div>
 </div>
@@ -1410,7 +1445,7 @@ dynamically typed values (values with type <code>Any</code>).</p>
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
       
         <br>
         创建日期:
