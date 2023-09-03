@@ -1825,7 +1825,24 @@
 <p>The NoReturn type</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Mypy 提供对永不返回的函数的支持。 例如，无条件引发异常的函数：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
+
+<span class="k">def</span> <span class="nf">stop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;no way&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Mypy will ensure that functions annotated as returning <a href="https://docs.python.org/3/library/typing.html#typing.NoReturn"><code>NoReturn</code></a> truly never return, either implicitly or explicitly. Mypy will also recognize that the code after calls to such functions is unreachable and will behave accordingly:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="n">stop</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s1">&#39;whatever works&#39;</span>  <span class="c1"># No error in an unreachable block</span>
+</code></pre></div>
+<p>Mypy 将确保注释为返回 <a href="https://docs.python.org/3/library/typing.html#typing.NoReturn"><code>NoReturn</code></a> 的函数真正永远不会返回，无论是隐式还是显式。 Mypy 还会识别出调用此类函数后的代码是无法访问的，并会做出相应的行为：</p>
+<div class="highlight"><pre><span></span><code>python3 -m pip install --upgrade typing-extensions
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>Mypy provides support for functions that never return. For example, a function that unconditionally raises an exception:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
@@ -1833,14 +1850,14 @@
 <span class="k">def</span> <span class="nf">stop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;no way&#39;</span><span class="p">)</span>
 </code></pre></div>
-<p>Mypy will ensure that functions annotated as returning <code>~typing.NoReturn</code> truly never return, either implicitly or explicitly. Mypy will also recognize that the code after calls to such functions is unreachable and will behave accordingly:</p>
+<p>Mypy will ensure that functions annotated as returning <a href="https://docs.python.org/3/library/typing.html#typing.NoReturn"><code>NoReturn</code></a> truly never return, either implicitly or explicitly. Mypy will also recognize that the code after calls to such functions is unreachable and will behave accordingly:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span>
     <span class="n">stop</span><span class="p">()</span>
     <span class="k">return</span> <span class="s1">&#39;whatever works&#39;</span>  <span class="c1"># No error in an unreachable block</span>
 </code></pre></div>
-<p>In earlier Python versions you need to install <code>typing_extensions</code> using pip to use <code>~typing.NoReturn</code> in your code. Python 3 command line:</p>
+<p>In earlier Python versions you need to install <code>typing_extensions</code> using pip to use <a href="https://docs.python.org/3/library/typing.html#typing.NoReturn"><code>NoReturn</code></a> in your code. Python 3 command line:</p>
 <div class="highlight"><pre><span></span><code>python3 -m pip install --upgrade typing-extensions
 </code></pre></div>
 </div>
@@ -1850,7 +1867,79 @@
 <p>NewTypes</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>在某些情况下，您可能希望通过创建仅用于区分某些值与基类实例的简单派生类来避免编程错误。 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UserId</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">get_by_user_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="n">UserId</span><span class="p">):</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>然而，这种方法引入了一些运行时开销。 为了避免这种情况，类型模块提供了一个辅助对象 “NewType”，它创建简单的唯一类型，运行时开销几乎为零。 
+Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致相当于以下定义：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_x</span><span class="p">:</span> <span class="n">Base</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="o">...</span>
+</code></pre></div>
+<p>但是，在运行时， <code>NewType('Derived', Base)</code> 将返回一个虚拟可调用对象，该可调用对象仅返回其参数：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">Derived</span><span class="p">(</span><span class="n">_x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_x</span>
+</code></pre></div>
+<p>Mypy 将需要从需要 “UserId” 的 “int” 显式转换，而需要“int”的地方从“UserId”隐式转换。 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NewType</span>
+
+<span class="n">UserId</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;UserId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">name_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="n">UserId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="n">UserId</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">)</span>          <span class="c1"># Fails type check</span>
+
+<span class="n">name_by_id</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>          <span class="c1"># Fails type check</span>
+<span class="n">name_by_id</span><span class="p">(</span><span class="n">UserId</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># OK</span>
+
+<span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">UserId</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</code></pre></div>
+<p><code>NewType</code> 只接受两个参数。 第一个参数必须是包含新类型名称的字符串文字，并且必须等于分配新类型的变量的名称。 第二个参数必须是一个正确的可子类，即不是像 <a href="https://docs.python.org/3/library/typing.html#typing.Union"><code>Union</code></a> 等类型构造。</p>
+<p><code>NewType</code> 返回的可调用对象仅接受一个参数； 这相当于只支持一个接受基类实例的构造函数（见上文）。 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NewType</span>
+
+<span class="k">class</span> <span class="nc">PacketId</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">major</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">minor</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_major</span> <span class="o">=</span> <span class="n">major</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_minor</span> <span class="o">=</span> <span class="n">minor</span>
+
+<span class="n">TcpPacketId</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;TcpPacketId&#39;</span><span class="p">,</span> <span class="n">PacketId</span><span class="p">)</span>
+
+<span class="n">packet</span> <span class="o">=</span> <span class="n">PacketId</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">tcp_packet</span> <span class="o">=</span> <span class="n">TcpPacketId</span><span class="p">(</span><span class="n">packet</span><span class="p">)</span>  <span class="c1"># OK</span>
+
+<span class="n">tcp_packet</span> <span class="o">=</span> <span class="n">TcpPacketId</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Fails in type checker and at runtime</span>
+</code></pre></div>
+<p>您不能使用 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 或 <a href="https://docs.python.org/3/library/function.html#issubclass"><code>issubclass</code></a> 在 <code>NewType</code> 返回的对象上，也不能对 <code>NewType</code> 返回的对象进行子类化。</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>与类型别名不同，“NewType” 在使用时将创建一个全新且唯一的类型。 <code>NewType</code> 的预期目的是帮助您检测意外地将旧基本类型和新派生类型混合在一起的情况。</p>
+<p>例如，使用类型别名时，以下内容将成功进行类型检查：</p>
+<div class="highlight"><pre><span></span><code><span class="n">UserId</span> <span class="o">=</span> <span class="nb">int</span>
+
+<span class="k">def</span> <span class="nf">name_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="n">UserId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="n">name_by_id</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># int 和 UserId 是同义词</span>
+</code></pre></div>
+<p>但使用 <code>NewType</code> 的类似示例不会进行类型检查：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NewType</span>
+
+<span class="n">UserId</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s1">&#39;UserId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">name_by_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">:</span> <span class="n">UserId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="o">...</span>
+
+<span class="n">name_by_id</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># int 与 UserId 不同</span>
+</code></pre></div>
+</div>
+</div>
 <div class="tabbed-block">
 <p>There are situations where you may want to avoid programming errors by creating simple derived classes that are only used to distinguish certain values from base class instances. Example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">UserId</span><span class="p">(</span><span class="nb">int</span><span class="p">):</span>
@@ -1883,7 +1972,7 @@
 
 <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">UserId</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </code></pre></div>
-<p><code>NewType</code> accepts exactly two arguments. The first argument must be a string literal containing the name of the new type and must equal the name of the variable to which the new type is assigned. The second argument must be a properly subclassable class, i.e., not a type construct like <code>~typing.Union</code>, etc.</p>
+<p><code>NewType</code> accepts exactly two arguments. The first argument must be a string literal containing the name of the new type and must equal the name of the variable to which the new type is assigned. The second argument must be a properly subclassable class, i.e., not a type construct like <a href="https://docs.python.org/3/library/typing.html#typing.Union"><code>Union</code></a>, etc.</p>
 <p>The callable returned by <code>NewType</code> accepts only one argument; this is equivalent to supporting only one constructor accepting an instance of the base class (see above). Example:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NewType</span>
 
@@ -1899,7 +1988,7 @@
 
 <span class="n">tcp_packet</span> <span class="o">=</span> <span class="n">TcpPacketId</span><span class="p">(</span><span class="mi">127</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Fails in type checker and at runtime</span>
 </code></pre></div>
-<p>You cannot use <code>isinstance</code> or <code>issubclass</code> on the object returned by <code>~typing.NewType</code>, nor can you subclass an object returned by <code>~typing.NewType</code>.</p>
+<p>You cannot use <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> or <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a> on the object returned by <code>NewType</code>, nor can you subclass an object returned by <code>NewType</code>.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
 <p>Unlike type aliases, <code>NewType</code> will create an entirely new and unique type when used. The intended purpose of <code>NewType</code> is to help you detect cases where you accidentally mixed together the old base type and the new derived type.</p>
@@ -1929,9 +2018,95 @@
 <p>Function overloading</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>Sometimes the arguments and types in a function depend on each other in ways that can't be captured with a <code>~typing.Union</code>. For example, suppose we want to write a function that can accept x-y coordinates. If we pass in just a single x-y coordinate, we return a <code>ClickEvent</code> object. However, if we pass in two x-y coordinates, we return a <code>DragEvent</code> object.</p>
+<p>有时，函数中的参数和类型彼此依赖，而无法使用 <a href="https://docs.python.org/3/library/typing.html#typing.Union"><code>Union</code></a> 捕获 。 例如，假设我们要编写一个可以接受 x-y 坐标的函数。 如果我们只传入一个 x-y 坐标，我们将返回一个 “ClickEvent” 对象。 但是，如果我们传入两个 x-y 坐标，我们将返回一个 “DragEvent” 对象。</p>
+<p>我们第一次尝试编写这个函数可能如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="k">def</span> <span class="nf">mouse_event</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">x2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">y2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ClickEvent</span><span class="p">,</span> <span class="n">DragEvent</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">x2</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ClickEvent</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DragEvent</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Bad arguments&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>虽然这个函数签名有效，但它太松散了：它意味着无论我们传入的参数数量如何，“mouse_event” 都可以返回任一对象。它也不禁止调用者传入错误数量的整数：mypy 会像这样对待调用 例如，“mouse_event(1, 2, 20)” 是有效的。</p>
+<p>我们可以通过使用 <a href="https://peps.python.org/pep-0484/#function-method-overloading"><code>overloading</code></a> 做得更好，它可以让我们为同一个函数提供多个类型注释（签名）以更准确地描述函数的行为：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="c1"># 重载“mouse_event”的*变体*。</span>
+<span class="c1"># 这些变体为类型检查器提供了额外的信息。</span>
+<span class="c1"># 它们在运行时被忽略。</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">mouse_event</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ClickEvent</span><span class="p">:</span> <span class="o">...</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">mouse_event</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y2</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DragEvent</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="c1"># “mouse_event”的实际*实现*。</span>
+<span class="c1"># 实现包含实际的运行时逻辑。</span>
+<span class="c1">#</span>
+<span class="c1"># 它可能有也可能没有类型提示。 如果是，mypy 将根据类型提示检查实现的主体。</span>
+<span class="c1">#</span>
+<span class="c1"># Mypy 还将检查并确保签名与提供的变体一致。</span>
+
+<span class="k">def</span> <span class="nf">mouse_event</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                <span class="n">x2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">y2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">ClickEvent</span><span class="p">,</span> <span class="n">DragEvent</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">x2</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y2</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ClickEvent</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">x2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">y2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DragEvent</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Bad arguments&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>这使得 mypy 能够更准确地理解对 “mouse_event” 的调用。 例如，mypy 将理解 “mouse_event(5, 25)” 将始终具有 “ClickEvent” 的返回类型，并将报告 “mouse_event(5, 25, 2)” 等调用的错误。</p>
+<p>另一个例子，假设我们要编写一个自定义容器类来实现 <a href="https://docs.python.org/3/reference/datamodel.html#object.__getitem__"><code>__getitem__</code></a> 方法 (<code>[]</code> 括号索引）。 如果此方法接收到一个整数，我们将返回一个项目。 如果它收到一个“切片”，我们将返回一个项目的<a href="https://docs.python.org/3/library/typing.html#typing.Sequence">“序列”</a>。</p>
+<p>我们可以通过使用重载来精确编码参数和返回类型之间的关系，如下所示：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MyList</span><span class="p">(</span><span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">slice</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">slice</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">T</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">T</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="c1"># Return a T here</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="c1"># Return a sequence of Ts here</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>如果您只需要将类型变量限制为某些类型或子类型，则可以使用<a href="https://mypy.readthedocs.io/en/stable/generics.html#type-variable-value-restriction"><code>值限制</code></a>。</p>
+</div>
+<p>函数参数的默认值不会影响其签名——只有默认值的缺失或存在才会影响。 因此，为了减少冗余，可以用“...”作为占位符来替换重载定义中的默认值：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span>
+
+<span class="k">class</span> <span class="nc">M</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">model_or_pk</span><span class="p">:</span> <span class="n">M</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">M</span><span class="p">:</span> <span class="o">...</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">model_or_pk</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">M</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">model_or_pk</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">M</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">M</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Sometimes the arguments and types in a function depend on each other in ways that can't be captured with a <a href="https://docs.python.org/3/library/typing.html#typing.Union"><code>Union</code></a>. For example, suppose we want to write a function that can accept x-y coordinates. If we pass in just a single x-y coordinate, we return a <code>ClickEvent</code> object. However, if we pass in two x-y coordinates, we return a <code>DragEvent</code> object.</p>
 <p>Our first attempt at writing this function might look like this:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
 
@@ -1947,7 +2122,7 @@
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Bad arguments&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>While this function signature works, it's too loose: it implies <code>mouse_event</code> could return either object regardless of the number of arguments we pass in. It also does not prohibit a caller from passing in the wrong number of ints: mypy would treat calls like <code>mouse_event(1, 2, 20)</code> as being valid, for example.</p>
-<p>We can do better by using {pep}<code>overloading &lt;484#function-method-overloading&gt;</code> which lets us give the same function multiple type annotations (signatures) to more accurately describe the function's behavior:</p>
+<p>We can do better by using <a href="https://peps.python.org/pep-0484/#function-method-overloading"><code>overloading</code></a> which lets us give the same function multiple type annotations (signatures) to more accurately describe the function's behavior:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="c1"># Overload *variants* for &#39;mouse_event&#39;.</span>
@@ -1981,7 +2156,7 @@
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Bad arguments&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>This allows mypy to understand calls to <code>mouse_event</code> much more precisely. For example, mypy will understand that <code>mouse_event(5, 25)</code> will always have a return type of <code>ClickEvent</code> and will report errors for calls like <code>mouse_event(5, 25, 2)</code>.</p>
-<p>As another example, suppose we want to write a custom container class that implements the {py:meth}<code>__getitem__ &lt;object.__getitem__&gt;</code> method (<code>[]</code> bracket indexing). If this method receives an integer we return a single item. If it receives a <code>slice</code>, we return a {py:class}<code>~typing.Sequence</code> of items.</p>
+<p>As another example, suppose we want to write a custom container class that implements the <a href="https://docs.python.org/3/reference/datamodel.html#object.__getitem__"><code>__getitem__</code></a> method (<code>[]</code> bracket indexing). If this method receives an integer we return a single item. If it receives a <code>slice</code>, we return a <a href="https://docs.python.org/3/library/typing.html#typing.Sequence"><code>Sequence</code></a> of items.</p>
 <p>We can precisely encode this relationship between the argument and the return type by using overloads like so:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
 
@@ -2004,7 +2179,7 @@
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>If you just need to constrain a type variable to certain types or subtypes, you can use a <code>value restriction</code>.</p>
+<p>If you just need to constrain a type variable to certain types or subtypes, you can use a <a href="https://mypy.readthedocs.io/en/stable/generics.html#type-variable-value-restriction"><code>value restriction</code></a>.</p>
 </div>
 <p>The default values of a function's arguments don't affect its signature -- only the absence or presence of a default value does. So in order to reduce redundancy, it's possible to replace default values in overload definitions with <code>...</code> as a placeholder:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span>
@@ -2026,11 +2201,20 @@
 <p>Runtime behavior</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>重载函数必须由两个或多个重载<em>变体</em>组成，后跟一个<em>实现</em>。 变体和实现在代码中必须相邻：将它们视为一个不可分割的单元。</p>
+<p>变体主体必须全部为空； 仅允许实现包含代码。 这是因为在运行时，变体被完全忽略：它们被最终的实现函数覆盖。</p>
+<p>这意味着重载函数仍然是普通的Python函数！ 没有自动调度处理，您必须手动处理实现中的不同类型（例如，通过使用 <code>if</code> 语句和 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 检查)。</p>
+<p>如果要在存根文件中添加重载，则应省略实现函数：存根不包含运行时逻辑。</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>虽然我们可以使用 “pass” 关键字将变体主体留空，但更常见的约定是使用省略号（“...”）文字。</p>
+</div>
+</div>
 <div class="tabbed-block">
 <p>An overloaded function must consist of two or more overload <em>variants</em> followed by an <em>implementation</em>. The variants and the implementations must be adjacent in the code: think of them as one indivisible unit.</p>
 <p>The variant bodies must all be empty; only the implementation is allowed to contain code. This is because at runtime, the variants are completely ignored: they're overridden by the final implementation function.</p>
-<p>This means that an overloaded function is still an ordinary Python function! There is no automatic dispatch handling and you must manually handle the different types in the implementation (e.g. by using <code>if</code> statements and <code>isinstance &lt;isinstance&gt;</code> checks).</p>
+<p>This means that an overloaded function is still an ordinary Python function! There is no automatic dispatch handling and you must manually handle the different types in the implementation (e.g. by using <code>if</code> statements and <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> checks).</p>
 <p>If you are adding an overload within a stub file, the implementation function should be omitted: stubs do not contain runtime logic.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
@@ -2043,7 +2227,53 @@
 <p>Type checking calls to overloads</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>当您调用重载函数时，mypy 将在考虑参数类型和数量后，通过选择最佳匹配变体来推断正确的返回类型。 然而，调用永远不会根据实现进行类型检查。 这就是为什么 mypy 会报告像 “mouse_event(5, 25, 3)” 这样的调用无效，即使它与实现签名匹配。</p>
+<p>如果有多个同样好的匹配变体，mypy 将选择最先定义的变体。 例如，考虑以下程序：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For Python 3.8 and below you must use `typing.List` instead of `list`. e.g.</span>
+<span class="c1"># from typing import List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">summarize</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># Do int specific code</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Do str-specific code</span>
+
+<span class="c1"># What is the type of &#39;output&#39;? float or str?</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">([])</span>
+</code></pre></div>
+<p><code>summarize([])</code> 调用匹配两种变体：空列表可以是 <code>list[int]</code> 或 <code>list[str]</code>。 在这种情况下，mypy 将通过选择第一个匹配的变体来打破平局：“output” 将具有 “float” 的推断类型。 实现者负责确保 “summarize” 在运行时以相同的方式打破联系。</p>
+<p>但是，“选择第一个匹配项” 规则有两个例外。 首先，如果由于参数类型为“Any”而导致多个变体匹配，则 mypy 将使推断类型也为“Any”：</p>
+<div class="highlight"><pre><span></span><code><span class="n">dynamic_var</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">some_dynamic_function</span><span class="p">()</span>
+
+<span class="c1"># output2 is of type &#39;Any&#39;</span>
+<span class="n">output2</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">(</span><span class="n">dynamic_var</span><span class="p">)</span>
+</code></pre></div>
+<p>其次，如果由于一个或多个参数是联合而导致多个变体匹配，则 mypy 将使推断类型成为匹配变体返回的并集：</p>
+<div class="highlight"><pre><span></span><code><span class="n">some_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+
+<span class="c1"># output3 is of type &#39;Union[float, str]&#39;</span>
+<span class="n">output3</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">(</span><span class="n">some_list</span><span class="p">)</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>由于“选择第一个匹配”规则，更改重载变体的顺序可以更改 mypy 类型检查程序的方式。</p>
+<p>为了尽量减少潜在问题，我们建议您：</p>
+<ol>
+<li>确保您的重载变体以与实现中运行时检查（例如 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 检查）相同的顺序列出。</li>
+<li>按照从最具体到最不具体的顺序对变体和运行时检查进行排序。（有关示例，请参阅以下部分）。</li>
+</ol>
+</div>
+</div>
 <div class="tabbed-block">
 <p>When you call an overloaded function, mypy will infer the correct return type by picking the best matching variant, after taking into consideration both the argument types and arity. However, a call is never type checked against the implementation. This is why mypy will report calls like <code>mouse_event(5, 25, 3)</code> as being invalid even though it matches the implementation signature.</p>
 <p>If there are multiple equally good matching variants, mypy will select the variant that was defined first. For example, consider the following program:</p>
@@ -2087,7 +2317,7 @@
 <p>To minimize potential issues, we recommend that you:</p>
 <ol>
 <li>Make sure your overload variants are listed in the same order as
-the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in your implementation.</li>
+the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> checks) in your implementation.</li>
 <li>Order your variants and runtime checks from most to least specific.
 (See the following section for an example).</li>
 </ol>
@@ -2099,7 +2329,6 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Type checking the variants</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
 <p>Mypy will perform several checks on your overload variant definitions to ensure they behave as expected. First, mypy will check and make sure that no overload variant is shadowing a subsequent one. For example, consider the following function which adds together two <code>Expression</code> objects, and contains a special-case to handle receiving two <code>Literal</code> types:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
@@ -2154,7 +2383,76 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <div class="highlight"><pre><span></span><code><span class="n">some_obj</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">unsafe_func</span><span class="p">(</span><span class="n">some_obj</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; danger danger&quot;</span>  <span class="c1"># Type checks, yet crashes at runtime!</span>
 </code></pre></div>
-<p>Since <code>some_obj</code> is of type {py:class}<code>object</code>, mypy will decide that <code>unsafe_func</code> must return something of type <code>str</code> and concludes the above will type check. But in reality, <code>unsafe_func</code> will return an int, causing the code to crash at runtime!</p>
+<p>Since <code>some_obj</code> is of type <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>, mypy will decide that <code>unsafe_func</code> must return something of type <code>str</code> and concludes the above will type check. But in reality, <code>unsafe_func</code> will return an int, causing the code to crash at runtime!</p>
+<p>To prevent these kinds of issues, mypy will detect and prohibit inherently unsafely overlapping overloads on a best-effort basis. Two variants are considered unsafely overlapping when both of the following are true:</p>
+<ol>
+<li>All of the arguments of the first variant are compatible with the second.</li>
+<li>The return type of the first variant is <em>not</em> compatible with (e.g. is not a subtype of) the second.</li>
+</ol>
+<p>So in this example, the <code>int</code> argument in the first variant is a subtype of the <code>object</code> argument in the second, yet the <code>int</code> return type is not a subtype of <code>str</code>. Both conditions are true, so mypy will correctly flag <code>unsafe_func</code> as being unsafe.</p>
+<p>However, mypy will not detect <em>all</em> unsafe uses of overloads. For example, suppose we modify the above snippet so it calls <code>summarize</code> instead of <code>unsafe_func</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">some_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">summarize</span><span class="p">(</span><span class="n">some_list</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;danger danger&quot;</span>  <span class="c1"># Type safe, yet crashes at runtime!</span>
+</code></pre></div>
+<p>We run into a similar issue here. This program type checks if we look just at the annotations on the overloads. But since <code>summarize(...)</code> is designed to be biased towards returning a float when it receives an empty list, this program will actually crash during runtime.</p>
+<p>The reason mypy does not flag definitions like <code>summarize</code> as being potentially unsafe is because if it did, it would be extremely difficult to write a safe overload. For example, suppose we define an overload with two variants that accept types <code>A</code> and <code>B</code> respectively. Even if those two types were completely unrelated, the user could still potentially trigger a runtime error similar to the ones above by passing in a value of some third type <code>C</code> that inherits from both <code>A</code> and <code>B</code>.</p>
+<p>Thankfully, these types of situations are relatively rare. What this does mean, however, is that you should exercise caution when designing or using an overloaded function that can potentially receive values that are an instance of two seemingly unrelated types.</p>
+</div>
+<div class="tabbed-block">
+<p>Mypy will perform several checks on your overload variant definitions to ensure they behave as expected. First, mypy will check and make sure that no overload variant is shadowing a subsequent one. For example, consider the following function which adds together two <code>Expression</code> objects, and contains a special-case to handle receiving two <code>Literal</code> types:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="k">class</span> <span class="nc">Expression</span><span class="p">:</span>
+    <span class="c1"># ...snip...</span>
+
+<span class="k">class</span> <span class="nc">Literal</span><span class="p">(</span><span class="n">Expression</span><span class="p">):</span>
+    <span class="c1"># ...snip...</span>
+
+<span class="c1"># Warning -- the first overload variant shadows the second!</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Literal</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span>
+    <span class="c1"># ...snip...</span>
+</code></pre></div>
+<p>While this code snippet is technically type-safe, it does contain an anti-pattern: the second variant will never be selected! If we try calling <code>add(Literal(3), Literal(4))</code>, mypy will always pick the first variant and evaluate the function call to be of type <code>Expression</code>, not <code>Literal</code>. This is because <code>Literal</code> is a subtype of <code>Expression</code>, which means the "pick the first match" rule will always halt after considering the first overload.</p>
+<p>Because having an overload variant that can never be matched is almost certainly a mistake, mypy will report an error. To fix the error, we can either 1) delete the second overload or 2) swap the order of the overloads:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Everything is ok now -- the variants are correctly ordered</span>
+<span class="c1"># from most to least specific.</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Literal</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Literal</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span>
+    <span class="c1"># ...snip...</span>
+</code></pre></div>
+<p>Mypy will also type check the different variants and flag any overloads that have inherently unsafely overlapping variants. For example, consider the following unsafe overload definition:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">unsafe_func</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">unsafe_func</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">unsafe_func</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">42</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;some string&quot;</span>
+</code></pre></div>
+<p>On the surface, this function definition appears to be fine. However, it will result in a discrepancy between the inferred type and the actual runtime type when we try using it like so:</p>
+<div class="highlight"><pre><span></span><code><span class="n">some_obj</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">unsafe_func</span><span class="p">(</span><span class="n">some_obj</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; danger danger&quot;</span>  <span class="c1"># Type checks, yet crashes at runtime!</span>
+</code></pre></div>
+<p>Since <code>some_obj</code> is of type <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>, mypy will decide that <code>unsafe_func</code> must return something of type <code>str</code> and concludes the above will type check. But in reality, <code>unsafe_func</code> will return an int, causing the code to crash at runtime!</p>
 <p>To prevent these kinds of issues, mypy will detect and prohibit inherently unsafely overlapping overloads on a best-effort basis. Two variants are considered unsafely overlapping when both of the following are true:</p>
 <ol>
 <li>All of the arguments of the first variant are compatible with the second.</li>
@@ -2175,9 +2473,18 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Type checking the implementation</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>The body of an implementation is type-checked against the type hints provided on the implementation. For example, in the <code>MyList</code> example up above, the code in the body is checked with argument list <code>index: Union[int, slice]</code> and a return type of <code>Union[T, Sequence[T]]</code>. If there are no annotations on the implementation, then the body is not type checked. If you want to force mypy to check the body anyways, use the {option}<code>--check-untyped-defs &lt;mypy --check-untyped-defs&gt;</code> flag (<code>more details here &lt;untyped-definitions-and-calls&gt;</code>).</p>
+<p>The body of an implementation is type-checked against the type hints provided on the implementation. For example, in the <code>MyList</code> example up above, the code in the body is checked with argument list <code>index: Union[int, slice]</code> and a return type of <code>Union[T, Sequence[T]]</code>. If there are no annotations on the implementation, then the body is not type checked. If you want to force mypy to check the body anyways, use the <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs"><code>--check-untyped-defs</code></a> flag (<a href="https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls"><code>more details here</code></a>).</p>
+<p>The variants must also also be compatible with the implementation type hints. In the <code>MyList</code> example, mypy will check that the parameter type <code>int</code> and the return type <code>T</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code> for the first variant. For the second variant it verifies the parameter type <code>slice</code> and the return type <code>Sequence[T]</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>The overload semantics documented above are new as of mypy 0.620.</p>
+<p>Previously, mypy used to perform type erasure on all overload variants. For example, the <code>summarize</code> example from the previous section used to be illegal because <code>list[str]</code> and <code>list[int]</code> both erased to just <code>list[Any]</code>. This restriction was removed in mypy 0.620.</p>
+<p>Mypy also previously used to select the best matching variant using a different algorithm. If this algorithm failed to find a match, it would default to returning <code>Any</code>. The new algorithm uses the "pick the first match" rule and will fall back to returning <code>Any</code> only if the input arguments also contain <code>Any</code>.</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p>The body of an implementation is type-checked against the type hints provided on the implementation. For example, in the <code>MyList</code> example up above, the code in the body is checked with argument list <code>index: Union[int, slice]</code> and a return type of <code>Union[T, Sequence[T]]</code>. If there are no annotations on the implementation, then the body is not type checked. If you want to force mypy to check the body anyways, use the <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs"><code>--check-untyped-defs</code></a> flag (<a href="https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls"><code>more details here</code></a>).</p>
 <p>The variants must also also be compatible with the implementation type hints. In the <code>MyList</code> example, mypy will check that the parameter type <code>int</code> and the return type <code>T</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code> for the first variant. For the second variant it verifies the parameter type <code>slice</code> and the return type <code>Sequence[T]</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code>.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
@@ -2192,12 +2499,11 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Conditional overloads</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
 <p>Sometimes it is useful to define overloads conditionally. Common use cases include types that are unavailable at runtime or that only exist in a certain Python version. All existing overload rules still apply. For example, there must be at least two overloads.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>Mypy can only infer a limited number of conditions. Supported ones currently include <code>~typing.TYPE_CHECKING</code>, <code>MYPY</code>, <code>version_and_platform_checks</code>, {option}<code>--always-true &lt;mypy --always-true&gt;</code>, and {option}<code>--always-false &lt;mypy --always-false&gt;</code> values.</p>
+<p>Mypy can only infer a limited number of conditions. Supported ones currently include <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING"><code>TYPE_CHECKING</code></a>, <code>MYPY</code>, <a href="https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks"><code>version_and_platform_checks</code></a>, <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true"><code>--always-true</code></a>, and <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false"><code>--always-false</code></a> values.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
 
@@ -2256,7 +2562,95 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>In the last example, mypy is executed with {option}<code>--python-version 3.10 &lt;mypy --python-version&gt;</code>.</p>
+<p>In the last example, mypy is executed with <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version"><code>--python-version 3.10</code></a>.</p>
+<p>Therefore, the condition <code>sys.version_info &gt;= (3, 10)</code> will match and the overload for <code>B</code> will be added.</p>
+<p>The overloads for <code>A</code> and <code>C</code> are ignored!</p>
+<p>The overload for <code>D</code> is not defined conditionally and thus is also added.</p>
+</div>
+<p>When mypy cannot infer a condition to be always <code>True</code> or always <code>False</code>, an error is emitted.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span> <span class="o">...</span>
+
+
+<span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">bool_var</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">bool_var</span><span class="p">:</span>  <span class="c1"># Condition can&#39;t be inferred, unable to merge overloads</span>
+        <span class="nd">@overload</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="p">:</span> <span class="o">...</span>
+
+        <span class="nd">@overload</span>
+        <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">A</span><span class="p">()))</span>  <span class="c1"># Revealed type is &quot;Any&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Sometimes it is useful to define overloads conditionally. Common use cases include types that are unavailable at runtime or that only exist in a certain Python version. All existing overload rules still apply. For example, there must be at least two overloads.</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>Mypy can only infer a limited number of conditions. Supported ones currently include <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING"><code>TYPE_CHECKING</code></a>, <code>MYPY</code>, <a href="https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks"><code>version_and_platform_checks</code></a>, <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true"><code>--always-true</code></a>, and <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false"><code>--always-false</code></a> values.</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">class</span> <span class="nc">B</span><span class="p">:</span> <span class="o">...</span>
+
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">A</span><span class="p">()))</span>  <span class="c1"># Revealed type is &quot;A&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># flags: --python-version 3.10</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span> <span class="nc">B</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span> <span class="nc">D</span><span class="p">:</span> <span class="o">...</span>
+
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">):</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">A</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">elif</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">B</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">C</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">C</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">D</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">var</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">B</span><span class="p">()))</span>  <span class="c1"># Revealed type is &quot;B&quot;</span>
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">C</span><span class="p">()))</span>  <span class="c1"># No overload variant of &quot;func&quot; matches argument type &quot;C&quot;</span>
+    <span class="c1"># Possible overload variants:</span>
+    <span class="c1">#     def func(var: B) -&gt; B</span>
+    <span class="c1">#     def func(var: D) -&gt; D</span>
+    <span class="c1"># Revealed type is &quot;Any&quot;</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>In the last example, mypy is executed with <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version"><code>--python-version 3.10</code></a>.</p>
 <p>Therefore, the condition <code>sys.version_info &gt;= (3, 10)</code> will match and the overload for <code>B</code> will be added.</p>
 <p>The overloads for <code>A</code> and <code>C</code> are ignored!</p>
 <p>The overload for <code>D</code> is not defined conditionally and thus is also added.</p>
@@ -2287,7 +2681,9 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Advanced uses of self-types</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Normally, mypy doesn't require annotations for the first arguments of instance and class methods. However, they may be needed to have more precise static typing for certain programming patterns.</p>
+</div>
 <div class="tabbed-block">
 <p>Normally, mypy doesn't require annotations for the first arguments of instance and class methods. However, they may be needed to have more precise static typing for certain programming patterns.</p>
 </div>
@@ -2297,7 +2693,6 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Restricted methods in generic classes</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
 <p>In generic classes some methods may be allowed to be called only for certain values of type arguments:</p>
 <div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
@@ -2342,7 +2737,53 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span>
         <span class="k">return</span> <span class="n">converter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre></div>
-<p>In particular, an {py:meth}<code>~object.__init__</code> method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. {py:class}<code>~subprocess.Popen</code>.</p>
+<p>In particular, an <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. <a href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen"><code>Popen</code></a>.</p>
+</div>
+<div class="tabbed-block">
+<p>In generic classes some methods may be allowed to be called only for certain values of type arguments:</p>
+<div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">item</span><span class="p">:</span> <span class="n">T</span>
+    <span class="k">def</span> <span class="nf">uppercase_item</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Tag</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="n">ti</span><span class="p">:</span> <span class="n">Tag</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">ts</span><span class="p">:</span> <span class="n">Tag</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">ti</span><span class="o">.</span><span class="n">uppercase_item</span><span class="p">()</span>  <span class="c1"># E: Invalid self argument &quot;Tag[int]&quot; to attribute function</span>
+                        <span class="c1"># &quot;uppercase_item&quot; with type &quot;Callable[[Tag[str]], str]&quot;</span>
+    <span class="n">ts</span><span class="o">.</span><span class="n">uppercase_item</span><span class="p">()</span>  <span class="c1"># This is OK</span>
+</code></pre></div>
+<p>This pattern also allows matching on nested types in situations where the type argument is itself generic:</p>
+<div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Storage</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="k">def</span> <span class="nf">first_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Storage</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">S</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">page</span><span class="p">:</span> <span class="n">Storage</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
+<span class="n">page</span><span class="o">.</span><span class="n">first_chunk</span><span class="p">()</span>  <span class="c1"># OK, type is &quot;str&quot;</span>
+
+<span class="n">Storage</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">first_chunk</span><span class="p">()</span>  <span class="c1"># Error: Invalid self argument &quot;Storage[int]&quot; to attribute function</span>
+                        <span class="c1"># &quot;first_chunk&quot; with type &quot;Callable[[Storage[Sequence[S]]], S]&quot;</span>
+</code></pre></div>
+<p>Finally, one can use overloads on self-type to express precise types of some tricky methods:</p>
+<div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Tag</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+    <span class="nd">@overload</span>
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">converter</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span> <span class="nf">export</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">converter</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span>
+        <span class="k">return</span> <span class="n">converter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
+</code></pre></div>
+<p>In particular, an <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. <a href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen"><code>Popen</code></a>.</p>
 </div>
 </div>
 </div>
@@ -2350,7 +2791,36 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Mixin classes</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">中文</label><label for="__tabbed_12_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Using host class protocol as a self-type in mixin methods allows more code re-usability for static typing of mixin classes. For example, one can define a protocol that defines common functionality for host classes instead of adding required abstract methods to every mixin:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Lockable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lock</span><span class="p">:</span> <span class="o">...</span>
+
+<span class="k">class</span> <span class="nc">AtomicCloseMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">atomic_close</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Lockable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="c1"># perform actions</span>
+
+<span class="k">class</span> <span class="nc">AtomicOpenMixin</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">atomic_open</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">Lockable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="c1"># perform actions</span>
+
+<span class="k">class</span> <span class="nc">File</span><span class="p">(</span><span class="n">AtomicCloseMixin</span><span class="p">,</span> <span class="n">AtomicOpenMixin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">Lock</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nc">Bad</span><span class="p">(</span><span class="n">AtomicCloseMixin</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="n">File</span><span class="p">()</span>
+<span class="n">b</span><span class="p">:</span> <span class="n">Bad</span>
+<span class="n">f</span><span class="o">.</span><span class="n">atomic_close</span><span class="p">()</span>  <span class="c1"># OK</span>
+<span class="n">b</span><span class="o">.</span><span class="n">atomic_close</span><span class="p">()</span>  <span class="c1"># Error: Invalid self type for &quot;atomic_close&quot;</span>
+</code></pre></div>
+<p>Note that the explicit self-type is <em>required</em> to be a protocol whenever it is not a supertype of the current class. In this case mypy will check the validity of the self-type only at the call site.</p>
+</div>
 <div class="tabbed-block">
 <p>Using host class protocol as a self-type in mixin methods allows more code re-usability for static typing of mixin classes. For example, one can define a protocol that defines common functionality for host classes instead of adding required abstract methods to every mixin:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Lockable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
@@ -2387,7 +2857,29 @@ the runtime checks (e.g. <code>isinstance &lt;isinstance&gt;</code> checks) in y
 <p>Precise typing of alternative constructors</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">中文</label><label for="__tabbed_13_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Some classes may define alternative constructors. If these
+classes are generic, self-type allows giving them precise signatures:</p>
+<div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;Q&#39;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s1">&#39;Base[T]&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">make_pair</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Q</span><span class="p">],</span> <span class="n">item</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Q</span><span class="p">,</span> <span class="n">Q</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">item</span><span class="p">),</span> <span class="bp">cls</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="o">...</span>
+
+<span class="n">pair</span> <span class="o">=</span> <span class="n">Sub</span><span class="o">.</span><span class="n">make_pair</span><span class="p">(</span><span class="s1">&#39;yes&#39;</span><span class="p">)</span>  <span class="c1"># Type is &quot;tuple[Sub[str], Sub[str]]&quot;</span>
+<span class="n">bad</span> <span class="o">=</span> <span class="n">Sub</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">.</span><span class="n">make_pair</span><span class="p">(</span><span class="s1">&#39;no&#39;</span><span class="p">)</span>  <span class="c1"># Error: Argument 1 to &quot;make_pair&quot; of &quot;Base&quot;</span>
+                                <span class="c1"># has incompatible type &quot;str&quot;; expected &quot;int&quot;</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>Some classes may define alternative constructors. If these
 classes are generic, self-type allows giving them precise signatures:</p>
@@ -2417,9 +2909,8 @@ classes are generic, self-type allows giving them precise signatures:</p>
 <p>Typing async/await</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">中文</label><label for="__tabbed_14_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>Mypy lets you type coroutines that use the <code>async/await</code> syntax. For more information regarding coroutines, see {pep}<code>492</code> and the <a href="https://docs.python.org/3/library/asyncio.html">asyncio documentation</a>.</p>
+<p>Mypy lets you type coroutines that use the <code>async/await</code> syntax. For more information regarding coroutines, see <a href="https://peps.python.org/pep-0492/"><code>PEP - 492</code></a> and the <a href="https://docs.python.org/3/library/asyncio.html">asyncio documentation</a>.</p>
 <p>Functions defined using <code>async def</code> are typed similar to normal functions. The return type annotation should be the same as the type of the value you expect to get back when <code>await</code>-ing the coroutine.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
 
@@ -2436,7 +2927,30 @@ classes are generic, self-type allows giving them precise signatures:</p>
 
 <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </code></pre></div>
-<p>The result of calling an <code>async def</code> function <em>without awaiting</em> will automatically be inferred to be a value of type {py:class}<code>Coroutine[Any, Any, T] &lt;typing.Coroutine&gt;</code>, which is a subtype of {py:class}<code>Awaitable[T] &lt;typing.Awaitable&gt;</code>:</p>
+<p>The result of calling an <code>async def</code> function <em>without awaiting</em> will automatically be inferred to be a value of type <a href="https://docs.python.org/3/library/typing.html#typing.Coroutine"><code>Coroutine[Any, Any, T]</code></a>, which is a subtype of <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable[T]</code></a>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">my_coroutine</span> <span class="o">=</span> <span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">my_coroutine</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;typing.Coroutine[Any, Any, builtins.str]&quot;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>Mypy lets you type coroutines that use the <code>async/await</code> syntax. For more information regarding coroutines, see <a href="https://peps.python.org/pep-0492/"><code>PEP - 492</code></a> and the <a href="https://docs.python.org/3/library/asyncio.html">asyncio documentation</a>.</p>
+<p>Functions defined using <code>async def</code> are typed similar to normal functions. The return type annotation should be the same as the type of the value you expect to get back when <code>await</code>-ing the coroutine.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">format_string</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;T-minus </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s1">)&#39;</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">my_str</span> <span class="o">=</span> <span class="k">await</span> <span class="n">format_string</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>  <span class="c1"># type is inferred to be str</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">my_str</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="s2">&quot;Blastoff!&quot;</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</code></pre></div>
+<p>The result of calling an <code>async def</code> function <em>without awaiting</em> will automatically be inferred to be a value of type <a href="https://docs.python.org/3/library/typing.html#typing.Coroutine"><code>Coroutine[Any, Any, T]</code></a>, which is a subtype of <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable[T]</code></a>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">my_coroutine</span> <span class="o">=</span> <span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">my_coroutine</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;typing.Coroutine[Any, Any, builtins.str]&quot;</span>
 </code></pre></div>
@@ -2449,7 +2963,7 @@ classes are generic, self-type allows giving them precise signatures:</p>
 <div class="tabbed-content">
 <div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p>If you have an asynchronous iterator, you can use the {py:class}<code>~typing.AsyncIterator</code> type in your annotations:</p>
+<p>If you have an asynchronous iterator, you can use the <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterator"><code>AsyncIterator</code></a> type in your annotations:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncIterator</span>
 <span class="kn">import</span> <span class="nn">asyncio</span>
 
@@ -2478,7 +2992,7 @@ classes are generic, self-type allows giving them precise signatures:</p>
 
 <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_countdown</span><span class="p">(</span><span class="s2">&quot;Serenity&quot;</span><span class="p">,</span> <span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
 </code></pre></div>
-<p>Async generators (introduced in {pep}<code>525</code>) are an easy way to create async iterators:</p>
+<p>Async generators (introduced in <a href="https://peps.python.org/pep-0525/"><code>PEP 525</code></a>) are an easy way to create async iterators:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">AsyncGenerator</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">asyncio</span>
 
@@ -2559,7 +3073,7 @@ classes are generic, self-type allows giving them precise signatures:</p>
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月3日</span>
       
         <br>
         创建日期:
