@@ -1015,8 +1015,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#变体的类型检查" class="md-nav__link">
-    变体的类型检查
+  <a href="#协变的类型检查" class="md-nav__link">
+    协变的类型检查
   </a>
   
 </li>
@@ -1056,8 +1056,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#混合类" class="md-nav__link">
-    混合类
+  <a href="#mixin-类" class="md-nav__link">
+    Mixin 类
   </a>
   
 </li>
@@ -1698,8 +1698,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#变体的类型检查" class="md-nav__link">
-    变体的类型检查
+  <a href="#协变的类型检查" class="md-nav__link">
+    协变的类型检查
   </a>
   
 </li>
@@ -1739,8 +1739,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#混合类" class="md-nav__link">
-    混合类
+  <a href="#mixin-类" class="md-nav__link">
+    Mixin 类
   </a>
   
 </li>
@@ -1803,7 +1803,7 @@
 <p>以下是本文所涵盖内容的快速摘要：</p>
 <ul>
 <li><a href="https://docs.python.org/3/library/typing.html#typing.NoReturn"><code>typing.NoReturn</code></a> 让您告诉 mypy 函数永远不会正常返回。</li>
-<li><a href="https://docs.python.org/3/library/typing.html#typing.NewType"><code>typing.NewType</code></a> 允许您定义类型的变体，该变体被 mypy 视为单独的类型，但在运行时与原始类型相同。 例如，您可以将 <code>UserId</code> 作为 <code>int</code> 的变体，它在运行时只是一个<code>int</code>。</li>
+<li><a href="https://docs.python.org/3/library/typing.html#typing.NewType"><code>typing.NewType</code></a> 允许您定义类型的协变，该协变被 mypy 视为单独的类型，但在运行时与原始类型相同。 例如，您可以将 <code>UserId</code> 作为 <code>int</code> 的协变，它在运行时只是一个<code>int</code>。</li>
 <li><a href="https://docs.python.org/3/library/typing.html#typing.overload"><code>typing.overload</code></a> 让您定义一个可以接受多个不同签名的函数。 如果您需要对参数和返回类型之间的关系进行编码，而这种关系很难正常表达，那么这非常有用。</li>
 <li>异步类型允许您使用 <code>async</code> 和 <code>await</code> 的同时支持检查编码类型。</li>
 </ul>
@@ -2038,8 +2038,8 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 <p>我们可以通过使用 <a href="https://peps.python.org/pep-0484/#function-method-overloading"><code>overloading</code></a> 做得更好，它可以让我们为同一个函数提供多个类型注释（签名）以更准确地描述函数的行为：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">overload</span>
 
-<span class="c1"># 重载“mouse_event”的*变体*。</span>
-<span class="c1"># 这些变体为类型检查器提供了额外的信息。</span>
+<span class="c1"># 重载“mouse_event”的*协变*。</span>
+<span class="c1"># 这些协变为类型检查器提供了额外的信息。</span>
 <span class="c1"># 它们在运行时被忽略。</span>
 
 <span class="nd">@overload</span>
@@ -2052,7 +2052,7 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 <span class="c1">#</span>
 <span class="c1"># 它可能有也可能没有类型提示。 如果是，mypy 将根据类型提示检查实现的主体。</span>
 <span class="c1">#</span>
-<span class="c1"># Mypy 还将检查并确保签名与提供的变体一致。</span>
+<span class="c1"># Mypy 还将检查并确保签名与提供的协变一致。</span>
 
 <span class="k">def</span> <span class="nf">mouse_event</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
                 <span class="n">y1</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -2202,13 +2202,13 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>重载函数必须由两个或多个重载<em>变体</em>组成，后跟一个<em>实现</em>。 变体和实现在代码中必须相邻：将它们视为一个不可分割的单元。</p>
-<p>变体主体必须全部为空； 仅允许实现包含代码。 这是因为在运行时，变体被完全忽略：它们被最终的实现函数覆盖。</p>
+<p>重载函数必须由两个或多个重载<em>协变</em>组成，后跟一个<em>实现</em>。 协变和实现在代码中必须相邻：将它们视为一个不可分割的单元。</p>
+<p>协变主体必须全部为空； 仅允许实现包含代码。 这是因为在运行时，协变被完全忽略：它们被最终的实现函数覆盖。</p>
 <p>这意味着重载函数仍然是普通的Python函数！ 没有自动调度处理，您必须手动处理实现中的不同类型（例如，通过使用 <code>if</code> 语句和 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 检查)。</p>
 <p>如果要在存根文件中添加重载，则应省略实现函数：存根不包含运行时逻辑。</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>虽然我们可以使用 “pass” 关键字将变体主体留空，但更常见的约定是使用省略号（“...”）文字。</p>
+<p>虽然我们可以使用 “pass” 关键字将协变主体留空，但更常见的约定是使用省略号（“...”）文字。</p>
 </div>
 </div>
 <div class="tabbed-block">
@@ -2228,8 +2228,8 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>当您调用重载函数时，mypy 将在考虑参数类型和数量后，通过选择最佳匹配变体来推断正确的返回类型。 然而，调用永远不会根据实现进行类型检查。 这就是为什么 mypy 会报告像 “mouse_event(5, 25, 3)” 这样的调用无效，即使它与实现签名匹配。</p>
-<p>如果有多个同样好的匹配变体，mypy 将选择最先定义的变体。 例如，考虑以下程序：</p>
+<p>当您调用重载函数时，mypy 将在考虑参数类型和数量后，通过选择最佳匹配协变来推断正确的返回类型。 然而，调用永远不会根据实现进行类型检查。 这就是为什么 mypy 会报告像 “mouse_event(5, 25, 3)” 这样的调用无效，即使它与实现签名匹配。</p>
+<p>如果有多个同样好的匹配协变，mypy 将选择最先定义的协变。 例如，考虑以下程序：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># For Python 3.8 and below you must use `typing.List` instead of `list`. e.g.</span>
 <span class="c1"># from typing import List</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span>
@@ -2251,14 +2251,14 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 <span class="c1"># What is the type of &#39;output&#39;? float or str?</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">([])</span>
 </code></pre></div>
-<p><code>summarize([])</code> 调用匹配两种变体：空列表可以是 <code>list[int]</code> 或 <code>list[str]</code>。 在这种情况下，mypy 将通过选择第一个匹配的变体来打破平局：“output” 将具有 “float” 的推断类型。 实现者负责确保 “summarize” 在运行时以相同的方式打破联系。</p>
-<p>但是，“选择第一个匹配项” 规则有两个例外。 首先，如果由于参数类型为“Any”而导致多个变体匹配，则 mypy 将使推断类型也为“Any”：</p>
+<p><code>summarize([])</code> 调用匹配两种协变：空列表可以是 <code>list[int]</code> 或 <code>list[str]</code>。 在这种情况下，mypy 将通过选择第一个匹配的协变来打破平局：“output” 将具有 “float” 的推断类型。 实现者负责确保 “summarize” 在运行时以相同的方式打破联系。</p>
+<p>但是，“选择第一个匹配项” 规则有两个例外。 首先，如果由于参数类型为“Any”而导致多个协变匹配，则 mypy 将使推断类型也为“Any”：</p>
 <div class="highlight"><pre><span></span><code><span class="n">dynamic_var</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">some_dynamic_function</span><span class="p">()</span>
 
 <span class="c1"># output2 is of type &#39;Any&#39;</span>
 <span class="n">output2</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">(</span><span class="n">dynamic_var</span><span class="p">)</span>
 </code></pre></div>
-<p>其次，如果由于一个或多个参数是联合而导致多个变体匹配，则 mypy 将使推断类型成为匹配变体返回的并集：</p>
+<p>其次，如果由于一个或多个参数是联合而导致多个协变匹配，则 mypy 将使推断类型成为匹配协变返回的并集：</p>
 <div class="highlight"><pre><span></span><code><span class="n">some_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>
 
 <span class="c1"># output3 is of type &#39;Union[float, str]&#39;</span>
@@ -2266,11 +2266,11 @@ Mypy 会将语句 <code>Derived = NewType('Derived', Base)</code> 视为大致�
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>由于“选择第一个匹配”规则，更改重载变体的顺序可以更改 mypy 类型检查程序的方式。</p>
+<p>由于“选择第一个匹配”规则，更改重载协变的顺序可以更改 mypy 类型检查程序的方式。</p>
 <p>为了尽量减少潜在问题，我们建议您：</p>
 <ol>
-<li>确保您的重载变体以与实现中运行时检查（例如 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 检查）相同的顺序列出。</li>
-<li>按照从最具体到最不具体的顺序对变体和运行时检查进行排序。（有关示例，请参阅以下部分）。</li>
+<li>确保您的重载协变以与实现中运行时检查（例如 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 检查）相同的顺序列出。</li>
+<li>按照从最具体到最不具体的顺序对协变和运行时检查进行排序。（有关示例，请参阅以下部分）。</li>
 </ol>
 </div>
 </div>
@@ -2325,12 +2325,12 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 </div>
 </div>
 </div>
-<h3 id="变体的类型检查">变体的类型检查<a class="headerlink" href="#变体的类型检查" title="Permanent link">&para;</a></h3>
+<h3 id="协变的类型检查">协变的类型检查<a class="headerlink" href="#协变的类型检查" title="Permanent link">&para;</a></h3>
 <p>Type checking the variants</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Mypy will perform several checks on your overload variant definitions to ensure they behave as expected. First, mypy will check and make sure that no overload variant is shadowing a subsequent one. For example, consider the following function which adds together two <code>Expression</code> objects, and contains a special-case to handle receiving two <code>Literal</code> types:</p>
+<p>Mypy 将对您的重载协变定义执行多次检查，以确保它们的行为符合预期。 首先，mypy 将检查并确保没有重载协变遮盖后续协变。 例如，考虑以下函数，它将两个“Expression”对象加在一起，并包含一个特殊情况来处理接收两个“Literal”类型：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="k">class</span> <span class="nc">Expression</span><span class="p">:</span>
@@ -2350,8 +2350,8 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span>
     <span class="c1"># ...snip...</span>
 </code></pre></div>
-<p>While this code snippet is technically type-safe, it does contain an anti-pattern: the second variant will never be selected! If we try calling <code>add(Literal(3), Literal(4))</code>, mypy will always pick the first variant and evaluate the function call to be of type <code>Expression</code>, not <code>Literal</code>. This is because <code>Literal</code> is a subtype of <code>Expression</code>, which means the "pick the first match" rule will always halt after considering the first overload.</p>
-<p>Because having an overload variant that can never be matched is almost certainly a mistake, mypy will report an error. To fix the error, we can either 1) delete the second overload or 2) swap the order of the overloads:</p>
+<p>虽然此代码片段在技术上是类型安全的，但它确实包含反模式：永远不会选择第二个协变！ 如果我们尝试调用“add(Literal(3), Literal(4))”，mypy 将始终选择第一个协变并将函数调用评估为“Expression”类型，而不是“Literal”。 这是因为 <code>Literal</code> 是 <code>Expression</code> 的子类型，这意味着“选择第一个匹配”规则在考虑第一次重载后将始终停止。</p>
+<p>因为拥有永远无法匹配的重载协变几乎肯定是一个错误，所以 mypy 将报告错误。 要修复该错误，我们可以 1) 删除第二个重载或 2) 交换重载的顺序：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Everything is ok now -- the variants are correctly ordered</span>
 <span class="c1"># from most to least specific.</span>
 
@@ -2364,7 +2364,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">left</span><span class="p">:</span> <span class="n">Expression</span><span class="p">,</span> <span class="n">right</span><span class="p">:</span> <span class="n">Expression</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Expression</span><span class="p">:</span>
     <span class="c1"># ...snip...</span>
 </code></pre></div>
-<p>Mypy will also type check the different variants and flag any overloads that have inherently unsafely overlapping variants. For example, consider the following unsafe overload definition:</p>
+<p>Mypy 还将对不同的协变进行类型检查，并标记任何具有本质上不安全的重叠协变的重载。 例如，考虑以下不安全重载定义：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="nd">@overload</span>
@@ -2379,24 +2379,24 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;some string&quot;</span>
 </code></pre></div>
-<p>On the surface, this function definition appears to be fine. However, it will result in a discrepancy between the inferred type and the actual runtime type when we try using it like so:</p>
+<p>从表面上看，这个函数定义似乎没问题。 但是，当我们尝试像这样使用它时，会导致推断类型与实际运行时类型之间存在差异：</p>
 <div class="highlight"><pre><span></span><code><span class="n">some_obj</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="mi">42</span>
 <span class="n">unsafe_func</span><span class="p">(</span><span class="n">some_obj</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; danger danger&quot;</span>  <span class="c1"># Type checks, yet crashes at runtime!</span>
 </code></pre></div>
-<p>Since <code>some_obj</code> is of type <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>, mypy will decide that <code>unsafe_func</code> must return something of type <code>str</code> and concludes the above will type check. But in reality, <code>unsafe_func</code> will return an int, causing the code to crash at runtime!</p>
-<p>To prevent these kinds of issues, mypy will detect and prohibit inherently unsafely overlapping overloads on a best-effort basis. Two variants are considered unsafely overlapping when both of the following are true:</p>
+<p>由于 <code>some_obj</code> 的类型为 <a href="https://docs.python.org/3/library/functions.html#object"><code>object</code></a>，mypy 将决定 <code>unsafe_func</code> 必须返回 <code>str</code> 类型的内容，并且 总结以上内容将进行类型检查。 但实际上，<code>unsafe_func</code>会返回一个int，导致代码在运行时崩溃！</p>
+<p>为了防止此类问题，mypy 将尽最大努力检测并禁止本质上不安全的重叠重载。 当以下两个条件都成立时，两个变体被视为不安全重叠：</p>
 <ol>
-<li>All of the arguments of the first variant are compatible with the second.</li>
-<li>The return type of the first variant is <em>not</em> compatible with (e.g. is not a subtype of) the second.</li>
+<li>第一个变体的所有参数都与第二个变体兼容。</li>
+<li>第一个变体的返回类型与第二个变体“不”兼容（例如不是其子类型）。</li>
 </ol>
-<p>So in this example, the <code>int</code> argument in the first variant is a subtype of the <code>object</code> argument in the second, yet the <code>int</code> return type is not a subtype of <code>str</code>. Both conditions are true, so mypy will correctly flag <code>unsafe_func</code> as being unsafe.</p>
-<p>However, mypy will not detect <em>all</em> unsafe uses of overloads. For example, suppose we modify the above snippet so it calls <code>summarize</code> instead of <code>unsafe_func</code>:</p>
+<p>因此，在此示例中，第一个变体中的 “int” 参数是第二个变体中 “object” 参数的子类型，但 “int” 返回类型不是 “str” 的子类型。 这两个条件都成立，因此 mypy 会正确地将 <code>unsafe_func</code> 标记为不安全。</p>
+<p>但是，mypy 不会检测 <em>所有</em> 不安全的重载使用。 例如，假设我们修改上面的代码片段，使其调用 “summarize” 而不是 “unsafe_func” ：</p>
 <div class="highlight"><pre><span></span><code><span class="n">some_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">summarize</span><span class="p">(</span><span class="n">some_list</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;danger danger&quot;</span>  <span class="c1"># Type safe, yet crashes at runtime!</span>
 </code></pre></div>
-<p>We run into a similar issue here. This program type checks if we look just at the annotations on the overloads. But since <code>summarize(...)</code> is designed to be biased towards returning a float when it receives an empty list, this program will actually crash during runtime.</p>
-<p>The reason mypy does not flag definitions like <code>summarize</code> as being potentially unsafe is because if it did, it would be extremely difficult to write a safe overload. For example, suppose we define an overload with two variants that accept types <code>A</code> and <code>B</code> respectively. Even if those two types were completely unrelated, the user could still potentially trigger a runtime error similar to the ones above by passing in a value of some third type <code>C</code> that inherits from both <code>A</code> and <code>B</code>.</p>
-<p>Thankfully, these types of situations are relatively rare. What this does mean, however, is that you should exercise caution when designing or using an overloaded function that can potentially receive values that are an instance of two seemingly unrelated types.</p>
+<p>我们在这里遇到了类似的问题。 该程序类型检查我们是否只查看重载上的注释。 但由于“summarize(...)”被设计为在接收到空列表时偏向于返回浮点数，因此该程序实际上会在运行时崩溃。</p>
+<p>mypy 没有将像“summarize”这样的定义标记为潜在不安全的原因是，如果这样做，编写安全重载将非常困难。 例如，假设我们定义一个具有两个分别接受类型“A”和“B”的变体的重载。 即使这两种类型完全不相关，用户仍然可能通过传入继承自“A”和“B”的第三种类型“C”的值来触发与上述类似的运行时错误。</p>
+<p>值得庆幸的是，此类情况相对较少。 然而，这确实意味着，在设计或使用重载函数时应该小心谨慎，因为该重载函数可能会接收两个看似不相关类型的实例值。</p>
 </div>
 <div class="tabbed-block">
 <p>Mypy will perform several checks on your overload variant definitions to ensure they behave as expected. First, mypy will check and make sure that no overload variant is shadowing a subsequent one. For example, consider the following function which adds together two <code>Expression</code> objects, and contains a special-case to handle receiving two <code>Literal</code> types:</p>
@@ -2474,13 +2474,13 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>The body of an implementation is type-checked against the type hints provided on the implementation. For example, in the <code>MyList</code> example up above, the code in the body is checked with argument list <code>index: Union[int, slice]</code> and a return type of <code>Union[T, Sequence[T]]</code>. If there are no annotations on the implementation, then the body is not type checked. If you want to force mypy to check the body anyways, use the <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs"><code>--check-untyped-defs</code></a> flag (<a href="https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls"><code>more details here</code></a>).</p>
-<p>The variants must also also be compatible with the implementation type hints. In the <code>MyList</code> example, mypy will check that the parameter type <code>int</code> and the return type <code>T</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code> for the first variant. For the second variant it verifies the parameter type <code>slice</code> and the return type <code>Sequence[T]</code> are compatible with <code>Union[int, slice]</code> and <code>Union[T, Sequence]</code>.</p>
+<p>实现的主体根据实现上提供的类型提示进行类型检查。 例如，在上面的 “MyList” 示例中，主体中的代码使用参数列表 “index: Union[int, slice]” 和返回类型 “Union[T, Sequence[T]]” 进行检查。 如果实现上没有注释，则不会对主体进行类型检查。 如果您想强制 mypy 检查主体，请使用 <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs"><code>--check-untyped-defs</code></a> 标志（<a href="https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls"><code>更多详细信息请参见此处</code></a>）。</p>
+<p>这些变体还必须与实现类型提示兼容。 在 “MyList” 示例中，mypy 将检查参数类型“int”和返回类型“T”是否与第一个变体的“Union[int, slice]”和“Union[T, Sequence]”兼容。 对于第二个变体，它验证参数类型“slice”和返回类型“Sequence[T]”与“Union[int, slice]”和“Union[T, Sequence]”兼容。</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>The overload semantics documented above are new as of mypy 0.620.</p>
-<p>Previously, mypy used to perform type erasure on all overload variants. For example, the <code>summarize</code> example from the previous section used to be illegal because <code>list[str]</code> and <code>list[int]</code> both erased to just <code>list[Any]</code>. This restriction was removed in mypy 0.620.</p>
-<p>Mypy also previously used to select the best matching variant using a different algorithm. If this algorithm failed to find a match, it would default to returning <code>Any</code>. The new algorithm uses the "pick the first match" rule and will fall back to returning <code>Any</code> only if the input arguments also contain <code>Any</code>.</p>
+<p>上面记录的重载语义是从 mypy 0.620 开始的新语义。</p>
+<p>以前，mypy 用于对所有重载变体执行类型擦除。 例如，上一节中的 “summarize” 示例过去是非法的，因为“list[str]”和“list[int]”都被删除为“list[Any]”。 mypy 0.620 中删除了此限制。</p>
+<p>Mypy 之前还使用不同的算法来选择最佳匹配变体。 如果此算法未能找到匹配项，则默认返回“Any”。 新算法使用“选择第一个匹配”规则，并且仅当输入参数也包含“Any”时才会回退到返回“Any”。</p>
 </div>
 </div>
 <div class="tabbed-block">
@@ -2500,10 +2500,10 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Sometimes it is useful to define overloads conditionally. Common use cases include types that are unavailable at runtime or that only exist in a certain Python version. All existing overload rules still apply. For example, there must be at least two overloads.</p>
+<p>有时有条件地定义重载很有用。 常见用例包括运行时不可用的类型或仅存在于特定 Python 版本中的类型。 所有现有的超载规则仍然适用。 例如，必须至少有两个重载。</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>Mypy can only infer a limited number of conditions. Supported ones currently include <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING"><code>TYPE_CHECKING</code></a>, <code>MYPY</code>, <a href="https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks"><code>version_and_platform_checks</code></a>, <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true"><code>--always-true</code></a>, and <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false"><code>--always-false</code></a> values.</p>
+<p>Mypy 只能推断有限数量的条件。 目前支持的包括 <a href="https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING"><code>TYPE_CHECKING</code></a>, <code>MYPY</code>, <a href="https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks"><code>version_and_platform_checks</code></a>, <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true"><code>--always-true</code></a>, 和 <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false"><code>--always-false</code></a> 等.</p>
 </div>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
 
@@ -2562,12 +2562,12 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>In the last example, mypy is executed with <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version"><code>--python-version 3.10</code></a>.</p>
-<p>Therefore, the condition <code>sys.version_info &gt;= (3, 10)</code> will match and the overload for <code>B</code> will be added.</p>
-<p>The overloads for <code>A</code> and <code>C</code> are ignored!</p>
-<p>The overload for <code>D</code> is not defined conditionally and thus is also added.</p>
+<p>在最后一个示例中，mypy 使用 <a href="https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version"><code>--python-version 3.10</code></a> 执行.</p>
+<p>因此，条件“sys.version_info &gt;= (3, 10)”将匹配，并且将添加“B”的重载。</p>
+<p><code>A</code> 和 <code>C</code> 的重载被忽略！</p>
+<p>“D”的重载没有条件定义，因此也被添加。</p>
 </div>
-<p>When mypy cannot infer a condition to be always <code>True</code> or always <code>False</code>, an error is emitted.</p>
+<p>当 mypy 无法推断条件始终为“True”或始终为“False”时，会发出错误。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">overload</span>
 
 <span class="k">class</span> <span class="nc">A</span><span class="p">:</span> <span class="o">...</span>
@@ -2682,7 +2682,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Normally, mypy doesn't require annotations for the first arguments of instance and class methods. However, they may be needed to have more precise static typing for certain programming patterns.</p>
+<p>通常，mypy 不需要为实例和类方法的第一个参数添加注释。 然而，对于某些编程模式，它们可能需要具有更精确的静态类型。</p>
 </div>
 <div class="tabbed-block">
 <p>Normally, mypy doesn't require annotations for the first arguments of instance and class methods. However, they may be needed to have more precise static typing for certain programming patterns.</p>
@@ -2694,7 +2694,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>In generic classes some methods may be allowed to be called only for certain values of type arguments:</p>
+<p>在泛型类中，某些方法可能只允许为类型参数的某些值调用：</p>
 <div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
@@ -2707,7 +2707,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
                         <span class="c1"># &quot;uppercase_item&quot; with type &quot;Callable[[Tag[str]], str]&quot;</span>
     <span class="n">ts</span><span class="o">.</span><span class="n">uppercase_item</span><span class="p">()</span>  <span class="c1"># This is OK</span>
 </code></pre></div>
-<p>This pattern also allows matching on nested types in situations where the type argument is itself generic:</p>
+<p>在类型参数本身是泛型的情况下，此模式还允许匹配嵌套类型：</p>
 <div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">covariant</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
 
@@ -2723,7 +2723,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <span class="n">Storage</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">first_chunk</span><span class="p">()</span>  <span class="c1"># Error: Invalid self argument &quot;Storage[int]&quot; to attribute function</span>
                         <span class="c1"># &quot;first_chunk&quot; with type &quot;Callable[[Storage[Sequence[S]]], S]&quot;</span>
 </code></pre></div>
-<p>Finally, one can use overloads on self-type to express precise types of some tricky methods:</p>
+<p>最后，可以使用自身类型的重载来表达一些棘手方法的精确类型：</p>
 <div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Tag</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
@@ -2737,7 +2737,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">item</span>
         <span class="k">return</span> <span class="n">converter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">item</span><span class="p">)</span>
 </code></pre></div>
-<p>In particular, an <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. <a href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen"><code>Popen</code></a>.</p>
+<p>特别是，在自类型上重载的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> 方法可能有助于注释类型参数依赖的泛型类构造函数 以不平凡的方式了解构造函数参数，请参见例如 <a href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen"><code>Popen</code></a>。</p>
 </div>
 <div class="tabbed-block">
 <p>In generic classes some methods may be allowed to be called only for certain values of type arguments:</p>
@@ -2787,12 +2787,12 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 </div>
 </div>
 </div>
-<h3 id="混合类">混合类<a class="headerlink" href="#混合类" title="Permanent link">&para;</a></h3>
+<h3 id="mixin-类">Mixin 类<a class="headerlink" href="#mixin-类" title="Permanent link">&para;</a></h3>
 <p>Mixin classes</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="12:2"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><input id="__tabbed_12_2" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">中文</label><label for="__tabbed_12_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Using host class protocol as a self-type in mixin methods allows more code re-usability for static typing of mixin classes. For example, one can define a protocol that defines common functionality for host classes instead of adding required abstract methods to every mixin:</p>
+<p>在 mixin 方法中使用主机类协议作为自类型可以为 mixin 类的静态类型提供更多的代码可重用性。 例如，可以定义一个协议来定义主机类的通用功能，而不是向每个 mixin 添加所需的抽象方法：</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Lockable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">lock</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lock</span><span class="p">:</span> <span class="o">...</span>
@@ -2819,7 +2819,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <span class="n">f</span><span class="o">.</span><span class="n">atomic_close</span><span class="p">()</span>  <span class="c1"># OK</span>
 <span class="n">b</span><span class="o">.</span><span class="n">atomic_close</span><span class="p">()</span>  <span class="c1"># Error: Invalid self type for &quot;atomic_close&quot;</span>
 </code></pre></div>
-<p>Note that the explicit self-type is <em>required</em> to be a protocol whenever it is not a supertype of the current class. In this case mypy will check the validity of the self-type only at the call site.</p>
+<p>请注意，只要显式自类型不是当前类的超类型，就<em>必须</em>成为协议。 在这种情况下，mypy 将仅在调用站点检查自我类型的有效性。</p>
 </div>
 <div class="tabbed-block">
 <p>Using host class protocol as a self-type in mixin methods allows more code re-usability for static typing of mixin classes. For example, one can define a protocol that defines common functionality for host classes instead of adding required abstract methods to every mixin:</p>
@@ -2858,8 +2858,7 @@ the runtime checks (e.g. <a href="https://docs.python.org/3/library/functions.ht
 <div class="tabbed-set tabbed-alternate" data-tabs="13:2"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><input id="__tabbed_13_2" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">中文</label><label for="__tabbed_13_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Some classes may define alternative constructors. If these
-classes are generic, self-type allows giving them precise signatures:</p>
+<p>某些类可能定义替代构造函数。 如果这些类是通用的，则自类型允许为它们提供精确的签名：</p>
 <div class="highlight"><pre><span></span><code><span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
@@ -2910,8 +2909,8 @@ classes are generic, self-type allows giving them precise signatures:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">中文</label><label for="__tabbed_14_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Mypy lets you type coroutines that use the <code>async/await</code> syntax. For more information regarding coroutines, see <a href="https://peps.python.org/pep-0492/"><code>PEP - 492</code></a> and the <a href="https://docs.python.org/3/library/asyncio.html">asyncio documentation</a>.</p>
-<p>Functions defined using <code>async def</code> are typed similar to normal functions. The return type annotation should be the same as the type of the value you expect to get back when <code>await</code>-ing the coroutine.</p>
+<p>Mypy 允许您输入使用“async/await”语法的协程。 有关协程的更多信息，请参阅 <a href="https://peps.python.org/pep-0492/"><code>PEP - 492</code></a> 和 <a href="https://docs.python.org/3/library/asyncio.html">asyncio 文档</a>。</p>
+<p>使用“async def”定义的函数的类型与普通函数类似。 返回类型注释应该与您希望在“await”协程时返回的值的类型相同。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">asyncio</span>
 
 <span class="k">async</span> <span class="k">def</span> <span class="nf">format_string</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -2927,7 +2926,7 @@ classes are generic, self-type allows giving them precise signatures:</p>
 
 <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 </code></pre></div>
-<p>The result of calling an <code>async def</code> function <em>without awaiting</em> will automatically be inferred to be a value of type <a href="https://docs.python.org/3/library/typing.html#typing.Coroutine"><code>Coroutine[Any, Any, T]</code></a>, which is a subtype of <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable[T]</code></a>:</p>
+<p>调用 <code>async def</code> 函数 <em>无需等待</em> 的结果将自动推断为 <a href="https://docs.python.org/3/library/typing.html#typing.Coroutine"><code>Coroutine[Any, Any, T]</code></a> 类型的值 ，它是 <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable[T]</code></a> 的子类型：</p>
 <div class="highlight"><pre><span></span><code><span class="n">my_coroutine</span> <span class="o">=</span> <span class="n">countdown</span><span class="p">(</span><span class="s2">&quot;Millennium Falcon&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">my_coroutine</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;typing.Coroutine[Any, Any, builtins.str]&quot;</span>
 </code></pre></div>
@@ -2961,7 +2960,102 @@ classes are generic, self-type allows giving them precise signatures:</p>
 <p>Asynchronous iterators</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">中文</label><label for="__tabbed_15_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>如果您有异步迭代器，则可以在注释中使用 <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterator"><code>AsyncIterator</code></a> 类型：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncIterator</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="k">class</span> <span class="nc">arange</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="n">start</span> <span class="o">-</span> <span class="n">step</span>
+
+    <span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopAsyncIteration</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run_countdown</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">countdown</span><span class="p">:</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">countdown</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;T-minus </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> (</span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Blastoff!&quot;</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_countdown</span><span class="p">(</span><span class="s2">&quot;Serenity&quot;</span><span class="p">,</span> <span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+</code></pre></div>
+<p>异步生成器（在 <a href="https://peps.python.org/pep-0525/"><code>PEP 525</code></a> 中引入）是创建异步迭代器的简单方法：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">AsyncGenerator</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 也可以输入此作为返回 AsyncIterator[int]</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncGenerator</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">current</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">step</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">current</span> <span class="o">&gt;</span> <span class="n">stop</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">current</span>
+        <span class="n">current</span> <span class="o">+=</span> <span class="n">step</span>
+
+<span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_countdown</span><span class="p">(</span><span class="s2">&quot;Battlestar Galactica&quot;</span><span class="p">,</span> <span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))</span>
+</code></pre></div>
+<p>一个常见的混淆是“async def”函数中“yield”语句的存在会影响函数的类型：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">AsyncIterator</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">arange</span><span class="p">(</span><span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="c1"># 调用时，arange 为您提供一个异步迭代器，相当于 Callable[[int], AsyncIterator[int]]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">stop</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">i</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">coroutine</span><span class="p">(</span><span class="n">stop</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="c1"># 调用时，协程会为您提供一些可以等待以获得异步迭代器的东西，相当于 Callable[[int], Coroutine[Any, Any, AsyncIterator[int]]]</span>
+    <span class="k">return</span> <span class="n">arange</span><span class="p">(</span><span class="n">stop</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>  <span class="c1"># Revealed type is &quot;typing.AsyncIterator[builtins.int]&quot;</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="n">coroutine</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>  <span class="c1"># Revealed type is &quot;typing.Coroutine[Any, Any, typing.AsyncIterator[builtins.int]]&quot;</span>
+
+    <span class="k">await</span> <span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># Error: Incompatible types in &quot;await&quot; (actual type &quot;AsyncIterator[int]&quot;, expected type &quot;Awaitable[Any]&quot;)</span>
+    <span class="n">reveal_type</span><span class="p">(</span><span class="k">await</span> <span class="n">coroutine</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>  <span class="c1"># Revealed type is &quot;typing.AsyncIterator[builtins.int]&quot;</span>
+</code></pre></div>
+<p>当尝试定义基类、协议或重载时，有时会出现这种情况：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">AsyncIterator</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">overload</span>
+
+<span class="k">class</span> <span class="nc">LauncherIncorrect</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="c1"># 因为 launch 没有 Yield，所以它的类型为 Callable[[], Coroutine[Any, Any, AsyncIterator[int]]] 而不是 Callable[[], AsyncIterator[int]]</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">class</span> <span class="nc">LauncherCorrect</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<span class="k">class</span> <span class="nc">LauncherAlsoCorrect</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        <span class="k">if</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="mi">0</span>
+
+<span class="c1"># 重载的类型与实现无关。</span>
+<span class="c1"># 特别是，它们的类型不受实现是否包含“yield”的影响。</span>
+<span class="c1"># 使用 `def` 可以清楚地表明类型是 Callable[..., AsyncIterator[int]]，</span>
+<span class="c1"># 而使用 `async def` 它将是 Callable[..., Coroutine[Any, Any, AsyncIterator[int]]]</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span> <span class="o">...</span>
+<span class="nd">@overload</span>
+<span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span> <span class="o">...</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">launch</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="c1"># launch 的实现是一个异步生成器并包含一个yield</span>
+    <span class="k">yield</span> <span class="mi">0</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>If you have an asynchronous iterator, you can use the <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterator"><code>AsyncIterator</code></a> type in your annotations:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">AsyncIterator</span>
