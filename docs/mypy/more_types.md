@@ -7,7 +7,7 @@
     以下是本文所涵盖内容的快速摘要：
     
     - [`typing.NoReturn`](https://docs.python.org/3/library/typing.html#typing.NoReturn) 让您告诉 mypy 函数永远不会正常返回。
-    - [`typing.NewType`](https://docs.python.org/3/library/typing.html#typing.NewType) 允许您定义类型的变体，该变体被 mypy 视为单独的类型，但在运行时与原始类型相同。 例如，您可以将 `UserId` 作为 `int` 的变体，它在运行时只是一个`int`。
+    - [`typing.NewType`](https://docs.python.org/3/library/typing.html#typing.NewType) 允许您定义类型的协变，该协变被 mypy 视为单独的类型，但在运行时与原始类型相同。 例如，您可以将 `UserId` 作为 `int` 的协变，它在运行时只是一个`int`。
     - [`typing.overload`](https://docs.python.org/3/library/typing.html#typing.overload) 让您定义一个可以接受多个不同签名的函数。 如果您需要对参数和返回类型之间的关系进行编码，而这种关系很难正常表达，那么这非常有用。
     - 异步类型允许您使用 `async` 和 `await` 的同时支持检查编码类型。
 
@@ -309,8 +309,8 @@ Function overloading
     ```python
     from typing import Union, overload
 
-    # 重载“mouse_event”的*变体*。
-    # 这些变体为类型检查器提供了额外的信息。
+    # 重载“mouse_event”的*协变*。
+    # 这些协变为类型检查器提供了额外的信息。
     # 它们在运行时被忽略。
 
     @overload
@@ -323,7 +323,7 @@ Function overloading
     #
     # 它可能有也可能没有类型提示。 如果是，mypy 将根据类型提示检查实现的主体。
     #
-    # Mypy 还将检查并确保签名与提供的变体一致。
+    # Mypy 还将检查并确保签名与提供的协变一致。
 
     def mouse_event(x1: int,
                     y1: int,
@@ -496,9 +496,9 @@ Runtime behavior
 
 === "中文"
 
-    重载函数必须由两个或多个重载*变体*组成，后跟一个*实现*。 变体和实现在代码中必须相邻：将它们视为一个不可分割的单元。
+    重载函数必须由两个或多个重载*协变*组成，后跟一个*实现*。 协变和实现在代码中必须相邻：将它们视为一个不可分割的单元。
 
-    变体主体必须全部为空； 仅允许实现包含代码。 这是因为在运行时，变体被完全忽略：它们被最终的实现函数覆盖。
+    协变主体必须全部为空； 仅允许实现包含代码。 这是因为在运行时，协变被完全忽略：它们被最终的实现函数覆盖。
 
     这意味着重载函数仍然是普通的Python函数！ 没有自动调度处理，您必须手动处理实现中的不同类型（例如，通过使用 `if` 语句和 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 检查)。
 
@@ -506,7 +506,7 @@ Runtime behavior
 
     !!! info "Note"
 
-        虽然我们可以使用 “pass” 关键字将变体主体留空，但更常见的约定是使用省略号（“...”）文字。
+        虽然我们可以使用 “pass” 关键字将协变主体留空，但更常见的约定是使用省略号（“...”）文字。
 
 === "英文"
 
@@ -528,9 +528,9 @@ Type checking calls to overloads
 
 === "中文"
 
-    当您调用重载函数时，mypy 将在考虑参数类型和数量后，通过选择最佳匹配变体来推断正确的返回类型。 然而，调用永远不会根据实现进行类型检查。 这就是为什么 mypy 会报告像 “mouse_event(5, 25, 3)” 这样的调用无效，即使它与实现签名匹配。
+    当您调用重载函数时，mypy 将在考虑参数类型和数量后，通过选择最佳匹配协变来推断正确的返回类型。 然而，调用永远不会根据实现进行类型检查。 这就是为什么 mypy 会报告像 “mouse_event(5, 25, 3)” 这样的调用无效，即使它与实现签名匹配。
 
-    如果有多个同样好的匹配变体，mypy 将选择最先定义的变体。 例如，考虑以下程序：
+    如果有多个同样好的匹配协变，mypy 将选择最先定义的协变。 例如，考虑以下程序：
 
     ```python
     # For Python 3.8 and below you must use `typing.List` instead of `list`. e.g.
@@ -555,9 +555,9 @@ Type checking calls to overloads
     output = summarize([])
     ```
 
-    `summarize([])` 调用匹配两种变体：空列表可以是 `list[int]` 或 `list[str]`。 在这种情况下，mypy 将通过选择第一个匹配的变体来打破平局：“output” 将具有 “float” 的推断类型。 实现者负责确保 “summarize” 在运行时以相同的方式打破联系。
+    `summarize([])` 调用匹配两种协变：空列表可以是 `list[int]` 或 `list[str]`。 在这种情况下，mypy 将通过选择第一个匹配的协变来打破平局：“output” 将具有 “float” 的推断类型。 实现者负责确保 “summarize” 在运行时以相同的方式打破联系。
 
-    但是，“选择第一个匹配项” 规则有两个例外。 首先，如果由于参数类型为“Any”而导致多个变体匹配，则 mypy 将使推断类型也为“Any”：
+    但是，“选择第一个匹配项” 规则有两个例外。 首先，如果由于参数类型为“Any”而导致多个协变匹配，则 mypy 将使推断类型也为“Any”：
 
     ```python
     dynamic_var: Any = some_dynamic_function()
@@ -566,7 +566,7 @@ Type checking calls to overloads
     output2 = summarize(dynamic_var)
     ```
 
-    其次，如果由于一个或多个参数是联合而导致多个变体匹配，则 mypy 将使推断类型成为匹配变体返回的并集：
+    其次，如果由于一个或多个参数是联合而导致多个协变匹配，则 mypy 将使推断类型成为匹配协变返回的并集：
 
     ```python
     some_list: Union[list[int], list[str]]
@@ -577,12 +577,12 @@ Type checking calls to overloads
 
     !!! info "Note"
 
-        由于“选择第一个匹配”规则，更改重载变体的顺序可以更改 mypy 类型检查程序的方式。
+        由于“选择第一个匹配”规则，更改重载协变的顺序可以更改 mypy 类型检查程序的方式。
 
         为了尽量减少潜在问题，我们建议您：
 
-        1. 确保您的重载变体以与实现中运行时检查（例如 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 检查）相同的顺序列出。
-        2. 按照从最具体到最不具体的顺序对变体和运行时检查进行排序。（有关示例，请参阅以下部分）。
+        1. 确保您的重载协变以与实现中运行时检查（例如 [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) 检查）相同的顺序列出。
+        2. 按照从最具体到最不具体的顺序对协变和运行时检查进行排序。（有关示例，请参阅以下部分）。
 
 === "英文"
 
@@ -644,13 +644,13 @@ Type checking calls to overloads
         2. Order your variants and runtime checks from most to least specific.
         (See the following section for an example).
 
-### 变体的类型检查
+### 协变的类型检查
 
 Type checking the variants
 
 === "中文"
 
-    Mypy will perform several checks on your overload variant definitions to ensure they behave as expected. First, mypy will check and make sure that no overload variant is shadowing a subsequent one. For example, consider the following function which adds together two `Expression` objects, and contains a special-case to handle receiving two `Literal` types:
+    Mypy 将对您的重载协变定义执行多次检查，以确保它们的行为符合预期。 首先，mypy 将检查并确保没有重载协变遮盖后续协变。 例如，考虑以下函数，它将两个“Expression”对象加在一起，并包含一个特殊情况来处理接收两个“Literal”类型：
 
     ```python
     from typing import overload, Union
@@ -673,9 +673,9 @@ Type checking the variants
         # ...snip...
     ```
 
-    While this code snippet is technically type-safe, it does contain an anti-pattern: the second variant will never be selected! If we try calling `add(Literal(3), Literal(4))`, mypy will always pick the first variant and evaluate the function call to be of type `Expression`, not `Literal`. This is because `Literal` is a subtype of `Expression`, which means the "pick the first match" rule will always halt after considering the first overload.
+    虽然此代码片段在技术上是类型安全的，但它确实包含反模式：永远不会选择第二个协变！ 如果我们尝试调用“add(Literal(3), Literal(4))”，mypy 将始终选择第一个协变并将函数调用评估为“Expression”类型，而不是“Literal”。 这是因为 `Literal` 是 `Expression` 的子类型，这意味着“选择第一个匹配”规则在考虑第一次重载后将始终停止。
 
-    Because having an overload variant that can never be matched is almost certainly a mistake, mypy will report an error. To fix the error, we can either 1) delete the second overload or 2) swap the order of the overloads:
+    因为拥有永远无法匹配的重载协变几乎肯定是一个错误，所以 mypy 将报告错误。 要修复该错误，我们可以 1) 删除第二个重载或 2) 交换重载的顺序：
 
     ```python
     # Everything is ok now -- the variants are correctly ordered
@@ -691,7 +691,7 @@ Type checking the variants
         # ...snip...
     ```
 
-    Mypy will also type check the different variants and flag any overloads that have inherently unsafely overlapping variants. For example, consider the following unsafe overload definition:
+    Mypy 还将对不同的协变进行类型检查，并标记任何具有本质上不安全的重叠协变的重载。 例如，考虑以下不安全重载定义：
 
     ```python
     from typing import overload, Union
@@ -709,34 +709,34 @@ Type checking the variants
             return "some string"
     ```
 
-    On the surface, this function definition appears to be fine. However, it will result in a discrepancy between the inferred type and the actual runtime type when we try using it like so:
+    从表面上看，这个函数定义似乎没问题。 但是，当我们尝试像这样使用它时，会导致推断类型与实际运行时类型之间存在差异：
 
     ```python
     some_obj: object = 42
     unsafe_func(some_obj) + " danger danger"  # Type checks, yet crashes at runtime!
     ```
 
-    Since `some_obj` is of type [`object`](https://docs.python.org/3/library/functions.html#object), mypy will decide that `unsafe_func` must return something of type `str` and concludes the above will type check. But in reality, `unsafe_func` will return an int, causing the code to crash at runtime!
+    由于 `some_obj` 的类型为 [`object`](https://docs.python.org/3/library/functions.html#object)，mypy 将决定 `unsafe_func` 必须返回 `str` 类型的内容，并且 总结以上内容将进行类型检查。 但实际上，`unsafe_func`会返回一个int，导致代码在运行时崩溃！
 
-    To prevent these kinds of issues, mypy will detect and prohibit inherently unsafely overlapping overloads on a best-effort basis. Two variants are considered unsafely overlapping when both of the following are true:
+    为了防止此类问题，mypy 将尽最大努力检测并禁止本质上不安全的重叠重载。 当以下两个条件都成立时，两个变体被视为不安全重叠：
 
-    1. All of the arguments of the first variant are compatible with the second.
-    2. The return type of the first variant is *not* compatible with (e.g. is not a subtype of) the second.
+    1. 第一个变体的所有参数都与第二个变体兼容。
+    2. 第一个变体的返回类型与第二个变体“不”兼容（例如不是其子类型）。
 
-    So in this example, the `int` argument in the first variant is a subtype of the `object` argument in the second, yet the `int` return type is not a subtype of `str`. Both conditions are true, so mypy will correctly flag `unsafe_func` as being unsafe.
+    因此，在此示例中，第一个变体中的 “int” 参数是第二个变体中 “object” 参数的子类型，但 “int” 返回类型不是 “str” 的子类型。 这两个条件都成立，因此 mypy 会正确地将 `unsafe_func` 标记为不安全。
 
-    However, mypy will not detect *all* unsafe uses of overloads. For example, suppose we modify the above snippet so it calls `summarize` instead of `unsafe_func`:
+    但是，mypy 不会检测 *所有* 不安全的重载使用。 例如，假设我们修改上面的代码片段，使其调用 “summarize” 而不是 “unsafe_func” ：
 
     ```python
     some_list: list[str] = []
     summarize(some_list) + "danger danger"  # Type safe, yet crashes at runtime!
     ```
 
-    We run into a similar issue here. This program type checks if we look just at the annotations on the overloads. But since `summarize(...)` is designed to be biased towards returning a float when it receives an empty list, this program will actually crash during runtime.
+    我们在这里遇到了类似的问题。 该程序类型检查我们是否只查看重载上的注释。 但由于“summarize(...)”被设计为在接收到空列表时偏向于返回浮点数，因此该程序实际上会在运行时崩溃。
 
-    The reason mypy does not flag definitions like `summarize` as being potentially unsafe is because if it did, it would be extremely difficult to write a safe overload. For example, suppose we define an overload with two variants that accept types `A` and `B` respectively. Even if those two types were completely unrelated, the user could still potentially trigger a runtime error similar to the ones above by passing in a value of some third type `C` that inherits from both `A` and `B`.
+    mypy 没有将像“summarize”这样的定义标记为潜在不安全的原因是，如果这样做，编写安全重载将非常困难。 例如，假设我们定义一个具有两个分别接受类型“A”和“B”的变体的重载。 即使这两种类型完全不相关，用户仍然可能通过传入继承自“A”和“B”的第三种类型“C”的值来触发与上述类似的运行时错误。
 
-    Thankfully, these types of situations are relatively rare. What this does mean, however, is that you should exercise caution when designing or using an overloaded function that can potentially receive values that are an instance of two seemingly unrelated types.
+    值得庆幸的是，此类情况相对较少。 然而，这确实意味着，在设计或使用重载函数时应该小心谨慎，因为该重载函数可能会接收两个看似不相关类型的实例值。
 
 === "英文"
 
@@ -834,17 +834,17 @@ Type checking the implementation
 
 === "中文"
 
-    The body of an implementation is type-checked against the type hints provided on the implementation. For example, in the `MyList` example up above, the code in the body is checked with argument list `index: Union[int, slice]` and a return type of `Union[T, Sequence[T]]`. If there are no annotations on the implementation, then the body is not type checked. If you want to force mypy to check the body anyways, use the [`--check-untyped-defs`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs) flag ([`more details here`](https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls)).
+    实现的主体根据实现上提供的类型提示进行类型检查。 例如，在上面的 “MyList” 示例中，主体中的代码使用参数列表 “index: Union[int, slice]” 和返回类型 “Union[T, Sequence[T]]” 进行检查。 如果实现上没有注释，则不会对主体进行类型检查。 如果您想强制 mypy 检查主体，请使用 [`--check-untyped-defs`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-check-untyped-defs) 标志（[`更多详细信息请参见此处`](https://mypy.readthedocs.io/en/stable/command_line.html#untyped-definitions-and-calls)）。
 
-    The variants must also also be compatible with the implementation type hints. In the `MyList` example, mypy will check that the parameter type `int` and the return type `T` are compatible with `Union[int, slice]` and `Union[T, Sequence]` for the first variant. For the second variant it verifies the parameter type `slice` and the return type `Sequence[T]` are compatible with `Union[int, slice]` and `Union[T, Sequence]`.
+    这些变体还必须与实现类型提示兼容。 在 “MyList” 示例中，mypy 将检查参数类型“int”和返回类型“T”是否与第一个变体的“Union[int, slice]”和“Union[T, Sequence]”兼容。 对于第二个变体，它验证参数类型“slice”和返回类型“Sequence[T]”与“Union[int, slice]”和“Union[T, Sequence]”兼容。
 
     !!! info "Note"
 
-        The overload semantics documented above are new as of mypy 0.620.
+        上面记录的重载语义是从 mypy 0.620 开始的新语义。
 
-        Previously, mypy used to perform type erasure on all overload variants. For example, the `summarize` example from the previous section used to be illegal because `list[str]` and `list[int]` both erased to just `list[Any]`. This restriction was removed in mypy 0.620.
+        以前，mypy 用于对所有重载变体执行类型擦除。 例如，上一节中的 “summarize” 示例过去是非法的，因为“list[str]”和“list[int]”都被删除为“list[Any]”。 mypy 0.620 中删除了此限制。
 
-        Mypy also previously used to select the best matching variant using a different algorithm. If this algorithm failed to find a match, it would default to returning `Any`. The new algorithm uses the "pick the first match" rule and will fall back to returning `Any` only if the input arguments also contain `Any`.
+        Mypy 之前还使用不同的算法来选择最佳匹配变体。 如果此算法未能找到匹配项，则默认返回“Any”。 新算法使用“选择第一个匹配”规则，并且仅当输入参数也包含“Any”时才会回退到返回“Any”。
 
 === "英文"
 
@@ -866,11 +866,11 @@ Conditional overloads
 
 === "中文"
 
-    Sometimes it is useful to define overloads conditionally. Common use cases include types that are unavailable at runtime or that only exist in a certain Python version. All existing overload rules still apply. For example, there must be at least two overloads.
+    有时有条件地定义重载很有用。 常见用例包括运行时不可用的类型或仅存在于特定 Python 版本中的类型。 所有现有的超载规则仍然适用。 例如，必须至少有两个重载。
 
     !!! info "Note"
 
-        Mypy can only infer a limited number of conditions. Supported ones currently include [`TYPE_CHECKING`](https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING), `MYPY`, [`version_and_platform_checks`](https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks), [`--always-true`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true), and [`--always-false`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false) values.
+        Mypy 只能推断有限数量的条件。 目前支持的包括 [`TYPE_CHECKING`](https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING), `MYPY`, [`version_and_platform_checks`](https://mypy.readthedocs.io/en/stable/common_issues.html#version-and-platform-checks), [`--always-true`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-true), 和 [`--always-false`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-always-false) 等.
 
     ```python
     from typing import TYPE_CHECKING, Any, overload
@@ -932,15 +932,16 @@ Conditional overloads
     ```
 
     !!! info "Note"
-        In the last example, mypy is executed with [`--python-version 3.10`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version).
-
-        Therefore, the condition `sys.version_info >= (3, 10)` will match and the overload for `B` will be added.
         
-        The overloads for `A` and `C` are ignored!
-        
-        The overload for `D` is not defined conditionally and thus is also added.
+        在最后一个示例中，mypy 使用 [`--python-version 3.10`](https://mypy.readthedocs.io/en/stable/command_line.html#cmdoption-mypy-python-version) 执行.
 
-    When mypy cannot infer a condition to be always `True` or always `False`, an error is emitted.
+        因此，条件“sys.version_info >= (3, 10)”将匹配，并且将添加“B”的重载。
+        
+        `A` 和 `C` 的重载被忽略！
+        
+        “D”的重载没有条件定义，因此也被添加。
+
+    当 mypy 无法推断条件始终为“True”或始终为“False”时，会发出错误。
 
     ```python
     from typing import Any, overload
@@ -1066,7 +1067,7 @@ Advanced uses of self-types
 
 === "中文"
 
-    Normally, mypy doesn't require annotations for the first arguments of instance and class methods. However, they may be needed to have more precise static typing for certain programming patterns.
+    通常，mypy 不需要为实例和类方法的第一个参数添加注释。 然而，对于某些编程模式，它们可能需要具有更精确的静态类型。
 
 === "英文"
 
@@ -1078,7 +1079,7 @@ Restricted methods in generic classes
 
 === "中文"
 
-    In generic classes some methods may be allowed to be called only for certain values of type arguments:
+    在泛型类中，某些方法可能只允许为类型参数的某些值调用：
 
     ```python
     T = TypeVar('T')
@@ -1094,7 +1095,7 @@ Restricted methods in generic classes
         ts.uppercase_item()  # This is OK
     ```
 
-    This pattern also allows matching on nested types in situations where the type argument is itself generic:
+    在类型参数本身是泛型的情况下，此模式还允许匹配嵌套类型：
 
     ```python
     T = TypeVar('T', covariant=True)
@@ -1113,7 +1114,7 @@ Restricted methods in generic classes
                             # "first_chunk" with type "Callable[[Storage[Sequence[S]]], S]"
     ```
 
-    Finally, one can use overloads on self-type to express precise types of some tricky methods:
+    最后，可以使用自身类型的重载来表达一些棘手方法的精确类型：
 
     ```python
     T = TypeVar('T')
@@ -1130,7 +1131,7 @@ Restricted methods in generic classes
             return converter(self.item)
     ```
 
-    In particular, an [`__init__`](https://docs.python.org/3/reference/datamodel.html#object.__init__) method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. [`Popen`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen).
+    特别是，在自类型上重载的 [`__init__`](https://docs.python.org/3/reference/datamodel.html#object.__init__) 方法可能有助于注释类型参数依赖的泛型类构造函数 以不平凡的方式了解构造函数参数，请参见例如 [`Popen`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen)。
 
 === "英文"
 
@@ -1188,13 +1189,13 @@ Restricted methods in generic classes
 
     In particular, an [`__init__`](https://docs.python.org/3/reference/datamodel.html#object.__init__) method overloaded on self-type may be useful to annotate generic class constructors where type arguments depend on constructor parameters in a non-trivial way, see e.g. [`Popen`](https://docs.python.org/3/library/subprocess.html#subprocess.Popen).
 
-### 混合类
+### Mixin 类
 
 Mixin classes
 
 === "中文"
 
-    Using host class protocol as a self-type in mixin methods allows more code re-usability for static typing of mixin classes. For example, one can define a protocol that defines common functionality for host classes instead of adding required abstract methods to every mixin:
+    在 mixin 方法中使用主机类协议作为自类型可以为 mixin 类的静态类型提供更多的代码可重用性。 例如，可以定义一个协议来定义主机类的通用功能，而不是向每个 mixin 添加所需的抽象方法：
 
     ```python
     class Lockable(Protocol):
@@ -1224,7 +1225,7 @@ Mixin classes
     b.atomic_close()  # Error: Invalid self type for "atomic_close"
     ```
 
-    Note that the explicit self-type is *required* to be a protocol whenever it is not a supertype of the current class. In this case mypy will check the validity of the self-type only at the call site.
+    请注意，只要显式自类型不是当前类的超类型，就*必须*成为协议。 在这种情况下，mypy 将仅在调用站点检查自我类型的有效性。
 
 === "英文"
 
@@ -1266,8 +1267,7 @@ Precise typing of alternative constructors
 
 === "中文"
 
-    Some classes may define alternative constructors. If these
-    classes are generic, self-type allows giving them precise signatures:
+    某些类可能定义替代构造函数。 如果这些类是通用的，则自类型允许为它们提供精确的签名：
 
     ```python
     T = TypeVar('T')
@@ -1322,9 +1322,9 @@ Typing async/await
 
 === "中文"
 
-    Mypy lets you type coroutines that use the `async/await` syntax. For more information regarding coroutines, see [`PEP - 492`](https://peps.python.org/pep-0492/) and the [asyncio documentation](https://docs.python.org/3/library/asyncio.html).
+    Mypy 允许您输入使用“async/await”语法的协程。 有关协程的更多信息，请参阅 [`PEP - 492`](https://peps.python.org/pep-0492/) 和 [asyncio 文档](https://docs.python.org/3/library/asyncio.html)。
 
-    Functions defined using `async def` are typed similar to normal functions. The return type annotation should be the same as the type of the value you expect to get back when `await`-ing the coroutine.
+    使用“async def”定义的函数的类型与普通函数类似。 返回类型注释应该与您希望在“await”协程时返回的值的类型相同。
 
     ```python
     import asyncio
@@ -1343,7 +1343,7 @@ Typing async/await
     asyncio.run(countdown("Millennium Falcon", 5))
     ```
 
-    The result of calling an `async def` function *without awaiting* will automatically be inferred to be a value of type [`Coroutine[Any, Any, T]`](https://docs.python.org/3/library/typing.html#typing.Coroutine), which is a subtype of [`Awaitable[T]`](https://docs.python.org/3/library/typing.html#typing.Awaitable):
+    调用 `async def` 函数 *无需等待* 的结果将自动推断为 [`Coroutine[Any, Any, T]`](https://docs.python.org/3/library/typing.html#typing.Coroutine) 类型的值 ，它是 [`Awaitable[T]`](https://docs.python.org/3/library/typing.html#typing.Awaitable) 的子类型：
 
     ```python
     my_coroutine = countdown("Millennium Falcon", 5)
@@ -1385,6 +1385,112 @@ Typing async/await
 Asynchronous iterators
 
 === "中文"
+
+    如果您有异步迭代器，则可以在注释中使用 [`AsyncIterator`](https://docs.python.org/3/library/typing.html#typing.AsyncIterator) 类型：
+
+    ```python
+    from typing import Optional, AsyncIterator
+    import asyncio
+
+    class arange:
+        def __init__(self, start: int, stop: int, step: int) -> None:
+            self.start = start
+            self.stop = stop
+            self.step = step
+            self.count = start - step
+
+        def __aiter__(self) -> AsyncIterator[int]:
+            return self
+
+        async def __anext__(self) -> int:
+            self.count += self.step
+            if self.count == self.stop:
+                raise StopAsyncIteration
+            else:
+                return self.count
+
+    async def run_countdown(tag: str, countdown: AsyncIterator[int]) -> str:
+        async for i in countdown:
+            print(f'T-minus {i} ({tag})')
+            await asyncio.sleep(0.1)
+        return "Blastoff!"
+
+    asyncio.run(run_countdown("Serenity", arange(5, 0, -1)))
+    ```
+
+    异步生成器（在 [`PEP 525`](https://peps.python.org/pep-0525/) 中引入）是创建异步迭代器的简单方法：
+
+    ```python
+    from typing import AsyncGenerator, Optional
+    import asyncio
+
+    # 也可以输入此作为返回 AsyncIterator[int]
+    async def arange(start: int, stop: int, step: int) -> AsyncGenerator[int, None]:
+        current = start
+        while (step > 0 and current < stop) or (step < 0 and current > stop):
+            yield current
+            current += step
+
+    asyncio.run(run_countdown("Battlestar Galactica", arange(5, 0, -1)))
+    ```
+
+    一个常见的混淆是“async def”函数中“yield”语句的存在会影响函数的类型：
+
+    ```python
+    from typing import AsyncIterator
+
+    async def arange(stop: int) -> AsyncIterator[int]:
+        # 调用时，arange 为您提供一个异步迭代器，相当于 Callable[[int], AsyncIterator[int]]
+        i = 0
+        while i < stop:
+            yield i
+            i += 1
+
+    async def coroutine(stop: int) -> AsyncIterator[int]:
+        # 调用时，协程会为您提供一些可以等待以获得异步迭代器的东西，相当于 Callable[[int], Coroutine[Any, Any, AsyncIterator[int]]]
+        return arange(stop)
+
+    async def main() -> None:
+        reveal_type(arange(5))  # Revealed type is "typing.AsyncIterator[builtins.int]"
+        reveal_type(coroutine(5))  # Revealed type is "typing.Coroutine[Any, Any, typing.AsyncIterator[builtins.int]]"
+
+        await arange(5)  # Error: Incompatible types in "await" (actual type "AsyncIterator[int]", expected type "Awaitable[Any]")
+        reveal_type(await coroutine(5))  # Revealed type is "typing.AsyncIterator[builtins.int]"
+    ```
+
+    当尝试定义基类、协议或重载时，有时会出现这种情况：
+
+    ```python
+    from typing import AsyncIterator, Protocol, overload
+
+    class LauncherIncorrect(Protocol):
+        # 因为 launch 没有 Yield，所以它的类型为 Callable[[], Coroutine[Any, Any, AsyncIterator[int]]] 而不是 Callable[[], AsyncIterator[int]]
+        async def launch(self) -> AsyncIterator[int]:
+            raise NotImplementedError
+
+    class LauncherCorrect(Protocol):
+        def launch(self) -> AsyncIterator[int]:
+            raise NotImplementedError
+
+    class LauncherAlsoCorrect(Protocol):
+        async def launch(self) -> AsyncIterator[int]:
+            raise NotImplementedError
+            if False:
+                yield 0
+
+    # 重载的类型与实现无关。
+    # 特别是，它们的类型不受实现是否包含“yield”的影响。
+    # 使用 `def` 可以清楚地表明类型是 Callable[..., AsyncIterator[int]]，
+    # 而使用 `async def` 它将是 Callable[..., Coroutine[Any, Any, AsyncIterator[int]]]
+    @overload
+    def launch(*, count: int = ...) -> AsyncIterator[int]: ...
+    @overload
+    def launch(*, time: float = ...) -> AsyncIterator[int]: ...
+
+    async def launch(*, count: int = 0, time: float = 0) -> AsyncIterator[int]:
+        # launch 的实现是一个异步生成器并包含一个yield
+        yield 0
+    ```
 
 === "英文"
 
