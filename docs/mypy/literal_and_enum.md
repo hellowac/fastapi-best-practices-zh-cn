@@ -1,12 +1,6 @@
 # 字面量和枚举
 
-=== "中文"
-
-    **Literal types and Enums**
-
-=== "英文"
-
-    **Literal types and Enums**
+**Literal types and Enums**
 
 ## 字面量类型
 

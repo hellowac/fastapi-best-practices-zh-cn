@@ -98,7 +98,7 @@ nav:
       - 类型系统参考-存根文件: mypy/stub_files.md
       - 类型系统参考-泛型: mypy/generics.md
       - 类型系统参考-更多类型: mypy/more_types.md
-      - 类型系统参考-文字类型和枚举: mypy/literal_and_enum.md
+      - 类型系统参考-字面量和枚举: mypy/literal_and_enum.md
       - 类型系统参考-类型字典: mypy/typeddict.md
       - 类型系统参考-最终名称、方法和类: mypy/final_names_methods_classes.md
       - 类型系统参考-元类: mypy/metaclasses.md
