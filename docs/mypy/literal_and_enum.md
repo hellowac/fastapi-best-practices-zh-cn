@@ -1,4 +1,4 @@
-# 文字类型和枚举
+# 字面量和枚举
 
 === "中文"
 
@@ -8,58 +8,115 @@
 
     **Literal types and Enums**
 
-## 文字类型
+## 字面量类型
 
 Literal types
 
 === "中文"
 
+    字面量类型可让您指示表达式等于某个特定的原始值。 例如，如果我们用 `Literal["foo"]` 类型注释一个变量，mypy 将理解该变量不仅是 `str` 类型，而且还等于字符串 `"foo"`。
+
+    当注释根据调用者提供的确切值而表现不同的函数时，此功能主要有用。 例如，假设我们有一个函数“fetch_data(...)”，如果第一个参数为“True”，则返回 “bytes” ；如果第一个参数为“False”，则返回“str”。 我们可以使用“Literal[...]”和重载为此函数构造精确的类型签名：
+
+    ```python
+    from typing import overload, Union, Literal
+
+    # 前两个重载使用 Literal[...]，因此我们可以获得精确的返回类型：
+
+    @overload
+    def fetch_data(raw: Literal[True]) -> bytes: ...
+    @overload
+    def fetch_data(raw: Literal[False]) -> str: ...
+
+    # 最后一个重载是调用者提供常规布尔值时的后备：
+
+    @overload
+    def fetch_data(raw: bool) -> Union[bytes, str]: ...
+
+    def fetch_data(raw: bool) -> Union[bytes, str]:
+        # 省略实现
+        ...
+
+    reveal_type(fetch_data(True))        # Revealed type is "bytes"
+    reveal_type(fetch_data(False))       # Revealed type is "str"
+
+    # 没有注释声明的变量将继续具有“bool”的推断类型。
+
+    variable = True
+    reveal_type(fetch_data(variable))    # Revealed type is "Union[bytes, str]"
+    ```
+
+    !!! info "Note"
+
+        本页中的示例从“typing”模块导入“Literal”以及“Final”和“TypedDict”。 这些类型已添加到 Python 3.8 中的“typing”中，但也可以通过“typing_extensions”包在 Python 3.4 - 3.7 中使用。
+
 === "英文"
 
-Literal types let you indicate that an expression is equal to some specific primitive value. For example, if we annotate a variable with type `Literal["foo"]`, mypy will understand that variable is not only of type `str`, but is also equal to specifically the string `"foo"`.
+    Literal types let you indicate that an expression is equal to some specific primitive value. For example, if we annotate a variable with type `Literal["foo"]`, mypy will understand that variable is not only of type `str`, but is also equal to specifically the string `"foo"`.
 
-This feature is primarily useful when annotating functions that behave differently based on the exact value the caller provides. For example, suppose we have a function `fetch_data(...)` that returns `bytes` if the first argument is `True`, and `str` if it's `False`. We can construct a precise type signature for this function using `Literal[...]` and overloads:
+    This feature is primarily useful when annotating functions that behave differently based on the exact value the caller provides. For example, suppose we have a function `fetch_data(...)` that returns `bytes` if the first argument is `True`, and `str` if it's `False`. We can construct a precise type signature for this function using `Literal[...]` and overloads:
 
-```python
-from typing import overload, Union, Literal
+    ```python
+    from typing import overload, Union, Literal
 
-# The first two overloads use Literal[...] so we can
-# have precise return types:
+    # The first two overloads use Literal[...] so we can
+    # have precise return types:
 
-@overload
-def fetch_data(raw: Literal[True]) -> bytes: ...
-@overload
-def fetch_data(raw: Literal[False]) -> str: ...
+    @overload
+    def fetch_data(raw: Literal[True]) -> bytes: ...
+    @overload
+    def fetch_data(raw: Literal[False]) -> str: ...
 
-# The last overload is a fallback in case the caller
-# provides a regular bool:
+    # The last overload is a fallback in case the caller
+    # provides a regular bool:
 
-@overload
-def fetch_data(raw: bool) -> Union[bytes, str]: ...
+    @overload
+    def fetch_data(raw: bool) -> Union[bytes, str]: ...
 
-def fetch_data(raw: bool) -> Union[bytes, str]:
-    # Implementation is omitted
-    ...
+    def fetch_data(raw: bool) -> Union[bytes, str]:
+        # Implementation is omitted
+        ...
 
-reveal_type(fetch_data(True))        # Revealed type is "bytes"
-reveal_type(fetch_data(False))       # Revealed type is "str"
+    reveal_type(fetch_data(True))        # Revealed type is "bytes"
+    reveal_type(fetch_data(False))       # Revealed type is "str"
 
-# Variables declared without annotations will continue to have an
-# inferred type of 'bool'.
+    # Variables declared without annotations will continue to have an
+    # inferred type of 'bool'.
 
-variable = True
-reveal_type(fetch_data(variable))    # Revealed type is "Union[bytes, str]"
-```
+    variable = True
+    reveal_type(fetch_data(variable))    # Revealed type is "Union[bytes, str]"
+    ```
 
-!!! info "Note"
+    !!! info "Note"
 
-    The examples in this page import `Literal` as well as `Final` and `TypedDict` from the `typing` module. These types were added to `typing` in Python 3.8, but are also available for use in Python 3.4 - 3.7 via the `typing_extensions` package.
+        The examples in this page import `Literal` as well as `Final` and `TypedDict` from the `typing` module. These types were added to `typing` in Python 3.8, but are also available for use in Python 3.4 - 3.7 via the `typing_extensions` package.
 
-### 参数化文字
+### 参数化字面量
 
 Parameterizing Literals
 
 === "中文"
+
+    字面量类型可以包含一个或多个文字 bool、int、str、byte 和 enum 值。 但是，字面量类型**不能**包含任意表达式：诸如“Literal[my_string.trim()]”、“Literal[x > 3]”或“Literal[3j + 4]”之类的类型都是非法的。
+
+    包含两个或多个值的文字相当于这些值的并集。 因此， `Literal[-3, b"foo", MyEnum.A]` 相当于 `Union[Literal[-3], Literal[b] “foo”]，`Literal[[MyEnum.A]]`。 这使得编写涉及文字的更复杂的类型变得更加方便。
+
+    字面量类型也可能包含“None”。 Mypy 会将 `Literal[None]` 视为等同于 `None`。 这意味着 `Literal[4, None]`、`Union[Literal[4], None]` 和 `Optional[Literal[4]]` 都是等价的。
+
+    文字还可以包含其他字面量类型的别名。 例如，以下程序是合法的：
+
+    ```python
+    PrimaryColors = Literal["red", "blue", "yellow"]
+    SecondaryColors = Literal["purple", "green", "orange"]
+    AllowedColors = Literal[PrimaryColors, SecondaryColors]
+
+    def paint(color: AllowedColors) -> None: ...
+
+    paint("red")        # Type checks!
+    paint("turquoise")  # Does not type check
+    ```
+
+    字面量不能包含任何其他类型或表达式。 这意味着执行 `Literal[my_instance]`、`Literal[Any]`、`Literal[3.14]` 或 `Literal[{"foo": 2, "bar": 5}]` 都是非法的。
 
 === "英文"
 
@@ -84,11 +141,73 @@ Parameterizing Literals
 
     Literals may not contain any other kind of type or expression. This means doing `Literal[my_instance]`, `Literal[Any]`, `Literal[3.14]`, or `Literal[{"foo": 2, "bar": 5}]` are all illegal.
 
-### 声明文字变量
+### 声明字面量
 
 Declaring literal variables
 
 === "中文"
+
+    You must explicitly add an annotation to a variable to declare that it has a literal type:
+
+    ```python
+    a: Literal[19] = 19
+    reveal_type(a)          # Revealed type is "Literal[19]"
+    ```
+
+    In order to preserve backwards-compatibility, variables without this annotation are **not** assumed to be literals:
+
+    ```python
+    b = 19
+    reveal_type(b)          # Revealed type is "int"
+    ```
+
+    If you find repeating the value of the variable in the type hint to be tedious, you can instead change the variable to be `Final` (see {ref}`final_attrs`):
+
+    ```python
+    from typing import Final, Literal
+
+    def expects_literal(x: Literal[19]) -> None: pass
+
+    c: Final = 19
+
+    reveal_type(c)          # Revealed type is "Literal[19]?"
+    expects_literal(c)      # ...and this type checks!
+    ```
+
+    If you do not provide an explicit type in the `Final`, the type of `c` becomes *context-sensitive*: mypy will basically try "substituting" the original assigned value whenever it's used before performing type checking. This is why the revealed type of `c` is `Literal[19]?`: the question mark at the end reflects this context-sensitive nature.
+
+    For example, mypy will type check the above program almost as if it were written like so:
+
+    ```python
+    from typing import Final, Literal
+
+    def expects_literal(x: Literal[19]) -> None: pass
+
+    reveal_type(19)
+    expects_literal(19)
+    ```
+
+    This means that while changing a variable to be `Final` is not quite the same thing as adding an explicit `Literal[...]` annotation, it often leads to the same effect in practice.
+
+    The main cases where the behavior of context-sensitive vs true literal types differ are when you try using those types in places that are not explicitly expecting a `Literal[...]`. For example, compare and contrast what happens when you try appending these types to a list:
+
+    ```python
+    from typing import Final, Literal
+
+    a: Final = 19
+    b: Literal[19] = 19
+
+    # Mypy will choose to infer list[int] here.
+    list_of_ints = []
+    list_of_ints.append(a)
+    reveal_type(list_of_ints)  # Revealed type is "list[int]"
+
+    # But if the variable you're appending is an explicit Literal, mypy
+    # will infer list[Literal[19]].
+    list_of_lits = []
+    list_of_lits.append(b)
+    reveal_type(list_of_lits)  # Revealed type is "list[Literal[19]]"
+    ```
 
 === "英文"
 
@@ -160,6 +279,45 @@ Intelligent indexing
 
 === "中文"
 
+    We can use Literal types to more precisely index into structured heterogeneous types such as tuples, NamedTuples, and TypedDicts. This feature is known as *intelligent indexing*.
+
+    For example, when we index into a tuple using some int, the inferred type is normally the union of the tuple item types. However, if we want just the type corresponding to some particular index, we can use Literal types like so:
+
+    ```python
+    from typing import TypedDict
+
+    tup = ("foo", 3.4)
+
+    # Indexing with an int literal gives us the exact type for that index
+    reveal_type(tup[0])  # Revealed type is "str"
+
+    # But what if we want the index to be a variable? Normally mypy won't
+    # know exactly what the index is and so will return a less precise type:
+    int_index = 0
+    reveal_type(tup[int_index])  # Revealed type is "Union[str, float]"
+
+    # But if we use either Literal types or a Final int, we can gain back
+    # the precision we originally had:
+    lit_index: Literal[0] = 0
+    fin_index: Final = 0
+    reveal_type(tup[lit_index])  # Revealed type is "str"
+    reveal_type(tup[fin_index])  # Revealed type is "str"
+
+    # We can do the same thing with with TypedDict and str keys:
+    class MyDict(TypedDict):
+        name: str
+        main_id: int
+        backup_id: int
+
+    d: MyDict = {"name": "Saanvi", "main_id": 111, "backup_id": 222}
+    name_key: Final = "name"
+    reveal_type(d[name_key])  # Revealed type is "str"
+
+    # You can also index using unions of literals
+    id_key: Literal["main_id", "backup_id"]
+    reveal_type(d[id_key])    # Revealed type is "int"
+    ```
+
 === "英文"
 
     We can use Literal types to more precisely index into structured heterogeneous types such as tuples, NamedTuples, and TypedDicts. This feature is known as *intelligent indexing*.
@@ -206,6 +364,69 @@ Intelligent indexing
 Tagged unions
 
 === "中文"
+
+    When you have a union of types, you can normally discriminate between each type in the union by using `isinstance` checks. For example, if you had a variable `x` of type `Union[int, str]`, you could write some code that runs only if `x` is an int by doing `if isinstance(x, int): ...`.
+
+    However, it is not always possible or convenient to do this. For example, it is not possible to use `isinstance` to distinguish between two different TypedDicts since at runtime, your variable will simply be just a dict.
+
+    Instead, what you can do is *label* or *tag* your TypedDicts with a distinct Literal type. Then, you can discriminate between each kind of TypedDict by checking the label:
+
+    ```python
+    from typing import Literal, TypedDict, Union
+
+    class NewJobEvent(TypedDict):
+        tag: Literal["new-job"]
+        job_name: str
+        config_file_path: str
+
+    class CancelJobEvent(TypedDict):
+        tag: Literal["cancel-job"]
+        job_id: int
+
+    Event = Union[NewJobEvent, CancelJobEvent]
+
+    def process_event(event: Event) -> None:
+        # Since we made sure both TypedDicts have a key named 'tag', it's
+        # safe to do 'event["tag"]'. This expression normally has the type
+        # Literal["new-job", "cancel-job"], but the check below will narrow
+        # the type to either Literal["new-job"] or Literal["cancel-job"].
+        #
+        # This in turns narrows the type of 'event' to either NewJobEvent
+        # or CancelJobEvent.
+        if event["tag"] == "new-job":
+            print(event["job_name"])
+        else:
+            print(event["job_id"])
+    ```
+
+    While this feature is mostly useful when working with TypedDicts, you can also use the same technique with regular objects, tuples, or namedtuples.
+
+    Similarly, tags do not need to be specifically str Literals: they can be any type you can normally narrow within `if` statements and the like. For example, you could have your tags be int or Enum Literals or even regular classes you narrow using `isinstance()`:
+
+    ```python
+    from typing import Generic, TypeVar, Union
+
+    T = TypeVar('T')
+
+    class Wrapper(Generic[T]):
+        def __init__(self, inner: T) -> None:
+            self.inner = inner
+
+    def process(w: Union[Wrapper[int], Wrapper[str]]) -> None:
+        # Doing `if isinstance(w, Wrapper[int])` does not work: isinstance requires
+        # that the second argument always be an *erased* type, with no generics.
+        # This is because generics are a typing-only concept and do not exist at
+        # runtime in a way `isinstance` can always check.
+        #
+        # However, we can side-step this by checking the type of `w.inner` to
+        # narrow `w` itself:
+        if isinstance(w.inner, int):
+            reveal_type(w)  # Revealed type is "Wrapper[int]"
+        else:
+            reveal_type(w)  # Revealed type is "Wrapper[str]"
+    ```
+
+    This feature is sometimes called "sum types" or "discriminated union types" in other programming languages.
 
 === "英文"
 
@@ -277,6 +498,89 @@ Tagged unions
 Exhaustiveness checking
 
 === "中文"
+
+    You may want to check that some code covers all possible `Literal` or `Enum` cases. Example:
+
+    ```python
+    from typing import Literal
+
+    PossibleValues = Literal['one', 'two']
+
+    def validate(x: PossibleValues) -> bool:
+        if x == 'one':
+            return True
+        elif x == 'two':
+            return False
+        raise ValueError(f'Invalid value: {x}')
+
+    assert validate('one') is True
+    assert validate('two') is False
+    ```
+
+    In the code above, it's easy to make a mistake. You can add a new literal value to `PossibleValues` but forget to handle it in the `validate` function:
+
+    ```python
+    PossibleValues = Literal['one', 'two', 'three']
+    ```
+
+    Mypy won't catch that `'three'` is not covered.  If you want mypy to perform an exhaustiveness check, you need to update your code to use an `assert_never()` check:
+
+    ```python
+    from typing import Literal, NoReturn
+
+    PossibleValues = Literal['one', 'two']
+
+    def assert_never(value: NoReturn) -> NoReturn:
+        # This also works at runtime as well
+        assert False, f'This code should never be reached, got: {value}'
+
+    def validate(x: PossibleValues) -> bool:
+        if x == 'one':
+            return True
+        elif x == 'two':
+            return False
+        assert_never(x)
+    ```
+
+    Now if you add a new value to `PossibleValues` but don't update `validate`, mypy will spot the error:
+
+    ```python
+    PossibleValues = Literal['one', 'two', 'three']
+
+    def validate(x: PossibleValues) -> bool:
+        if x == 'one':
+            return True
+        elif x == 'two':
+            return False
+        # Error: Argument 1 to "assert_never" has incompatible type "Literal['three']";
+        # expected "NoReturn"
+        assert_never(x)
+    ```
+
+    If runtime checking against unexpected values is not needed, you can leave out the `assert_never` call in the above example, and mypy will still generate an error about function `validate` returning without a value:
+
+    ```python
+    PossibleValues = Literal['one', 'two', 'three']
+
+    # Error: Missing return statement
+    def validate(x: PossibleValues) -> bool:
+        if x == 'one':
+            return True
+        elif x == 'two':
+            return False
+    ```
+
+    Exhaustiveness checking is also supported for match statements (Python 3.10 and later):
+
+    ```python
+    def validate(x: PossibleValues) -> bool:
+        match x:
+            case 'one':
+                return True
+            case 'two':
+                return False
+        assert_never(x)
+    ```
 
 === "英文"
 
@@ -369,6 +673,10 @@ Limitations
 
 === "中文"
 
+    Mypy will not understand expressions that use variables of type `Literal[..]` on a deep level. For example, if you have a variable `a` of type `Literal[3]` and another variable `b` of type `Literal[5]`, mypy will infer that `a + b` has type `int`, **not** type `Literal[8]`.
+
+    The basic rule is that literal types are treated as just regular subtypes of whatever type the parameter has. For example, `Literal[3]` is treated as a subtype of `int` and so will inherit all of `int`'s methods directly. This means that `Literal[3].__add__` accepts the same arguments and has the same return type as `int.__add__`.
+
 === "英文"
 
     Mypy will not understand expressions that use variables of type `Literal[..]` on a deep level. For example, if you have a variable `a` of type `Literal[3]` and another variable `b` of type `Literal[5]`, mypy will infer that `a + b` has type `int`, **not** type `Literal[8]`.
@@ -381,9 +689,34 @@ Enums
 
 === "中文"
 
+    Mypy has special support for [`enum.Enum`](https://docs.python.org/3/library/enum.html#enum.Enum) and its subclasses: [`enum.IntEnum`](https://docs.python.org/3/library/enum.html#enum.IntEnum), [`enum.Flag`](https://docs.python.org/3/library/enum.html#enum.Flag), [`enum.IntFlag`](https://docs.python.org/3/library/enum.html#enum.IntFlag), and [`enum.StrEnum`](https://docs.python.org/3/library/enum.html#enum.StrEnum).
+
+    ```python
+    from enum import Enum
+
+    class Direction(Enum):
+        up = 'up'
+        down = 'down'
+
+    reveal_type(Direction.up)  # Revealed type is "Literal[Direction.up]?"
+    reveal_type(Direction.down)  # Revealed type is "Literal[Direction.down]?"
+    ```
+
+    You can use enums to annotate types as you would expect:
+
+    ```python
+    class Movement:
+        def __init__(self, direction: Direction, speed: float) -> None:
+            self.direction = direction
+            self.speed = speed
+
+    Movement(Direction.up, 5.0)  # ok
+    Movement('up', 5.0)  # E: Argument 1 to "Movement" has incompatible type "str"; expected "Direction"
+    ```
+
 === "英文"
 
-    Mypy has special support for {py:class}`enum.Enum` and its subclasses: {py:class}`enum.IntEnum`, {py:class}`enum.Flag`, {py:class}`enum.IntFlag`, and {py:class}`enum.StrEnum`.
+    Mypy has special support for [`enum.Enum`](https://docs.python.org/3/library/enum.html#enum.Enum) and its subclasses: [`enum.IntEnum`](https://docs.python.org/3/library/enum.html#enum.IntEnum), [`enum.Flag`](https://docs.python.org/3/library/enum.html#enum.Flag), [`enum.IntFlag`](https://docs.python.org/3/library/enum.html#enum.IntFlag), and [`enum.StrEnum`](https://docs.python.org/3/library/enum.html#enum.StrEnum).
 
     ```python
     from enum import Enum
@@ -413,6 +746,48 @@ Enums
 Exhaustiveness checking
 
 === "中文"
+
+    Similar to `Literal` types, `Enum` supports exhaustiveness checking. Let's start with a definition:
+
+    ```python
+    from enum import Enum
+    from typing import NoReturn
+
+    def assert_never(value: NoReturn) -> NoReturn:
+        # This also works in runtime as well:
+        assert False, f'This code should never be reached, got: {value}'
+
+    class Direction(Enum):
+        up = 'up'
+        down = 'down'
+    ```
+
+    Now, let's use an exhaustiveness check:
+
+    ```python
+    def choose_direction(direction: Direction) -> None:
+        if direction is Direction.up:
+            reveal_type(direction)  # N: Revealed type is "Literal[Direction.up]"
+            print('Going up!')
+            return
+        elif direction is Direction.down:
+            print('Down')
+            return
+        # This line is never reached
+        assert_never(direction)
+    ```
+
+    If we forget to handle one of the cases, mypy will generate an error:
+
+    ```python
+    def choose_direction(direction: Direction) -> None:
+        if direction == Direction.up:
+            print('Going up!')
+            return
+        assert_never(direction)  # E: Argument 1 to "assert_never" has incompatible type "Direction"; expected "NoReturn"
+    ```
+
+    Exhaustiveness checking is also supported for match statements (Python 3.10 and later).
 
 === "英文"
 
@@ -464,12 +839,57 @@ Extra Enum checks
 
 === "中文"
 
+    Mypy also tries to support special features of `Enum` the same way Python's runtime does:
+
+    - Any `Enum` class with values is implicitly [`final`](https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs). This is what happens in CPython:
+
+    ```python
+    >>> class AllDirection(Direction):
+    ...     left = 'left'
+    ...     right = 'right'
+    Traceback (most recent call last):
+        ...
+    TypeError: AllDirection: cannot extend enumeration 'Direction'
+    ```
+
+    Mypy also catches this error:
+
+    ```python
+    class AllDirection(Direction):  # E: Cannot inherit from final class "Direction"
+        left = 'left'
+        right = 'right'
+    ```
+
+    - All `Enum` fields are implicitly `final` as well.
+
+    ```python
+    Direction.up = '^'  # E: Cannot assign to final attribute "up"
+    ```
+
+    - All field names are checked to be unique.
+
+    ```python
+    class Some(Enum):
+        x = 1
+        x = 2  # E: Attempted to reuse member name "x" in Enum definition "Some"
+    ```
+
+    - Base classes have no conflicts and mixin types are correct.
+
+    ```python
+    class WrongEnum(str, int, enum.Enum):
+        # E: Only a single data type mixin is allowed for Enum subtypes, found extra "int"
+        ...
+
+    class MixinAfterEnum(enum.Enum, Mixin): # E: No base classes are allowed after "enum.Enum"
+        ...
+    ```
+
 === "英文"
 
     Mypy also tries to support special features of `Enum` the same way Python's runtime does:
 
-    - Any `Enum` class with values is implicitly {ref}`final <final_attrs>`.
-    This is what happens in CPython:
+    - Any `Enum` class with values is implicitly [`final`](https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs). This is what happens in CPython:
 
     ```python
     >>> class AllDirection(Direction):
