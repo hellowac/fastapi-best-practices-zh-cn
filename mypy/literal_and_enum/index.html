@@ -1849,15 +1849,15 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>You must explicitly add an annotation to a variable to declare that it has a literal type:</p>
+<p>您必须显式向变量添加注释以声明它具有字面量类型：</p>
 <div class="highlight"><pre><span></span><code><span class="n">a</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;Literal[19]&quot;</span>
 </code></pre></div>
-<p>In order to preserve backwards-compatibility, variables without this annotation are <strong>not</strong> assumed to be literals:</p>
+<p>为了保持向后兼容性，没有此注解的变量<strong>不</strong>假定为字面量：</p>
 <div class="highlight"><pre><span></span><code><span class="n">b</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;int&quot;</span>
 </code></pre></div>
-<p>If you find repeating the value of the variable in the type hint to be tedious, you can instead change the variable to be <code>Final</code> (see {ref}<code>final_attrs</code>):</p>
+<p>如果您发现在类型提示中重复变量的值很乏味，您可以将变量更改为“Final”（请参阅<a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs">“final_attrs”</a>）：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
@@ -1867,8 +1867,8 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;Literal[19]?&quot;</span>
 <span class="n">expects_literal</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>      <span class="c1"># ...and this type checks!</span>
 </code></pre></div>
-<p>If you do not provide an explicit type in the <code>Final</code>, the type of <code>c</code> becomes <em>context-sensitive</em>: mypy will basically try "substituting" the original assigned value whenever it's used before performing type checking. This is why the revealed type of <code>c</code> is <code>Literal[19]?</code>: the question mark at the end reflects this context-sensitive nature.</p>
-<p>For example, mypy will type check the above program almost as if it were written like so:</p>
+<p>如果您没有在 “Final” 中提供显式类型，则 “c” 的类型将变为<em>上下文相关</em>：在执行类型检查之前，只要使用原始分配的值，mypy 基本上都会尝试“替换”原始分配的值。 这就是为什么 <code>c</code> 的显示类型是 <code>Literal[19]?</code>：末尾的问号反映了这种上下文相关的性质。</p>
+<p>例如，mypy 将对上述程序进行类型检查，几乎就像这样编写的：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
@@ -1876,20 +1876,19 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 <span class="n">expects_literal</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 </code></pre></div>
-<p>This means that while changing a variable to be <code>Final</code> is not quite the same thing as adding an explicit <code>Literal[...]</code> annotation, it often leads to the same effect in practice.</p>
-<p>The main cases where the behavior of context-sensitive vs true literal types differ are when you try using those types in places that are not explicitly expecting a <code>Literal[...]</code>. For example, compare and contrast what happens when you try appending these types to a list:</p>
+<p>这意味着虽然将变量更改为“Final”与添加显式“Literal[...]”注释并不完全相同，但在实践中通常会产生相同的效果。</p>
+<p>上下文相关类型与真实字面量类型的行为不同的主要情况是当您尝试在未明确期望“Literal[...]”的地方使用这些类型时。 例如，比较和对比当您尝试将这些类型附加到列表时会发生什么：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">a</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">b</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span> <span class="o">=</span> <span class="mi">19</span>
 
-<span class="c1"># Mypy will choose to infer list[int] here.</span>
+<span class="c1"># Mypy 会选择在这里推断 list[int]。</span>
 <span class="n">list_of_ints</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">list_of_ints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">list_of_ints</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;list[int]&quot;</span>
 
-<span class="c1"># But if the variable you&#39;re appending is an explicit Literal, mypy</span>
-<span class="c1"># will infer list[Literal[19]].</span>
+<span class="c1"># 但是，如果您要附加的变量是显式文字，则 mypy 将推断 list[Literal[19]]。</span>
 <span class="n">list_of_lits</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">list_of_lits</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">list_of_lits</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;list[Literal[19]]&quot;</span>
@@ -1904,7 +1903,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">b</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;int&quot;</span>
 </code></pre></div>
-<p>If you find repeating the value of the variable in the type hint to be tedious, you can instead change the variable to be <code>Final</code> (see {ref}<code>final_attrs</code>):</p>
+<p>If you find repeating the value of the variable in the type hint to be tedious, you can instead change the variable to be <code>Final</code> (see <a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs"><code>final_attrs</code></a>):</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
@@ -1949,28 +1948,26 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>We can use Literal types to more precisely index into structured heterogeneous types such as tuples, NamedTuples, and TypedDicts. This feature is known as <em>intelligent indexing</em>.</p>
-<p>For example, when we index into a tuple using some int, the inferred type is normally the union of the tuple item types. However, if we want just the type corresponding to some particular index, we can use Literal types like so:</p>
+<p>我们可以使用 Literal 类型更精确地索引到结构化异构类型，例如元组、NamedTuples 和 TypedDicts。 此功能称为“智能索引”。</p>
+<p>例如，当我们使用某些 int 索引元组时，推断的类型通常是元组项类型的并集。 但是，如果我们只想要与某个特定索引相对应的类型，我们可以使用字面量类型，如下所示：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
 
 <span class="n">tup</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">)</span>
 
-<span class="c1"># Indexing with an int literal gives us the exact type for that index</span>
+<span class="c1"># 使用 int 文字进行索引可以为我们提供该索引的确切类型</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 
-<span class="c1"># But what if we want the index to be a variable? Normally mypy won&#39;t</span>
-<span class="c1"># know exactly what the index is and so will return a less precise type:</span>
+<span class="c1"># 但是如果我们希望索引是一个变量怎么办？ 通常 mypy 不会确切知道索引是什么，因此会返回不太精确的类型：</span>
 <span class="n">int_index</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">int_index</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;Union[str, float]&quot;</span>
 
-<span class="c1"># But if we use either Literal types or a Final int, we can gain back</span>
-<span class="c1"># the precision we originally had:</span>
+<span class="c1"># 但是如果我们使用 Literal 类型或 Final int，我们就可以恢复原来的精度：</span>
 <span class="n">lit_index</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">fin_index</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">lit_index</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">fin_index</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 
-<span class="c1"># We can do the same thing with with TypedDict and str keys:</span>
+<span class="c1"># 我们可以使用 TypedDict 和 str 键做同样的事情：</span>
 <span class="k">class</span> <span class="nc">MyDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">main_id</span><span class="p">:</span> <span class="nb">int</span>
@@ -1980,7 +1977,7 @@
 <span class="n">name_key</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">name_key</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 
-<span class="c1"># You can also index using unions of literals</span>
+<span class="c1"># 您还可以使用字面量联合进行索引</span>
 <span class="n">id_key</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;main_id&quot;</span><span class="p">,</span> <span class="s2">&quot;backup_id&quot;</span><span class="p">]</span>
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">id_key</span><span class="p">])</span>    <span class="c1"># Revealed type is &quot;int&quot;</span>
 </code></pre></div>
@@ -2029,9 +2026,9 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>When you have a union of types, you can normally discriminate between each type in the union by using <code>isinstance</code> checks. For example, if you had a variable <code>x</code> of type <code>Union[int, str]</code>, you could write some code that runs only if <code>x</code> is an int by doing <code>if isinstance(x, int): ...</code>.</p>
-<p>However, it is not always possible or convenient to do this. For example, it is not possible to use <code>isinstance</code> to distinguish between two different TypedDicts since at runtime, your variable will simply be just a dict.</p>
-<p>Instead, what you can do is <em>label</em> or <em>tag</em> your TypedDicts with a distinct Literal type. Then, you can discriminate between each kind of TypedDict by checking the label:</p>
+<p>当您有类型的联合时，通常可以使用“isinstance”检查来区分联合中的每种类型。 例如，如果您有一个类型为“Union[int, str]”的变量“x”，您可以通过执行“if isinstance(x, int): ..”来编写一些仅当“x”是 int 时才运行的代码。 .`.</p>
+<p>然而，这样做并不总是可能或方便。 例如，不可能使用“isinstance”来区分两个不同的 TypedDict，因为在运行时，您的变量只是一个字典。</p>
+<p>相反，您可以做的是使用不同的文字类型<em>标签</em>或<em>标记</em>您的 TypedDicts。 然后，您可以通过检查标签来区分每种 TypedDict：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="k">class</span> <span class="nc">NewJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -2046,20 +2043,19 @@
 <span class="n">Event</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">NewJobEvent</span><span class="p">,</span> <span class="n">CancelJobEvent</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># Since we made sure both TypedDicts have a key named &#39;tag&#39;, it&#39;s</span>
-    <span class="c1"># safe to do &#39;event[&quot;tag&quot;]&#39;. This expression normally has the type</span>
-    <span class="c1"># Literal[&quot;new-job&quot;, &quot;cancel-job&quot;], but the check below will narrow</span>
-    <span class="c1"># the type to either Literal[&quot;new-job&quot;] or Literal[&quot;cancel-job&quot;].</span>
+    <span class="c1"># 由于我们确保两个 TypedDict 都有一个名为“tag”的键，因此执行“event[“tag”]”是安全的。 </span>
+    <span class="c1"># 该表达式通常具有 Literal[&quot;new-job&quot;, &quot;cancel-job&quot;] 类型，</span>
+    <span class="c1"># 但下面的检查会将类型范围缩小为 Literal[&quot;new-job&quot;] 或 Literal[&quot;cancel-job&quot;]。</span>
     <span class="c1">#</span>
-    <span class="c1"># This in turns narrows the type of &#39;event&#39; to either NewJobEvent</span>
-    <span class="c1"># or CancelJobEvent.</span>
+    <span class="c1"># 这又将“event”的类型缩小为 NewJobEvent 或 CancelJobEvent。</span>
     <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;new-job&quot;</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">&quot;job_name&quot;</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s2">&quot;job_id&quot;</span><span class="p">])</span>
 </code></pre></div>
-<p>While this feature is mostly useful when working with TypedDicts, you can also use the same technique with regular objects, tuples, or namedtuples.</p>
-<p>Similarly, tags do not need to be specifically str Literals: they can be any type you can normally narrow within <code>if</code> statements and the like. For example, you could have your tags be int or Enum Literals or even regular classes you narrow using <code>isinstance()</code>:</p>
+<p>虽然此功能在使用 TypedDicts 时非常有用，但您也可以对常规对象、元组或命名元组使用相同的技术。</p>
+<p>类似地，标签不需要是专门的 str 文字：它们可以是您通常可以在“if”语句等中缩小范围的任何类型。 
+例如，您可以将标签设置为 int 或 Enum Literals，甚至可以使用“isinstance()”缩小常规类：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
@@ -2069,19 +2065,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span>
 
 <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wrapper</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Wrapper</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="c1"># Doing `if isinstance(w, Wrapper[int])` does not work: isinstance requires</span>
-    <span class="c1"># that the second argument always be an *erased* type, with no generics.</span>
-    <span class="c1"># This is because generics are a typing-only concept and do not exist at</span>
-    <span class="c1"># runtime in a way `isinstance` can always check.</span>
+    <span class="c1"># 执行“if isinstance(w, Wrapper[int])”不起作用：isinstance 要求第二个参数始终是*已删除的*类型，没有泛型。 这是因为泛型是一个仅输入的概念，并且在运行时不以“isinstance”始终可以检查的方式存在。</span>
     <span class="c1">#</span>
-    <span class="c1"># However, we can side-step this by checking the type of `w.inner` to</span>
-    <span class="c1"># narrow `w` itself:</span>
+    <span class="c1"># 然而，我们可以通过检查“w.inner”的类型来缩小“w”本身来回避这个问题：</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">inner</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Wrapper[int]&quot;</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Wrapper[str]&quot;</span>
 </code></pre></div>
-<p>This feature is sometimes called "sum types" or "discriminated union types" in other programming languages.</p>
+<p>在其他编程语言中，此功能有时称为“求和类型”或“可区分联合类型”。</p>
 </div>
 <div class="tabbed-block">
 <p>When you have a union of types, you can normally discriminate between each type in the union by using <code>isinstance</code> checks. For example, if you had a variable <code>x</code> of type <code>Union[int, str]</code>, you could write some code that runs only if <code>x</code> is an int by doing <code>if isinstance(x, int): ...</code>.</p>
@@ -2145,7 +2137,7 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>You may want to check that some code covers all possible <code>Literal</code> or <code>Enum</code> cases. Example:</p>
+<p>您可能想要检查某些代码是否涵盖了所有可能的“Literal”或“Enum”情况。 例子：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
@@ -2160,16 +2152,16 @@
 <span class="k">assert</span> <span class="n">validate</span><span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span>
 <span class="k">assert</span> <span class="n">validate</span><span class="p">(</span><span class="s1">&#39;two&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span>
 </code></pre></div>
-<p>In the code above, it's easy to make a mistake. You can add a new literal value to <code>PossibleValues</code> but forget to handle it in the <code>validate</code> function:</p>
+<p>上面的代码很容易出错。 您可以向“PossibleValues”添加一个新的文字值，但忘记在“validate”函数中处理它：</p>
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 </code></pre></div>
-<p>Mypy won't catch that <code>'three'</code> is not covered.  If you want mypy to perform an exhaustiveness check, you need to update your code to use an <code>assert_never()</code> check:</p>
+<p>Mypy 不会发现“three”未被覆盖。 如果您希望 mypy 执行详尽检查，则需要更新代码以使用 <code>assert_never()</code> 检查：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NoReturn</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
-    <span class="c1"># This also works at runtime as well</span>
+    <span class="c1"># 这在运行时也有效</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -2179,7 +2171,7 @@
         <span class="k">return</span> <span class="kc">False</span>
     <span class="n">assert_never</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-<p>Now if you add a new value to <code>PossibleValues</code> but don't update <code>validate</code>, mypy will spot the error:</p>
+<p>现在，如果您向“PossibleValues”添加新值但不更新“validate”，mypy 将发现错误：</p>
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -2191,7 +2183,7 @@
     <span class="c1"># expected &quot;NoReturn&quot;</span>
     <span class="n">assert_never</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </code></pre></div>
-<p>If runtime checking against unexpected values is not needed, you can leave out the <code>assert_never</code> call in the above example, and mypy will still generate an error about function <code>validate</code> returning without a value:</p>
+<p>如果不需要运行时检查意外值，则可以省略上面示例中的“assert_never”调用，并且 mypy 仍会生成有关函数“validate”返回无值的错误：</p>
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
 <span class="c1"># Error: Missing return statement</span>
@@ -2201,7 +2193,7 @@
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
-<p>Exhaustiveness checking is also supported for match statements (Python 3.10 and later):</p>
+<p>匹配语句也支持详尽检查（Python 3.10 及更高版本）：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">match</span> <span class="n">x</span><span class="p">:</span>
         <span class="k">case</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
@@ -2285,8 +2277,8 @@
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">中文</label><label for="__tabbed_7_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Mypy will not understand expressions that use variables of type <code>Literal[..]</code> on a deep level. For example, if you have a variable <code>a</code> of type <code>Literal[3]</code> and another variable <code>b</code> of type <code>Literal[5]</code>, mypy will infer that <code>a + b</code> has type <code>int</code>, <strong>not</strong> type <code>Literal[8]</code>.</p>
-<p>The basic rule is that literal types are treated as just regular subtypes of whatever type the parameter has. For example, <code>Literal[3]</code> is treated as a subtype of <code>int</code> and so will inherit all of <code>int</code>'s methods directly. This means that <code>Literal[3].__add__</code> accepts the same arguments and has the same return type as <code>int.__add__</code>.</p>
+<p>Mypy 无法深入理解使用“Literal[..]”类型变量的表达式。 例如，如果您有一个类型为“Literal[3]”的变量“a”和另一个类型为“Literal[5]”的变量“b”，mypy 将推断“a + b”的类型为“int”，<em> </em>不是** 输入 <code>Literal[8]</code>。</p>
+<p>基本规则是文字类型被视为参数具有的任何类型的常规子类型。 例如，“Literal[3]”被视为“int”的子类型，因此将直接继承“int”的所有方法。 这意味着 <code>Literal[3].__add__</code> 接受与 <code>int.__add__</code> 相同的参数并具有相同的返回类型。</p>
 </div>
 <div class="tabbed-block">
 <p>Mypy will not understand expressions that use variables of type <code>Literal[..]</code> on a deep level. For example, if you have a variable <code>a</code> of type <code>Literal[3]</code> and another variable <code>b</code> of type <code>Literal[5]</code>, mypy will infer that <code>a + b</code> has type <code>int</code>, <strong>not</strong> type <code>Literal[8]</code>.</p>
@@ -2296,29 +2288,37 @@
 </div>
 <h2 id="枚举">枚举<a class="headerlink" href="#枚举" title="Permanent link">&para;</a></h2>
 <p>Enums</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block">
-<p>Mypy has special support for <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> and its subclasses: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
-    <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
-
-<span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.up]?&quot;</span>
-<span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.down]?&quot;</span>
-</code></pre></div>
-<p>You can use enums to annotate types as you would expect:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movement</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
-
-<span class="n">Movement</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># ok</span>
-<span class="n">Movement</span><span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># E: Argument 1 to &quot;Movement&quot; has incompatible type &quot;str&quot;; expected &quot;Direction&quot;</span>
-</code></pre></div>
+<div class="tabbed-block"></div>
 </div>
+</div>
+<p>Mypy 对 <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> 及其子类有特殊支持: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
+<div class="highlight"><pre><span></span><code>```python
+from enum import Enum
+
+class Direction(Enum):
+    up = &#39;up&#39;
+    down = &#39;down&#39;
+
+reveal_type(Direction.up)  # Revealed type is &quot;Literal[Direction.up]?&quot;
+reveal_type(Direction.down)  # Revealed type is &quot;Literal[Direction.down]?&quot;
+```
+
+You can use enums to annotate types as you would expect:
+
+```python
+class Movement:
+    def __init__(self, direction: Direction, speed: float) -&gt; None:
+        self.direction = direction
+        self.speed = speed
+
+Movement(Direction.up, 5.0)  # ok
+Movement(&#39;up&#39;, 5.0)  # E: Argument 1 to &quot;Movement&quot; has incompatible type &quot;str&quot;; expected &quot;Direction&quot;
+```
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">英文</label></div>
+<div class="tabbed-content">
 <div class="tabbed-block">
 <p>Mypy has special support for <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> and its subclasses: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
@@ -2344,15 +2344,15 @@
 </div>
 <h3 id="详尽检查">详尽检查<a class="headerlink" href="#详尽检查" title="Permanent link">&para;</a></h3>
 <p>Exhaustiveness checking</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Similar to <code>Literal</code> types, <code>Enum</code> supports exhaustiveness checking. Let's start with a definition:</p>
+<p>与“Literal”类型类似，“Enum”支持详尽检查。 让我们从一个定义开始：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
 
 <span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
-    <span class="c1"># This also works in runtime as well:</span>
+    <span class="c1"># 这在运行时也有效：</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -2368,7 +2368,7 @@
     <span class="k">elif</span> <span class="n">direction</span> <span class="ow">is</span> <span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Down&#39;</span><span class="p">)</span>
         <span class="k">return</span>
-    <span class="c1"># This line is never reached</span>
+    <span class="c1"># 这条线永远不会到达</span>
     <span class="n">assert_never</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
 </code></pre></div>
 <p>If we forget to handle one of the cases, mypy will generate an error:</p>
@@ -2381,19 +2381,19 @@
 <p>Exhaustiveness checking is also supported for match statements (Python 3.10 and later).</p>
 </div>
 <div class="tabbed-block">
-<p>Similar to <code>Literal</code> types, <code>Enum</code> supports exhaustiveness checking. Let's start with a definition:</p>
+<p>与“Literal”类型类似，“Enum”支持详尽检查。 让我们从一个定义开始：</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
 
 <span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
-    <span class="c1"># This also works in runtime as well:</span>
+    <span class="c1"># 这在运行时也有效：</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
 <span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
     <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 </code></pre></div>
-<p>Now, let's use an exhaustiveness check:</p>
+<p>现在，让我们使用详尽检查：</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">direction</span> <span class="ow">is</span> <span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &quot;Literal[Direction.up]&quot;</span>
@@ -2402,7 +2402,7 @@
     <span class="k">elif</span> <span class="n">direction</span> <span class="ow">is</span> <span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Down&#39;</span><span class="p">)</span>
         <span class="k">return</span>
-    <span class="c1"># This line is never reached</span>
+    <span class="c1"># 这条线永远不会到达</span>
     <span class="n">assert_never</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
 </code></pre></div>
 <p>If we forget to handle one of the cases, mypy will generate an error:</p>
@@ -2418,12 +2418,12 @@
 </div>
 <h3 id="额外的枚举检查">额外的枚举检查<a class="headerlink" href="#额外的枚举检查" title="Permanent link">&para;</a></h3>
 <p>Extra Enum checks</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>Mypy also tries to support special features of <code>Enum</code> the same way Python's runtime does:</p>
+<p>Mypy 还尝试像 Python 运行时一样支持“Enum”的特殊功能：</p>
 <ul>
-<li>Any <code>Enum</code> class with values is implicitly <a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs"><code>final</code></a>. This is what happens in CPython:</li>
+<li>任何带有值的“Enum”类都是隐式的<a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs">“final”</a>. 这是 CPython 中发生的情况：</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
@@ -2432,25 +2432,23 @@
     <span class="o">...</span>
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">AllDirection</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">extend</span> <span class="n">enumeration</span> <span class="s1">&#39;Direction&#39;</span>
 </code></pre></div>
-<p>Mypy also catches this error:</p>
+<p>Mypy 也捕获了这个错误：</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>  <span class="c1"># E: Cannot inherit from final class &quot;Direction&quot;</span>
     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
     <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
 </code></pre></div>
-<ul>
-<li>All <code>Enum</code> fields are implicitly <code>final</code> as well.</li>
-</ul>
+<p>-所有“Enum”字段也隐式为“final”。</p>
 <div class="highlight"><pre><span></span><code><span class="n">Direction</span><span class="o">.</span><span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;^&#39;</span>  <span class="c1"># E: Cannot assign to final attribute &quot;up&quot;</span>
 </code></pre></div>
 <ul>
-<li>All field names are checked to be unique.</li>
+<li>检查所有字段名称是否唯一。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Some</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># E: Attempted to reuse member name &quot;x&quot; in Enum definition &quot;Some&quot;</span>
 </code></pre></div>
 <ul>
-<li>Base classes have no conflicts and mixin types are correct.</li>
+<li>基类没有冲突并且 mixin 类型是正确的。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">WrongEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="c1"># E: Only a single data type mixin is allowed for Enum subtypes, found extra &quot;int&quot;</span>
@@ -2508,7 +2506,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月5日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月6日</span>
       
         <br>
         创建日期:
