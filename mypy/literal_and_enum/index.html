@@ -2288,37 +2288,29 @@
 </div>
 <h2 id="枚举">枚举<a class="headerlink" href="#枚举" title="Permanent link">&para;</a></h2>
 <p>Enums</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:2"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><input id="__tabbed_8_2" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">中文</label><label for="__tabbed_8_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-</div>
-</div>
+<div class="tabbed-block">
 <p>Mypy 对 <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> 及其子类有特殊支持: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
-<div class="highlight"><pre><span></span><code>```python
-from enum import Enum
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 
-class Direction(Enum):
-    up = &#39;up&#39;
-    down = &#39;down&#39;
+<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
+    <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 
-reveal_type(Direction.up)  # Revealed type is &quot;Literal[Direction.up]?&quot;
-reveal_type(Direction.down)  # Revealed type is &quot;Literal[Direction.down]?&quot;
-```
-
-You can use enums to annotate types as you would expect:
-
-```python
-class Movement:
-    def __init__(self, direction: Direction, speed: float) -&gt; None:
-        self.direction = direction
-        self.speed = speed
-
-Movement(Direction.up, 5.0)  # ok
-Movement(&#39;up&#39;, 5.0)  # E: Argument 1 to &quot;Movement&quot; has incompatible type &quot;str&quot;; expected &quot;Direction&quot;
-```
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.up]?&quot;</span>
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.down]?&quot;</span>
 </code></pre></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">英文</label></div>
-<div class="tabbed-content">
+<p>You can use enums to annotate types as you would expect:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movement</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
+
+<span class="n">Movement</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># ok</span>
+<span class="n">Movement</span><span class="p">(</span><span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>  <span class="c1"># E: Argument 1 to &quot;Movement&quot; has incompatible type &quot;str&quot;; expected &quot;Direction&quot;</span>
+</code></pre></div>
+</div>
 <div class="tabbed-block">
 <p>Mypy has special support for <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> and its subclasses: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
@@ -2344,7 +2336,7 @@ Movement(&#39;up&#39;, 5.0)  # E: Argument 1 to &quot;Movement&quot; has incompa
 </div>
 <h3 id="详尽检查">详尽检查<a class="headerlink" href="#详尽检查" title="Permanent link">&para;</a></h3>
 <p>Exhaustiveness checking</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:2"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><input id="__tabbed_9_2" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">中文</label><label for="__tabbed_9_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>与“Literal”类型类似，“Enum”支持详尽检查。 让我们从一个定义开始：</p>
@@ -2418,7 +2410,7 @@ Movement(&#39;up&#39;, 5.0)  # E: Argument 1 to &quot;Movement&quot; has incompa
 </div>
 <h3 id="额外的枚举检查">额外的枚举检查<a class="headerlink" href="#额外的枚举检查" title="Permanent link">&para;</a></h3>
 <p>Extra Enum checks</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Mypy 还尝试像 Python 运行时一样支持“Enum”的特殊功能：</p>
