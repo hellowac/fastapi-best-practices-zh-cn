@@ -675,7 +675,7 @@ Enums
 
 === "中文"
 
-   Mypy 对 [`enum.Enum`](https://docs.python.org/3/library/enum.html#enum.Enum) 及其子类有特殊支持: [`enum.IntEnum`](https://docs.python.org/3/library/enum.html#enum.IntEnum), [`enum.Flag`](https://docs.python.org/3/library/enum.html#enum.Flag), [`enum.IntFlag`](https://docs.python.org/3/library/enum.html#enum.IntFlag), and [`enum.StrEnum`](https://docs.python.org/3/library/enum.html#enum.StrEnum).
+    Mypy 对 [`enum.Enum`](https://docs.python.org/3/library/enum.html#enum.Enum) 及其子类有特殊支持: [`enum.IntEnum`](https://docs.python.org/3/library/enum.html#enum.IntEnum), [`enum.Flag`](https://docs.python.org/3/library/enum.html#enum.Flag), [`enum.IntFlag`](https://docs.python.org/3/library/enum.html#enum.IntFlag), and [`enum.StrEnum`](https://docs.python.org/3/library/enum.html#enum.StrEnum).
 
     ```python
     from enum import Enum
