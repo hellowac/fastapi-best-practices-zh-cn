@@ -748,7 +748,7 @@ Exhaustiveness checking
         down = 'down'
     ```
 
-    Now, let's use an exhaustiveness check:
+    现在，让我们使用详尽检查：
 
     ```python
     def choose_direction(direction: Direction) -> None:
@@ -763,7 +763,7 @@ Exhaustiveness checking
         assert_never(direction)
     ```
 
-    If we forget to handle one of the cases, mypy will generate an error:
+    如果我们忘记处理其中一种情况，mypy 将生成错误：
 
     ```python
     def choose_direction(direction: Direction) -> None:
@@ -773,11 +773,11 @@ Exhaustiveness checking
         assert_never(direction)  # E: Argument 1 to "assert_never" has incompatible type "Direction"; expected "NoReturn"
     ```
 
-    Exhaustiveness checking is also supported for match statements (Python 3.10 and later).
+    匹配语句也支持详尽检查（Python 3.10 及更高版本）。
 
 === "英文"
 
-    与“Literal”类型类似，“Enum”支持详尽检查。 让我们从一个定义开始：
+    You may want to check that some code covers all possible `Literal` or `Enum` cases. Example:
 
     ```python
     from enum import Enum
@@ -792,7 +792,7 @@ Exhaustiveness checking
         down = 'down'
     ```
 
-    现在，让我们使用详尽检查：
+    Now, let's use an exhaustiveness check:
 
     ```python
     def choose_direction(direction: Direction) -> None:
