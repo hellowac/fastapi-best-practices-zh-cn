@@ -1637,10 +1637,51 @@
 <p><strong>TypedDict</strong></p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">中文</label><label for="__tabbed_1_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Python 程序经常使用带有字符串键的字典来表示对象。 <code>TypedDict</code> 允许您为表示具有固定模式的对象的字典提供精确的类型，例如 <code>{'id': 1, 'items': ['x']}</code>。</p>
+<p>这是一个典型的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="n">movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
+</code></pre></div>
+<p>仅需要一组固定的字符串键（上面的“name”和“year”），并且每个键都有一个独立的值类型（“str”代表“name”，“int”代表“year” '` 上面）。 我们之前已经看到过“dict[K, V]”类型，它允许您声明统一的字典类型，其中每个值都具有相同的类型，并且支持任意键。 这显然不太适合上面的“电影”。 相反，您可以使用“TypedDict”为“movie”等对象提供精确的类型，其中每个字典值的类型取决于键：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="n">Movie</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s1">&#39;Movie&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
+
+<span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
+</code></pre></div>
+<p><code>Movie</code> 是一个 <code>TypedDict</code> 类型，包含两项：<code>'name'</code>（类型为 <code>str</code>）和 <code>'year'</code>（类型为 <code>int</code>）。 请注意，我们对“movie”变量使用了显式类型注释。 这种类型注释很重要——没有它，mypy 将尝试为“movie”推断出常规的、统一的 <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> 类型 ，这不是我们想要的。</p>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>如果将 <code>TypedDict</code> 对象作为参数传递给函数，通常不需要类型注释，因为 mypy 可以根据声明的参数类型推断所需的类型。 另外，如果之前已经定义了赋值目标，并且它具有 <code>TypedDict</code> 类型，则 mypy 会将分配的值视为 <code>TypedDict</code>，而不是 <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a>。</p>
+</div>
+<p>现在 mypy 会识别这些是有效的：</p>
+<div class="highlight"><pre><span></span><code><span class="n">name</span> <span class="o">=</span> <span class="n">movie</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>  <span class="c1"># Okay; type of name is str</span>
+<span class="n">year</span> <span class="o">=</span> <span class="n">movie</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span>  <span class="c1"># Okay; type of year is int</span>
+</code></pre></div>
+<p>Mypy 会将无效密钥检测为错误：</p>
+<div class="highlight"><pre><span></span><code><span class="n">director</span> <span class="o">=</span> <span class="n">movie</span><span class="p">[</span><span class="s1">&#39;director&#39;</span><span class="p">]</span>  <span class="c1"># Error: &#39;director&#39; is not a valid key</span>
+</code></pre></div>
+<p>Mypy 还将拒绝运行时计算的表达式作为密钥，因为它无法验证它是否是有效的密钥。 您只能使用字符串文字作为“TypedDict”键。</p>
+<p><code>TypedDict</code> 类型对象也可以充当构造函数。 它在运行时返回一个普通的 <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> 对象——<code>TypedDict</code> 不定义新的运行时类型：</p>
+<div class="highlight"><pre><span></span><code><span class="n">toy_story</span> <span class="o">=</span> <span class="n">Movie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Toy Story&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">1995</span><span class="p">)</span>
+</code></pre></div>
+<p>这相当于直接使用 <code>{ ... }</code> 或 <code>dict(key=value, ...)</code> 构造一个字典。 构造函数形式有时很方便，因为它可以在没有类型注释的情况下使用，并且它还使对象的类型显式化。</p>
+<p>与所有类型一样，“TypedDict”可以用作组件来构建任意复杂的类型。 例如，您可以使用“TypedDict”项定义嵌套的“TypedDict”和容器。 与大多数其他类型不同，mypy 使用 TypedDict 的结构兼容性检查（或结构子类型）。 假设项目类型兼容，具有额外项目的“TypedDict”对象与较窄的“TypedDict”（子类型）兼容（<em>totality</em>也会影响子类型，如下所述）。</p>
+<p><code>TypedDict</code> 对象不是常规 <code>dict[...]</code> 类型的子类型（反之亦然），因为 <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> 允许添加和删除任意键，与“TypedDict”不同。 然而，任何 <code>TypedDict</code> 对象都是 <code>Mapping[str, object]</code> 的子类型（即兼容），因为 <a href="https://docs.python.org/3/library/typing.html#typing.Mapping"><code>Mapping</code></a> 仅提供对字典项的只读访问：</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">print_typed_dict</span><span class="p">(</span><span class="n">Movie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Toy Story&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">1995</span><span class="p">))</span>  <span class="c1"># OK</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>除非您使用的是 Python 3.8 或更高版本（其中标准库 <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 模块中提供了 <code>TypedDict</code>），否则您需要使用 pip 安装 <code>typing_extensions</code> 以使用 <code>TypedDict</code>：</p>
+<div class="highlight"><pre><span></span><code>python3 -m pip install --upgrade typing-extensions
+</code></pre></div>
 </div>
 </div>
+<div class="tabbed-block">
 <p>Python programs often use dictionaries with string keys to represent objects. <code>TypedDict</code> lets you give precise types for dictionaries that represent objects with a fixed schema, such as <code>{'id': 1, 'items': ['x']}</code>.</p>
 <p>Here is a typical example:</p>
 <div class="highlight"><pre><span></span><code><span class="n">movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
@@ -1652,10 +1693,10 @@
 
 <span class="n">movie</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
 </code></pre></div>
-<p><code>Movie</code> is a <code>TypedDict</code> type with two items: <code>'name'</code> (with type <code>str</code>) and <code>'year'</code> (with type <code>int</code>). Note that we used an explicit type annotation for the <code>movie</code> variable. This type annotation is important -- without it, mypy will try to infer a regular, uniform {py:class}<code>dict</code> type for <code>movie</code>, which is not what we want here.</p>
+<p><code>Movie</code> is a <code>TypedDict</code> type with two items: <code>'name'</code> (with type <code>str</code>) and <code>'year'</code> (with type <code>int</code>). Note that we used an explicit type annotation for the <code>movie</code> variable. This type annotation is important -- without it, mypy will try to infer a regular, uniform <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> type for <code>movie</code>, which is not what we want here.</p>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>If you pass a <code>TypedDict</code> object as an argument to a function, no type annotation is usually necessary since mypy can infer the desired type based on the declared argument type. Also, if an assignment target has been previously defined, and it has a <code>TypedDict</code> type, mypy will treat the assigned value as a <code>TypedDict</code>, not {py:class}<code>dict</code>.</p>
+<p>If you pass a <code>TypedDict</code> object as an argument to a function, no type annotation is usually necessary since mypy can infer the desired type based on the declared argument type. Also, if an assignment target has been previously defined, and it has a <code>TypedDict</code> type, mypy will treat the assigned value as a <code>TypedDict</code>, not <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a>.</p>
 </div>
 <p>Now mypy will recognize these as valid:</p>
 <div class="highlight"><pre><span></span><code><span class="n">name</span> <span class="o">=</span> <span class="n">movie</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>  <span class="c1"># Okay; type of name is str</span>
@@ -1665,12 +1706,12 @@
 <div class="highlight"><pre><span></span><code><span class="n">director</span> <span class="o">=</span> <span class="n">movie</span><span class="p">[</span><span class="s1">&#39;director&#39;</span><span class="p">]</span>  <span class="c1"># Error: &#39;director&#39; is not a valid key</span>
 </code></pre></div>
 <p>Mypy will also reject a runtime-computed expression as a key, as it can't verify that it's a valid key. You can only use string literals as <code>TypedDict</code> keys.</p>
-<p>The <code>TypedDict</code> type object can also act as a constructor. It returns a normal {py:class}<code>dict</code> object at runtime -- a <code>TypedDict</code> does not define a new runtime type:</p>
+<p>The <code>TypedDict</code> type object can also act as a constructor. It returns a normal <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> object at runtime -- a <code>TypedDict</code> does not define a new runtime type:</p>
 <div class="highlight"><pre><span></span><code><span class="n">toy_story</span> <span class="o">=</span> <span class="n">Movie</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Toy Story&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">1995</span><span class="p">)</span>
 </code></pre></div>
 <p>This is equivalent to just constructing a dictionary directly using <code>{ ... }</code> or <code>dict(key=value, ...)</code>. The constructor form is sometimes convenient, since it can be used without a type annotation, and it also makes the type of the object explicit.</p>
 <p>Like all types, <code>TypedDict</code>s can be used as components to build arbitrarily complex types. For example, you can define nested <code>TypedDict</code>s and containers with <code>TypedDict</code> items. Unlike most other types, mypy uses structural compatibility checking (or structural subtyping) with <code>TypedDict</code>s. A <code>TypedDict</code> object with extra items is compatible with (a subtype of) a narrower <code>TypedDict</code>, assuming item types are compatible (<em>totality</em> also affects subtyping, as discussed below).</p>
-<p>A <code>TypedDict</code> object is not a subtype of the regular <code>dict[...]</code> type (and vice versa), since {py:class}<code>dict</code> allows arbitrary keys to be added and removed, unlike <code>TypedDict</code>. However, any <code>TypedDict</code> object is a subtype of (that is, compatible with) <code>Mapping[str, object]</code>, since {py:class}<code>~typing.Mapping</code> only provides read-only access to the dictionary items:</p>
+<p>A <code>TypedDict</code> object is not a subtype of the regular <code>dict[...]</code> type (and vice versa), since <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> allows arbitrary keys to be added and removed, unlike <code>TypedDict</code>. However, any <code>TypedDict</code> object is a subtype of (that is, compatible with) <code>Mapping[str, object]</code>, since <a href="https://docs.python.org/3/library/typing.html#typing.Mapping"><code>Mapping</code></a> only provides read-only access to the dictionary items:</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1679,15 +1720,36 @@
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>Unless you are on Python 3.8 or newer (where <code>TypedDict</code> is available in standard library {py:mod}<code>typing</code> module) you need to install <code>typing_extensions</code> using pip to use <code>TypedDict</code>:</p>
+<p>Unless you are on Python 3.8 or newer (where <code>TypedDict</code> is available in standard library <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> module) you need to install <code>typing_extensions</code> using pip to use <code>TypedDict</code>:</p>
 <div class="highlight"><pre><span></span><code>python3 -m pip install --upgrade typing-extensions
 </code></pre></div>
+</div>
+</div>
+</div>
 </div>
 <h2 id="整体性">整体性<a class="headerlink" href="#整体性" title="Permanent link">&para;</a></h2>
 <p>Totality</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">中文</label><label for="__tabbed_2_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>默认情况下，mypy 确保“TypedDict”对象具有所有指定的键。 这将被标记为错误：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Error: &#39;year&#39; missing</span>
+<span class="n">toy_story</span><span class="p">:</span> <span class="n">Movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Toy Story&#39;</span><span class="p">}</span>
+</code></pre></div>
+<p>有时您希望在创建“TypedDict”对象时允许省略键。 您可以向“TypedDict(...)”提供“total=False”参数来实现此目的：</p>
+<div class="highlight"><pre><span></span><code><span class="n">GuiOptions</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span>
+    <span class="s1">&#39;GuiOptions&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">},</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">options</span><span class="p">:</span> <span class="n">GuiOptions</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Okay</span>
+<span class="n">options</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span>
+</code></pre></div>
+<p>您可能需要使用 <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> 来访问部分（非全部）<code>TypedDict</code> 的项目， 因为使用 <code>[]</code> 进行索引可能会在运行时失败。 然而，mypy 仍然允许使用带有部分 <code>TypedDict</code> 的 <code>[]</code> ——你只需要小心它，因为它可能会导致 <a href="https://docs.python.org/3/library/exceptions.html#KeyError"><code>KeyError</code></a>。 到处都需要 <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> 太麻烦了。 （请注意，您也可以自由使用 <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> 以及所有 <code>TypedDict</code>。）</p>
+<p>不需要的键在错误消息中显示为“？”：</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Revealed type is &quot;TypedDict(&#39;GuiOptions&#39;, {&#39;language&#39;?: builtins.str,</span>
+<span class="c1">#                                            &#39;color&#39;?: builtins.str})&quot;</span>
+<span class="n">reveal_type</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</code></pre></div>
+<p>整体性也会影响结构兼容性。 当需要完整的“TypedDict”时，您不能使用部分“TypedDict”。 此外，当需要部分“TypedDict”时，整个“TypedDict”无效。</p>
+</div>
 <div class="tabbed-block">
 <p>By default mypy ensures that a <code>TypedDict</code> object has all the specified keys. This will be flagged as an error:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Error: &#39;year&#39; missing</span>
@@ -1699,7 +1761,7 @@
 <span class="n">options</span><span class="p">:</span> <span class="n">GuiOptions</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Okay</span>
 <span class="n">options</span><span class="p">[</span><span class="s1">&#39;language&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;en&#39;</span>
 </code></pre></div>
-<p>You may need to use {py:meth}<code>~dict.get</code> to access items of a partial (non-total) <code>TypedDict</code>, since indexing using <code>[]</code> could fail at runtime. However, mypy still lets use <code>[]</code> with a partial <code>TypedDict</code> -- you just need to be careful with it, as it could result in a {py:exc}<code>KeyError</code>. Requiring {py:meth}<code>~dict.get</code> everywhere would be too cumbersome. (Note that you are free to use {py:meth}<code>~dict.get</code> with total <code>TypedDict</code>s as well.)</p>
+<p>You may need to use <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> to access items of a partial (non-total) <code>TypedDict</code>, since indexing using <code>[]</code> could fail at runtime. However, mypy still lets use <code>[]</code> with a partial <code>TypedDict</code> -- you just need to be careful with it, as it could result in a <a href="https://docs.python.org/3/library/exceptions.html#KeyError"><code>KeyError</code></a>. Requiring <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> everywhere would be too cumbersome. (Note that you are free to use <a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>dict.get</code></a> with total <code>TypedDict</code>s as well.)</p>
 <p>Keys that aren't required are shown with a <code>?</code> in error messages:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Revealed type is &quot;TypedDict(&#39;GuiOptions&#39;, {&#39;language&#39;?: builtins.str,</span>
 <span class="c1">#                                            &#39;color&#39;?: builtins.str})&quot;</span>
@@ -1713,12 +1775,11 @@
 <p>Supported operations</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">中文</label><label for="__tabbed_3_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
 <div class="tabbed-block">
-<p><code>TypedDict</code> objects support a subset of dictionary operations and methods. You must use string literals as keys when calling most of the methods, as otherwise mypy won't be able to check that the key is valid. List of supported operations:</p>
+<p><code>TypedDict</code> 对象支持字典操作和方法的子集。 调用大多数方法时必须使用字符串文字作为键，否则 mypy 将无法检查该键是否有效。 支持的操作列表：</p>
 <ul>
 <li>
-<p>Anything included in {py:class}<code>~typing.Mapping</code>:</p>
+<p>[<code>typing.Mapping</code>] 中包含的任何内容(https://docs.python.org/3/library/typing.html#typing.Mapping):</p>
 </li>
 <li>
 <p><code>d[key]</code></p>
@@ -1726,31 +1787,54 @@
 <li><code>key in d</code></li>
 <li><code>len(d)</code></li>
 <li><code>for key in d</code> (iteration)</li>
-<li>{py:meth}<code>d.get(key[, default]) &lt;dict.get&gt;</code></li>
-<li>{py:meth}<code>d.keys() &lt;dict.keys&gt;</code></li>
-<li>{py:meth}<code>d.values() &lt;dict.values&gt;</code></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>d.get(key[, default])</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.keys"><code>d.keys()</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.values"><code>d.values()</code></a></li>
 <li>
-<p>{py:meth}<code>d.items() &lt;dict.items&gt;</code></p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.items"><code>d.items()</code></a></p>
 </li>
 <li>
-<p>{py:meth}<code>d.copy() &lt;dict.copy&gt;</code></p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.copy"><code>d.copy()</code></a></p>
 </li>
-<li>
-<p>{py:meth}<code>d.setdefault(key, default) &lt;dict.setdefault&gt;</code></p>
-</li>
-<li>
-<p>{py:meth}<code>d1.update(d2) &lt;dict.update&gt;</code></p>
-</li>
-<li>
-<p>{py:meth}<code>d.pop(key[, default]) &lt;dict.pop&gt;</code> (partial <code>TypedDict</code>s only)</p>
-</li>
-<li>
-<p><code>del d[key]</code> (partial <code>TypedDict</code>s only)</p>
-</li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.setdefault"><code>d.setdefault(key, default)</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.update"><code>d1.update(d2)</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.pop"><code>d.pop(key[, default])</code></a> (partial <code>TypedDict</code>s only)</li>
+<li><code>del d[key]</code> (partial <code>TypedDict</code>s only)</li>
 </ul>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
-<p>{py:meth}<code>~dict.clear</code> and {py:meth}<code>~dict.popitem</code> are not supported since they are unsafe -- they could delete required <code>TypedDict</code> items that are not visible to mypy because of structural subtyping.</p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.clear"><code>dict.clear</code></a> 和 <a href="https://docs.python.org/3/library/stdtypes.html#dict.popitem"><code>dict.popitem</code></a> 不支持，因为它们不安全——它们可以删除由于结构子类型而对 mypy 不可见的必需的“TypedDict”项。</p>
+</div>
+</div>
+<div class="tabbed-block">
+<p><code>TypedDict</code> objects support a subset of dictionary operations and methods. You must use string literals as keys when calling most of the methods, as otherwise mypy won't be able to check that the key is valid. List of supported operations:</p>
+<ul>
+<li>
+<p>Anything included in <a href="https://docs.python.org/3/library/typing.html#typing.Mapping"><code>typing.Mapping</code></a>:</p>
+</li>
+<li>
+<p><code>d[key]</code></p>
+</li>
+<li><code>key in d</code></li>
+<li><code>len(d)</code></li>
+<li><code>for key in d</code> (iteration)</li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.get"><code>d.get(key[, default])</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.keys"><code>d.keys()</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.values"><code>d.values()</code></a></li>
+<li>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.items"><code>d.items()</code></a></p>
+</li>
+<li>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.copy"><code>d.copy()</code></a></p>
+</li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.setdefault"><code>d.setdefault(key, default)</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.update"><code>d1.update(d2)</code></a></li>
+<li><a href="https://docs.python.org/3/library/stdtypes.html#dict.pop"><code>d.pop(key[, default])</code></a> (partial <code>TypedDict</code>s only)</li>
+<li><code>del d[key]</code> (partial <code>TypedDict</code>s only)</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p><a href="https://docs.python.org/3/library/stdtypes.html#dict.clear"><code>dict.clear</code></a> and <a href="https://docs.python.org/3/library/stdtypes.html#dict.popitem"><code>dict.popitem</code></a> are not supported since they are unsafe -- they could delete required <code>TypedDict</code> items that are not visible to mypy because of structural subtyping.</p>
 </div>
 </div>
 </div>
@@ -1759,7 +1843,24 @@
 <p>Class-based syntax</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">中文</label><label for="__tabbed_4_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>Python 3.6 及更高版本支持另一种基于类的语法来定义“TypedDict”：</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+</code></pre></div>
+<p>上面的定义相当于原来的“Movie”定义。 它实际上并没有定义真正的类。 此语法还支持一种继承形式——子类可以定义附加项。 然而，这主要是一种符号快捷方式。 由于 mypy 使用与 TypedDict 的结构兼容性，因此不需要继承来实现兼容性。 下面是一个继承的例子：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">BookBasedMovie</span><span class="p">(</span><span class="n">Movie</span><span class="p">):</span>
+    <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div>
+<p>现在“BookBasedMovie”有键“name”、“year”和“based_on”。</p>
+</div>
 <div class="tabbed-block">
 <p>An alternative, class-based syntax to define a <code>TypedDict</code> is supported in Python 3.6 and later:</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
@@ -1784,7 +1885,17 @@
 <p>Mixing required and non-required items</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">中文</label><label for="__tabbed_5_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>除了允许跨“TypedDict”类型重用之外，继承还允许您在单个“TypedDict”中混合必需和非必需（使用“total=False”）项。 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div>
+<p>现在“Movie”需要键“name”和“year”，而“based_on”在构造对象时可以省略。 混合了必需和非必需键的“TypedDict”（例如上面的“Movie”）仅当其他“TypedDict”中的所有必需键都是第一个“TypedDict”中的必需键时才与另一个“TypedDict”兼容 ，并且其他“TypedDict”的所有非必需键也是第一个“TypedDict”中的非必需键。</p>
+</div>
 <div class="tabbed-block">
 <p>In addition to allowing reuse across <code>TypedDict</code> types, inheritance also allows you to mix required and non-required (using <code>total=False</code>) items in a single <code>TypedDict</code>. Example:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -1802,10 +1913,13 @@
 <p>Unions of TypedDicts</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">中文</label><label for="__tabbed_6_2">英文</label></div>
 <div class="tabbed-content">
-<div class="tabbed-block"></div>
+<div class="tabbed-block">
+<p>由于 TypedDict 在运行时实际上只是常规字典，因此不可能使用“isinstance”检查来区分 TypedDict Union 的不同变体，就像处理常规对象一样。</p>
+<p>相反，您可以使用<a href="https://mypy.readthedocs.io/en/stable/literal_types.html#tagged-unions"><code>标记联合模式</code></a>。 文档的引用部分有完整的描述和示例，但简而言之，您需要为每个 TypedDict 提供相同的键，其中每个值都有唯一的 <a href="https://mypy.readthedocs.io/en/stable/literal_types.html#literal-types"><code>Literal type</code></a>。 然后，检查该键以区分您的 TypedDict。</p>
+</div>
 <div class="tabbed-block">
 <p>Since TypedDicts are really just regular dicts at runtime, it is not possible to use <code>isinstance</code> checks to distinguish between different variants of a Union of TypedDict in the same way you can with regular objects.</p>
-<p>Instead, you can use the {ref}<code>tagged union pattern &lt;tagged_unions&gt;</code>. The referenced section of the docs has a full description with an example, but in short, you will need to give each TypedDict the same key where each value has a unique {ref}<code>Literal type &lt;literal_types&gt;</code>. Then, check that key to distinguish between your TypedDicts.</p>
+<p>Instead, you can use the <a href="https://mypy.readthedocs.io/en/stable/literal_types.html#tagged-unions"><code>tagged union pattern</code></a>. The referenced section of the docs has a full description with an example, but in short, you will need to give each TypedDict the same key where each value has a unique <a href="https://mypy.readthedocs.io/en/stable/literal_types.html#literal-types"><code>Literal type</code></a>. Then, check that key to distinguish between your TypedDicts.</p>
 </div>
 </div>
 </div>
@@ -1815,7 +1929,7 @@
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月7日</span>
       
         <br>
         创建日期:
