@@ -212,7 +212,7 @@ Supported operations
 
     `TypedDict` 对象支持字典操作和方法的子集。 调用大多数方法时必须使用字符串文字作为键，否则 mypy 将无法检查该键是否有效。 支持的操作列表：
 
-    - [`typing.Mapping`] 中包含的任何内容(https://docs.python.org/3/library/typing.html#typing.Mapping):
+    - [`typing.Mapping`](https://docs.python.org/3/library/typing.html#typing.Mapping)中包含的任何内容:
 
       - `d[key]`
       - `key in d`
