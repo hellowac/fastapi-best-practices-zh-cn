@@ -16,8 +16,9 @@
       
         <link rel="next" href="../final_names_methods_classes/">
       
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -25,11 +26,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -41,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -49,24 +53,19 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -93,11 +92,12 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -117,9 +117,13 @@
     </div>
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,19 +131,22 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="查找">
         
         <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -156,7 +163,7 @@
         <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -175,40 +182,54 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  最佳实践
 
-
-  <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
-      最佳实践
-    </a>
-  </li>
+      </a>
+    </li>
+  
 
       
         
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../raw_en/" class="md-tabs__link">
-      英文原版
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
   
   
   
     <li class="md-tabs__item">
-      <a href="../../asyncio/asyncio/" class="md-tabs__link">
-        Asyncio
+      <a href="../../raw_en/" class="md-tabs__link">
+        
+  
+    
+  
+  英文原版
+
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asyncio/asyncio/" class="md-tabs__link">
+          
+  
+    
+  
+  Asyncio
+
+        </a>
+      </li>
+    
   
 
       
@@ -217,14 +238,75 @@
   
     
   
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cheat_sheet_py3/" class="md-tabs__link">
+          
+  
+    
+  
+  mypy
 
+        </a>
+      </li>
+    
+  
 
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
+          
+  
+    
+  
+  HTTP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../git/git-branch-manage/" class="md-tabs__link">
+          
+  
+    
+  
+  Git
+
+        </a>
+      </li>
+    
+  
+
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../cheat_sheet_py3/" class="md-tabs__link md-tabs__link--active">
-        mypy
+      <a href="../../xml/" class="md-tabs__link">
+        
+  
+    
+  
+  xml
+
       </a>
     </li>
   
@@ -233,73 +315,38 @@
         
   
   
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sysdesign/perm_design/" class="md-tabs__link">
+          
+  
+    
+  
+  系统设计
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
-        HTTP
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  关于
+
       </a>
     </li>
   
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../git/git-branch-manage/" class="md-tabs__link">
-        Git
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../xml/" class="md-tabs__link">
-      xml
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../sysdesign/perm_design/" class="md-tabs__link">
-        系统设计
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../about/" class="md-tabs__link">
-      关于
-    </a>
-  </li>
 
       
     </ul>
@@ -324,6 +371,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -332,7 +380,7 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     FastApi 最佳实践-中文版
@@ -342,7 +390,7 @@
       <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -354,14 +402,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../.." class="md-nav__link">
-        最佳实践
+        
+  
+  <span class="md-ellipsis">
+    最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -369,14 +423,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../raw_en/" class="md-nav__link">
-        英文原版
+        
+  
+  <span class="md-ellipsis">
+    英文原版
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -384,405 +444,590 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Asyncio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Asyncio
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Asyncio
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Asyncio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio/" class="md-nav__link">
-        中文简单指南
+        
+  
+  <span class="md-ellipsis">
+    中文简单指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio_en/" class="md-nav__link">
-        中英对照指南
+        
+  
+  <span class="md-ellipsis">
+    中英对照指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/runner/" class="md-nav__link">
-        Runner运行协程
+        
+  
+  <span class="md-ellipsis">
+    Runner运行协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/task_group/" class="md-nav__link">
-        TaskGroup管理协程
+        
+  
+  <span class="md-ellipsis">
+    TaskGroup管理协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/cheat_sheet/" class="md-nav__link">
-        语法备忘录
+        
+  
+  <span class="md-ellipsis">
+    语法备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/api_mind_map/" class="md-nav__link">
-        API思维导图
+        
+  
+  <span class="md-ellipsis">
+    API思维导图
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    mypy
+    
+  </span>
+  
 
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-      
-      
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-          mypy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          mypy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            mypy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../cheat_sheet_py3/" class="md-nav__link">
-        类型注解备忘录
+        
+  
+  <span class="md-ellipsis">
+    类型注解备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../builtin_types/" class="md-nav__link">
-        类型系统参考-内置类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-内置类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_inference_type_annotations/" class="md-nav__link">
-        类型系统参考-类型推断和类型注解
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型推断和类型注解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kind_of_types/" class="md-nav__link">
-        类型系统参考-类型种类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型种类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../class_basics/" class="md-nav__link">
-        类型系统参考-类的基础
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类的基础
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../annotation_issue_at_runtime/" class="md-nav__link">
-        类型系统参考-运行时的注解问题
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-运行时的注解问题
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../protocol_and_struct_subtyping/" class="md-nav__link">
-        类型系统参考-协议和结构子类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-协议和结构子类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dynamic_typing/" class="md-nav__link">
-        类型系统参考-动态类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-动态类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_narrowing/" class="md-nav__link">
-        类型系统参考-类型收缩
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型收缩
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../duck_type_compatibility/" class="md-nav__link">
-        类型系统参考-鸭子类型兼容
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-鸭子类型兼容
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../stub_files/" class="md-nav__link">
-        类型系统参考-存根文件
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-存根文件
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../generics/" class="md-nav__link">
-        类型系统参考-泛型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-泛型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../more_types/" class="md-nav__link">
-        类型系统参考-更多类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-更多类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../literal_and_enum/" class="md-nav__link">
-        类型系统参考-字面量和枚举
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-字面量和枚举
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -794,12 +1039,26 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          类型系统参考-类型字典
+          
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型字典
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        类型系统参考-类型字典
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型字典
+    
+  </span>
+  
+
       </a>
       
         
@@ -819,35 +1078,45 @@
       
         <li class="md-nav__item">
   <a href="#整体性" class="md-nav__link">
-    整体性
+    <span class="md-ellipsis">
+      整体性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#支持的操作" class="md-nav__link">
-    支持的操作
+    <span class="md-ellipsis">
+      支持的操作
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#基于类的语法" class="md-nav__link">
-    基于类的语法
+    <span class="md-ellipsis">
+      基于类的语法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#混合必需和非必需的项目" class="md-nav__link">
-    混合必需和非必需的项目
+    <span class="md-ellipsis">
+      混合必需和非必需的项目
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#typeddict-的联合" class="md-nav__link">
-    TypedDict 的联合
+    <span class="md-ellipsis">
+      TypedDict 的联合
+    </span>
   </a>
   
 </li>
@@ -859,314 +1128,449 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../final_names_methods_classes/" class="md-nav__link">
-        类型系统参考-最终名称、方法和类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-最终名称、方法和类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../metaclasses/" class="md-nav__link">
-        类型系统参考-元类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-元类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-        
-          
-        
-          
-        
-          
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../../http/">HTTP</a>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
           
-            <label for="__nav_5">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          HTTP
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../http/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    HTTP
+    
+  </span>
+  
+
+            </a>
             
               
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            HTTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_i/" class="md-nav__link">
-        互联网协议入门（一）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（一）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_ii/" class="md-nav__link">
-        互联网协议入门（二）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（二）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
-            
-          
+              
             
               
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapi/" class="md-nav__link">
-        Restful API 设计指南
+        
+  
+  <span class="md-ellipsis">
+    Restful API 设计指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapibsetp/" class="md-nav__link">
-        RESTful API 最佳实践
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/http-referer/" class="md-nav__link">
-        HTTP Referer 教程
+        
+  
+  <span class="md-ellipsis">
+    HTTP Referer 教程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/https/" class="md-nav__link">
-        HTTPS 升级指南
+        
+  
+  <span class="md-ellipsis">
+    HTTPS 升级指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          Git
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          Git
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Git
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-branch-manage/" class="md-nav__link">
-        Git分支管理策略
+        
+  
+  <span class="md-ellipsis">
+    Git分支管理策略
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-remote/" class="md-nav__link">
-        Git远程操作详解
+        
+  
+  <span class="md-ellipsis">
+    Git远程操作详解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-use-process/" class="md-nav__link">
-        Git 使用规范流程
+        
+  
+  <span class="md-ellipsis">
+    Git 使用规范流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-cheat-sheet/" class="md-nav__link">
-        常用 Git 命令清单
+        
+  
+  <span class="md-ellipsis">
+    常用 Git 命令清单
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-work-flow/" class="md-nav__link">
-        Git 协作流程
+        
+  
+  <span class="md-ellipsis">
+    Git 协作流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xml/" class="md-nav__link">
-        xml
+        
+  
+  <span class="md-ellipsis">
+    xml
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1174,67 +1578,92 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    系统设计
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          系统设计
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          系统设计
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            系统设计
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sysdesign/perm_design/" class="md-nav__link">
-        权限系统的设计
+        
+  
+  <span class="md-ellipsis">
+    权限系统的设计
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../about/" class="md-nav__link">
-        关于
+        
+  
+  <span class="md-ellipsis">
+    关于
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1268,35 +1697,45 @@
       
         <li class="md-nav__item">
   <a href="#整体性" class="md-nav__link">
-    整体性
+    <span class="md-ellipsis">
+      整体性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#支持的操作" class="md-nav__link">
-    支持的操作
+    <span class="md-ellipsis">
+      支持的操作
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#基于类的语法" class="md-nav__link">
-    基于类的语法
+    <span class="md-ellipsis">
+      基于类的语法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#混合必需和非必需的项目" class="md-nav__link">
-    混合必需和非必需的项目
+    <span class="md-ellipsis">
+      混合必需和非必需的项目
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#typeddict-的联合" class="md-nav__link">
-    TypedDict 的联合
+    <span class="md-ellipsis">
+      TypedDict 的联合
+    </span>
   </a>
   
 </li>
@@ -1315,6 +1754,7 @@
                 
                   
 
+
   
   
 
@@ -1329,7 +1769,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
 </code></pre></div>
 <p>仅需要一组固定的字符串键（上面的“name”和“year”），并且每个键都有一个独立的值类型（“str”代表“name”，“int”代表“year” '` 上面）。 我们之前已经看到过“dict[K, V]”类型，它允许您声明统一的字典类型，其中每个值都具有相同的类型，并且支持任意键。 这显然不太适合上面的“电影”。 相反，您可以使用“TypedDict”为“movie”等对象提供精确的类型，其中每个字典值的类型取决于键：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
 <span class="n">Movie</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s1">&#39;Movie&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
 
@@ -1354,7 +1794,7 @@
 <p>这相当于直接使用 <code>{ ... }</code> 或 <code>dict(key=value, ...)</code> 构造一个字典。 构造函数形式有时很方便，因为它可以在没有类型注释的情况下使用，并且它还使对象的类型显式化。</p>
 <p>与所有类型一样，“TypedDict”可以用作组件来构建任意复杂的类型。 例如，您可以使用“TypedDict”项定义嵌套的“TypedDict”和容器。 与大多数其他类型不同，mypy 使用 TypedDict 的结构兼容性检查（或结构子类型）。 假设项目类型兼容，具有额外项目的“TypedDict”对象与较窄的“TypedDict”（子类型）兼容（<em>totality</em>也会影响子类型，如下所述）。</p>
 <p><code>TypedDict</code> 对象不是常规 <code>dict[...]</code> 类型的子类型（反之亦然），因为 <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> 允许添加和删除任意键，与“TypedDict”不同。 然而，任何 <code>TypedDict</code> 对象都是 <code>Mapping[str, object]</code> 的子类型（即兼容），因为 <a href="https://docs.python.org/3/library/typing.html#typing.Mapping"><code>Mapping</code></a> 仅提供对字典项的只读访问：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -1373,7 +1813,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">movie</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Blade Runner&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="mi">1982</span><span class="p">}</span>
 </code></pre></div>
 <p>Only a fixed set of string keys is expected (<code>'name'</code> and <code>'year'</code> above), and each key has an independent value type (<code>str</code> for <code>'name'</code> and <code>int</code> for <code>'year'</code> above). We've previously seen the <code>dict[K, V]</code> type, which lets you declare uniform dictionary types, where every value has the same type, and arbitrary keys are supported. This is clearly not a good fit for <code>movie</code> above. Instead, you can use a <code>TypedDict</code> to give a precise type for objects like <code>movie</code>, where the type of each dictionary value depends on the key:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
 <span class="n">Movie</span> <span class="o">=</span> <span class="n">TypedDict</span><span class="p">(</span><span class="s1">&#39;Movie&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">})</span>
 
@@ -1398,7 +1838,7 @@
 <p>This is equivalent to just constructing a dictionary directly using <code>{ ... }</code> or <code>dict(key=value, ...)</code>. The constructor form is sometimes convenient, since it can be used without a type annotation, and it also makes the type of the object explicit.</p>
 <p>Like all types, <code>TypedDict</code>s can be used as components to build arbitrarily complex types. For example, you can define nested <code>TypedDict</code>s and containers with <code>TypedDict</code> items. Unlike most other types, mypy uses structural compatibility checking (or structural subtyping) with <code>TypedDict</code>s. A <code>TypedDict</code> object with extra items is compatible with (a subtype of) a narrower <code>TypedDict</code>, assuming item types are compatible (<em>totality</em> also affects subtyping, as discussed below).</p>
 <p>A <code>TypedDict</code> object is not a subtype of the regular <code>dict[...]</code> type (and vice versa), since <a href="https://docs.python.org/3/library/stdtypes.html#dict"><code>dict</code></a> allows arbitrary keys to be added and removed, unlike <code>TypedDict</code>. However, any <code>TypedDict</code> object is a subtype of (that is, compatible with) <code>Mapping[str, object]</code>, since <a href="https://docs.python.org/3/library/typing.html#typing.Mapping"><code>Mapping</code></a> only provides read-only access to the dictionary items:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">print_typed_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -1531,36 +1971,36 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Python 3.6 及更高版本支持另一种基于类的语法来定义“TypedDict”：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
-<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 </code></pre></div>
 <p>上面的定义相当于原来的“Movie”定义。 它实际上并没有定义真正的类。 此语法还支持一种继承形式——子类可以定义附加项。 然而，这主要是一种符号快捷方式。 由于 mypy 使用与 TypedDict 的结构兼容性，因此不需要继承来实现兼容性。 下面是一个继承的例子：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">BookBasedMovie</span><span class="p">(</span><span class="n">Movie</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BookBasedMovie</span><span class="p">(</span><span class="n">Movie</span><span class="p">):</span>
     <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div>
 <p>现在“BookBasedMovie”有键“name”、“year”和“based_on”。</p>
 </div>
 <div class="tabbed-block">
 <p>An alternative, class-based syntax to define a <code>TypedDict</code> is supported in Python 3.6 and later:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
-<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 </code></pre></div>
 <p>The above definition is equivalent to the original <code>Movie</code> definition. It doesn't actually define a real class. This syntax also supports a form of inheritance -- subclasses can define additional items. However, this is primarily a notational shortcut. Since mypy uses structural compatibility with <code>TypedDict</code>s, inheritance is not required for compatibility. Here is an example of inheritance:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">BookBasedMovie</span><span class="p">(</span><span class="n">Movie</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BookBasedMovie</span><span class="p">(</span><span class="n">Movie</span><span class="p">):</span>
     <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div>
 <p>Now <code>BookBasedMovie</code> has keys <code>name</code>, <code>year</code> and <code>based_on</code>.</p>
@@ -1573,22 +2013,22 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>除了允许跨“TypedDict”类型重用之外，继承还允许您在单个“TypedDict”中混合必需和非必需（使用“total=False”）项。 例子：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div>
 <p>现在“Movie”需要键“name”和“year”，而“based_on”在构造对象时可以省略。 混合了必需和非必需键的“TypedDict”（例如上面的“Movie”）仅当其他“TypedDict”中的所有必需键都是第一个“TypedDict”中的必需键时才与另一个“TypedDict”兼容 ，并且其他“TypedDict”的所有非必需键也是第一个“TypedDict”中的非必需键。</p>
 </div>
 <div class="tabbed-block">
 <p>In addition to allowing reuse across <code>TypedDict</code> types, inheritance also allows you to mix required and non-required (using <code>total=False</code>) items in a single <code>TypedDict</code>. Example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MovieBase</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">year</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span><span class="n">MovieBase</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">based_on</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div>
 <p>Now <code>Movie</code> has required keys <code>name</code> and <code>year</code>, while <code>based_on</code> can be left out when constructing an object. A <code>TypedDict</code> with a mix of required and non-required keys, such as <code>Movie</code> above, will only be compatible with another <code>TypedDict</code> if all required keys in the other <code>TypedDict</code> are required keys in the first <code>TypedDict</code>, and all non-required keys of the other <code>TypedDict</code> are also non-required keys in the first <code>TypedDict</code>.</p>
@@ -1610,20 +2050,44 @@
 </div>
 </div>
 
-  <hr>
-<div class="md-source-file">
-  <small>
+
+
+
+
+
+
+  
     
-      最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月11日</span>
-      
-        <br>
-        创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
-      
+  
+  
     
-  </small>
-</div>
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月11日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -1634,14 +2098,16 @@
             </div>
           
           
-  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            回到页面顶部
-          </button>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -1668,10 +2134,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
@@ -1682,5 +2149,7 @@
         <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

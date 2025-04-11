@@ -16,8 +16,9 @@
       
         <link rel="next" href="../typeddict/">
       
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -25,11 +26,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -41,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -49,24 +53,19 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -93,11 +92,12 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -117,9 +117,13 @@
     </div>
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,19 +131,22 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="查找">
         
         <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -156,7 +163,7 @@
         <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -175,40 +182,54 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  最佳实践
 
-
-  <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
-      最佳实践
-    </a>
-  </li>
+      </a>
+    </li>
+  
 
       
         
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../raw_en/" class="md-tabs__link">
-      英文原版
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
   
   
   
     <li class="md-tabs__item">
-      <a href="../../asyncio/asyncio/" class="md-tabs__link">
-        Asyncio
+      <a href="../../raw_en/" class="md-tabs__link">
+        
+  
+    
+  
+  英文原版
+
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asyncio/asyncio/" class="md-tabs__link">
+          
+  
+    
+  
+  Asyncio
+
+        </a>
+      </li>
+    
   
 
       
@@ -217,14 +238,75 @@
   
     
   
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cheat_sheet_py3/" class="md-tabs__link">
+          
+  
+    
+  
+  mypy
 
+        </a>
+      </li>
+    
+  
 
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
+          
+  
+    
+  
+  HTTP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../git/git-branch-manage/" class="md-tabs__link">
+          
+  
+    
+  
+  Git
+
+        </a>
+      </li>
+    
+  
+
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../cheat_sheet_py3/" class="md-tabs__link md-tabs__link--active">
-        mypy
+      <a href="../../xml/" class="md-tabs__link">
+        
+  
+    
+  
+  xml
+
       </a>
     </li>
   
@@ -233,73 +315,38 @@
         
   
   
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sysdesign/perm_design/" class="md-tabs__link">
+          
+  
+    
+  
+  系统设计
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
-        HTTP
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  关于
+
       </a>
     </li>
   
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../git/git-branch-manage/" class="md-tabs__link">
-        Git
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../xml/" class="md-tabs__link">
-      xml
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../sysdesign/perm_design/" class="md-tabs__link">
-        系统设计
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../about/" class="md-tabs__link">
-      关于
-    </a>
-  </li>
 
       
     </ul>
@@ -324,6 +371,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -332,7 +380,7 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     FastApi 最佳实践-中文版
@@ -342,7 +390,7 @@
       <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -354,14 +402,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../.." class="md-nav__link">
-        最佳实践
+        
+  
+  <span class="md-ellipsis">
+    最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -369,14 +423,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../raw_en/" class="md-nav__link">
-        英文原版
+        
+  
+  <span class="md-ellipsis">
+    英文原版
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -384,391 +444,568 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Asyncio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Asyncio
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Asyncio
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Asyncio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio/" class="md-nav__link">
-        中文简单指南
+        
+  
+  <span class="md-ellipsis">
+    中文简单指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio_en/" class="md-nav__link">
-        中英对照指南
+        
+  
+  <span class="md-ellipsis">
+    中英对照指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/runner/" class="md-nav__link">
-        Runner运行协程
+        
+  
+  <span class="md-ellipsis">
+    Runner运行协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/task_group/" class="md-nav__link">
-        TaskGroup管理协程
+        
+  
+  <span class="md-ellipsis">
+    TaskGroup管理协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/cheat_sheet/" class="md-nav__link">
-        语法备忘录
+        
+  
+  <span class="md-ellipsis">
+    语法备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/api_mind_map/" class="md-nav__link">
-        API思维导图
+        
+  
+  <span class="md-ellipsis">
+    API思维导图
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    mypy
+    
+  </span>
+  
 
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-      
-      
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-          mypy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          mypy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            mypy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../cheat_sheet_py3/" class="md-nav__link">
-        类型注解备忘录
+        
+  
+  <span class="md-ellipsis">
+    类型注解备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../builtin_types/" class="md-nav__link">
-        类型系统参考-内置类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-内置类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_inference_type_annotations/" class="md-nav__link">
-        类型系统参考-类型推断和类型注解
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型推断和类型注解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kind_of_types/" class="md-nav__link">
-        类型系统参考-类型种类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型种类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../class_basics/" class="md-nav__link">
-        类型系统参考-类的基础
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类的基础
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../annotation_issue_at_runtime/" class="md-nav__link">
-        类型系统参考-运行时的注解问题
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-运行时的注解问题
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../protocol_and_struct_subtyping/" class="md-nav__link">
-        类型系统参考-协议和结构子类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-协议和结构子类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dynamic_typing/" class="md-nav__link">
-        类型系统参考-动态类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-动态类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_narrowing/" class="md-nav__link">
-        类型系统参考-类型收缩
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型收缩
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../duck_type_compatibility/" class="md-nav__link">
-        类型系统参考-鸭子类型兼容
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-鸭子类型兼容
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../stub_files/" class="md-nav__link">
-        类型系统参考-存根文件
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-存根文件
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../generics/" class="md-nav__link">
-        类型系统参考-泛型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-泛型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../more_types/" class="md-nav__link">
-        类型系统参考-更多类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-更多类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -780,12 +1017,26 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          类型系统参考-字面量和枚举
+          
+  
+  <span class="md-ellipsis">
+    类型系统参考-字面量和枚举
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        类型系统参考-字面量和枚举
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-字面量和枚举
+    
+  </span>
+  
+
       </a>
       
         
@@ -805,7 +1056,9 @@
       
         <li class="md-nav__item">
   <a href="#字面量类型" class="md-nav__link">
-    字面量类型
+    <span class="md-ellipsis">
+      字面量类型
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="字面量类型">
@@ -813,42 +1066,54 @@
         
           <li class="md-nav__item">
   <a href="#参数化字面量" class="md-nav__link">
-    参数化字面量
+    <span class="md-ellipsis">
+      参数化字面量
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#声明字面量" class="md-nav__link">
-    声明字面量
+    <span class="md-ellipsis">
+      声明字面量
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#智能索引" class="md-nav__link">
-    智能索引
+    <span class="md-ellipsis">
+      智能索引
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#标记联合类型" class="md-nav__link">
-    标记联合类型
+    <span class="md-ellipsis">
+      标记联合类型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#详尽性检查" class="md-nav__link">
-    详尽性检查
+    <span class="md-ellipsis">
+      详尽性检查
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#局限性" class="md-nav__link">
-    局限性
+    <span class="md-ellipsis">
+      局限性
+    </span>
   </a>
   
 </li>
@@ -860,7 +1125,9 @@
       
         <li class="md-nav__item">
   <a href="#枚举" class="md-nav__link">
-    枚举
+    <span class="md-ellipsis">
+      枚举
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="枚举">
@@ -868,14 +1135,18 @@
         
           <li class="md-nav__item">
   <a href="#详尽检查" class="md-nav__link">
-    详尽检查
+    <span class="md-ellipsis">
+      详尽检查
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#额外的枚举检查" class="md-nav__link">
-    额外的枚举检查
+    <span class="md-ellipsis">
+      额外的枚举检查
+    </span>
   </a>
   
 </li>
@@ -892,328 +1163,471 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../typeddict/" class="md-nav__link">
-        类型系统参考-类型字典
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型字典
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../final_names_methods_classes/" class="md-nav__link">
-        类型系统参考-最终名称、方法和类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-最终名称、方法和类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../metaclasses/" class="md-nav__link">
-        类型系统参考-元类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-元类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-        
-          
-        
-          
-        
-          
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../../http/">HTTP</a>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
           
-            <label for="__nav_5">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          HTTP
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../http/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    HTTP
+    
+  </span>
+  
+
+            </a>
             
               
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            HTTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_i/" class="md-nav__link">
-        互联网协议入门（一）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（一）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_ii/" class="md-nav__link">
-        互联网协议入门（二）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（二）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
-            
-          
+              
             
               
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapi/" class="md-nav__link">
-        Restful API 设计指南
+        
+  
+  <span class="md-ellipsis">
+    Restful API 设计指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapibsetp/" class="md-nav__link">
-        RESTful API 最佳实践
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/http-referer/" class="md-nav__link">
-        HTTP Referer 教程
+        
+  
+  <span class="md-ellipsis">
+    HTTP Referer 教程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/https/" class="md-nav__link">
-        HTTPS 升级指南
+        
+  
+  <span class="md-ellipsis">
+    HTTPS 升级指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          Git
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          Git
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Git
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-branch-manage/" class="md-nav__link">
-        Git分支管理策略
+        
+  
+  <span class="md-ellipsis">
+    Git分支管理策略
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-remote/" class="md-nav__link">
-        Git远程操作详解
+        
+  
+  <span class="md-ellipsis">
+    Git远程操作详解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-use-process/" class="md-nav__link">
-        Git 使用规范流程
+        
+  
+  <span class="md-ellipsis">
+    Git 使用规范流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-cheat-sheet/" class="md-nav__link">
-        常用 Git 命令清单
+        
+  
+  <span class="md-ellipsis">
+    常用 Git 命令清单
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-work-flow/" class="md-nav__link">
-        Git 协作流程
+        
+  
+  <span class="md-ellipsis">
+    Git 协作流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xml/" class="md-nav__link">
-        xml
+        
+  
+  <span class="md-ellipsis">
+    xml
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1221,67 +1635,92 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    系统设计
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          系统设计
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          系统设计
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            系统设计
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sysdesign/perm_design/" class="md-nav__link">
-        权限系统的设计
+        
+  
+  <span class="md-ellipsis">
+    权限系统的设计
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../about/" class="md-nav__link">
-        关于
+        
+  
+  <span class="md-ellipsis">
+    关于
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1315,7 +1754,9 @@
       
         <li class="md-nav__item">
   <a href="#字面量类型" class="md-nav__link">
-    字面量类型
+    <span class="md-ellipsis">
+      字面量类型
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="字面量类型">
@@ -1323,42 +1764,54 @@
         
           <li class="md-nav__item">
   <a href="#参数化字面量" class="md-nav__link">
-    参数化字面量
+    <span class="md-ellipsis">
+      参数化字面量
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#声明字面量" class="md-nav__link">
-    声明字面量
+    <span class="md-ellipsis">
+      声明字面量
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#智能索引" class="md-nav__link">
-    智能索引
+    <span class="md-ellipsis">
+      智能索引
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#标记联合类型" class="md-nav__link">
-    标记联合类型
+    <span class="md-ellipsis">
+      标记联合类型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#详尽性检查" class="md-nav__link">
-    详尽性检查
+    <span class="md-ellipsis">
+      详尽性检查
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#局限性" class="md-nav__link">
-    局限性
+    <span class="md-ellipsis">
+      局限性
+    </span>
   </a>
   
 </li>
@@ -1370,7 +1823,9 @@
       
         <li class="md-nav__item">
   <a href="#枚举" class="md-nav__link">
-    枚举
+    <span class="md-ellipsis">
+      枚举
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="枚举">
@@ -1378,14 +1833,18 @@
         
           <li class="md-nav__item">
   <a href="#详尽检查" class="md-nav__link">
-    详尽检查
+    <span class="md-ellipsis">
+      详尽检查
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#额外的枚举检查" class="md-nav__link">
-    额外的枚举检查
+    <span class="md-ellipsis">
+      额外的枚举检查
+    </span>
   </a>
   
 </li>
@@ -1409,6 +1868,7 @@
                 
                   
 
+
   
   
 
@@ -1422,21 +1882,21 @@
 <div class="tabbed-block">
 <p>字面量类型可让您指示表达式等于某个特定的原始值。 例如，如果我们用 <code>Literal["foo"]</code> 类型注释一个变量，mypy 将理解该变量不仅是 <code>str</code> 类型，而且还等于字符串 <code>"foo"</code>。</p>
 <p>当注释根据调用者提供的确切值而表现不同的函数时，此功能主要有用。 例如，假设我们有一个函数“fetch_data(...)”，如果第一个参数为“True”，则返回 “bytes” ；如果第一个参数为“False”，则返回“str”。 我们可以使用“Literal[...]”和重载为此函数构造精确的类型签名：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="c1"># 前两个重载使用 Literal[...]，因此我们可以获得精确的返回类型：</span>
 
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="c1"># 最后一个重载是调用者提供常规布尔值时的后备：</span>
 
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="c1"># 省略实现</span>
     <span class="o">...</span>
 
@@ -1456,23 +1916,23 @@
 <div class="tabbed-block">
 <p>Literal types let you indicate that an expression is equal to some specific primitive value. For example, if we annotate a variable with type <code>Literal["foo"]</code>, mypy will understand that variable is not only of type <code>str</code>, but is also equal to specifically the string <code>"foo"</code>.</p>
 <p>This feature is primarily useful when annotating functions that behave differently based on the exact value the caller provides. For example, suppose we have a function <code>fetch_data(...)</code> that returns <code>bytes</code> if the first argument is <code>True</code>, and <code>str</code> if it's <code>False</code>. We can construct a precise type signature for this function using <code>Literal[...]</code> and overloads:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">overload</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="c1"># The first two overloads use Literal[...] so we can</span>
 <span class="c1"># have precise return types:</span>
 
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">True</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="c1"># The last overload is a fallback in case the caller</span>
 <span class="c1"># provides a regular bool:</span>
 
 <span class="nd">@overload</span>
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fetch_data</span><span class="p">(</span><span class="n">raw</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
     <span class="c1"># Implementation is omitted</span>
     <span class="o">...</span>
 
@@ -1505,7 +1965,7 @@
 <span class="n">SecondaryColors</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">]</span>
 <span class="n">AllowedColors</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="n">PrimaryColors</span><span class="p">,</span> <span class="n">SecondaryColors</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">AllowedColors</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">AllowedColors</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">paint</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>        <span class="c1"># Type checks!</span>
 <span class="n">paint</span><span class="p">(</span><span class="s2">&quot;turquoise&quot;</span><span class="p">)</span>  <span class="c1"># Does not type check</span>
@@ -1521,7 +1981,7 @@
 <span class="n">SecondaryColors</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="s2">&quot;orange&quot;</span><span class="p">]</span>
 <span class="n">AllowedColors</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="n">PrimaryColors</span><span class="p">,</span> <span class="n">SecondaryColors</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">AllowedColors</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="n">color</span><span class="p">:</span> <span class="n">AllowedColors</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">paint</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>        <span class="c1"># Type checks!</span>
 <span class="n">paint</span><span class="p">(</span><span class="s2">&quot;turquoise&quot;</span><span class="p">)</span>  <span class="c1"># Does not type check</span>
@@ -1544,9 +2004,9 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;int&quot;</span>
 </code></pre></div>
 <p>如果您发现在类型提示中重复变量的值很乏味，您可以将变量更改为“Final”（请参阅<a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs">“final_attrs”</a>）：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
 <span class="n">c</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">19</span>
 
@@ -1555,16 +2015,16 @@
 </code></pre></div>
 <p>如果您没有在 “Final” 中提供显式类型，则 “c” 的类型将变为<em>上下文相关</em>：在执行类型检查之前，只要使用原始分配的值，mypy 基本上都会尝试“替换”原始分配的值。 这就是为什么 <code>c</code> 的显示类型是 <code>Literal[19]?</code>：末尾的问号反映了这种上下文相关的性质。</p>
 <p>例如，mypy 将对上述程序进行类型检查，几乎就像这样编写的：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
 <span class="n">reveal_type</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 <span class="n">expects_literal</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 </code></pre></div>
 <p>这意味着虽然将变量更改为“Final”与添加显式“Literal[...]”注释并不完全相同，但在实践中通常会产生相同的效果。</p>
 <p>上下文相关类型与真实字面量类型的行为不同的主要情况是当您尝试在未明确期望“Literal[...]”的地方使用这些类型时。 例如，比较和对比当您尝试将这些类型附加到列表时会发生什么：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">a</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">b</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span> <span class="o">=</span> <span class="mi">19</span>
@@ -1590,9 +2050,9 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>          <span class="c1"># Revealed type is &quot;int&quot;</span>
 </code></pre></div>
 <p>If you find repeating the value of the variable in the type hint to be tedious, you can instead change the variable to be <code>Final</code> (see <a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs"><code>final_attrs</code></a>):</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
 <span class="n">c</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">19</span>
 
@@ -1601,16 +2061,16 @@
 </code></pre></div>
 <p>If you do not provide an explicit type in the <code>Final</code>, the type of <code>c</code> becomes <em>context-sensitive</em>: mypy will basically try "substituting" the original assigned value whenever it's used before performing type checking. This is why the revealed type of <code>c</code> is <code>Literal[19]?</code>: the question mark at the end reflects this context-sensitive nature.</p>
 <p>For example, mypy will type check the above program almost as if it were written like so:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
-<span class="k">def</span> <span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">expects_literal</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
 <span class="n">reveal_type</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 <span class="n">expects_literal</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span>
 </code></pre></div>
 <p>This means that while changing a variable to be <code>Final</code> is not quite the same thing as adding an explicit <code>Literal[...]</code> annotation, it often leads to the same effect in practice.</p>
 <p>The main cases where the behavior of context-sensitive vs true literal types differ are when you try using those types in places that are not explicitly expecting a <code>Literal[...]</code>. For example, compare and contrast what happens when you try appending these types to a list:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Final</span><span class="p">,</span> <span class="n">Literal</span>
 
 <span class="n">a</span><span class="p">:</span> <span class="n">Final</span> <span class="o">=</span> <span class="mi">19</span>
 <span class="n">b</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span> <span class="o">=</span> <span class="mi">19</span>
@@ -1636,7 +2096,7 @@
 <div class="tabbed-block">
 <p>我们可以使用 Literal 类型更精确地索引到结构化异构类型，例如元组、NamedTuples 和 TypedDicts。 此功能称为“智能索引”。</p>
 <p>例如，当我们使用某些 int 索引元组时，推断的类型通常是元组项类型的并集。 但是，如果我们只想要与某个特定索引相对应的类型，我们可以使用字面量类型，如下所示：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
 <span class="n">tup</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">)</span>
 
@@ -1654,7 +2114,7 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">fin_index</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 
 <span class="c1"># 我们可以使用 TypedDict 和 str 键做同样的事情：</span>
-<span class="k">class</span> <span class="nc">MyDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">main_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">backup_id</span><span class="p">:</span> <span class="nb">int</span>
@@ -1671,7 +2131,7 @@
 <div class="tabbed-block">
 <p>We can use Literal types to more precisely index into structured heterogeneous types such as tuples, NamedTuples, and TypedDicts. This feature is known as <em>intelligent indexing</em>.</p>
 <p>For example, when we index into a tuple using some int, the inferred type is normally the union of the tuple item types. However, if we want just the type corresponding to some particular index, we can use Literal types like so:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypedDict</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
 
 <span class="n">tup</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">)</span>
 
@@ -1691,7 +2151,7 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">tup</span><span class="p">[</span><span class="n">fin_index</span><span class="p">])</span>  <span class="c1"># Revealed type is &quot;str&quot;</span>
 
 <span class="c1"># We can do the same thing with with TypedDict and str keys:</span>
-<span class="k">class</span> <span class="nc">MyDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">main_id</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">backup_id</span><span class="p">:</span> <span class="nb">int</span>
@@ -1715,20 +2175,20 @@
 <p>当您有类型的联合时，通常可以使用“isinstance”检查来区分联合中的每种类型。 例如，如果您有一个类型为“Union[int, str]”的变量“x”，您可以通过执行“if isinstance(x, int): ..”来编写一些仅当“x”是 int 时才运行的代码。 .`.</p>
 <p>然而，这样做并不总是可能或方便。 例如，不可能使用“isinstance”来区分两个不同的 TypedDict，因为在运行时，您的变量只是一个字典。</p>
 <p>相反，您可以做的是使用不同的文字类型<em>标签</em>或<em>标记</em>您的 TypedDicts。 然后，您可以通过检查标签来区分每种 TypedDict：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="k">class</span> <span class="nc">NewJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;new-job&quot;</span><span class="p">]</span>
     <span class="n">job_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">config_file_path</span><span class="p">:</span> <span class="nb">str</span>
 
-<span class="k">class</span> <span class="nc">CancelJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CancelJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;cancel-job&quot;</span><span class="p">]</span>
     <span class="n">job_id</span><span class="p">:</span> <span class="nb">int</span>
 
 <span class="n">Event</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">NewJobEvent</span><span class="p">,</span> <span class="n">CancelJobEvent</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># 由于我们确保两个 TypedDict 都有一个名为“tag”的键，因此执行“event[“tag”]”是安全的。 </span>
     <span class="c1"># 该表达式通常具有 Literal[&quot;new-job&quot;, &quot;cancel-job&quot;] 类型，</span>
     <span class="c1"># 但下面的检查会将类型范围缩小为 Literal[&quot;new-job&quot;] 或 Literal[&quot;cancel-job&quot;]。</span>
@@ -1742,15 +2202,15 @@
 <p>虽然此功能在使用 TypedDicts 时非常有用，但您也可以对常规对象、元组或命名元组使用相同的技术。</p>
 <p>类似地，标签不需要是专门的 str 文字：它们可以是您通常可以在“if”语句等中缩小范围的任何类型。 
 例如，您可以将标签设置为 int 或 Enum Literals，甚至可以使用“isinstance()”缩小常规类：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inner</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Wrapper</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inner</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span>
 
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wrapper</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Wrapper</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wrapper</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Wrapper</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># 执行“if isinstance(w, Wrapper[int])”不起作用：isinstance 要求第二个参数始终是*已删除的*类型，没有泛型。 这是因为泛型是一个仅输入的概念，并且在运行时不以“isinstance”始终可以检查的方式存在。</span>
     <span class="c1">#</span>
     <span class="c1"># 然而，我们可以通过检查“w.inner”的类型来缩小“w”本身来回避这个问题：</span>
@@ -1765,20 +2225,20 @@
 <p>When you have a union of types, you can normally discriminate between each type in the union by using <code>isinstance</code> checks. For example, if you had a variable <code>x</code> of type <code>Union[int, str]</code>, you could write some code that runs only if <code>x</code> is an int by doing <code>if isinstance(x, int): ...</code>.</p>
 <p>However, it is not always possible or convenient to do this. For example, it is not possible to use <code>isinstance</code> to distinguish between two different TypedDicts since at runtime, your variable will simply be just a dict.</p>
 <p>Instead, what you can do is <em>label</em> or <em>tag</em> your TypedDicts with a distinct Literal type. Then, you can discriminate between each kind of TypedDict by checking the label:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">TypedDict</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="k">class</span> <span class="nc">NewJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">NewJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;new-job&quot;</span><span class="p">]</span>
     <span class="n">job_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">config_file_path</span><span class="p">:</span> <span class="nb">str</span>
 
-<span class="k">class</span> <span class="nc">CancelJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CancelJobEvent</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="n">tag</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;cancel-job&quot;</span><span class="p">]</span>
     <span class="n">job_id</span><span class="p">:</span> <span class="nb">int</span>
 
 <span class="n">Event</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">NewJobEvent</span><span class="p">,</span> <span class="n">CancelJobEvent</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_event</span><span class="p">(</span><span class="n">event</span><span class="p">:</span> <span class="n">Event</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># Since we made sure both TypedDicts have a key named &#39;tag&#39;, it&#39;s</span>
     <span class="c1"># safe to do &#39;event[&quot;tag&quot;]&#39;. This expression normally has the type</span>
     <span class="c1"># Literal[&quot;new-job&quot;, &quot;cancel-job&quot;], but the check below will narrow</span>
@@ -1793,15 +2253,15 @@
 </code></pre></div>
 <p>While this feature is mostly useful when working with TypedDicts, you can also use the same technique with regular objects, tuples, or namedtuples.</p>
 <p>Similarly, tags do not need to be specifically str Literals: they can be any type you can normally narrow within <code>if</code> statements and the like. For example, you could have your tags be int or Enum Literals or even regular classes you narrow using <code>isinstance()</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">Wrapper</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inner</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Wrapper</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inner</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">inner</span> <span class="o">=</span> <span class="n">inner</span>
 
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wrapper</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Wrapper</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">w</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Wrapper</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Wrapper</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="c1"># Doing `if isinstance(w, Wrapper[int])` does not work: isinstance requires</span>
     <span class="c1"># that the second argument always be an *erased* type, with no generics.</span>
     <span class="c1"># This is because generics are a typing-only concept and do not exist at</span>
@@ -1824,11 +2284,11 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>您可能想要检查某些代码是否涵盖了所有可能的“Literal”或“Enum”情况。 例子：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1842,15 +2302,15 @@
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 </code></pre></div>
 <p>Mypy 不会发现“three”未被覆盖。 如果您希望 mypy 执行详尽检查，则需要更新代码以使用 <code>assert_never()</code> 检查：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NoReturn</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NoReturn</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="c1"># 这在运行时也有效</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1860,7 +2320,7 @@
 <p>现在，如果您向“PossibleValues”添加新值但不更新“validate”，mypy 将发现错误：</p>
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1873,14 +2333,14 @@
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
 <span class="c1"># Error: Missing return statement</span>
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
 <p>匹配语句也支持详尽检查（Python 3.10 及更高版本）：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">match</span> <span class="n">x</span><span class="p">:</span>
         <span class="k">case</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -1891,11 +2351,11 @@
 </div>
 <div class="tabbed-block">
 <p>You may want to check that some code covers all possible <code>Literal</code> or <code>Enum</code> cases. Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1909,15 +2369,15 @@
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 </code></pre></div>
 <p>Mypy won't catch that <code>'three'</code> is not covered.  If you want mypy to perform an exhaustiveness check, you need to update your code to use an <code>assert_never()</code> check:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NoReturn</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span><span class="p">,</span> <span class="n">NoReturn</span>
 
 <span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="c1"># This also works at runtime as well</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1927,7 +2387,7 @@
 <p>Now if you add a new value to <code>PossibleValues</code> but don't update <code>validate</code>, mypy will spot the error:</p>
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
@@ -1940,14 +2400,14 @@
 <div class="highlight"><pre><span></span><code><span class="n">PossibleValues</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">]</span>
 
 <span class="c1"># Error: Missing return statement</span>
-<span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">elif</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div>
 <p>Exhaustiveness checking is also supported for match statements (Python 3.10 and later):</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">validate</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">PossibleValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
     <span class="k">match</span> <span class="n">x</span><span class="p">:</span>
         <span class="k">case</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -1978,9 +2438,9 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Mypy 对 <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> 及其子类有特殊支持: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
     <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 
@@ -1988,8 +2448,8 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.down]?&quot;</span>
 </code></pre></div>
 <p>You can use enums to annotate types as you would expect:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movement</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Movement</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
 
@@ -1999,9 +2459,9 @@
 </div>
 <div class="tabbed-block">
 <p>Mypy has special support for <a href="https://docs.python.org/3/library/enum.html#enum.Enum"><code>enum.Enum</code></a> and its subclasses: <a href="https://docs.python.org/3/library/enum.html#enum.IntEnum"><code>enum.IntEnum</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.Flag"><code>enum.Flag</code></a>, <a href="https://docs.python.org/3/library/enum.html#enum.IntFlag"><code>enum.IntFlag</code></a>, and <a href="https://docs.python.org/3/library/enum.html#enum.StrEnum"><code>enum.StrEnum</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
     <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 
@@ -2009,8 +2469,8 @@
 <span class="n">reveal_type</span><span class="p">(</span><span class="n">Direction</span><span class="o">.</span><span class="n">down</span><span class="p">)</span>  <span class="c1"># Revealed type is &quot;Literal[Direction.down]?&quot;</span>
 </code></pre></div>
 <p>You can use enums to annotate types as you would expect:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Movement</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Movement</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">speed</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">direction</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="n">speed</span>
 
@@ -2026,19 +2486,19 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>与“Literal”类型类似，“Enum”支持详尽检查。 让我们从一个定义开始：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span>
 
-<span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="c1"># 这在运行时也有效：</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
     <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 </code></pre></div>
 <p>现在，让我们使用详尽检查：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">direction</span> <span class="ow">is</span> <span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &quot;Literal[Direction.up]&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Going up!&#39;</span><span class="p">)</span>
@@ -2050,7 +2510,7 @@
     <span class="n">assert_never</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
 </code></pre></div>
 <p>如果我们忘记处理其中一种情况，mypy 将生成错误：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Going up!&#39;</span><span class="p">)</span>
         <span class="k">return</span>
@@ -2060,19 +2520,19 @@
 </div>
 <div class="tabbed-block">
 <p>You may want to check that some code covers all possible <code>Literal</code> or <code>Enum</code> cases. Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">NoReturn</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">NoReturn</span>
 
-<span class="k">def</span> <span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">assert_never</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">NoReturn</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
     <span class="c1"># 这在运行时也有效：</span>
     <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;This code should never be reached, got: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span>
 
-<span class="k">class</span> <span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Direction</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">up</span> <span class="o">=</span> <span class="s1">&#39;up&#39;</span>
     <span class="n">down</span> <span class="o">=</span> <span class="s1">&#39;down&#39;</span>
 </code></pre></div>
 <p>Now, let's use an exhaustiveness check:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">direction</span> <span class="ow">is</span> <span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
         <span class="n">reveal_type</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>  <span class="c1"># N: Revealed type is &quot;Literal[Direction.up]&quot;</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Going up!&#39;</span><span class="p">)</span>
@@ -2084,7 +2544,7 @@
     <span class="n">assert_never</span><span class="p">(</span><span class="n">direction</span><span class="p">)</span>
 </code></pre></div>
 <p>If we forget to handle one of the cases, mypy will generate an error:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">choose_direction</span><span class="p">(</span><span class="n">direction</span><span class="p">:</span> <span class="n">Direction</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="n">Direction</span><span class="o">.</span><span class="n">up</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Going up!&#39;</span><span class="p">)</span>
         <span class="k">return</span>
@@ -2103,7 +2563,7 @@
 <ul>
 <li>任何带有值的“Enum”类都是隐式的<a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs">“final”</a>. 这是 CPython 中发生的情况：</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span><span class="w"> </span><span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
 <span class="o">...</span>     <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
@@ -2111,7 +2571,7 @@
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">AllDirection</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">extend</span> <span class="n">enumeration</span> <span class="s1">&#39;Direction&#39;</span>
 </code></pre></div>
 <p>Mypy 也捕获了这个错误：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>  <span class="c1"># E: Cannot inherit from final class &quot;Direction&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>  <span class="c1"># E: Cannot inherit from final class &quot;Direction&quot;</span>
     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
     <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
 </code></pre></div>
@@ -2121,18 +2581,18 @@
 <ul>
 <li>检查所有字段名称是否唯一。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Some</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Some</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># E: Attempted to reuse member name &quot;x&quot; in Enum definition &quot;Some&quot;</span>
 </code></pre></div>
 <ul>
 <li>基类没有冲突并且 mixin 类型是正确的。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">WrongEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">WrongEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="c1"># E: Only a single data type mixin is allowed for Enum subtypes, found extra &quot;int&quot;</span>
     <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">MixinAfterEnum</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span> <span class="c1"># E: No base classes are allowed after &quot;enum.Enum&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MixinAfterEnum</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span> <span class="c1"># E: No base classes are allowed after &quot;enum.Enum&quot;</span>
     <span class="o">...</span>
 </code></pre></div>
 </div>
@@ -2141,7 +2601,7 @@
 <ul>
 <li>Any <code>Enum</code> class with values is implicitly <a href="https://mypy.readthedocs.io/en/stable/final_attrs.html#final-attrs"><code>final</code></a>. This is what happens in CPython:</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span><span class="w"> </span><span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
 <span class="o">...</span>     <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
@@ -2149,7 +2609,7 @@
 <span class="ne">TypeError</span><span class="p">:</span> <span class="n">AllDirection</span><span class="p">:</span> <span class="n">cannot</span> <span class="n">extend</span> <span class="n">enumeration</span> <span class="s1">&#39;Direction&#39;</span>
 </code></pre></div>
 <p>Mypy also catches this error:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>  <span class="c1"># E: Cannot inherit from final class &quot;Direction&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AllDirection</span><span class="p">(</span><span class="n">Direction</span><span class="p">):</span>  <span class="c1"># E: Cannot inherit from final class &quot;Direction&quot;</span>
     <span class="n">left</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
     <span class="n">right</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
 </code></pre></div>
@@ -2161,38 +2621,62 @@
 <ul>
 <li>All field names are checked to be unique.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Some</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Some</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># E: Attempted to reuse member name &quot;x&quot; in Enum definition &quot;Some&quot;</span>
 </code></pre></div>
 <ul>
 <li>Base classes have no conflicts and mixin types are correct.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">WrongEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">WrongEnum</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
     <span class="c1"># E: Only a single data type mixin is allowed for Enum subtypes, found extra &quot;int&quot;</span>
     <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">MixinAfterEnum</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span> <span class="c1"># E: No base classes are allowed after &quot;enum.Enum&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MixinAfterEnum</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">Enum</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span> <span class="c1"># E: No base classes are allowed after &quot;enum.Enum&quot;</span>
     <span class="o">...</span>
 </code></pre></div>
 </div>
 </div>
 </div>
 
-  <hr>
-<div class="md-source-file">
-  <small>
+
+
+
+
+
+
+  
     
-      最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月6日</span>
-      
-        <br>
-        创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
-      
+  
+  
     
-  </small>
-</div>
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年9月6日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -2203,14 +2687,16 @@
             </div>
           
           
-  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            回到页面顶部
-          </button>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -2237,10 +2723,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
@@ -2251,5 +2738,7 @@
         <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

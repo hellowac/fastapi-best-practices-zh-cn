@@ -16,8 +16,9 @@
       
         <link rel="next" href="../dynamic_typing/">
       
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -25,11 +26,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -41,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -49,24 +53,19 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -93,11 +92,12 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -117,9 +117,13 @@
     </div>
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,19 +131,22 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="查找">
         
         <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -156,7 +163,7 @@
         <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -175,40 +182,54 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  最佳实践
 
-
-  <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
-      最佳实践
-    </a>
-  </li>
+      </a>
+    </li>
+  
 
       
         
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../raw_en/" class="md-tabs__link">
-      英文原版
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
   
   
   
     <li class="md-tabs__item">
-      <a href="../../asyncio/asyncio/" class="md-tabs__link">
-        Asyncio
+      <a href="../../raw_en/" class="md-tabs__link">
+        
+  
+    
+  
+  英文原版
+
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asyncio/asyncio/" class="md-tabs__link">
+          
+  
+    
+  
+  Asyncio
+
+        </a>
+      </li>
+    
   
 
       
@@ -217,14 +238,75 @@
   
     
   
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cheat_sheet_py3/" class="md-tabs__link">
+          
+  
+    
+  
+  mypy
 
+        </a>
+      </li>
+    
+  
 
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
+          
+  
+    
+  
+  HTTP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../git/git-branch-manage/" class="md-tabs__link">
+          
+  
+    
+  
+  Git
+
+        </a>
+      </li>
+    
+  
+
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../cheat_sheet_py3/" class="md-tabs__link md-tabs__link--active">
-        mypy
+      <a href="../../xml/" class="md-tabs__link">
+        
+  
+    
+  
+  xml
+
       </a>
     </li>
   
@@ -233,73 +315,38 @@
         
   
   
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sysdesign/perm_design/" class="md-tabs__link">
+          
+  
+    
+  
+  系统设计
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
-        HTTP
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  关于
+
       </a>
     </li>
   
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../git/git-branch-manage/" class="md-tabs__link">
-        Git
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../xml/" class="md-tabs__link">
-      xml
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../sysdesign/perm_design/" class="md-tabs__link">
-        系统设计
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../about/" class="md-tabs__link">
-      关于
-    </a>
-  </li>
 
       
     </ul>
@@ -324,6 +371,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -332,7 +380,7 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     FastApi 最佳实践-中文版
@@ -342,7 +390,7 @@
       <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -354,14 +402,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../.." class="md-nav__link">
-        最佳实践
+        
+  
+  <span class="md-ellipsis">
+    最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -369,14 +423,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../raw_en/" class="md-nav__link">
-        英文原版
+        
+  
+  <span class="md-ellipsis">
+    英文原版
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -384,293 +444,414 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Asyncio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Asyncio
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Asyncio
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Asyncio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio/" class="md-nav__link">
-        中文简单指南
+        
+  
+  <span class="md-ellipsis">
+    中文简单指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio_en/" class="md-nav__link">
-        中英对照指南
+        
+  
+  <span class="md-ellipsis">
+    中英对照指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/runner/" class="md-nav__link">
-        Runner运行协程
+        
+  
+  <span class="md-ellipsis">
+    Runner运行协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/task_group/" class="md-nav__link">
-        TaskGroup管理协程
+        
+  
+  <span class="md-ellipsis">
+    TaskGroup管理协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/cheat_sheet/" class="md-nav__link">
-        语法备忘录
+        
+  
+  <span class="md-ellipsis">
+    语法备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/api_mind_map/" class="md-nav__link">
-        API思维导图
+        
+  
+  <span class="md-ellipsis">
+    API思维导图
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    mypy
+    
+  </span>
+  
 
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-      
-      
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-          mypy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          mypy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            mypy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../cheat_sheet_py3/" class="md-nav__link">
-        类型注解备忘录
+        
+  
+  <span class="md-ellipsis">
+    类型注解备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../builtin_types/" class="md-nav__link">
-        类型系统参考-内置类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-内置类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_inference_type_annotations/" class="md-nav__link">
-        类型系统参考-类型推断和类型注解
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型推断和类型注解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kind_of_types/" class="md-nav__link">
-        类型系统参考-类型种类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型种类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../class_basics/" class="md-nav__link">
-        类型系统参考-类的基础
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类的基础
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../annotation_issue_at_runtime/" class="md-nav__link">
-        类型系统参考-运行时的注解问题
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-运行时的注解问题
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -682,12 +863,26 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          类型系统参考-协议和结构子类型
+          
+  
+  <span class="md-ellipsis">
+    类型系统参考-协议和结构子类型
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        类型系统参考-协议和结构子类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-协议和结构子类型
+    
+  </span>
+  
+
       </a>
       
         
@@ -707,56 +902,72 @@
       
         <li class="md-nav__item">
   <a href="#预定义协议" class="md-nav__link">
-    预定义协议
+    <span class="md-ellipsis">
+      预定义协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#简单的自定义协议" class="md-nav__link">
-    简单的自定义协议
+    <span class="md-ellipsis">
+      简单的自定义协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#定义子协议和子类化协议" class="md-nav__link">
-    定义子协议和子类化协议
+    <span class="md-ellipsis">
+      定义子协议和子类化协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#协议属性的不变性" class="md-nav__link">
-    协议属性的不变性
+    <span class="md-ellipsis">
+      协议属性的不变性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#递归协议" class="md-nav__link">
-    递归协议
+    <span class="md-ellipsis">
+      递归协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#isinstance-和协议一起使用" class="md-nav__link">
-    isinstance() 和协议一起使用
+    <span class="md-ellipsis">
+      isinstance() 和协议一起使用
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#回调协议" class="md-nav__link">
-    回调协议
+    <span class="md-ellipsis">
+      回调协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#预定义协议参考" class="md-nav__link">
-    预定义协议参考
+    <span class="md-ellipsis">
+      预定义协议参考
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="预定义协议参考">
@@ -764,7 +975,9 @@
         
           <li class="md-nav__item">
   <a href="#迭代协议" class="md-nav__link">
-    迭代协议
+    <span class="md-ellipsis">
+      迭代协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="迭代协议">
@@ -772,14 +985,18 @@
         
           <li class="md-nav__item">
   <a href="#可迭代泛型" class="md-nav__link">
-    可迭代泛型
+    <span class="md-ellipsis">
+      可迭代泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#迭代器泛型" class="md-nav__link">
-    迭代器泛型
+    <span class="md-ellipsis">
+      迭代器泛型
+    </span>
   </a>
   
 </li>
@@ -791,7 +1008,9 @@
         
           <li class="md-nav__item">
   <a href="#集合协议" class="md-nav__link">
-    集合协议
+    <span class="md-ellipsis">
+      集合协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="集合协议">
@@ -799,21 +1018,27 @@
         
           <li class="md-nav__item">
   <a href="#sized" class="md-nav__link">
-    Sized
+    <span class="md-ellipsis">
+      Sized
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#泛型容器" class="md-nav__link">
-    泛型容器
+    <span class="md-ellipsis">
+      泛型容器
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#集合泛型" class="md-nav__link">
-    集合泛型
+    <span class="md-ellipsis">
+      集合泛型
+    </span>
   </a>
   
 </li>
@@ -825,7 +1050,9 @@
         
           <li class="md-nav__item">
   <a href="#一次性协议" class="md-nav__link">
-    一次性协议
+    <span class="md-ellipsis">
+      一次性协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="一次性协议">
@@ -833,49 +1060,63 @@
         
           <li class="md-nav__item">
   <a href="#倒序泛型" class="md-nav__link">
-    倒序泛型
+    <span class="md-ellipsis">
+      倒序泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#绝对值泛型" class="md-nav__link">
-    绝对值泛型
+    <span class="md-ellipsis">
+      绝对值泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持字节" class="md-nav__link">
-    支持字节
+    <span class="md-ellipsis">
+      支持字节
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持复数" class="md-nav__link">
-    支持复数
+    <span class="md-ellipsis">
+      支持复数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持浮点数" class="md-nav__link">
-    支持浮点数
+    <span class="md-ellipsis">
+      支持浮点数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持整数" class="md-nav__link">
-    支持整数
+    <span class="md-ellipsis">
+      支持整数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持round泛型" class="md-nav__link">
-    支持Round泛型
+    <span class="md-ellipsis">
+      支持Round泛型
+    </span>
   </a>
   
 </li>
@@ -887,7 +1128,9 @@
         
           <li class="md-nav__item">
   <a href="#异步协议" class="md-nav__link">
-    异步协议
+    <span class="md-ellipsis">
+      异步协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="异步协议">
@@ -895,21 +1138,27 @@
         
           <li class="md-nav__item">
   <a href="#可等待泛型对象" class="md-nav__link">
-    可等待泛型对象
+    <span class="md-ellipsis">
+      可等待泛型对象
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步可迭代泛型对象" class="md-nav__link">
-    异步可迭代泛型对象
+    <span class="md-ellipsis">
+      异步可迭代泛型对象
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步迭代器泛型对象" class="md-nav__link">
-    异步迭代器泛型对象
+    <span class="md-ellipsis">
+      异步迭代器泛型对象
+    </span>
   </a>
   
 </li>
@@ -921,7 +1170,9 @@
         
           <li class="md-nav__item">
   <a href="#上下文管理器协议" class="md-nav__link">
-    上下文管理器协议
+    <span class="md-ellipsis">
+      上下文管理器协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="上下文管理器协议">
@@ -929,14 +1180,18 @@
         
           <li class="md-nav__item">
   <a href="#上下文管理器泛型" class="md-nav__link">
-    上下文管理器泛型
+    <span class="md-ellipsis">
+      上下文管理器泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步上下文泛型管理器" class="md-nav__link">
-    异步上下文泛型管理器
+    <span class="md-ellipsis">
+      异步上下文泛型管理器
+    </span>
   </a>
   
 </li>
@@ -958,426 +1213,625 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dynamic_typing/" class="md-nav__link">
-        类型系统参考-动态类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-动态类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_narrowing/" class="md-nav__link">
-        类型系统参考-类型收缩
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型收缩
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../duck_type_compatibility/" class="md-nav__link">
-        类型系统参考-鸭子类型兼容
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-鸭子类型兼容
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../stub_files/" class="md-nav__link">
-        类型系统参考-存根文件
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-存根文件
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../generics/" class="md-nav__link">
-        类型系统参考-泛型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-泛型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../more_types/" class="md-nav__link">
-        类型系统参考-更多类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-更多类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../literal_and_enum/" class="md-nav__link">
-        类型系统参考-字面量和枚举
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-字面量和枚举
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../typeddict/" class="md-nav__link">
-        类型系统参考-类型字典
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型字典
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../final_names_methods_classes/" class="md-nav__link">
-        类型系统参考-最终名称、方法和类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-最终名称、方法和类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../metaclasses/" class="md-nav__link">
-        类型系统参考-元类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-元类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-        
-          
-        
-          
-        
-          
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../../http/">HTTP</a>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
           
-            <label for="__nav_5">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          HTTP
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../http/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    HTTP
+    
+  </span>
+  
+
+            </a>
             
               
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            HTTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_i/" class="md-nav__link">
-        互联网协议入门（一）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（一）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_ii/" class="md-nav__link">
-        互联网协议入门（二）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（二）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
-            
-          
+              
             
               
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapi/" class="md-nav__link">
-        Restful API 设计指南
+        
+  
+  <span class="md-ellipsis">
+    Restful API 设计指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapibsetp/" class="md-nav__link">
-        RESTful API 最佳实践
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/http-referer/" class="md-nav__link">
-        HTTP Referer 教程
+        
+  
+  <span class="md-ellipsis">
+    HTTP Referer 教程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/https/" class="md-nav__link">
-        HTTPS 升级指南
+        
+  
+  <span class="md-ellipsis">
+    HTTPS 升级指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          Git
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          Git
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Git
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-branch-manage/" class="md-nav__link">
-        Git分支管理策略
+        
+  
+  <span class="md-ellipsis">
+    Git分支管理策略
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-remote/" class="md-nav__link">
-        Git远程操作详解
+        
+  
+  <span class="md-ellipsis">
+    Git远程操作详解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-use-process/" class="md-nav__link">
-        Git 使用规范流程
+        
+  
+  <span class="md-ellipsis">
+    Git 使用规范流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-cheat-sheet/" class="md-nav__link">
-        常用 Git 命令清单
+        
+  
+  <span class="md-ellipsis">
+    常用 Git 命令清单
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-work-flow/" class="md-nav__link">
-        Git 协作流程
+        
+  
+  <span class="md-ellipsis">
+    Git 协作流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xml/" class="md-nav__link">
-        xml
+        
+  
+  <span class="md-ellipsis">
+    xml
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1385,67 +1839,92 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    系统设计
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          系统设计
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          系统设计
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            系统设计
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sysdesign/perm_design/" class="md-nav__link">
-        权限系统的设计
+        
+  
+  <span class="md-ellipsis">
+    权限系统的设计
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../about/" class="md-nav__link">
-        关于
+        
+  
+  <span class="md-ellipsis">
+    关于
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1479,56 +1958,72 @@
       
         <li class="md-nav__item">
   <a href="#预定义协议" class="md-nav__link">
-    预定义协议
+    <span class="md-ellipsis">
+      预定义协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#简单的自定义协议" class="md-nav__link">
-    简单的自定义协议
+    <span class="md-ellipsis">
+      简单的自定义协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#定义子协议和子类化协议" class="md-nav__link">
-    定义子协议和子类化协议
+    <span class="md-ellipsis">
+      定义子协议和子类化协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#协议属性的不变性" class="md-nav__link">
-    协议属性的不变性
+    <span class="md-ellipsis">
+      协议属性的不变性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#递归协议" class="md-nav__link">
-    递归协议
+    <span class="md-ellipsis">
+      递归协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#isinstance-和协议一起使用" class="md-nav__link">
-    isinstance() 和协议一起使用
+    <span class="md-ellipsis">
+      isinstance() 和协议一起使用
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#回调协议" class="md-nav__link">
-    回调协议
+    <span class="md-ellipsis">
+      回调协议
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#预定义协议参考" class="md-nav__link">
-    预定义协议参考
+    <span class="md-ellipsis">
+      预定义协议参考
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="预定义协议参考">
@@ -1536,7 +2031,9 @@
         
           <li class="md-nav__item">
   <a href="#迭代协议" class="md-nav__link">
-    迭代协议
+    <span class="md-ellipsis">
+      迭代协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="迭代协议">
@@ -1544,14 +2041,18 @@
         
           <li class="md-nav__item">
   <a href="#可迭代泛型" class="md-nav__link">
-    可迭代泛型
+    <span class="md-ellipsis">
+      可迭代泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#迭代器泛型" class="md-nav__link">
-    迭代器泛型
+    <span class="md-ellipsis">
+      迭代器泛型
+    </span>
   </a>
   
 </li>
@@ -1563,7 +2064,9 @@
         
           <li class="md-nav__item">
   <a href="#集合协议" class="md-nav__link">
-    集合协议
+    <span class="md-ellipsis">
+      集合协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="集合协议">
@@ -1571,21 +2074,27 @@
         
           <li class="md-nav__item">
   <a href="#sized" class="md-nav__link">
-    Sized
+    <span class="md-ellipsis">
+      Sized
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#泛型容器" class="md-nav__link">
-    泛型容器
+    <span class="md-ellipsis">
+      泛型容器
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#集合泛型" class="md-nav__link">
-    集合泛型
+    <span class="md-ellipsis">
+      集合泛型
+    </span>
   </a>
   
 </li>
@@ -1597,7 +2106,9 @@
         
           <li class="md-nav__item">
   <a href="#一次性协议" class="md-nav__link">
-    一次性协议
+    <span class="md-ellipsis">
+      一次性协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="一次性协议">
@@ -1605,49 +2116,63 @@
         
           <li class="md-nav__item">
   <a href="#倒序泛型" class="md-nav__link">
-    倒序泛型
+    <span class="md-ellipsis">
+      倒序泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#绝对值泛型" class="md-nav__link">
-    绝对值泛型
+    <span class="md-ellipsis">
+      绝对值泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持字节" class="md-nav__link">
-    支持字节
+    <span class="md-ellipsis">
+      支持字节
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持复数" class="md-nav__link">
-    支持复数
+    <span class="md-ellipsis">
+      支持复数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持浮点数" class="md-nav__link">
-    支持浮点数
+    <span class="md-ellipsis">
+      支持浮点数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持整数" class="md-nav__link">
-    支持整数
+    <span class="md-ellipsis">
+      支持整数
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#支持round泛型" class="md-nav__link">
-    支持Round泛型
+    <span class="md-ellipsis">
+      支持Round泛型
+    </span>
   </a>
   
 </li>
@@ -1659,7 +2184,9 @@
         
           <li class="md-nav__item">
   <a href="#异步协议" class="md-nav__link">
-    异步协议
+    <span class="md-ellipsis">
+      异步协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="异步协议">
@@ -1667,21 +2194,27 @@
         
           <li class="md-nav__item">
   <a href="#可等待泛型对象" class="md-nav__link">
-    可等待泛型对象
+    <span class="md-ellipsis">
+      可等待泛型对象
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步可迭代泛型对象" class="md-nav__link">
-    异步可迭代泛型对象
+    <span class="md-ellipsis">
+      异步可迭代泛型对象
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步迭代器泛型对象" class="md-nav__link">
-    异步迭代器泛型对象
+    <span class="md-ellipsis">
+      异步迭代器泛型对象
+    </span>
   </a>
   
 </li>
@@ -1693,7 +2226,9 @@
         
           <li class="md-nav__item">
   <a href="#上下文管理器协议" class="md-nav__link">
-    上下文管理器协议
+    <span class="md-ellipsis">
+      上下文管理器协议
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="上下文管理器协议">
@@ -1701,14 +2236,18 @@
         
           <li class="md-nav__item">
   <a href="#上下文管理器泛型" class="md-nav__link">
-    上下文管理器泛型
+    <span class="md-ellipsis">
+      上下文管理器泛型
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#异步上下文泛型管理器" class="md-nav__link">
-    异步上下文泛型管理器
+    <span class="md-ellipsis">
+      异步上下文泛型管理器
+    </span>
   </a>
   
 </li>
@@ -1737,6 +2276,7 @@
                 
                   
 
+
   
   
 
@@ -1764,20 +2304,20 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> 模块定义了与常见 Python 协议相对应的各种协议类，例如 <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>。 如果一个类定义了合适的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> 方法，mypy 就会理解它实现了可迭代协议并且与 <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a> 兼容。 例如，下面的<code>IntList</code>是可迭代的，类型是<code>int</code>值：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="k">class</span> <span class="nc">IntList</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;IntList&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntList</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;IntList&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">current</span><span class="o">.</span><span class="n">value</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
 
-<span class="k">def</span> <span class="nf">print_numbered</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_numbered</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
@@ -1790,20 +2330,20 @@
 <div class="tabbed-block">
 <p><strong>Predefined protocols</strong></p>
 <p>The <a href="https://docs.python.org/3/library/typing.html#module-typing"><code>typing</code></a> module defines various protocol classes that correspond to common Python protocols, such as <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>. If a class defines a suitable <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> method, mypy understands that it implements the iterable protocol and is compatible with <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>Iterable[T]</code></a>. For example, <code>IntList</code> below is iterable, over <code>int</code> values:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="k">class</span> <span class="nc">IntList</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;IntList&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntList</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">next</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;IntList&#39;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
 
-    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
         <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">while</span> <span class="n">current</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">current</span><span class="o">.</span><span class="n">value</span>
             <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">next</span>
 
-<span class="k">def</span> <span class="nf">print_numbered</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">print_numbered</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
@@ -1820,21 +2360,21 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>您可以通过继承特殊的 <code>Protocol</code> 类来定义自己的协议类：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">SupportsClose</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SupportsClose</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="c1">#空方法体 (explicit &#39;...&#39;)</span>
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
 
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
     <span class="c1"># ... 其他方法 ...</span>
 
-<span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SupportsClose</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">close_all</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SupportsClose</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
         <span class="n">item</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -1845,21 +2385,21 @@
 <div class="tabbed-block">
 <p><strong>Simple user-defined protocols</strong></p>
 <p>You can define your own protocol class by inheriting the special <code>Protocol</code> class:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">SupportsClose</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SupportsClose</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="c1"># Empty method body (explicit &#39;...&#39;)</span>
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Resource</span><span class="p">:</span>  <span class="c1"># No SupportsClose base class!</span>
 
-    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
 
     <span class="c1"># ... other methods ...</span>
 
-<span class="k">def</span> <span class="nf">close_all</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SupportsClose</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">close_all</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">SupportsClose</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
         <span class="n">item</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
@@ -1876,17 +2416,17 @@
 <p>您还可以定义子协议。 可以使用多重继承来扩展和合并现有协议。 例子：</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ... 继续上一个示例</span>
 
-<span class="k">class</span> <span class="nc">SupportsRead</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SupportsRead</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">TaggedReadableResource</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">,</span> <span class="n">SupportsRead</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TaggedReadableResource</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">,</span> <span class="n">SupportsRead</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
 
-<span class="k">class</span> <span class="nc">AdvancedResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdvancedResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
         <span class="c1"># some implementation</span>
         <span class="o">...</span>
 
@@ -1894,13 +2434,13 @@
 <span class="n">resource</span> <span class="o">=</span> <span class="n">AdvancedResource</span><span class="p">(</span><span class="s1">&#39;handle with care&#39;</span><span class="p">)</span>  <span class="c1"># OK</span>
 </code></pre></div>
 <p>请注意，从现有协议继承不会自动将子类转换为协议 - 它只是创建一个实现给定协议（或多个协议）的常规（非协议）类或 ABC。 如果您定义协议，<mark class="critic"><strong>则 <code>Protocol</code> 基类必须始终显式存在</strong></mark>：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NotAProtocol</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">):</span>  <span class="c1"># 这不是一个协议</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">NotAProtocol</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">):</span>  <span class="c1"># 这不是一个协议</span>
     <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Concrete</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Concrete</span><span class="p">:</span>
 <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="o">...</span>
 
 <span class="c1"># Error: nominal subtyping used by default</span>
@@ -1909,11 +2449,11 @@
 </code></pre></div>
 <p>您还可以在协议中包含方法的默认实现。 如果您明确地子类化这些协议，您可以继承这些默认实现。</p>
 <p>显式包含协议作为基类也是记录您的类实现特定协议的一种方式，并且它强制 mypy 验证您的类实现实际上与该协议兼容。 特别是，省略属性或方法体的值将使其隐式抽象：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SomeProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SomeProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">attr</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># 注意，没有右手边 （Note, no right hand side）</span>
-    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># 从字面上看只是...这里 （Literally just ... here）</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># 从字面上看只是...这里 （Literally just ... here）</span>
 
-<span class="k">class</span> <span class="nc">ExplicitSubclass</span><span class="p">(</span><span class="n">SomeProto</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExplicitSubclass</span><span class="p">(</span><span class="n">SomeProto</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="n">ExplicitSubclass</span><span class="p">()</span>  <span class="c1"># error: Cannot instantiate abstract class &#39;ExplicitSubclass&#39;</span>
@@ -1930,17 +2470,17 @@
 and merged using multiple inheritance. Example:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># ... continuing from the previous example</span>
 
-<span class="k">class</span> <span class="nc">SupportsRead</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SupportsRead</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">TaggedReadableResource</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">,</span> <span class="n">SupportsRead</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TaggedReadableResource</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">,</span> <span class="n">SupportsRead</span><span class="p">,</span> <span class="n">Protocol</span><span class="p">):</span>
     <span class="n">label</span><span class="p">:</span> <span class="nb">str</span>
 
-<span class="k">class</span> <span class="nc">AdvancedResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AdvancedResource</span><span class="p">(</span><span class="n">Resource</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
 
-    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
         <span class="c1"># some implementation</span>
         <span class="o">...</span>
 
@@ -1952,13 +2492,13 @@ turn the subclass into a protocol -- it just creates a regular
 (non-protocol) class or ABC that implements the given protocol (or
 protocols). The <code>Protocol</code> base class must always be explicitly
 present if you are defining a protocol:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">NotAProtocol</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">):</span>  <span class="c1"># This is NOT a protocol</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">NotAProtocol</span><span class="p">(</span><span class="n">SupportsClose</span><span class="p">):</span>  <span class="c1"># This is NOT a protocol</span>
     <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Concrete</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Concrete</span><span class="p">:</span>
 <span class="n">new_attr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="o">...</span>
 
 <span class="c1"># Error: nominal subtyping used by default</span>
@@ -1973,11 +2513,11 @@ particular protocol, and it forces mypy to verify that your class
 implementation is actually compatible with the protocol. In particular,
 omitting a value for an attribute or a method body will make it implicitly
 abstract:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">SomeProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SomeProto</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">attr</span><span class="p">:</span> <span class="nb">int</span>  <span class="c1"># Note, no right hand side</span>
-    <span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># Literally just ... here</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>  <span class="c1"># Literally just ... here</span>
 
-<span class="k">class</span> <span class="nc">ExplicitSubclass</span><span class="p">(</span><span class="n">SomeProto</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExplicitSubclass</span><span class="p">(</span><span class="n">SomeProto</span><span class="p">):</span>
     <span class="k">pass</span>
 
 <span class="n">ExplicitSubclass</span><span class="p">()</span>  <span class="c1"># error: Cannot instantiate abstract class &#39;ExplicitSubclass&#39;</span>
@@ -1995,20 +2535,20 @@ type checker to verify that your class implements a protocol:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>协议的一个常见问题是协议属性是不变的。 例如：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">object</span>
 
-<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntBox</span><span class="p">:</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">())</span>  <span class="c1"># error: Argument 1 to &quot;takes_box&quot; has incompatible type （不兼容类型） &quot;IntBox&quot;; expected &quot;Box&quot;</span>
                     <span class="c1"># note:  Following member(s) of &quot;IntBox&quot; have conflicts:</span>
                     <span class="c1"># note:      content: expected &quot;object&quot;, got &quot;int&quot;</span>
 </code></pre></div>
 <p>这是因为 <code>Box</code> 将 <code>content</code> 定义为可变属性。 这就是为什么这是有问题的：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">takes_box_evil</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">takes_box_evil</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">box</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;asdf&quot;</span>  <span class="c1"># 这很糟糕，因为 box.content 应该是一个对象</span>
 
 <span class="n">my_int_box</span> <span class="o">=</span> <span class="n">IntBox</span><span class="p">()</span>
@@ -2016,14 +2556,14 @@ type checker to verify that your class implements a protocol:</p>
 <span class="n">my_int_box</span><span class="o">.</span><span class="n">content</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Oops, TypeError!</span>
 </code></pre></div>
 <p>可以通过使用 <code>@property</code> 在 <code>Box</code> 协议中将 <code>content</code> 声明为只读来解决此问题：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntBox</span><span class="p">:</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># OK</span>
 </code></pre></div>
@@ -2032,13 +2572,13 @@ type checker to verify that your class implements a protocol:</p>
 <p><strong>Invariance of protocol attributes</strong></p>
 <p>A common issue with protocols is that protocol attributes are invariant.
 For example:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">object</span>
 
-<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntBox</span><span class="p">:</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">())</span>  <span class="c1"># error: Argument 1 to &quot;takes_box&quot; has incompatible type &quot;IntBox&quot;; expected &quot;Box&quot;</span>
                     <span class="c1"># note:  Following member(s) of &quot;IntBox&quot; have conflicts:</span>
@@ -2046,7 +2586,7 @@ For example:</p>
 </code></pre></div>
 <p>This is because <code>Box</code> defines <code>content</code> as a mutable attribute.
 Here's why this is problematic:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">takes_box_evil</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">takes_box_evil</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="n">box</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;asdf&quot;</span>  <span class="c1"># This is bad, since box.content is supposed to be an object</span>
 
 <span class="n">my_int_box</span> <span class="o">=</span> <span class="n">IntBox</span><span class="p">()</span>
@@ -2055,14 +2595,14 @@ Here's why this is problematic:</p>
 </code></pre></div>
 <p>This can be fixed by declaring <code>content</code> to be read-only in the <code>Box</code>
 protocol using <code>@property</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Box</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">content</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">object</span><span class="p">:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">IntBox</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IntBox</span><span class="p">:</span>
     <span class="n">content</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">def</span> <span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">takes_box</span><span class="p">(</span><span class="n">box</span><span class="p">:</span> <span class="n">Box</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">takes_box</span><span class="p">(</span><span class="n">IntBox</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>  <span class="c1"># OK</span>
 </code></pre></div>
@@ -2074,20 +2614,20 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>协议可以是递归的（自引用）和相互递归的。 这对于声明抽象递归集合（例如树和链表）很有用：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">TreeLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TreeLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">value</span><span class="p">:</span> <span class="nb">int</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">SimpleTree</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleTree</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2098,20 +2638,20 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-block">
 <p><strong>Recursive protocols</strong></p>
 <p>Protocols can be recursive (self-referential) and mutually recursive. This is useful for declaring abstract recursive collections such as trees and linked lists:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">TreeLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TreeLike</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">value</span><span class="p">:</span> <span class="nb">int</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">left</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">right</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;TreeLike&#39;</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">SimpleTree</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleTree</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;SimpleTree&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2126,17 +2666,17 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>如果使用<code>@runtime_checkable</code>类装饰器装饰协议类，则可以将其与 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> 一起使用。 装饰器添加了对运行时结构检查的基本支持：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
 <span class="nd">@runtime_checkable</span>
-<span class="k">class</span> <span class="nc">Portable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Portable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">handles</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Mug</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Mug</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="n">handles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">use</span><span class="p">(</span><span class="n">handles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">mug</span> <span class="o">=</span> <span class="n">Mug</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mug</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>  <span class="c1"># Works at runtime!</span>
@@ -2155,17 +2695,17 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-block">
 <p><strong>Using isinstance() with protocols</strong></p>
 <p>You can use a protocol class with <a href="https://docs.python.org/3/library/functions.html#isinstance">isinstance()</a> if you decorate it with the @runtime_checkable class decorator. The decorator adds rudimentary support for runtime structural checks:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span><span class="p">,</span> <span class="n">runtime_checkable</span>
 
 <span class="nd">@runtime_checkable</span>
-<span class="k">class</span> <span class="nc">Portable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Portable</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
     <span class="n">handles</span><span class="p">:</span> <span class="nb">int</span>
 
-<span class="k">class</span> <span class="nc">Mug</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Mug</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="mi">1</span>
 
-<span class="k">def</span> <span class="nf">use</span><span class="p">(</span><span class="n">handles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">use</span><span class="p">(</span><span class="n">handles</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">mug</span> <span class="o">=</span> <span class="n">Mug</span><span class="p">()</span>
 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mug</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>  <span class="c1"># Works at runtime!</span>
@@ -2188,19 +2728,19 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>协议可用于定义灵活的回调类型，这些类型很难（甚至不可能）使用 [<code>Callable[...]</code>](https://docs.python.org/3/library/typing.html#types.Callable）语法，例如可变参数、重载和复杂的泛型回调。 它们是用特殊的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> 成员定义的：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">Combiner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Combiner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">batch_proc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">cb_results</span><span class="p">:</span> <span class="n">Combiner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">batch_proc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">cb_results</span><span class="p">:</span> <span class="n">Combiner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">good_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">good_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
     <span class="o">...</span>
-<span class="k">def</span> <span class="nf">bad_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxitems</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bad_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxitems</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
     <span class="o">...</span>
 
 <span class="n">batch_proc</span><span class="p">([],</span> <span class="n">good_cb</span><span class="p">)</span>  <span class="c1"># OK</span>
@@ -2208,13 +2748,13 @@ protocol using <code>@property</code>:</p>
                         <span class="c1"># different name and kind in the callback</span>
 </code></pre></div>
 <p>回调协议和 <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>typing.Callable</code></a> 大部分类型可以互换使用。 <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> 方法中的参数名称必须相同，除非使用双下划线前缀。 例如：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">Copy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__origin</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Copy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__origin</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">copy_a</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span>
 <span class="n">copy_b</span><span class="p">:</span> <span class="n">Copy</span>
@@ -2226,19 +2766,19 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-block">
 <p><strong>Callback protocols</strong></p>
 <p>Protocols can be used to define flexible callback types that are hard (or even impossible) to express using the <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>Callable[...]</code></a> syntax, such as variadic, overloaded, and complex generic callbacks. They are defined with a special <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> member:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
-<span class="k">class</span> <span class="nc">Combiner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Combiner</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span> <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">batch_proc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">cb_results</span><span class="p">:</span> <span class="n">Combiner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">batch_proc</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">],</span> <span class="n">cb_results</span><span class="p">:</span> <span class="n">Combiner</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">def</span> <span class="nf">good_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">good_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
     <span class="o">...</span>
-<span class="k">def</span> <span class="nf">bad_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxitems</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bad_cb</span><span class="p">(</span><span class="o">*</span><span class="n">vals</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">,</span> <span class="n">maxitems</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]:</span>
     <span class="o">...</span>
 
 <span class="n">batch_proc</span><span class="p">([],</span> <span class="n">good_cb</span><span class="p">)</span>  <span class="c1"># OK</span>
@@ -2246,13 +2786,13 @@ protocol using <code>@property</code>:</p>
                         <span class="c1"># different name and kind in the callback</span>
 </code></pre></div>
 <p>Callback protocols and <a href="https://docs.python.org/3/library/typing.html#typing.Callable"><code>typing.Callable</code></a> types can be used mostly interchangeably. Argument names in <a href="https://docs.python.org/3/reference/datamodel.html#object.__call__"><code>__call__</code></a> methods must be identical, unless a double underscore prefix is used. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
-<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">Protocol</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing_extensions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Protocol</span>
 
 <span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="nc">Copy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__origin</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Copy</span><span class="p">(</span><span class="n">Protocol</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__origin</span><span class="p">:</span> <span class="n">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span> <span class="o">...</span>
 
 <span class="n">copy_a</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]</span>
 <span class="n">copy_b</span><span class="p">:</span> <span class="n">Copy</span>
@@ -2282,13 +2822,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="#预定义协议"><code>上面的例子</code></a>有一个 <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> 方法的简单实现。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>另请参阅<a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>typing.Iterable</code></a>。</p>
 </div>
 <div class="tabbed-block">
 <p>The <a href="#预定义协议"><code>example above</code></a> has a simple implementation of an <a href="https://docs.python.org/3/reference/datamodel.html#object.__iter__"><code>__iter__</code></a> method.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Iterable"><code>typing.Iterable</code></a>.</p>
 </div>
@@ -2299,14 +2839,14 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="11:2"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><input id="__tabbed_11_2" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">中文</label><label for="__tabbed_11_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
-<span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>也可以看看 <a href="https://docs.python.org/3/library/typing.html#typing.Iterator"><code>typing.Iterator</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
-<span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Iterator"><code>typing.Iterator</code></a>.</p>
 </div>
@@ -2330,13 +2870,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#len"><code>len(x)</code></a> 的对象类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 <p>也可以看看 <a href="https://docs.python.org/3/library/typing.html#typing.Sized"><code>typing.Sized</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#len"><code>len(x)</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Sized"><code>typing.Sized</code></a>.</p>
 </div>
@@ -2348,13 +2888,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <code>in</code> 运算符的对象类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>同样参考 <a href="https://docs.python.org/3/library/typing.html#typing.Container"><code>Container</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support the <code>in</code> operator.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Container"><code>Container</code></a>.</p>
 </div>
@@ -2365,16 +2905,16 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="15:2"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><input id="__tabbed_15_2" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">中文</label><label for="__tabbed_15_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
-<span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>同样参考 <a href="https://docs.python.org/3/library/typing.html#typing.Collection"><code>Collection</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
-<span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Collection"><code>Collection</code></a>.</p>
 </div>
@@ -2398,13 +2938,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#reversed"><code>reversed(x)</code></a> 的对象类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>同样参考 <a href="https://docs.python.org/3/library/typing.html#typing.Reversible"><code>Reversible</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#reversed"><code>reversed(x)</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__reversed__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Reversible"><code>Reversible</code></a>.</p>
 </div>
@@ -2416,13 +2956,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#abs"><code>abs(x)</code></a> 的对象类型。 <code>T</code> 是 <a href="https://docs.python.org/3/library/functions.html#abs"><code>abs(x)</code></a> 返回的值的类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>同样参考 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsAbs"><code>SupportsAbs</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#abs"><code>abs(x)</code></a>. <code>T</code> is the type of value returned by <a href="https://docs.python.org/3/library/functions.html#abs"><code>abs(x)</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__abs__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsAbs"><code>SupportsAbs</code></a>.</p>
 </div>
@@ -2434,13 +2974,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/stdtypes.html#bytes"><code>bytes(x)</code></a> 的对象类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsBytes"><code>SupportsBytes</code></a>。</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/stdtypes.html#bytes"><code>bytes(x)</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__bytes__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsBytes"><code>SupportsBytes</code></a>.</p>
 </div>
@@ -2452,13 +2992,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#complex"><code>complex(x)</code></a> 的对象类型。 请注意，不支持算术运算。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsComplex"><code>SupportsComplex</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#complex"><code>complex(x)</code></a>. Note that no arithmetic operations are supported.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__complex__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsComplex"><code>SupportsComplex</code></a>.</p>
 </div>
@@ -2470,13 +3010,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#float"><code>float(x)</code></a> 的对象类型。 请注意，不支持算术运算。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsFloat"><code>SupportsFloat</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#float"><code>float(x)</code></a>. Note that no arithmetic operations are supported.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__float__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsFloat"><code>SupportsFloat</code></a>.</p>
 </div>
@@ -2488,13 +3028,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#int"><code>int(x)</code></a> 的对象类型。 请注意，不支持算术运算。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsInt"><code>SupportsInt</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#int"><code>int(x)</code></a>. Note that no arithmetic operations are supported.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__int__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsInt"><code>SupportsInt</code></a>.</p>
 </div>
@@ -2506,13 +3046,13 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>这是支持 <a href="https://docs.python.org/3/library/functions.html#round"><code>round(x)</code></a> 的对象类型。</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.SupportsRound"><code>SupportsRound</code></a>.</p>
 </div>
 <div class="tabbed-block">
 <p>This is a type for objects that support <a href="https://docs.python.org/3/library/functions.html#round"><code>round(x)</code></a>.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__round__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.SupportsRound"><code>SupportsRound</code></a>.</p>
 </div>
@@ -2535,12 +3075,12 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="25:2"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><input id="__tabbed_25_2" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">中文</label><label for="__tabbed_25_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__await__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__await__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__await__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__await__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.Awaitable"><code>Awaitable</code></a>.</p>
 </div>
@@ -2551,12 +3091,12 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="26:2"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><input id="__tabbed_26_2" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">中文</label><label for="__tabbed_26_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterable"><code>AsyncIterable</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterable"><code>AsyncIterable</code></a>.</p>
 </div>
@@ -2567,14 +3107,14 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="27:2"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><input id="__tabbed_27_2" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">中文</label><label for="__tabbed_27_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterator"><code>AsyncIterator</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__anext__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__aiter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
 </code></pre></div>
 <p>See also <a href="https://docs.python.org/3/library/typing.html#typing.AsyncIterator"><code>AsyncIterator</code></a>.</p>
 </div>
@@ -2597,8 +3137,8 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="29:2"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><input id="__tabbed_29_2" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">中文</label><label for="__tabbed_29_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
-<span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
             <span class="n">exc_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
             <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
@@ -2606,8 +3146,8 @@ protocol using <code>@property</code>:</p>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.ContextManager"><code>ContextManager</code></a>.</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
-<span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">T</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
             <span class="n">exc_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
             <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
@@ -2621,8 +3161,8 @@ protocol using <code>@property</code>:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="30:2"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><input id="__tabbed_30_2" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">中文</label><label for="__tabbed_30_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
             <span class="n">exc_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
             <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]]</span>
@@ -2630,8 +3170,8 @@ protocol using <code>@property</code>:</p>
 <p>另请参阅 <a href="https://docs.python.org/3/library/typing.html#typing.AsyncContextManager"><code>AsyncContextManager</code></a>。</p>
 </div>
 <div class="tabbed-block">
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
-<span class="k">def</span> <span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="fm">__aenter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">T</span><span class="p">]</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__aexit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">exc_type</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
             <span class="n">exc_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
             <span class="n">traceback</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TracebackType</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]]</span>
@@ -2641,20 +3181,44 @@ protocol using <code>@property</code>:</p>
 </div>
 </div>
 
-  <hr>
-<div class="md-source-file">
-  <small>
+
+
+
+
+
+
+  
     
-      最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
-      
-        <br>
-        创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
-      
+  
+  
     
-  </small>
-</div>
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月29日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -2665,14 +3229,16 @@ protocol using <code>@property</code>:</p>
             </div>
           
           
-  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            回到页面顶部
-          </button>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -2699,10 +3265,11 @@ protocol using <code>@property</code>:</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
@@ -2713,5 +3280,7 @@ protocol using <code>@property</code>:</p>
         <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>

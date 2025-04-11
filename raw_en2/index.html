@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="..">
-      
-      
-        <link rel="next" href="../asyncio/asyncio/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>英文原版 - FastApi 最佳实践-中文版</title>
+        <title>FastAPI Best Practices - FastApi 最佳实践-中文版</title>
       
     
     
@@ -109,7 +105,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              英文原版
+              FastAPI Best Practices
             
           </span>
         </div>
@@ -199,11 +195,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../raw_en/" class="md-tabs__link">
         
   
     
@@ -427,31 +421,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    英文原版
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../raw_en/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -461,284 +434,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#project-structure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Project Structure
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#async-routes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Async Routes
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Async Routes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#io-intensive-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      I/O Intensive Tasks
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cpu-intensive-tasks" class="md-nav__link">
-    <span class="md-ellipsis">
-      CPU Intensive Tasks
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#pydantic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Pydantic
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Pydantic">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#excessively-use-pydantic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Excessively use Pydantic
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#custom-base-model" class="md-nav__link">
-    <span class="md-ellipsis">
-      Custom Base Model
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decouple-pydantic-basesettings" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decouple Pydantic BaseSettings
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dependencies
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#beyond-dependency-injection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Beyond Dependency Injection
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#chain-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Chain Dependencies
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#decouple--reuse-dependencies-dependency-calls-are-cached" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decouple &amp; Reuse dependencies. Dependency calls are cached
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prefer-async-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prefer async dependencies
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#miscellaneous" class="md-nav__link">
-    <span class="md-ellipsis">
-      Miscellaneous
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Miscellaneous">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#follow-the-rest" class="md-nav__link">
-    <span class="md-ellipsis">
-      Follow the REST
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fastapi-response-serialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      FastAPI response serialization
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#if-you-must-use-sync-sdk-then-run-it-in-a-thread-pool" class="md-nav__link">
-    <span class="md-ellipsis">
-      If you must use sync SDK, then run it in a thread pool
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#valueerrors-might-become-pydantic-validationerror" class="md-nav__link">
-    <span class="md-ellipsis">
-      ValueErrors might become Pydantic ValidationError
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-db-keys-naming-conventions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set DB keys naming conventions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#migrations-alembic" class="md-nav__link">
-    <span class="md-ellipsis">
-      Migrations. Alembic
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-db-naming-conventions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set DB naming conventions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#sql-first-pydantic-second" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL-first. Pydantic-second
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#set-tests-client-async-from-day-0" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set tests client async from day 0
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-ruff" class="md-nav__link">
-    <span class="md-ellipsis">
-      Use ruff
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bonus-section" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bonus Section
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 

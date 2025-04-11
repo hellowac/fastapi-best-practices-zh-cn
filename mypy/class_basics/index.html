@@ -16,8 +16,9 @@
       
         <link rel="next" href="../annotation_issue_at_runtime/">
       
+      
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -25,11 +26,14 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
+
     
+    
+      
     
     
       
@@ -41,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -49,24 +53,19 @@
     
     
    <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
-        html.glightbox-open { overflow: initial; height: 100%; }
-        .gslide-title { margin-top: 0px; user-select: text; }
-        .gslide-desc { color: #666; user-select: text; }
-        .gslide-image img { background: white; }
-        
-            .gscrollbar-fixer { padding-right: 15px; }
-            .gdesc-inner { font-size: 0.75rem; }
-            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
-            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
-            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
-            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
   
   
     <body dir="ltr">
   
-    
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -93,11 +92,12 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-header__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -117,9 +117,13 @@
     </div>
     
     
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -127,19 +131,22 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="查找">
         
         <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
       </nav>
       
     </form>
     <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
             正在初始化搜索引擎
@@ -156,7 +163,7 @@
         <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -175,40 +182,54 @@
         
   
   
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  最佳实践
 
-
-  <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
-      最佳实践
-    </a>
-  </li>
+      </a>
+    </li>
+  
 
       
         
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../raw_en/" class="md-tabs__link">
-      英文原版
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
   
   
   
     <li class="md-tabs__item">
-      <a href="../../asyncio/asyncio/" class="md-tabs__link">
-        Asyncio
+      <a href="../../raw_en/" class="md-tabs__link">
+        
+  
+    
+  
+  英文原版
+
       </a>
     </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../asyncio/asyncio/" class="md-tabs__link">
+          
+  
+    
+  
+  Asyncio
+
+        </a>
+      </li>
+    
   
 
       
@@ -217,14 +238,75 @@
   
     
   
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../cheat_sheet_py3/" class="md-tabs__link">
+          
+  
+    
+  
+  mypy
 
+        </a>
+      </li>
+    
+  
 
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
+          
+  
+    
+  
+  HTTP
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../git/git-branch-manage/" class="md-tabs__link">
+          
+  
+    
+  
+  Git
+
+        </a>
+      </li>
+    
+  
+
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../cheat_sheet_py3/" class="md-tabs__link md-tabs__link--active">
-        mypy
+      <a href="../../xml/" class="md-tabs__link">
+        
+  
+    
+  
+  xml
+
       </a>
     </li>
   
@@ -233,73 +315,38 @@
         
   
   
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sysdesign/perm_design/" class="md-tabs__link">
+          
+  
+    
+  
+  系统设计
 
+        </a>
+      </li>
+    
+  
 
+      
+        
   
   
   
     <li class="md-tabs__item">
-      <a href="../../http/internet_protocol_suite_part_i/" class="md-tabs__link">
-        HTTP
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+    
+  
+  关于
+
       </a>
     </li>
   
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../git/git-branch-manage/" class="md-tabs__link">
-        Git
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../xml/" class="md-tabs__link">
-      xml
-    </a>
-  </li>
-
-      
-        
-  
-  
-
-
-  
-  
-  
-    <li class="md-tabs__item">
-      <a href="../../sysdesign/perm_design/" class="md-tabs__link">
-        系统设计
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-
-
-  <li class="md-tabs__item">
-    <a href="../../about/" class="md-tabs__link">
-      关于
-    </a>
-  </li>
 
       
     </ul>
@@ -324,6 +371,7 @@
                   <div class="md-sidebar__inner">
                     
 
+
   
 
 
@@ -332,7 +380,7 @@
     <a href="../.." title="FastApi 最佳实践-中文版" class="md-nav__button md-logo" aria-label="FastApi 最佳实践-中文版" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
     FastApi 最佳实践-中文版
@@ -342,7 +390,7 @@
       <a href="https://github.com/hellowac/fastapi-best-practices-zh-cn/" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
   </div>
   <div class="md-source__repository">
     FastApi 最佳实践-中文版
@@ -354,14 +402,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../.." class="md-nav__link">
-        最佳实践
+        
+  
+  <span class="md-ellipsis">
+    最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -369,14 +423,20 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../raw_en/" class="md-nav__link">
-        英文原版
+        
+  
+  <span class="md-ellipsis">
+    英文原版
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -384,265 +444,370 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Asyncio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
-          Asyncio
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Asyncio
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Asyncio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio/" class="md-nav__link">
-        中文简单指南
+        
+  
+  <span class="md-ellipsis">
+    中文简单指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/asyncio_en/" class="md-nav__link">
-        中英对照指南
+        
+  
+  <span class="md-ellipsis">
+    中英对照指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/runner/" class="md-nav__link">
-        Runner运行协程
+        
+  
+  <span class="md-ellipsis">
+    Runner运行协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/task_group/" class="md-nav__link">
-        TaskGroup管理协程
+        
+  
+  <span class="md-ellipsis">
+    TaskGroup管理协程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/cheat_sheet/" class="md-nav__link">
-        语法备忘录
+        
+  
+  <span class="md-ellipsis">
+    语法备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../asyncio/api_mind_map/" class="md-nav__link">
-        API思维导图
+        
+  
+  <span class="md-ellipsis">
+    API思维导图
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
+  
+  
+    
+  
+  
+  
+    
+    
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    mypy
+    
+  </span>
+  
 
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-      
-      
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-          mypy
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-        <label class="md-nav__title" for="__nav_4">
-          <span class="md-nav__icon md-icon"></span>
-          mypy
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            mypy
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../cheat_sheet_py3/" class="md-nav__link">
-        类型注解备忘录
+        
+  
+  <span class="md-ellipsis">
+    类型注解备忘录
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../builtin_types/" class="md-nav__link">
-        类型系统参考-内置类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-内置类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_inference_type_annotations/" class="md-nav__link">
-        类型系统参考-类型推断和类型注解
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型推断和类型注解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kind_of_types/" class="md-nav__link">
-        类型系统参考-类型种类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型种类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -654,12 +819,26 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          类型系统参考-类的基础
+          
+  
+  <span class="md-ellipsis">
+    类型系统参考-类的基础
+    
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        类型系统参考-类的基础
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类的基础
+    
+  </span>
+  
+
       </a>
       
         
@@ -679,42 +858,54 @@
       
         <li class="md-nav__item">
   <a href="#实例和类属性" class="md-nav__link">
-    实例和类属性
+    <span class="md-ellipsis">
+      实例和类属性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#注解-__init__-方法" class="md-nav__link">
-    注解 __init__ 方法
+    <span class="md-ellipsis">
+      注解 __init__ 方法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#类属性注解" class="md-nav__link">
-    类属性注解
+    <span class="md-ellipsis">
+      类属性注解
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#重写静态类型方法" class="md-nav__link">
-    重写静态类型方法
+    <span class="md-ellipsis">
+      重写静态类型方法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#抽象基类和多重继承" class="md-nav__link">
-    抽象基类和多重继承
+    <span class="md-ellipsis">
+      抽象基类和多重继承
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#slots" class="md-nav__link">
-    Slots
+    <span class="md-ellipsis">
+      Slots
+    </span>
   </a>
   
 </li>
@@ -726,454 +917,669 @@
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../annotation_issue_at_runtime/" class="md-nav__link">
-        类型系统参考-运行时的注解问题
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-运行时的注解问题
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../protocol_and_struct_subtyping/" class="md-nav__link">
-        类型系统参考-协议和结构子类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-协议和结构子类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dynamic_typing/" class="md-nav__link">
-        类型系统参考-动态类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-动态类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../type_narrowing/" class="md-nav__link">
-        类型系统参考-类型收缩
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型收缩
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../duck_type_compatibility/" class="md-nav__link">
-        类型系统参考-鸭子类型兼容
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-鸭子类型兼容
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../stub_files/" class="md-nav__link">
-        类型系统参考-存根文件
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-存根文件
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../generics/" class="md-nav__link">
-        类型系统参考-泛型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-泛型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../more_types/" class="md-nav__link">
-        类型系统参考-更多类型
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-更多类型
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../literal_and_enum/" class="md-nav__link">
-        类型系统参考-字面量和枚举
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-字面量和枚举
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../typeddict/" class="md-nav__link">
-        类型系统参考-类型字典
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-类型字典
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../final_names_methods_classes/" class="md-nav__link">
-        类型系统参考-最终名称、方法和类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-最终名称、方法和类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../metaclasses/" class="md-nav__link">
-        类型系统参考-元类
+        
+  
+  <span class="md-ellipsis">
+    类型系统参考-元类
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
-      
-      
-        
-          
-        
-          
-        
-          
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
         
         
-        <div class="md-nav__link md-nav__link--index ">
-          <a href="../../http/">HTTP</a>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
           
-            <label for="__nav_5">
-              <span class="md-nav__icon md-icon"></span>
-            </label>
           
-        </div>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          HTTP
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../http/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    HTTP
+    
+  </span>
+  
+
+            </a>
             
               
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            HTTP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_i/" class="md-nav__link">
-        互联网协议入门（一）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（一）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/internet_protocol_suite_part_ii/" class="md-nav__link">
-        互联网协议入门（二）
+        
+  
+  <span class="md-ellipsis">
+    互联网协议入门（二）
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
-            
-          
+              
             
               
+            
+              
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapi/" class="md-nav__link">
-        Restful API 设计指南
+        
+  
+  <span class="md-ellipsis">
+    Restful API 设计指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/restapibsetp/" class="md-nav__link">
-        RESTful API 最佳实践
+        
+  
+  <span class="md-ellipsis">
+    RESTful API 最佳实践
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/http-referer/" class="md-nav__link">
-        HTTP Referer 教程
+        
+  
+  <span class="md-ellipsis">
+    HTTP Referer 教程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../http/https/" class="md-nav__link">
-        HTTPS 升级指南
+        
+  
+  <span class="md-ellipsis">
+    HTTPS 升级指南
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Git
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-          
-        
-          
-        
-          
-        
-          
-        
-      
-      
-        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
-          Git
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          Git
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Git
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-branch-manage/" class="md-nav__link">
-        Git分支管理策略
+        
+  
+  <span class="md-ellipsis">
+    Git分支管理策略
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-remote/" class="md-nav__link">
-        Git远程操作详解
+        
+  
+  <span class="md-ellipsis">
+    Git远程操作详解
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-use-process/" class="md-nav__link">
-        Git 使用规范流程
+        
+  
+  <span class="md-ellipsis">
+    Git 使用规范流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-cheat-sheet/" class="md-nav__link">
-        常用 Git 命令清单
+        
+  
+  <span class="md-ellipsis">
+    常用 Git 命令清单
+    
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../git/git-work-flow/" class="md-nav__link">
-        Git 协作流程
+        
+  
+  <span class="md-ellipsis">
+    Git 协作流程
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../xml/" class="md-nav__link">
-        xml
+        
+  
+  <span class="md-ellipsis">
+    xml
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1181,67 +1587,92 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+      
+        
+      
+    
+    
+      
+      
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
-      
-      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    系统设计
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
-      
-      
-        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
-          系统设计
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_8">
-          <span class="md-nav__icon md-icon"></span>
-          系统设计
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            系统设计
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../sysdesign/perm_design/" class="md-nav__link">
-        权限系统的设计
+        
+  
+  <span class="md-ellipsis">
+    权限系统的设计
+    
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../../about/" class="md-nav__link">
-        关于
+        
+  
+  <span class="md-ellipsis">
+    关于
+    
+  </span>
+  
+
       </a>
     </li>
   
@@ -1275,42 +1706,54 @@
       
         <li class="md-nav__item">
   <a href="#实例和类属性" class="md-nav__link">
-    实例和类属性
+    <span class="md-ellipsis">
+      实例和类属性
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#注解-__init__-方法" class="md-nav__link">
-    注解 __init__ 方法
+    <span class="md-ellipsis">
+      注解 __init__ 方法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#类属性注解" class="md-nav__link">
-    类属性注解
+    <span class="md-ellipsis">
+      类属性注解
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#重写静态类型方法" class="md-nav__link">
-    重写静态类型方法
+    <span class="md-ellipsis">
+      重写静态类型方法
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#抽象基类和多重继承" class="md-nav__link">
-    抽象基类和多重继承
+    <span class="md-ellipsis">
+      抽象基类和多重继承
+    </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#slots" class="md-nav__link">
-    Slots
+    <span class="md-ellipsis">
+      Slots
+    </span>
   </a>
   
 </li>
@@ -1328,6 +1771,7 @@
               <article class="md-content__inner md-typeset">
                 
                   
+
 
   
   
@@ -1350,8 +1794,8 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>mypy 类型检查器会检测您是否尝试访问丢失的属性，这是一个非常常见的编程错误。 为了使其正常工作，必须在类中定义或初始化实例和类属性。 Mypy 推断属性的类型：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>  <span class="c1"># Aha, attribute &#39;x&#39; of type &#39;int&#39;</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1360,7 +1804,7 @@
 </code></pre></div>
 <p>这有点像每个类都有一个隐式定义的 <a href="https://docs.python.org/3/reference/datamodel.html#object.__slots__"><code>__slots__</code></a> 属性。 这仅在类型检查期间强制执行，而不是在程序运行时强制执行。</p>
 <p>您可以使用类型注释显式声明类主体中的变量类型：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>  <span class="c1"># Declare attribute &#39;x&#39; of type list[int]</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
@@ -1368,16 +1812,16 @@
 </code></pre></div>
 <p>通常在 Python 中，类体中定义的变量可以用作类变量或实例变量。 （如下一节所述，您可以使用 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>typing.ClassVar</code></a> 注释覆盖它。）</p>
 <p>同样，您可以为方法中定义的实例变量指定显式类型：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 <p>如果您使用 <code>self</code> 显式分配实例变量，则只能在方法中定义实例变量：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Define &#39;y&#39;</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>      <span class="c1"># Error: &#39;x&#39; not defined</span>
@@ -1386,8 +1830,8 @@
 <div class="tabbed-block">
 <p><strong>Instance and class attributes</strong></p>
 <p>The mypy type checker detects if you are trying to access a missing attribute, which is a very common programming error. For this to work correctly, instance and class attributes must be defined or initialized within the class. Mypy infers the types of attributes:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>  <span class="c1"># Aha, attribute &#39;x&#39; of type &#39;int&#39;</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1396,7 +1840,7 @@
 </code></pre></div>
 <p>This is a bit like each class having an implicitly defined <a href="https://docs.python.org/3/reference/datamodel.html#object.__slots__"><code>__slots__</code></a> attribute. This is only enforced during type checking and not when your program is running.</p>
 <p>You can declare types of variables in the class body explicitly using a type annotation:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>  <span class="c1"># Declare attribute &#39;x&#39; of type list[int]</span>
 
 <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
@@ -1404,16 +1848,16 @@
 </code></pre></div>
 <p>As in Python generally, a variable defined in the class body can be used as a class or an instance variable. (As discussed in the next section, you can override this with a <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>typing.ClassVar</code></a> annotation.)</p>
 <p>Similarly, you can give explicit types to instance variables defined in a method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="mi">0</span>
 </code></pre></div>
 <p>You can only define an instance variable within a method if you assign to it explicitly using <code>self</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">1</span>   <span class="c1"># Define &#39;y&#39;</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="n">a</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>      <span class="c1"># Error: &#39;x&#39; not defined</span>
@@ -1426,17 +1870,17 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> 方法有些特殊——它不返回值。 这最好表达为 <code>-&gt; None</code>。 然而，由于许多人认为这是多余的，因此允许省略 <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> 方法的返回类型声明 <strong>如果至少有一个参数被注释</strong>。 例如，在以下类中 <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> 被认为是完全注释的：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C1</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">C1</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="mi">42</span>
 
-<span class="k">class</span> <span class="nc">C2</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C2</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">arg</span>
 </code></pre></div>
 <p>但是，如果 <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> 没有带注解的参数，也没有返回类型注解，则它被视为无类型注解方法：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C3</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">C3</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># 该主体将不会进行类型检查</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="mi">42</span> <span class="o">+</span> <span class="s1">&#39;abc&#39;</span>
 </code></pre></div>
@@ -1444,17 +1888,17 @@
 <div class="tabbed-block">
 <p><strong>Annotating __init__ methods</strong></p>
 <p>The <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> method is somewhat special -- it doesn't return a value.  This is best expressed as <code>-&gt; None</code>.  However, since many feel this is redundant, it is allowed to omit the return type declaration on <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> methods <strong>if at least one argument is annotated</strong>.  For example, in the following classes <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> is considered fully annotated:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C1</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">C1</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="mi">42</span>
 
-<span class="k">class</span> <span class="nc">C2</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">C2</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">arg</span>
 </code></pre></div>
 <p>However, if <a href="https://docs.python.org/3/reference/datamodel.html#object.__init__"><code>__init__</code></a> has no annotated arguments and no return type annotation, it is considered an untyped method:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">C3</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">C3</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># This body is not type checked</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="mi">42</span> <span class="o">+</span> <span class="s1">&#39;abc&#39;</span>
 </code></pre></div>
@@ -1466,9 +1910,9 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>您可以使用 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 注释来显式声明不应在实例上设置特定属性：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassVar</span>
 
-<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 仅类变量</span>
 
 <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># OK</span>
@@ -1478,7 +1922,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># OK -- 可以通过实例读取</span>
 </code></pre></div>
 <p>没有必要使用 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 注解所有类变量。 没有 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 注释的属性仍然可以用作类变量。 然而，mypy 不会阻止它被用作实例变量，如前面所讨论的：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 可以用作类或实例变量</span>
 
 <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># OK</span>
@@ -1488,14 +1932,14 @@
 </code></pre></div>
 <p>请注意， <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 不是一个类，并且您不能将它与 <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code> 一起使用 </a> 或 <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a>。 它不会改变 Python 运行时行为——它仅适用于类型检查器，例如 mypy（对人类读者也有帮助）。</p>
 <p>您还可以在 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 注释中省略方括号和变量类型，但这可能不会是你所期望的：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">ClassVar</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 类型隐式为 Any!</span>
 </code></pre></div>
 <p>在这种情况下，属性的类型将隐式为“Any”。 这种行为将来会改变，因为它令人惊讶。</p>
 <p>显式的 <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> 可能特别方便区分具有可调用类型的类变量和实例变量。 例如：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span>
 
-<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">foo</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
     <span class="n">bar</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">A</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
     <span class="n">bad</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">A</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
@@ -1512,9 +1956,9 @@
 <div class="tabbed-block">
 <p><strong>Class attribute annotations</strong></p>
 <p>You can use a <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> annotation to explicitly declare that a particular attribute should not be set on instances:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">ClassVar</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClassVar</span>
 
-<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Class variable only</span>
 
 <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># OK</span>
@@ -1524,7 +1968,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># OK -- can be read through an instance</span>
 </code></pre></div>
 <p>It's not necessary to annotate all class variables using <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a>. An attribute without the <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> annotation can still be used as a class variable. However, mypy won't prevent it from being used as an instance variable, as discussed previously:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Can be used as a class or instance variable</span>
 
 <span class="n">A</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># OK</span>
@@ -1534,14 +1978,14 @@
 </code></pre></div>
 <p>Note that <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> is not a class, and you can't use it with <a href="https://docs.python.org/3/library/functions.html#isinstance"><code>isinstance</code></a> or <a href="https://docs.python.org/3/library/functions.html#issubclass"><code>issubclass</code></a>. It does not change Python runtime behavior -- it's only for type checkers such as mypy (and also helpful for human readers).</p>
 <p>You can also omit the square brackets and the variable type in a <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> annotation, but this might not do what you'd expect:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">ClassVar</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Type implicitly Any!</span>
 </code></pre></div>
 <p>In this case the type of the attribute will be implicitly <code>Any</code>. This behavior will change in the future, since it's surprising.</p>
 <p>An explicit <a href="https://docs.python.org/3/library/typing.html#typing.ClassVar"><code>ClassVar[t]</code></a> may be particularly handy to distinguish between class and instance variables with callable types. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">ClassVar</span>
 
-<span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">A</span><span class="p">:</span>
     <span class="n">foo</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
     <span class="n">bar</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">A</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="kc">None</span><span class="p">]]</span>
     <span class="n">bad</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">A</span><span class="p">],</span> <span class="kc">None</span><span class="p">]</span>
@@ -1562,87 +2006,87 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>当重写静态类型方法时，mypy 检查重写是否具有兼容的签名：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: type of &#39;x&#39; incompatible (不兼容)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: type of &#39;x&#39; incompatible (不兼容)</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived2</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error: too many arguments</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived2</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error: too many arguments</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived3</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived3</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived4</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: mypy 将 int 视为 float 的子类型</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived4</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: mypy 将 int 视为 float 的子类型</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived5</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: 接受比基类更多参数的方法</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived5</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: 接受比基类更多参数的方法</span>
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Note</p>
 <p>您还可以在重写中<strong>协变</strong>地改变返回类型。 例如，您可以使用 <code>list[int]</code> 等子类型覆盖返回类型 <code>Iterable[int]</code> 。 类似地，您可以<strong>逆变地</strong>改变参数类型——子类可以有更通用的参数类型。</p>
 </div>
 <p>为了确保重命名方法时代码保持正确，将方法显式标记为覆盖基本方法会很有帮助。 这可以通过 <code>@override</code> 装饰器来完成。 如果随后重命名了基本方法，而未重命名重写方法，则 mypy 将显示错误：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">override</span>
 
-<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">g_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
         <span class="o">...</span>
 
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: 没有找到对应的基础方法</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: 没有找到对应的基础方法</span>
         <span class="o">...</span>
 </code></pre></div>
 <p>您还可以使用动态类型方法覆盖静态类型方法。 这允许动态类型代码覆盖库类中定义的方法，而无需担心它们的类型签名。</p>
 <p>一如既往，依赖动态类型代码可能是不安全的。 没有运行时强制方法重写返回与原始返回类型兼容的值，因为注解在运行时不起作用：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>   <span class="c1"># Override, dynamically typed</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>   <span class="c1"># Override, dynamically typed</span>
         <span class="k">return</span> <span class="s1">&#39;hello&#39;</span>  <span class="c1"># Incompatible with &#39;Base&#39;, but no mypy error</span>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p><strong>Overriding statically typed methods</strong></p>
 <p>When overriding a statically typed method, mypy checks that the override has a compatible signature:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: type of &#39;x&#39; incompatible</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: type of &#39;x&#39; incompatible</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived2</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error: too many arguments</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived2</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Error: too many arguments</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived3</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived3</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived4</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: mypy treats int as a subtype of float</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived4</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: mypy treats int as a subtype of float</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived5</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: accepts more than the base</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived5</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK: accepts more than the base</span>
         <span class="o">...</span>                                    <span class="c1">#     class method</span>
 </code></pre></div>
 <div class="admonition info">
@@ -1650,31 +2094,31 @@
 <p>You can also vary return types <strong>covariantly</strong> in overriding. For example, you could override the return type <code>Iterable[int]</code> with a subtype such as <code>list[int]</code>. Similarly, you can vary argument types <strong>contravariantly</strong> -- subclasses can have more general argument types.</p>
 </div>
 <p>In order to ensure that your code remains correct when renaming methods, it can be helpful to explicitly mark a method as overriding a base method. This can be done with the <code>@override</code> decorator. If the base method is then renamed while the overriding method is not, mypy will show an error:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">override</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">override</span>
 
-<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">g_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g_renamed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 
-<span class="k">class</span> <span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived1</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># OK</span>
         <span class="o">...</span>
 
     <span class="nd">@override</span>
-    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: no corresponding base method found</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>   <span class="c1"># Error: no corresponding base method found</span>
         <span class="o">...</span>
 </code></pre></div>
 <p>You can also override a statically typed method with a dynamically typed one. This allows dynamically typed code to override methods defined in library classes without worrying about their type signatures.</p>
 <p>As always, relying on dynamically typed code can be unsafe. There is no runtime enforcement that the method override returns a value that is compatible with the original return type, since annotations have no effect at runtime:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
 
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>   <span class="c1"># Override, dynamically typed</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">inc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>   <span class="c1"># Override, dynamically typed</span>
         <span class="k">return</span> <span class="s1">&#39;hello&#39;</span>  <span class="c1"># Incompatible with &#39;Base&#39;, but no mypy error</span>
 </code></pre></div>
 </div>
@@ -1685,22 +2129,22 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Mypy 支持 Python <a href="https://docs.python.org/3/library/abc.html"><code>抽象基类</code></a> (ABC)。 抽象类至少有一个抽象方法或属性，必须由任何 <strong>“具体”</strong>（非抽象）子类实现。 您可以使用 <a href="https://docs.python.org/3/library/abc.html#abc.ABCMeta"><code>abc.ABCMeta</code></a> 元类和 [<code>@abc.abstractmethod</code>]( https://docs.python.org/3/library/abc.html#abc.abstractmethod）函数装饰器。 例子：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="k">pass</span>
 
-<span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>  <span class="c1"># Body omitted</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">Animal</span><span class="p">()</span>  <span class="c1"># Error: &#39;Animal&#39; is abstract due to &#39;eat&#39; and &#39;can_walk&#39;</span>
@@ -1708,19 +2152,19 @@
 </code></pre></div>
 <p>请注意，即使您省略了 <a href="https://docs.python.org/3/library/abc.html#abc.ABCMeta"><code>abc.ABCMeta</code></a> 元类，mypy 也会执行未实现的抽象方法的检查。 如果元类会导致运行时元类冲突，这可能很有用。</p>
 <p>由于您无法创建 ABC 的实例，因此它们最常用于类型注释中。 例如，此方法接受包含任意动物的任意迭代（具体“Animal”子类的实例）：</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">feed_all</span><span class="p">(</span><span class="n">animals</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Animal</span><span class="p">],</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">feed_all</span><span class="p">(</span><span class="n">animals</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Animal</span><span class="p">],</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">eat</span><span class="p">(</span><span class="n">food</span><span class="p">)</span>
 </code></pre></div>
 <p>Python 中 ABC 的工作方式有一个重要的特点——特定类是否是抽象的在某种程度上是隐含的。 在下面的示例中，“Derived”被视为抽象基类，因为“Derived”从“Base”继承了抽象“f”方法，并且没有显式实现它。 <code>Derived</code> 的定义不会从 mypy 中生成错误，因为它是有效的 ABC：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># No error -- Derived 隐式 抽象</span>
-    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># No error -- Derived 隐式 抽象</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 </code></pre></div>
 <p>但是，尝试创建 “Derived” 实例将被拒绝：</p>
@@ -1731,18 +2175,18 @@
 <p>忘记实现抽象方法是一个常见的错误。 如上所示，在这种情况下，类定义不会生成错误，但任何构造实例的尝试都将被标记为错误。</p>
 </div>
 <p>Mypy 允许您省略抽象方法的主体，但如果这样做，通过 <code>super()</code> 调用此类方法是不安全的。 例如：</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="k">pass</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
-<span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># error: 通过 super() 调用带有简单主体的“Base”的抽象方法“foo”是不安全的</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># 不过这没关系。</span>
 </code></pre></div>
 <p>一个类可以继承任意数量的类，包括抽象类和具体类。 与普通重写一样，动态类型方法可以重写或实现任何基类中定义的静态类型方法，包括抽象基类中定义的抽象方法。</p>
@@ -1751,22 +2195,22 @@
 <div class="tabbed-block">
 <p><strong>Abstract base classes and multiple inheritance</strong></p>
 <p>Mypy supports Python <a href="https://docs.python.org/3/library/abc.html"><code>abstract base classes</code></a> (ABCs). Abstract classes have at least one abstract method or property that must be implemented by any <em>concrete</em> (non-abstract) subclass. You can define abstract base classes using the <a href="https://docs.python.org/3/library/abc.html#abc.ABCMeta"><code>abc.ABCMeta</code></a> metaclass and the <a href="https://docs.python.org/3/library/abc.html#abc.abstractmethod"><code>@abc.abstractmethod</code></a> function decorator. Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Animal</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
     <span class="nd">@property</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span> <span class="k">pass</span>
 
-<span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">eat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>  <span class="c1"># Body omitted</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_walk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">True</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">Animal</span><span class="p">()</span>  <span class="c1"># Error: &#39;Animal&#39; is abstract due to &#39;eat&#39; and &#39;can_walk&#39;</span>
@@ -1774,19 +2218,19 @@
 </code></pre></div>
 <p>Note that mypy performs checking for unimplemented abstract methods even if you omit the <a href="https://docs.python.org/3/library/abc.html#abc.ABCMeta"><code>abc.ABCMeta</code></a> metaclass. This can be useful if the metaclass would cause runtime metaclass conflicts.</p>
 <p>Since you can't create instances of ABCs, they are most commonly used in type annotations. For example, this method accepts arbitrary iterables containing arbitrary animals (instances of concrete <code>Animal</code> subclasses):</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">feed_all</span><span class="p">(</span><span class="n">animals</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Animal</span><span class="p">],</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">feed_all</span><span class="p">(</span><span class="n">animals</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Animal</span><span class="p">],</span> <span class="n">food</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
         <span class="n">animal</span><span class="o">.</span><span class="n">eat</span><span class="p">(</span><span class="n">food</span><span class="p">)</span>
 </code></pre></div>
 <p>There is one important peculiarity about how ABCs work in Python -- whether a particular class is abstract or not is somewhat implicit. In the example below, <code>Derived</code> is treated as an abstract base class since <code>Derived</code> inherits an abstract <code>f</code> method from <code>Base</code> and doesn't explicitly implement it. The definition of <code>Derived</code> generates no errors from mypy, since it's a valid ABC:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
 
-<span class="k">class</span> <span class="nc">Base</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="k">pass</span>
 
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># No error -- Derived is implicitly abstract</span>
-    <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  <span class="c1"># No error -- Derived is implicitly abstract</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span>
 </code></pre></div>
 <p>Attempting to create an instance of <code>Derived</code> will be rejected, however:</p>
@@ -1797,19 +2241,19 @@
 <p>It's a common error to forget to implement an abstract method. As shown above, the class definition will not generate an error in this case, but any attempt to construct an instance will be flagged as an error.</p>
 </div>
 <p>Mypy allows you to omit the body for an abstract method, but if you do so, it is unsafe to call such method via <code>super()</code>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
-<span class="k">class</span> <span class="nc">Base</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">:</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="k">pass</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span> <span class="k">pass</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
-<span class="k">class</span> <span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sub</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">foo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">foo</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># error: Call to abstract method &quot;foo&quot; of &quot;Base&quot;</span>
                                   <span class="c1"># with trivial body via super() is unsafe</span>
     <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># This is OK however.</span>
 </code></pre></div>
 <p>A class can inherit any number of classes, both abstract and concrete. As with normal overrides, a dynamically typed method can override or implement a statically typed method defined in any base class, including an abstract method defined in an abstract base class.</p>
@@ -1822,10 +2266,10 @@
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>当一个类显式定义了 <a href="https://docs.python.org/3/reference/datamodel.html#slots">__slots__</a> 时，mypy 将检查分配给的所有属性是否都是 <code>__slots__</code> 的成员  ：</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Album</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Album</span><span class="p">:</span>
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
        <span class="c1"># Error: Trying to assign name &quot;released&quot; that is not in &quot;__slots__&quot; of type &quot;Album&quot;</span>
@@ -1843,10 +2287,10 @@
 <div class="tabbed-block">
 <p><strong>Slots</strong></p>
 <p>When a class has explicitly defined <a href="https://docs.python.org/3/reference/datamodel.html#slots">__slots__</a>, mypy will check that all attributes assigned to are members of <code>__slots__</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Album</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Album</span><span class="p">:</span>
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
        <span class="c1"># Error: Trying to assign name &quot;released&quot; that is not in &quot;__slots__&quot; of type &quot;Album&quot;</span>
@@ -1864,20 +2308,44 @@
 </div>
 </div>
 
-  <hr>
-<div class="md-source-file">
-  <small>
+
+
+
+
+
+
+  
     
-      最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
-      
-        <br>
-        创建日期:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
-      
+  
+  
     
-  </small>
-</div>
+  
+
+
+  <aside class="md-source-file">
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="最后更新">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+  </span>
+
+    
+    
+      
+  <span class="md-source-file__fact">
+    <span class="md-icon" title="创建日期">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
+    </span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">2023年7月6日</span>
+  </span>
+
+    
+    
+    
+  </aside>
 
 
 
@@ -1888,14 +2356,16 @@
             </div>
           
           
-  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
 
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-            回到页面顶部
-          </button>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
         
       </main>
       
@@ -1922,10 +2392,11 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.tabs.link", "navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.top", "toc.follow"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/mathjax.js"></script>
       
@@ -1936,5 +2407,7 @@
         <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
       
     
-  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
 </html>
