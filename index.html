@@ -2395,8 +2395,7 @@ Some of them are worth sharing.</p>
 <li>如果路由定义为 <code>async</code>，则会通过 <code>await</code> 正常调用，<br />
   FastAPI 会信任你只执行非阻塞的 I/O 操作。</li>
 </ul>
-<p>但问题是，如果你辜负了这份信任，在异步路由中执行了阻塞操作，<br />
-那么事件循环将无法继续执行其他任务，直到该阻塞操作完成。</p>
+<p>需要注意的是，如果你辜负了这份信任, 并在异步路由中执行阻塞操作，则事件循环将无法运行后续任务，直到阻塞操作完成。</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
@@ -2475,8 +2474,8 @@ from executing the tasks.</li>
 <li>If the route is defined <code>async</code> then it's called regularly via <code>await</code>
 and FastAPI trusts you to do only non-blocking I/O operations.</li>
 </ul>
-<p>The caveat is if you fail that trust and execute blocking operations within async routes,
-the event loop will not be able to run the next tasks until that blocking operation is done.</p>
+<p>The caveat is that if you violate that trust and execute blocking operations within async routes,
+the event loop will not be able to run subsequent tasks until the blocking operation completes.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 
@@ -2902,8 +2901,7 @@ for every endpoint and write the same tests for each of them.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="10:2"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><input id="__tabbed_10_2" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">中文</label><label for="__tabbed_10_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>如果我们没有将数据验证放到依赖关系中，我们将不得不在每个端点中验证 <code>post_id</code> 是否存在，并为每个端点编写相同的测试。</p>
-<p>依赖关系可以使用其他依赖关系，避免类似逻辑的代码重复。</p>
+<p>依赖项可以使用其他依赖项，并避免类似逻辑的代码重复。</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">jose</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
@@ -2943,7 +2941,7 @@ for every endpoint and write the same tests for each of them.</p>
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>Dependencies can use other dependencies and avoid code repetition for the similar logic.</p>
+<p>Dependencies can use other dependencies and avoid code repetition for the the similar logic.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># dependencies.py</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.security</span><span class="w"> </span><span class="kn">import</span> <span class="n">OAuth2PasswordBearer</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">jose</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTError</span><span class="p">,</span> <span class="n">jwt</span>
@@ -3159,7 +3157,7 @@ For example, in the code below we are using <code>parse_jwt_data</code> three ti
 <li><code>GET /courses/:course_id/chapters/:chapter_id/lessons</code></li>
 <li><code>GET /chapters/:chapter_id</code></li>
 </ol>
-<p>唯一需要注意的是路径中使用相同的变量名：</p>
+<p>唯一需要注意的是必须在路径中使用相同的变量名：</p>
 <ul>
 <li>如果你有两个端点 <code>GET /profiles/:profile_id</code> 和 <code>GET /creators/:creator_id</code>，<br />
 它们都验证给定的 <code>profile_id</code> 是否存在，但 <code>GET /creators/:creator_id</code> 还会检查该个人是否为创作者，<br />
@@ -3201,7 +3199,7 @@ For example, in the code below we are using <code>parse_jwt_data</code> three ti
 2. `GET /courses/:course_id/chapters/:chapter_id/lessons`
 3. `GET /chapters/:chapter_id`
 </code></pre></div>
-<p>The only caveat is to use the same variable names in the path:</p>
+<p>The only caveat is having to use the same variable names in the path:</p>
 <ul>
 <li>If you have two endpoints <code>GET /profiles/:profile_id</code> and <code>GET /creators/:creator_id</code>
 that both validate whether the given <code>profile_id</code> exists,  but <code>GET /creators/:creator_id</code>
@@ -3244,9 +3242,13 @@ also checks if the profile is creator, then it's better to rename <code>creator_
 <div class="tabbed-set tabbed-alternate" data-tabs="14:2"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><input id="__tabbed_14_2" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">中文</label><label for="__tabbed_14_2">英文</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<p>如果你认为可以返回与路由的 <code>response_model</code> 匹配的 Pydantic 对象以进行优化，那么这是错误的。</p>
-<p>FastAPI 首先使用 <code>jsonable_encoder</code> 将该 Pydantic 对象转换为字典，然后使用你的 <code>response_model</code> 验证数据，<br />
-最后才将对象序列化为 JSON。</p>
+<p>您可能认为您可以返回与您的路线的 <code>response_model</code> 匹配的 Pydantic 对象来进行一些优化，但您错了。</p>
+<p>FastAPI 首先使用其 <code>jsonable_encoder</code> 将该 pydantic 对象转换为 dict，然后使用 <code>response_model</code> 验证数据，最后才将您的对象序列化为 JSON。</p>
+<p>这意味着您的 Pydantic 模型对象被创建了两次：</p>
+<ul>
+<li>首先，当您明确创建它以从您的路由返回时。</li>
+<li>其次，FastAPI 隐式地根据 request_model 验证响应数据。</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">root_validator</span>
 
@@ -3271,10 +3273,15 @@ also checks if the profile is creator, then it's better to rename <code>creator_
 </code></pre></div>
 </div>
 <div class="tabbed-block">
-<p>If you think you can return Pydantic object that matches your route's <code>response_model</code> to make some optimizations,
-then it's wrong.</p>
-<p>FastAPI firstly converts that pydantic object to dict with its <code>jsonable_encoder</code>, then validates
+<p>You may think you can return Pydantic object that matches your route's <code>response_model</code> to make some optimizations,
+but you'd be wrong.</p>
+<p>FastAPI first converts that pydantic object to dict with its <code>jsonable_encoder</code>, then validates 
 data with your <code>response_model</code>, and only then serializes your object to JSON.</p>
+<p>This means your Pydantic model object is created twice:</p>
+<ul>
+<li>First, when you explicitly create it to return from your route.</li>
+<li>Second, implicitly by FastAPI to validate the response data according to the response_model.</li>
+</ul>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">root_validator</span>
 
