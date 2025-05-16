@@ -220,9 +220,8 @@ I/O Intensive Tasks
       阻塞型 I/O 操作不会阻止 [事件循环](https://docs.python.org/3/library/asyncio-eventloop.html) 执行其他任务。
     - 如果路由定义为 `async`，则会通过 `await` 正常调用，  
       FastAPI 会信任你只执行非阻塞的 I/O 操作。
-    
-    但问题是，如果你辜负了这份信任，在异步路由中执行了阻塞操作，  
-    那么事件循环将无法继续执行其他任务，直到该阻塞操作完成。
+
+    需要注意的是，如果你辜负了这份信任, 并在异步路由中执行阻塞操作，则事件循环将无法运行后续任务，直到阻塞操作完成。
     
     ```python
     import asyncio
@@ -292,8 +291,8 @@ I/O Intensive Tasks
     - If the route is defined `async` then it's called regularly via `await`
     and FastAPI trusts you to do only non-blocking I/O operations.
     
-    The caveat is if you fail that trust and execute blocking operations within async routes,
-    the event loop will not be able to run the next tasks until that blocking operation is done.
+    The caveat is that if you violate that trust and execute blocking operations within async routes,
+    the event loop will not be able to run subsequent tasks until the blocking operation completes.
     
     ```python
     import asyncio
@@ -735,9 +734,7 @@ Chain Dependencies
 
 === "中文"
 
-    如果我们没有将数据验证放到依赖关系中，我们将不得不在每个端点中验证 `post_id` 是否存在，并为每个端点编写相同的测试。
-
-    依赖关系可以使用其他依赖关系，避免类似逻辑的代码重复。
+    依赖项可以使用其他依赖项，并避免类似逻辑的代码重复。
 
     ```python
     # dependencies.py
@@ -780,7 +777,7 @@ Chain Dependencies
 
 === "英文"
 
-    Dependencies can use other dependencies and avoid code repetition for the similar logic.
+    Dependencies can use other dependencies and avoid code repetition for the the similar logic.
 
     ```python
     # dependencies.py
@@ -1011,7 +1008,7 @@ Follow the REST
     2. `GET /courses/:course_id/chapters/:chapter_id/lessons`
     3. `GET /chapters/:chapter_id`
 
-    唯一需要注意的是路径中使用相同的变量名：
+    唯一需要注意的是必须在路径中使用相同的变量名：
 
     - 如果你有两个端点 `GET /profiles/:profile_id` 和 `GET /creators/:creator_id`，  
     它们都验证给定的 `profile_id` 是否存在，但 `GET /creators/:creator_id` 还会检查该个人是否为创作者，  
@@ -1056,7 +1053,7 @@ Follow the REST
         2. `GET /courses/:course_id/chapters/:chapter_id/lessons`
         3. `GET /chapters/:chapter_id`
 
-    The only caveat is to use the same variable names in the path:
+    The only caveat is having to use the same variable names in the path:
 
     - If you have two endpoints `GET /profiles/:profile_id` and `GET /creators/:creator_id`
     that both validate whether the given `profile_id` exists,  but `GET /creators/:creator_id`
@@ -1100,10 +1097,14 @@ FastAPI response serialization
 
 === "中文"
 
-    如果你认为可以返回与路由的 `response_model` 匹配的 Pydantic 对象以进行优化，那么这是错误的。
+    您可能认为您可以返回与您的路线的 `response_model` 匹配的 Pydantic 对象来进行一些优化，但您错了。
 
-    FastAPI 首先使用 `jsonable_encoder` 将该 Pydantic 对象转换为字典，然后使用你的 `response_model` 验证数据，  
-    最后才将对象序列化为 JSON。
+    FastAPI 首先使用其 `jsonable_encoder` 将该 pydantic 对象转换为 dict，然后使用 `response_model` 验证数据，最后才将您的对象序列化为 JSON。
+
+    这意味着您的 Pydantic 模型对象被创建了两次：
+
+    - 首先，当您明确创建它以从您的路由返回时。
+    - 其次，FastAPI 隐式地根据 request_model 验证响应数据。
 
     ```python
     from fastapi import FastAPI
@@ -1134,11 +1135,16 @@ FastAPI response serialization
 
 === "英文"
 
-    If you think you can return Pydantic object that matches your route's `response_model` to make some optimizations,
-    then it's wrong.
+    You may think you can return Pydantic object that matches your route's `response_model` to make some optimizations,
+    but you'd be wrong.
 
-    FastAPI firstly converts that pydantic object to dict with its `jsonable_encoder`, then validates
+    FastAPI first converts that pydantic object to dict with its `jsonable_encoder`, then validates 
     data with your `response_model`, and only then serializes your object to JSON.
+
+    This means your Pydantic model object is created twice:
+    
+    - First, when you explicitly create it to return from your route.
+    - Second, implicitly by FastAPI to validate the response data according to the response_model.
 
     ```python
     from fastapi import FastAPI
